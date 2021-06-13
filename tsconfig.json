@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "ES2018",
     "module": "CommonJS",
     "lib": ["dom", "esnext"],

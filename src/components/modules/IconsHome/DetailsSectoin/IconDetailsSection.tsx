@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import { PencilAltIcon } from '@heroicons/react/outline';
-import { Icon } from 'src/data/icons';
+import { Icon } from '../../../../data/icons';
 
 interface Props {
   selectedIcon: Icon | null;
@@ -51,7 +50,7 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
         <div className="text-gray-500 text-sm my-2 flex items-center">
           <span>Add some description for the icon</span>
           <span className="w-4 ml-1">
-            <PencilAltIcon />
+            <div>edit</div>
           </span>
         </div>
       </div>
