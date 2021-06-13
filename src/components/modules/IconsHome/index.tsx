@@ -1,6 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, ChangeEvent } from 'react';
 import { Icon, IconsApi } from 'data/icons';
-
 import { IconDetailsSection } from './DetailsSectoin/IconDetailsSection';
 import { IconsListSection } from './List/IconsListSection';
 

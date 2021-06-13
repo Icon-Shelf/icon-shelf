@@ -11,10 +11,13 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell, screen } from 'electron';
+import { app, BrowserWindow, shell, screen, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import electronDl, { download } from 'electron-dl';
 import MenuBuilder from './menu';
+
+electronDl();
 
 export default class AppUpdater {
   constructor() {
@@ -132,4 +135,16 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
+});
+
+ipcMain.on('download', async (event, info: any) => {
+  console.log('download called');
+
+  if (mainWindow) {
+    const dl = await download(mainWindow, info.url, {
+      directory: './',
+      filename: 'hello-world.svg',
+    });
+    // mainWindow.se.send('download complete', dl.getSavePath());
+  }
 });

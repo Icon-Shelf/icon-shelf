@@ -1,6 +1,6 @@
+import { SetupPage } from 'components/modules/setupPage';
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import icon from '../assets/icon.svg';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.global.css';
 import IconsHome from './components/modules/IconsHome';
 import { Layout } from './components/ui/layout/index';
@@ -10,7 +10,8 @@ export default function App() {
     <Router>
       <Switch>
         <Layout>
-          <Route path="/" component={IconsHome} />
+          <Route path="/" component={SetupPage} />
+          <Route path="/icons" component={IconsHome} />
         </Layout>
       </Switch>
     </Router>

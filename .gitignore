@@ -50,3 +50,5 @@ npm-debug.log.*
 *.scss.d.ts
 
 .env
+.vscode/custom-project.json.code-snippets
+/workspace

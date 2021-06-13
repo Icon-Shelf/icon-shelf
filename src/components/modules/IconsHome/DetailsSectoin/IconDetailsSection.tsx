@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
-import { Icon } from 'src/data/icons';
+import { Icon } from 'data/icons';
+
+import { ipcRenderer } from 'electron';
 
 interface Props {
   selectedIcon: Icon | null;
@@ -12,12 +14,16 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
       const imageBlog = await image.blob();
       const imageURL = URL.createObjectURL(imageBlog);
 
-      const link = document.createElement('a');
-      link.href = imageURL;
-      link.download = icon.name;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      ipcRenderer.send('download', {
+        url: imageURL,
+      });
+
+      // const link = document.createElement('a');
+      // link.href = imageURL;
+      // link.download = icon.name;
+      // document.body.appendChild(link);
+      // link.click();
+      // document.body.removeChild(link);
     }
   };
   return (
