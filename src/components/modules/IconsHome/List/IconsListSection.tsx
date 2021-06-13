@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Icon } from '../../../../data/icons';
+import { Icon } from 'src/data/icons';
 
 import { IconsList } from './IconsList';
 
