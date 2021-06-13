@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "target": "ES2018",
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "target": "ES2019",
     "module": "CommonJS",
-    "lib": ["dom", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "declaration": true,
     "declarationMap": true,
     "noEmit": true,

@@ -1,25 +1,30 @@
-// import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
-// import { db } from 'configs/firebase';
-// import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-// import { Icon } from './types';
+import { firestore } from 'configs/firebase';
+import firebase from 'firebase';
+import { Icon } from './types';
 
-// const storage = getStorage();
+const storage = firebase.storage();
 
 export const IconsApi = {
-  // getAllIcons: async (): Promise<Icon[]> => {
-  //   const iconsRef = await getDocs<any>(collection(db, 'icons'));
-  //   const icons: Icon[] = iconsRef.docs.map((doc) => doc.data());
-  //   return icons;
-  // },
-  // uploadIcon: async (icon: Icon, image: File): Promise<void> => {
-  //   const iconStoragePath = `icons/${icon.name}`;
-  //   const storageRef = ref(storage, iconStoragePath);
-  //   await uploadBytes(storageRef, image);
-  //   const url = await getDownloadURL(storageRef);
-  //   // Add a new document in collection "icons"
-  //   return setDoc(doc(db, 'icons', icon.name), {
-  //     ...icon,
-  //     imageSrc: url,
-  //   });
-  // },
+  getAllIcons: async (): Promise<Icon[]> => {
+    // const iconsRef = await getDocs<any>(collection(db, 'icons'));
+    const iconsRef = await firestore.collection('icons').get();
+
+    const icons: Icon[] = iconsRef.docs.map((doc) => doc.data() as Icon);
+    return icons;
+  },
+  uploadIcon: async (icon: Icon, image: File): Promise<void> => {
+    const iconStoragePath = `icons/${icon.name}`;
+    const storageRef = storage.ref();
+    const imageRef = storageRef.child(iconStoragePath);
+    await imageRef.put(image);
+    const url = await storageRef.child(iconStoragePath).getDownloadURL();
+
+    await firestore
+      .collection('icons')
+      .doc(icon.name)
+      .set({
+        ...icon,
+        imageSrc: url,
+      });
+  },
 };

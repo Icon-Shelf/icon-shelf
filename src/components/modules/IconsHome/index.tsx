@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
+import { Icon, IconsApi } from 'data/icons';
 
-import { Icon } from '../../../data/icons';
 import { IconDetailsSection } from './DetailsSectoin/IconDetailsSection';
 import { IconsListSection } from './List/IconsListSection';
 
@@ -15,8 +15,9 @@ const IconsHome: FC = () => {
 
   useEffect(() => {
     (async function () {
-      // const icons = await IconsApi.getAllIcons();
-      // setIcons(icons);
+      const icons = await IconsApi.getAllIcons();
+      setIconsList(icons);
+      setSelectedIcon(icons[0] || null);
     })();
   }, []);
 

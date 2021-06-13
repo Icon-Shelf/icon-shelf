@@ -7,6 +7,7 @@
 @tailwind utilities;
 
 html,
-body {
+body,
+#root {
   @apply w-full h-full overflow-hidden bg-gray-50 font-sans;
 }
