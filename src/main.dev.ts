@@ -15,6 +15,7 @@ import { app, BrowserWindow, shell, screen, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import electronDl, { download } from 'electron-dl';
+import { Icon } from 'data/icons';
 import MenuBuilder from './menu';
 
 electronDl();
@@ -137,14 +138,22 @@ app.on('activate', () => {
   if (mainWindow === null) createWindow();
 });
 
-ipcMain.on('download', async (event, info: any) => {
-  console.log('download called');
-
-  if (mainWindow) {
-    const dl = await download(mainWindow, info.url, {
-      directory: './',
-      filename: 'hello-world.svg',
-    });
-    // mainWindow.se.send('download complete', dl.getSavePath());
+ipcMain.on(
+  'download',
+  async (
+    _,
+    info: {
+      icon: Icon;
+      url: string;
+      storagePath: string;
+    }
+  ) => {
+    if (mainWindow) {
+      const dl = await download(mainWindow, info.url, {
+        directory: info.storagePath,
+        filename: info.icon.name,
+      });
+      // mainWindow.se.send('download complete', dl.getSavePath());
+    }
   }
-});
+);

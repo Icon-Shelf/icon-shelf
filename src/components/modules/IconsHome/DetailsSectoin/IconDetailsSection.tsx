@@ -13,9 +13,12 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
       const image = await fetch(icon.imageSrc);
       const imageBlog = await image.blob();
       const imageURL = URL.createObjectURL(imageBlog);
+      const iconsLocalStorageLoc = localStorage.getItem('iconsLocalStorageLoc');
 
       ipcRenderer.send('download', {
+        icon,
         url: imageURL,
+        storagePath: iconsLocalStorageLoc,
       });
 
       // const link = document.createElement('a');
