@@ -45,7 +45,26 @@ export default merge(baseConfig, {
   module: {
     rules: [
       {
-        test: /.s?css$/,
+        test: /\.global\.css$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [require('tailwindcss'), require('autoprefixer')],
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /^((?!\.global).)*\.css$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
