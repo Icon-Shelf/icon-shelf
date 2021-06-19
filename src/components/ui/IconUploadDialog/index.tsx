@@ -15,14 +15,15 @@ export const IconUploadDialog: FC<Props> = ({ isOpen, onClose }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [isUploadSuccess, setIsUploadSuccess] = useState(false);
 
-  const onIconUpload = (event?: ChangeEvent<HTMLInputElement>) => {
+  const onIconUpload = async (event?: ChangeEvent<HTMLInputElement>) => {
     if (!event?.target?.files) {
       return;
     }
     const files = [...event.target.files];
+    const promiseArray: Promise<void>[] = [];
 
     setIsUploading(true);
-    files.forEach(async (file) => {
+    files.forEach((file) => {
       const icon = {
         name: file.name,
         format: 'svg',
@@ -32,9 +33,10 @@ export const IconUploadDialog: FC<Props> = ({ isOpen, onClose }) => {
         updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       };
 
-      // todo move this to a promise array and promise.all
-      await IconsApi.uploadIcon(icon, file);
+      promiseArray.push(IconsApi.uploadIcon(icon, file));
     });
+
+    await Promise.all(promiseArray);
 
     setIsUploading(false);
     setIsUploadSuccess(true);

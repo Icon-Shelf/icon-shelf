@@ -21,7 +21,7 @@ export const IconsApi = {
     await imageRef.put(image);
     const url = await storageRef.child(iconStoragePath).getDownloadURL();
 
-    await firestore
+    return firestore
       .collection('icons')
       .doc(icon.name)
       .set({
