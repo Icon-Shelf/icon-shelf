@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Icon, IconsApi } from 'data/icons';
 
 import { ipcRenderer } from 'electron';
+import { formatBytes } from 'utils/formatBytes';
 
 interface Props {
   selectedIcon: Icon | null;
@@ -37,7 +38,9 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
 
       <div className="flex flex-col mt-1">
         <span className="text-2xl font-normal">{icon?.name}</span>
-        <span className="text-sm text-gray-600">{icon?.biteSize} Bytes</span>
+        <span className="text-sm text-gray-600">
+          {formatBytes(icon?.byteSize || 0)}
+        </span>
       </div>
 
       <div className="mt-8">
@@ -58,9 +61,6 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
         <span className="text-gray-900 font-medium">Description</span>
         <div className="text-gray-500 text-sm my-2 flex items-center">
           <span>Add some description for the icon</span>
-          <span className="w-4 ml-1">
-            <div>edit</div>
-          </span>
         </div>
       </div>
 

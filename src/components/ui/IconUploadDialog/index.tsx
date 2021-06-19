@@ -26,7 +26,7 @@ export const IconUploadDialog: FC<Props> = ({ isOpen, onClose }) => {
       const icon = {
         name: file.name,
         format: 'svg',
-        biteSize: file.size,
+        byteSize: file.size,
         imageSrc: '',
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         updatedAt: firebase.firestore.FieldValue.serverTimestamp(),

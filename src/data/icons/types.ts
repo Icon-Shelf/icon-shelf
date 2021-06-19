@@ -5,7 +5,7 @@ export interface Icon {
   format: string;
   imageSrc: string;
   dimensions?: string;
-  biteSize?: number;
+  byteSize?: number;
   createdAt: firebase.firestore.FieldValue;
   updatedAt: firebase.firestore.FieldValue;
 }
