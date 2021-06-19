@@ -6,7 +6,6 @@ const storage = firebase.storage();
 
 export const IconsApi = {
   getAllIcons: async (): Promise<Icon[]> => {
-    // const iconsRef = await getDocs<any>(collection(db, 'icons'));
     const iconsRef = await firestore
       .collection('icons')
       .orderBy('updatedAt', 'desc')
@@ -29,5 +28,8 @@ export const IconsApi = {
         ...icon,
         imageSrc: url,
       });
+  },
+  deleteIcon: async (iconName: string): Promise<void> => {
+    await firestore.collection('icons').doc(iconName).delete();
   },
 };

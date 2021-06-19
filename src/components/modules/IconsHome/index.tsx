@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState, ChangeEvent } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Icon, IconsApi } from 'data/icons';
-import { IconDetailsSection } from './DetailsSectoin/IconDetailsSection';
+import { IconDetailsSection } from './DetailsSectoin';
 import { IconsListSection } from './List/IconsListSection';
 
 const IconsHome: FC = () => {

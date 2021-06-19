@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Icon } from 'data/icons';
+import { Icon, IconsApi } from 'data/icons';
 
 import { ipcRenderer } from 'electron';
 
@@ -20,15 +20,15 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
         url: imageURL,
         storagePath: iconsLocalStorageLoc,
       });
-
-      // const link = document.createElement('a');
-      // link.href = imageURL;
-      // link.download = icon.name;
-      // document.body.appendChild(link);
-      // link.click();
-      // document.body.removeChild(link);
     }
   };
+
+  const deleteIcon = async () => {
+    if (icon) {
+      IconsApi.deleteIcon(icon.name);
+    }
+  };
+
   return (
     <div className="w-4/12 flex flex-col bg-white border-l border-gray-200 p-5">
       <div className="h-32 flex items-center justify-center border border-gray-300 rounded-md">
@@ -74,6 +74,7 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
         </button>
         <button
           type="button"
+          onClick={deleteIcon}
           className="w-full inline-flex justify-center rounded-md border text-gray-800 shadow-sm px-4 py-2 bg-white text-base font-medium hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-bg-indigo-500"
         >
           Delete
