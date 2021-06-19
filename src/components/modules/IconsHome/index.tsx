@@ -14,20 +14,18 @@ const IconsHome: FC = () => {
   };
 
   useEffect(() => {
-    (async function () {
-      firestore
-        .collection('icons')
-        .orderBy('updatedAt', 'desc')
-        .onSnapshot((querySnapshot) => {
-          const icons: Icon[] = [];
-          querySnapshot.forEach((doc) => {
-            icons.push(doc.data() as Icon);
-          });
-
-          setIconsList(icons);
-          setSelectedIcon(icons[0] || null);
+    firestore
+      .collection('icons')
+      .orderBy('updatedAt', 'desc')
+      .onSnapshot((querySnapshot) => {
+        const icons: Icon[] = [];
+        querySnapshot.forEach((doc) => {
+          icons.push(doc.data() as Icon);
         });
-    })();
+
+        setIconsList(icons);
+        setSelectedIcon(icons[0] || null);
+      });
   }, []);
 
   return (
