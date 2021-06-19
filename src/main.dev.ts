@@ -16,6 +16,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
+import notifier from 'node-notifier';
 import MenuBuilder from './menu';
 
 electronDl();
@@ -139,7 +140,7 @@ app.on('activate', () => {
 });
 
 ipcMain.on(
-  'download',
+  'download-icon',
   async (
     _,
     info: {
@@ -149,11 +150,12 @@ ipcMain.on(
     }
   ) => {
     if (mainWindow) {
-      const dl = await download(mainWindow, info.url, {
+      await download(mainWindow, info.url, {
         directory: info.storagePath,
         filename: info.icon.name,
       });
-      // mainWindow.se.send('download complete', dl.getSavePath());
+
+      notifier.notify('Icon downloaded to folder successfully.');
     }
   }
 );

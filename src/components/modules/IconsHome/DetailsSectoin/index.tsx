@@ -15,7 +15,7 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
       const imageURL = URL.createObjectURL(imageBlog);
       const iconsLocalStorageLoc = localStorage.getItem('iconsLocalStorageLoc');
 
-      ipcRenderer.send('download', {
+      ipcRenderer.send('download-icon', {
         icon,
         url: imageURL,
         storagePath: iconsLocalStorageLoc,
