@@ -1,7 +1,10 @@
-import React, { FC, ChangeEvent, useRef } from 'react';
+import React, { FC, ChangeEvent, useRef, useState } from 'react';
 import { IconsApi } from 'data/icons';
 import firebase from 'firebase';
 import { Modal } from '../atomic-components/modal/index';
+import { BeforeUploadComp } from './BeforeUploadComp';
+import { OnUploadingComp } from './OnUploadingComp';
+import { OnUploadSuccessComp } from './OnUploadSuccessComp';
 
 interface Props {
   isOpen: boolean;
@@ -9,7 +12,8 @@ interface Props {
 }
 
 export const IconUploadDialog: FC<Props> = ({ isOpen, onClose }) => {
-  const inputFile = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isUploadSuccess, setIsUploadSuccess] = useState(false);
 
   const onIconUpload = (event?: ChangeEvent<HTMLInputElement>) => {
     if (!event?.target?.files) {
@@ -17,7 +21,8 @@ export const IconUploadDialog: FC<Props> = ({ isOpen, onClose }) => {
     }
     const files = [...event.target.files];
 
-    files.forEach((file) => {
+    setIsUploading(true);
+    files.forEach(async (file) => {
       const icon = {
         name: file.name,
         format: 'svg',
@@ -27,46 +32,28 @@ export const IconUploadDialog: FC<Props> = ({ isOpen, onClose }) => {
         updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       };
 
-      IconsApi.uploadIcon(icon, file);
+      // todo move this to a promise array and promise.all
+      await IconsApi.uploadIcon(icon, file);
     });
+
+    setIsUploading(false);
+    setIsUploadSuccess(true);
   };
 
-  const onUploadIconClick = () => {
-    inputFile.current?.click();
+  const onModalClose = () => {
+    setIsUploading(false);
+    setIsUploadSuccess(false);
+
+    onClose();
   };
 
   return (
-    <Modal show={isOpen} onClose={onClose} title="Upload icon">
-      <button
-        type="button"
-        className="mt-2 flex items-center justify-center h-64 border-2 border-dashed p-12 cursor-pointer outline-none hover:border-indigo-300 hover:text-indigo-500"
-        tabIndex={0}
-        onClick={onUploadIconClick}
-      >
-        <svg
-          className="h-10 stroke-current"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-          />
-        </svg>
-        <input
-          ref={inputFile}
-          type="file"
-          multiple
-          accept="image/*"
-          name="icon-uploaded"
-          onChange={onIconUpload}
-          className="hidden"
-        />
-      </button>
+    <Modal show={isOpen} onClose={onModalClose} title="Upload icon">
+      {!isUploading && !isUploadSuccess && (
+        <BeforeUploadComp onIconUpload={onIconUpload} />
+      )}
+      {isUploading && <OnUploadingComp />}
+      {!isUploading && isUploadSuccess && <OnUploadSuccessComp />}
     </Modal>
   );
 };
