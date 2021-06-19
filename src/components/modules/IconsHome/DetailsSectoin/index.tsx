@@ -25,7 +25,7 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
 
   const deleteIcon = async () => {
     if (icon) {
-      IconsApi.deleteIcon(icon.name);
+      IconsApi.deleteIcon(icon);
     }
   };
 

@@ -29,7 +29,11 @@ export const IconsApi = {
         imageSrc: url,
       });
   },
-  deleteIcon: async (iconName: string): Promise<void> => {
-    await firestore.collection('icons').doc(iconName).delete();
+  deleteIcon: async (icon: Icon): Promise<void> => {
+    await firestore.collection('icons').doc(icon.name).delete();
+
+    const storageRef = storage.ref();
+    const iconStorageRef = storageRef.child(`icons/${icon.name}`);
+    iconStorageRef.delete();
   },
 };

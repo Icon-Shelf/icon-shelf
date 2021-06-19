@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Icon, IconsApi } from 'data/icons';
+import { Icon } from 'data/icons';
+import { firestore } from 'configs/firebase';
 import { IconDetailsSection } from './DetailsSectoin';
 import { IconsListSection } from './List/IconsListSection';
 
@@ -14,9 +15,18 @@ const IconsHome: FC = () => {
 
   useEffect(() => {
     (async function () {
-      const icons = await IconsApi.getAllIcons();
-      setIconsList(icons);
-      setSelectedIcon(icons[0] || null);
+      firestore
+        .collection('icons')
+        .orderBy('updatedAt', 'desc')
+        .onSnapshot((querySnapshot) => {
+          const icons: Icon[] = [];
+          querySnapshot.forEach((doc) => {
+            icons.push(doc.data() as Icon);
+          });
+
+          setIconsList(icons);
+          setSelectedIcon(icons[0] || null);
+        });
     })();
   }, []);
 
