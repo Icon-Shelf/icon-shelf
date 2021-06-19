@@ -7,7 +7,10 @@ const storage = firebase.storage();
 export const IconsApi = {
   getAllIcons: async (): Promise<Icon[]> => {
     // const iconsRef = await getDocs<any>(collection(db, 'icons'));
-    const iconsRef = await firestore.collection('icons').get();
+    const iconsRef = await firestore
+      .collection('icons')
+      .orderBy('updatedAt', 'desc')
+      .get();
 
     const icons: Icon[] = iconsRef.docs.map((doc) => doc.data() as Icon);
     return icons;

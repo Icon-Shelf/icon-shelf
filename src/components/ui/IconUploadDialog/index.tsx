@@ -1,5 +1,6 @@
 import React, { FC, ChangeEvent, useRef } from 'react';
 import { IconsApi } from 'data/icons';
+import firebase from 'firebase';
 import { Modal } from '../atomic-components/modal/index';
 
 interface Props {
@@ -22,6 +23,8 @@ export const IconUploadDialog: FC<Props> = ({ isOpen, onClose }) => {
         format: 'svg',
         biteSize: file.size,
         imageSrc: '',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       };
 
       IconsApi.uploadIcon(icon, file);
