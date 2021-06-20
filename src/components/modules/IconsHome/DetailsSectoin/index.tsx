@@ -11,6 +11,10 @@ interface Props {
   selectedIcon: Icon | null;
 }
 
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
   const downloadIcons = async () => {
     if (icon) {
@@ -31,6 +35,16 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
     if (icon) {
       IconsApi.deleteIcon(icon);
     }
+  };
+
+  const copyAsReactCode = () => {
+    const cb = navigator.clipboard;
+    // eslint-disable-next-line promise/catch-or-return
+    cb.writeText(
+      `import { ReactComponent as ${capitalizeFirstLetter(
+        formatFileName(icon?.name || '').replace(/^ic_/, '')
+      )}Icon } from 'assets/${icon?.name}';`
+    );
   };
 
   if (!icon) {
@@ -79,13 +93,25 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
       </div>
 
       <div className="mt-8 flex-1 flex items-end gap-4">
-        <button
-          type="button"
-          onClick={downloadIcons}
-          className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-bg-indigo-500"
-        >
-          Download
-        </button>
+        {icon.isInStorage ? (
+          <button
+            type="button"
+            onClick={copyAsReactCode}
+            title="Copy as React code"
+            className="w-full h-10 overflow-ellipsis overflow-hidden inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-bg-indigo-500"
+          >
+            Copy as React code
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={downloadIcons}
+            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-bg-indigo-500"
+          >
+            Download
+          </button>
+        )}
+
         <button
           type="button"
           onClick={deleteIcon}
