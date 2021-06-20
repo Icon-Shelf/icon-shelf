@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Icon } from 'data/icons';
+import { formatFileName } from 'utils/formatFileName';
 
 interface Props {
   icon: Icon;
@@ -10,8 +11,11 @@ interface Props {
 export const IconItem: FC<Props> = ({ icon, isSelected, onIconSelect }) => {
   return (
     <li className="relative flex flex-col-reverse">
-      <h3 className="text-gray-600 w-full truncate" title={icon.name}>
-        {icon.name}
+      <h3
+        className="text-gray-600 w-full truncate"
+        title={formatFileName(icon.name)}
+      >
+        {formatFileName(icon.name)}
       </h3>
 
       <div className="relative mb-3 h-24">

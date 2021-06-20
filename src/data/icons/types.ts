@@ -2,10 +2,9 @@ import firebase from 'firebase';
 
 export interface Icon {
   name: string;
-  format: string;
+  mime: string;
+  byteSize: number;
   imageSrc: string;
-  dimensions?: string;
-  byteSize?: number;
-  createdAt: firebase.firestore.FieldValue;
-  updatedAt: firebase.firestore.FieldValue;
+  createdAt: firebase.firestore.Timestamp;
+  updatedAt: firebase.firestore.Timestamp;
 }

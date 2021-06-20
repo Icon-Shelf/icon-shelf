@@ -3,6 +3,9 @@ import { Icon, IconsApi } from 'data/icons';
 
 import { ipcRenderer } from 'electron';
 import { formatBytes } from 'utils/formatBytes';
+import { formatFileName } from 'utils/formatFileName';
+import { formatDate } from 'utils/formatDate';
+import { formatMimeType } from 'utils/formatMimeType';
 
 interface Props {
   selectedIcon: Icon | null;
@@ -30,6 +33,10 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
     }
   };
 
+  if (!icon) {
+    return <></>;
+  }
+
   return (
     <div className="w-4/12 flex flex-col bg-white border-l border-gray-200 p-5">
       <div className="h-32 flex items-center justify-center border border-gray-300 rounded-md">
@@ -37,9 +44,11 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
       </div>
 
       <div className="flex flex-col mt-1">
-        <span className="text-2xl font-normal">{icon?.name}</span>
+        <span className="text-2xl font-normal">
+          {formatFileName(icon.name)}
+        </span>
         <span className="text-sm text-gray-600">
-          {formatBytes(icon?.byteSize || 0)}
+          {formatBytes(icon.byteSize)}
         </span>
       </div>
 
@@ -47,13 +56,18 @@ export const IconDetailsSection: FC<Props> = ({ selectedIcon: icon }) => {
         <span className="text-gray-900 font-medium">Information</span>
         <div className="border-b border-gray-200 my-2" />
 
-        <span className="text-gray-500 text-sm">Uploaded by</span>
+        <div className="flex justify-between">
+          <span className="text-gray-500 text-sm">Uploaded at</span>
+          <span>{formatDate(icon.updatedAt)}</span>
+        </div>
+
         <div className="border-b border-gray-200 my-2" />
 
-        <span className="text-gray-500 text-sm">Created</span>
-        <div className="border-b border-gray-200 my-2" />
+        <div className="flex justify-between">
+          <span className="text-gray-500 text-sm">MIME type</span>
+          <span>{formatMimeType(icon.mime)}</span>
+        </div>
 
-        <span className="text-gray-500 text-sm">Dimensions</span>
         <div className="border-b border-gray-200 my-2" />
       </div>
 

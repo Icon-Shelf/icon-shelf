@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useRef, useState } from 'react';
+import React, { FC, ChangeEvent, useState } from 'react';
 import { IconsApi } from 'data/icons';
 import firebase from 'firebase';
 import { Modal } from '../atomic-components/modal/index';
@@ -19,18 +19,20 @@ export const IconUploadDialog: FC<Props> = ({ isOpen, onClose }) => {
     if (!event?.target?.files) {
       return;
     }
+
     const files = [...event.target.files];
     const promiseArray: Promise<void>[] = [];
 
     setIsUploading(true);
+
     files.forEach((file) => {
       const icon = {
         name: file.name,
-        format: 'svg',
         byteSize: file.size,
+        mime: file.type,
         imageSrc: '',
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        createdAt: firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp,
       };
 
       promiseArray.push(IconsApi.uploadIcon(icon, file));
