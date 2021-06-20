@@ -7,4 +7,5 @@ export interface Icon {
   imageSrc: string;
   createdAt: firebase.firestore.Timestamp;
   updatedAt: firebase.firestore.Timestamp;
+  isInStorage?: boolean;
 }

@@ -26,8 +26,32 @@ export const IconItem: FC<Props> = ({ icon, isSelected, onIconSelect }) => {
             isSelected ? 'ring-2 ring-indigo-400' : ''
           }`}
         >
-          <img src={icon.imageSrc} alt="" className="w-16 object-contain" />
+          <img
+            src={icon.imageSrc}
+            alt=""
+            className={`${
+              !icon.isInStorage ? 'opacity-50' : 'opacity-100'
+            } w-16 object-contain`}
+          />
         </button>
+        {!icon.isInStorage && (
+          <div className="absolute bottom-0 right-0 m-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1}
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+          </div>
+        )}
       </div>
     </li>
   );

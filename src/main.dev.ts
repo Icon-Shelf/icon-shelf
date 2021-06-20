@@ -17,6 +17,8 @@ import log from 'electron-log';
 import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
 import notifier from 'node-notifier';
+import fs from 'fs';
+
 import MenuBuilder from './menu';
 
 electronDl();
@@ -139,10 +141,11 @@ app.on('activate', () => {
   if (mainWindow === null) createWindow();
 });
 
+// custom listeners
 ipcMain.on(
   'download-icon',
   async (
-    _,
+    event,
     info: {
       icon: Icon;
       url: string;
@@ -156,6 +159,18 @@ ipcMain.on(
       });
 
       notifier.notify('Icon downloaded to folder successfully.');
+
+      event.reply('download-icon-reply', { icon: info.icon });
     }
   }
 );
+
+ipcMain.on('get-list-of-stored-icons', (event, args: { path: string }) => {
+  const pathString = args.path.replace(/\\/g, '/');
+
+  let fileNames = fs.readdirSync(pathString);
+
+  fileNames = fileNames.filter((fileName) => !/^\..*/.test(fileName));
+
+  event.returnValue = fileNames;
+});
