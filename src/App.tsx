@@ -1,4 +1,3 @@
-import { SetupPage } from 'components/modules/setupPage';
 import React from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.global.css';
@@ -10,8 +9,7 @@ export default function App() {
     <Router>
       <Switch>
         <Layout>
-          <Route path="/" component={SetupPage} />
-          <Route path="/icons" component={IconsHome} />
+          <Route path="/" component={IconsHome} />
         </Layout>
       </Switch>
     </Router>
