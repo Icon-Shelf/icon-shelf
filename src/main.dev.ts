@@ -16,7 +16,6 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
-import notifier from 'node-notifier';
 import fs from 'fs';
 
 import MenuBuilder from './menu';
@@ -157,8 +156,6 @@ ipcMain.on(
         directory: info.storagePath,
         filename: info.icon.name,
       });
-
-      notifier.notify('Icon downloaded to folder successfully.');
 
       event.reply('download-icon-reply', { icon: info.icon });
     }
