@@ -3,7 +3,7 @@ export function formatDate(date?: string) {
     return '';
   }
 
-  const jsDate = new Date(date.toDate());
+  const jsDate = new Date();
 
   return jsDate.toLocaleDateString('en-IN');
 }
