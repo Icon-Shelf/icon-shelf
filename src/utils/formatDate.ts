@@ -1,6 +1,4 @@
-import firebase from 'firebase';
-
-export function formatDate(date?: firebase.firestore.Timestamp) {
+export function formatDate(date?: string) {
   if (!date) {
     return '';
   }

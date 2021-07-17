@@ -248,7 +248,6 @@
     "electron-dl": "^3.2.1",
     "electron-log": "^4.2.4",
     "electron-updater": "^4.3.4",
-    "firebase": "^8.6.7",
     "history": "^5.0.0",
     "node-notifier": "^10.0.0",
     "react": "^17.0.1",
