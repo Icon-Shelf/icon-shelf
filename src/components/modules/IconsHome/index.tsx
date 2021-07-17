@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
 
 const IconsHome: FC = () => {

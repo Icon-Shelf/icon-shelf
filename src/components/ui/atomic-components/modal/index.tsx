@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 interface Props {
