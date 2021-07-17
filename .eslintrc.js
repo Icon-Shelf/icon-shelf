@@ -6,6 +6,8 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/prop-types': 'off',
     'func-names': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,
