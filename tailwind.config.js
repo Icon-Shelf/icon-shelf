@@ -8,11 +8,12 @@ module.exports = {
         current: 'currentColor',
 
         highlight: '#FF5930',
-        white: '#FFFFFF',
+        white: '#f2f2f2',
         body: '#777F93',
         primary: '#7230FF',
         black1: '#0D1118',
         black2: '#141C25',
+        inputBorder: 'rgba(118, 127, 147, 0.3)',
 
         gradientCoolMint: 'linear-gradient(180deg, #696EFF 0%, #BFEEE8 100%)',
         gradientGrapeGum: 'linear-gradient(180deg, #696EFF 0%, #F7ABFF 100%)',
@@ -23,6 +24,7 @@ module.exports = {
     extend: {
       backgroundColor: ['active'],
       textColor: ['active'],
+      ringWidth: ['active'],
     },
   },
   plugins: [],
