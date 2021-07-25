@@ -7,6 +7,7 @@ import { spawn, execSync } from 'child_process';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import CleanTerminalPlugin from 'clean-terminal-webpack-plugin';
 
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
@@ -212,6 +213,7 @@ export default merge(baseConfig, {
     }),
 
     new ReactRefreshWebpackPlugin(),
+    new CleanTerminalPlugin(),
   ],
 
   node: {

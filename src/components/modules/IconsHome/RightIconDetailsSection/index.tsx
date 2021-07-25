@@ -4,7 +4,7 @@ import { ReactComponent as CopyIcon } from 'assets/icons/clipboard-copy.svg';
 
 export const RightIconDetailsSection: FC = () => {
   return (
-    <div className="flex flex-col justify-between bg-black2 w-96 p-4 pt-5">
+    <div className="flex flex-col justify-between bg-black2 w-96 p-4 pt-5 min-w-max flex-shrink-0">
       <div>
         <div className="w-full bg-black h-40 rounded-md flex items-center justify-center">
           icon

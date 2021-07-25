@@ -8,7 +8,7 @@ import { ListItem } from './ListItem';
 
 export const LeftIconsCollectionsNav: FC = () => {
   return (
-    <div className="bg-black2 w-64">
+    <div className="bg-black2 w-64 min-w-max flex-shrink-0">
       <div className="flex justify-end mt-5 mx-4">
         <Button icon={<PlusIcon />} type="text" />
       </div>
