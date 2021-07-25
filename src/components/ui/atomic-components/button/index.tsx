@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { FC, ReactNode } from 'react';
 
 interface Props {
@@ -7,41 +8,42 @@ interface Props {
   disabled?: boolean;
   icon?: ReactNode;
   loading?: boolean;
+  className?: string;
 }
 export const Button: FC<Props> = ({
   children,
   icon,
   type = 'default',
+  className,
   ...rest
 }) => {
   if (type === 'primary') {
     return (
-      <button {...rest}>
-        {icon}
-        {children}
-      </button>
-    );
-  } else if (type === 'text') {
-    if (!children && icon) {
-      return (
-        <button
-          className="outline-none flex gap-1 text-body rounded-sm hover:text-white hover:bg-gray-800 p-1 active:text-body"
-          {...rest}
-        >
-          {icon}
-        </button>
-      );
-    }
-    return (
       <button
-        className="flex text-body outline-none hover:text-white hover:bg-gray-800 p-1 rounded-sm"
+        type="button"
+        className={`flex items-center justify-center outline-none rounded-md px-12 py-3 text-white bg-primary hover:bg-purple-700 active:bg-purple-800 ${className}`}
         {...rest}
       >
-        {icon}
+        {icon && <span className={children ? 'mr-2' : ''}>{icon}</span>}
         {children}
       </button>
     );
-  } else {
-    return <button {...rest}>{children}</button>;
   }
+  if (type === 'text') {
+    return (
+      <button
+        type="button"
+        className={`flex items-center justify-center outline-none rounded-sm text-body hover:text-white p-1 hover:bg-gray-800 active:text-body ${className}`}
+        {...rest}
+      >
+        {icon && <span className={children ? 'mr-2' : ''}>{icon}</span>}
+        {children}
+      </button>
+    );
+  }
+  return (
+    <button type="button" {...rest}>
+      {children}
+    </button>
+  );
 };
