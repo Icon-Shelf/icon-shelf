@@ -6,4 +6,5 @@ html,
 body,
 #root {
   @apply w-full h-full overflow-hidden bg-gray-50 text-body font-sans text-base;
+  font-family: 'DM Sans';
 }
