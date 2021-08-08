@@ -18,7 +18,11 @@ import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
 import fs from 'fs';
 
+import { PrismaClient } from './database/generated/client';
+
 import MenuBuilder from './menu';
+
+const prisma = new PrismaClient();
 
 electronDl();
 
