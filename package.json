@@ -232,6 +232,7 @@
     "lodash": "^4.17.21",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-inlinesvg": "^2.3.0",
     "react-query": "^3.19.6",
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.5",
