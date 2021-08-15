@@ -1,7 +1,18 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
+import { Icon } from 'data/icons/types';
 import { IconCard } from './IconCard';
 
-export const IconCardsSection: FC = () => {
+interface Props {
+  icons?: Icon[];
+  selectedIcon: Icon | null;
+  setSelectedIcon: Dispatch<SetStateAction<Icon | null>>;
+}
+
+export const IconCardsSection: FC<Props> = ({
+  icons,
+  selectedIcon,
+  setSelectedIcon,
+}) => {
   return (
     <div
       className="flex-1 w-full overflow-y-auto p-4 grid gap-3 grid-flow-row place-items-center h-full"
@@ -10,9 +21,14 @@ export const IconCardsSection: FC = () => {
         gridTemplateRows: 'repeat(auto-fill, 8rem)',
       }}
     >
-      <IconCard />
-      <IconCard />
-      <IconCard />
+      {icons?.map((icon) => (
+        <IconCard
+          key={icon.id}
+          icon={icon}
+          isSelected={selectedIcon?.id === icon?.id}
+          setSelectedIcon={setSelectedIcon}
+        />
+      ))}
     </div>
   );
 };

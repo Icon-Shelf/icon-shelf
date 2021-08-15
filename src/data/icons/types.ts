@@ -1,9 +1,9 @@
 export interface Icon {
+  id?: number;
   name: string;
   mime: string;
   byteSize: number;
   imageSrc: string;
-  createdAt: string;
-  updatedAt: string;
-  isInStorage?: boolean;
+  createdAt: number;
+  updatedAt: number;
 }

@@ -1,6 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Button, Input } from 'components/ui/atomic-components';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
+import { Icon, IconsApi } from 'data/icons';
+import { useQuery } from 'react-query';
 import { IconCardsSection } from './IconCardsSection';
 import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
 import { RightIconDetailsSection } from './RightIconDetailsSection';
@@ -8,6 +10,16 @@ import { RightIconDetailsSection } from './RightIconDetailsSection';
 const { Search } = Input;
 
 const IconsHome: FC = () => {
+  const { data: icons } = useQuery('icons-list', IconsApi.findAll);
+
+  const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
+
+  useEffect(() => {
+    if (icons && icons?.length) {
+      setSelectedIcon(icons[0]);
+    }
+  }, [icons]);
+
   return (
     <div className="flex h-full w-full overflow-hidden">
       <LeftIconsCollectionsNav />
@@ -23,10 +35,15 @@ const IconsHome: FC = () => {
             Add icon
           </Button>
         </div>
-        <IconCardsSection />
+
+        <IconCardsSection
+          icons={icons}
+          selectedIcon={selectedIcon}
+          setSelectedIcon={setSelectedIcon}
+        />
       </div>
 
-      <RightIconDetailsSection />
+      <RightIconDetailsSection selectedIcon={selectedIcon} />
     </div>
   );
 };
