@@ -16,8 +16,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
-import fs from 'fs';
 
+import { getAllFiles } from './main/utils/getAllFiles';
 import MenuBuilder from './menu';
 
 electronDl();
@@ -162,12 +162,10 @@ ipcMain.on(
   }
 );
 
-ipcMain.on('get-list-of-stored-icons', (event, args: { path: string }) => {
-  const pathString = args.path.replace(/\\/g, '/');
+ipcMain.on('get-all-icon-in-folder', async (event) => {
+  const iconsFolderPath = '/Users/robinthomas/projects/test-icons/';
 
-  let fileNames = fs.readdirSync(pathString);
+  const files = await getAllFiles(iconsFolderPath);
 
-  fileNames = fileNames.filter((fileName) => !/^\..*/.test(fileName));
-
-  event.returnValue = fileNames;
+  event.reply('get-all-icon-in-folder_reply', files);
 });

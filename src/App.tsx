@@ -5,7 +5,14 @@ import IconsHome from './components/modules/IconsHome';
 import { Layout } from './components/ui/layout/index';
 import '@fontsource/dm-sans';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
 export default function App() {
   return (
