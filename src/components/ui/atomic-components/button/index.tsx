@@ -21,7 +21,7 @@ export const Button: FC<Props> = ({
     return (
       <button
         type="button"
-        className={`flex items-center justify-center outline-none rounded-md px-12 py-3 text-white transition-shadow bg-primary hover:bg-purple-700 active:bg-purple-800 ring-offset-2 ring-offset-black2 focus:ring-2 focus:ring-primary ${className}`}
+        className={`flex items-center justify-center outline-none rounded-md px-12 py-3 text-white transition-shadow bg-primary hover:bg-purple-700 active:bg-purple-800 active:ring-0 ring-offset-2 ring-offset-black2 focus:ring-2 focus:ring-primary ${className}`}
         {...rest}
       >
         {icon && <span className={children ? 'mr-2' : ''}>{icon}</span>}
