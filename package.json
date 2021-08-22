@@ -1,6 +1,6 @@
 {
   "name": "electron-react-boilerplate",
-  "productName": "IconManager",
+  "productName": "Icon Shelf",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
   "scripts": {
     "build": "concurrently \"yarn build:main\" \"yarn build:renderer\"",
@@ -30,8 +30,8 @@
     ]
   },
   "build": {
-    "productName": "IconManager",
-    "appId": "org.erb.IconManager",
+    "productName": "Icon Shelf",
+    "appId": "org.erb.IconShelf",
     "files": [
       "dist/",
       "node_modules/",

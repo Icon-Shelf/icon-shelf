@@ -57,14 +57,14 @@ export default class MenuBuilder {
       label: 'Electron',
       submenu: [
         {
-          label: 'About IconManager',
+          label: 'About IconShelf',
           selector: 'orderFrontStandardAboutPanel:',
         },
         { type: 'separator' },
         { label: 'Services', submenu: [] },
         { type: 'separator' },
         {
-          label: 'Hide IconManager',
+          label: 'Hide IconShelf',
           accelerator: 'Command+H',
           selector: 'hide:',
         },
