@@ -20,6 +20,7 @@ export const checkIfAnyNewIconsInFolder = (queryClient: QueryClient) => {
       const existingIcons = await IconsApi.findAll();
 
       const existingIconsMap = keyBy(existingIcons, 'name');
+      const folderIconsMap = keyBy(files, 'name');
 
       const iconsToAdd: Icon[] = [];
 
@@ -41,6 +42,25 @@ export const checkIfAnyNewIconsInFolder = (queryClient: QueryClient) => {
       if (iconsToAdd.length) {
         db.icons
           .bulkAdd(iconsToAdd)
+          .then(() => {
+            queryClient.invalidateQueries('icons-list');
+            return true;
+          })
+          .catch(() => {});
+      }
+
+      const iconsToDelete: number[] = [];
+      existingIcons.forEach((file) => {
+        const { id, name, mime } = file;
+
+        if (!folderIconsMap[`${name}.${mime}`] && id) {
+          iconsToDelete.push(id);
+        }
+      });
+
+      if (iconsToDelete.length) {
+        db.icons
+          .bulkDelete(iconsToDelete)
           .then(() => {
             queryClient.invalidateQueries('icons-list');
             return true;
