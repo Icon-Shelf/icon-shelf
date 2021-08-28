@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { FC, ReactNode } from 'react';
+import { FC, HTMLProps, ReactNode } from 'react';
 
 interface Props {
   type?: 'primary' | 'default' | 'text' | 'link';
@@ -10,18 +10,18 @@ interface Props {
   loading?: boolean;
   className?: string;
 }
-export const Button: FC<Props> = ({
+export const Button: FC<Props & HTMLProps<HTMLButtonElement>> = ({
   children,
   icon,
   type = 'default',
-  className,
+  className = '',
   ...rest
 }) => {
   if (type === 'primary') {
     return (
       <button
         type="button"
-        className={`flex items-center justify-center outline-none rounded-md px-12 py-3 text-white transition-shadow bg-primary hover:bg-purple-700 active:bg-purple-800 active:ring-0 ring-offset-2 ring-offset-black2 focus:ring-2 focus:ring-primary ${className}`}
+        className={`flex items-center justify-center outline-none rounded-md px-4 py-2 text-white transition-shadow bg-primary hover:bg-purple-700 active:bg-purple-800 active:ring-0 ring-offset-2 ring-offset-black2 focus:ring-2 focus:ring-primary ${className}`}
         {...rest}
       >
         {icon && <span className={children ? 'mr-2' : ''}>{icon}</span>}
@@ -44,7 +44,7 @@ export const Button: FC<Props> = ({
   return (
     <button
       type="button"
-      className={`flex items-center justify-center outline-none rounded-md text-white bg-black2 px-4 py-1 transition-shadow hover:text-white p-1 hover:bg-gray-800 active:bg-gray-900 active:ring-0 focus:ring-2 focus:ring-primary ${className}`}
+      className={`flex items-center justify-center outline-none rounded-md text-white bg-black3 px-4 py-2 transition-shadow hover:text-white p-1 hover:bg-gray-800 active:bg-gray-900 active:ring-0 focus:ring-2 focus:ring-primary ${className}`}
       {...rest}
     >
       {icon && <span className={children ? 'mr-2' : ''}>{icon}</span>}

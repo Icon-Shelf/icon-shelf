@@ -13,7 +13,9 @@ module.exports = {
         primary: '#7230FF',
         black1: '#0D1118',
         black2: '#141C25',
+        black3: 'rgba(255, 255, 255, 0.1)',
         inputBorder: 'rgba(118, 127, 147, 0.3)',
+        modalOverlay: '#777F93',
 
         gradientCoolMint: 'linear-gradient(180deg, #696EFF 0%, #BFEEE8 100%)',
         gradientGrapeGum: 'linear-gradient(180deg, #696EFF 0%, #F7ABFF 100%)',
@@ -24,7 +26,8 @@ module.exports = {
     extend: {
       backgroundColor: ['active'],
       textColor: ['active'],
-      ringWidth: ['active'],
+      ringWidth: ['active', 'focus-visible'],
+      ringColor: ['active', 'focus-visible'],
     },
   },
   plugins: [],

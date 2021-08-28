@@ -9,6 +9,12 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        controlComponents: ['Input'],
+      },
+    ],
   },
   parserOptions: {
     ecmaVersion: 2020,
