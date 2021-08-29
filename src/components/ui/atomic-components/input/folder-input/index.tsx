@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 // eslint-disable-next-line import/no-cycle
 import { Input, Button } from 'components/ui/atomic-components';
 import { ReactComponent as FolderIcon } from 'assets/icons/folder.svg';
@@ -6,18 +6,18 @@ import { ipcRenderer } from 'electron';
 import { formatFolderPath } from './utils';
 
 export const FolderInput = ({
-  defaultPath,
+  folderPath,
+  onChange,
 }: {
-  defaultPath: string;
+  folderPath: string;
+  onChange: (path: string) => void;
 }): ReactElement => {
-  const [folderPath, setFolderPath] = useState<string>(defaultPath);
-
   const onChangeBtnClick = () => {
     const filePaths = ipcRenderer.sendSync('select-folder');
 
     const chosenFolderPath = filePaths[0];
     if (chosenFolderPath) {
-      setFolderPath(chosenFolderPath);
+      onChange(chosenFolderPath);
     }
   };
 

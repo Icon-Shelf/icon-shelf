@@ -3,12 +3,23 @@ import { Button } from 'components/ui/atomic-components';
 import { ReactComponent as CopyIcon } from 'assets/icons/clipboard-copy.svg';
 import { Icon } from 'data/icons';
 import SVG from 'react-inlinesvg';
+import { camelCase } from 'lodash';
 
 interface Props {
   selectedIcon: Icon | null;
 }
 
 export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
+  const onCopyClick = () => {
+    if (selectedIcon) {
+      const copyText = `import { ReactComponent as ${camelCase(
+        selectedIcon.name
+      )}Icon } from '${selectedIcon.imageSrc}';`;
+
+      navigator.clipboard.writeText(copyText);
+    }
+  };
+
   return (
     <div className="flex flex-col justify-between bg-black2 w-96 p-4 pt-5 min-w-max flex-shrink-0">
       <div>
@@ -44,7 +55,12 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
       </div>
 
       <div>
-        <Button type="primary" icon={<CopyIcon />} className="w-full">
+        <Button
+          type="primary"
+          icon={<CopyIcon />}
+          className="w-full"
+          onClick={onCopyClick}
+        >
           Copy Icon
         </Button>
       </div>

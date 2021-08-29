@@ -1,5 +1,6 @@
 import Dexie from 'dexie';
 import { Icon } from 'data/icons/types';
+// eslint-disable-next-line import/no-cycle
 import { bootstrapDb } from './bootstrap';
 
 export class IconShelfDatabase extends Dexie {

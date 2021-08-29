@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Input, Modal, Button } from 'components/ui/atomic-components';
 import { ipcRenderer } from 'electron';
 
@@ -10,9 +10,11 @@ interface Props {
 }
 
 export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
-  const defaultIconStorageFolder = ipcRenderer.sendSync(
-    'get-default-icon-storage-folder'
+  const [folderLoc, setFolderLoc] = useState(
+    ipcRenderer.sendSync('get-default-icon-storage-folder')
   );
+
+  const onCreate = () => {};
 
   return (
     <Modal
@@ -20,7 +22,11 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
       title="Create a new collection"
       onClose={onClose}
       className="w-52"
-      footer={<Button type="primary">Create</Button>}
+      footer={
+        <Button type="primary" onClick={onCreate}>
+          Create
+        </Button>
+      }
     >
       <div>
         <label>
@@ -35,7 +41,10 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
             Icons in collection will be stored in
           </div>
 
-          <FolderInput defaultPath={defaultIconStorageFolder} />
+          <FolderInput
+            folderPath={folderLoc}
+            onChange={(path) => setFolderLoc(path)}
+          />
         </label>
       </div>
     </Modal>
