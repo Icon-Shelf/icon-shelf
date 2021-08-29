@@ -71,7 +71,7 @@ export const Modal: FC<Props> = ({
               </div>
 
               <button
-                className="absolute top-0 right-0 p-2 m-1 outline-none hover:text-white active:text-current focus:text-white focus-visible:ring-2 focus-visible:ring-primary"
+                className="absolute top-0 right-0 p-2 m-1 outline-none rounded-lg hover:text-white active:text-current focus:text-white focus-visible:ring-2 focus-visible:ring-primary"
                 type="button"
                 onClick={onClose}
               >

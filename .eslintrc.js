@@ -15,6 +15,14 @@ module.exports = {
         controlComponents: ['Input'],
       },
     ],
+    'react/jsx-props-no-spreading': [
+      'error',
+      {
+        html: 'enforce',
+        custom: 'ignore',
+        explicitSpread: 'enforce',
+      },
+    ],
   },
   parserOptions: {
     ecmaVersion: 2020,

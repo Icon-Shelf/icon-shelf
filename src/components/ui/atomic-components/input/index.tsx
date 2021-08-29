@@ -1,5 +1,16 @@
 import { ReactElement, ReactNode } from 'react';
 import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
+import { FolderInput } from './folder-input';
+
+interface InputProps {
+  name?: string;
+  className?: string;
+  placeholder?: string;
+  id?: string;
+  icon?: ReactNode;
+  value?: string;
+  disabled?: boolean;
+}
 
 export const Input = ({
   name,
@@ -7,13 +18,9 @@ export const Input = ({
   id,
   placeholder,
   icon,
-}: {
-  name?: string;
-  className?: string;
-  placeholder?: string;
-  id?: string;
-  icon?: ReactNode;
-}): ReactElement => {
+  value,
+  ...rest
+}: InputProps): ReactElement => {
   return (
     <div className={`relative w-full ${className}`}>
       {icon && (
@@ -23,36 +30,23 @@ export const Input = ({
       )}
       <input
         type="text"
-        name={name}
         id={id}
+        name={name}
         className={`block w-full h-10 px-4 rounded-lg bg-transparent border-2 border-inputBorder outline-none transition-shadow	focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-white ${
           icon && 'pl-10'
-        } ${className}`}
+        }`}
         placeholder={placeholder}
+        value={value}
+        {...rest}
       />
     </div>
   );
 };
 
-const Search = ({
-  name,
-  placeholder,
-  className = '',
-}: {
-  name: string;
-  placeholder?: string;
-  className?: string;
-}): ReactElement => {
-  return (
-    <div className={`relative ${className}`}>
-      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <span className="text-gray-500 sm:text-sm">
-          <SearchIcon />
-        </span>
-      </div>
-      <Input name={name} placeholder={placeholder} className="pl-10" />
-    </div>
-  );
+const Search = (props: InputProps): ReactElement => {
+  return <Input icon={<SearchIcon />} {...props} />;
 };
 
 Input.Search = Search;
+
+Input.FolderInput = FolderInput;

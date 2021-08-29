@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { Input, Modal, Button } from 'components/ui/atomic-components';
-import { ReactComponent as FolderIcon } from 'assets/icons/folder.svg';
+import { ipcRenderer } from 'electron';
+
+const { FolderInput } = Input;
 
 interface Props {
   show: boolean;
@@ -8,6 +10,10 @@ interface Props {
 }
 
 export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
+  const defaultIconStorageFolder = ipcRenderer.sendSync(
+    'get-default-icon-storage-folder'
+  );
+
   return (
     <Modal
       show={show}
@@ -29,10 +35,7 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
             Icons in collection will be stored in
           </div>
 
-          <div className="flex gap-4">
-            <Input id="collection-name" icon={<FolderIcon />} />
-            <Button>Change</Button>
-          </div>
+          <FolderInput defaultPath={defaultIconStorageFolder} />
         </label>
       </div>
     </Modal>

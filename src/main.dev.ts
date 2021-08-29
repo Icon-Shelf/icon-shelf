@@ -11,7 +11,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell, screen, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, screen, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import electronDl, { download } from 'electron-dl';
@@ -168,4 +168,25 @@ ipcMain.on('get-all-icon-in-folder', async (event) => {
   const files = await getAllFiles(iconsFolderPath);
 
   event.reply('get-all-icon-in-folder_reply', files);
+});
+
+ipcMain.on('get-default-icon-storage-folder', (event) => {
+  const defaultUserDataStoragePath = app.getPath('userData');
+
+  const defaultIconStorageFolder = path.join(
+    defaultUserDataStoragePath,
+    'icon-library'
+  );
+
+  event.returnValue = defaultIconStorageFolder;
+});
+
+ipcMain.on('select-folder', async (event) => {
+  if (mainWindow) {
+    const result = await dialog.showOpenDialog(mainWindow, {
+      properties: ['openDirectory'],
+    });
+
+    event.returnValue = result.filePaths;
+  }
 });
