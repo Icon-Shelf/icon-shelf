@@ -164,7 +164,7 @@ ipcMain.on(
 
 ipcMain.on('get-all-icon-in-folder', async (event) => {
   const iconsFolderPath =
-    '/Users/robinthomas/wrk-git/drive-frontend/src/assets';
+    '/Users/robinthomas/wrk-git/drive-frontend/src/assets/';
 
   const files = await getAllFiles(iconsFolderPath);
 

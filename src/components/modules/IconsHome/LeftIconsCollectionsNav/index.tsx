@@ -2,10 +2,10 @@ import { FC, useState } from 'react';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { ReactComponent as ViewGridIcon } from 'assets/icons/view-grid.svg';
 import { ReactComponent as HeartIcon } from 'assets/icons/heart.svg';
-
 import { Button } from 'components/ui/atomic-components';
 import { ListItem } from './ListItem';
 import { CreateEditCollectionModal } from './CreateEditCollectionModal';
+import { db } from 'data/db';
 
 export const LeftIconsCollectionsNav: FC = () => {
   const [showCollectionModal, setShowCollectionModal] = useState(false);
@@ -35,6 +35,16 @@ export const LeftIconsCollectionsNav: FC = () => {
             <ListItem name="Material icons" />
             <ListItem name="Hero icons" />
           </div>
+        </div>
+
+        <div className="mt-20">
+          <Button
+            onClick={() => {
+              db.icons.clear();
+            }}
+          >
+            Clear
+          </Button>
         </div>
       </div>
 
