@@ -3,9 +3,9 @@ import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { ReactComponent as ViewGridIcon } from 'assets/icons/view-grid.svg';
 import { ReactComponent as HeartIcon } from 'assets/icons/heart.svg';
 import { Button } from 'components/ui/atomic-components';
+import { db } from 'data/db';
 import { ListItem } from './ListItem';
 import { CreateEditCollectionModal } from './CreateEditCollectionModal';
-import { db } from 'data/db';
 
 export const LeftIconsCollectionsNav: FC = () => {
   const [showCollectionModal, setShowCollectionModal] = useState(false);

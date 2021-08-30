@@ -9,10 +9,11 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
+    'promise/always-return': 'off',
     'jsx-a11y/label-has-associated-control': [
       'error',
       {
-        controlComponents: ['Input'],
+        controlComponents: ['Input', 'FolderInput'],
       },
     ],
     'react/jsx-props-no-spreading': [

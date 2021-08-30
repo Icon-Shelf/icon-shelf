@@ -1,0 +1,8 @@
+import { db } from 'data/db';
+import { Collection } from './types';
+
+export const CollectionsApi = {
+  create: (collection: Collection) => {
+    return db.collections.add(collection);
+  },
+};

@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react';
+import { ChangeEvent, EventHandler, ReactElement, ReactNode } from 'react';
 import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 import { FolderInput } from './folder-input';
 
@@ -10,6 +10,7 @@ interface InputProps {
   icon?: ReactNode;
   value?: string;
   disabled?: boolean;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Input = ({
