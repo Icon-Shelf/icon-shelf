@@ -1,8 +1,10 @@
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
-import './App.global.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { DefaultIconsRedirect } from 'components/modules/IconsHome/DefaultIconsRedirect';
 import IconsHome from './components/modules/IconsHome';
 import { Layout } from './components/ui/layout/index';
+
+import './App.global.css';
 import '@fontsource/dm-sans';
 
 const queryClient = new QueryClient({
@@ -20,7 +22,12 @@ export default function App() {
       <Switch>
         <Layout>
           <QueryClientProvider client={queryClient}>
-            <Route path="/" component={IconsHome} />
+            <Route path="/" component={DefaultIconsRedirect} exact />
+            <Route
+              path="/collections/:collectionId"
+              component={IconsHome}
+              exact
+            />
           </QueryClientProvider>
         </Layout>
       </Switch>

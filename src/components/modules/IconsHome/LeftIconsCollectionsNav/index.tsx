@@ -6,10 +6,14 @@ import { Button } from 'components/ui/atomic-components';
 import { db } from 'data/db';
 import { useQuery } from 'react-query';
 import { CollectionsApi } from 'data/collections/api';
+import { useParams } from 'react-router-dom';
 import { ListItem } from './ListItem';
 import { CreateEditCollectionModal } from './CreateEditCollectionModal';
 
 export const LeftIconsCollectionsNav: FC = () => {
+  const { collectionId: selectedCollectionId }: { collectionId: string } =
+    useParams();
+
   const { data: collections } = useQuery('collections', () =>
     CollectionsApi.findAll()
   );
@@ -31,15 +35,30 @@ export const LeftIconsCollectionsNav: FC = () => {
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">
-          <ListItem name="All icons" icon={<ViewGridIcon />} />
-          <ListItem name="All icons" icon={<HeartIcon />} />
+          <ListItem
+            name="All icons"
+            id={'all-icons'}
+            icon={<ViewGridIcon />}
+            isActive={false}
+          />
+          <ListItem
+            name="All icons"
+            id={'fav-icons'}
+            icon={<HeartIcon />}
+            isActive={false}
+          />
         </div>
 
         <div className="mt-4">
           <div className="ml-4 text-base">Collections</div>
           <div className="flex flex-col gap-2 mt-2">
             {collections?.map((collection) => (
-              <ListItem name={collection.name} key={collection.id} />
+              <ListItem
+                key={collection.id}
+                name={collection.name}
+                id={`${collection.id}`}
+                isActive={selectedCollectionId === String(collection.id)}
+              />
             ))}
           </div>
         </div>

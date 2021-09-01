@@ -16,14 +16,7 @@ module.exports = {
         controlComponents: ['Input', 'FolderInput'],
       },
     ],
-    'react/jsx-props-no-spreading': [
-      'error',
-      {
-        html: 'enforce',
-        custom: 'ignore',
-        explicitSpread: 'enforce',
-      },
-    ],
+    'react/jsx-props-no-spreading': ['off'],
   },
   parserOptions: {
     ecmaVersion: 2020,

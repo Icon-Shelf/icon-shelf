@@ -4,6 +4,7 @@ import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { Icon, IconsApi } from 'data/icons';
 import { useQuery } from 'react-query';
 import { useCheckIfAnyNewIconsInFolder } from 'data/icons/hooks';
+import { useParams } from 'react-router-dom';
 import { IconCardsSection } from './IconCardsSection';
 import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
 import { RightIconDetailsSection } from './RightIconDetailsSection';
@@ -11,6 +12,8 @@ import { RightIconDetailsSection } from './RightIconDetailsSection';
 const { Search } = Input;
 
 const IconsHome: FC = () => {
+  const { collectionId }: { collectionId: string } = useParams();
+
   const { data: icons } = useQuery('icons-list', IconsApi.findAll);
 
   const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
