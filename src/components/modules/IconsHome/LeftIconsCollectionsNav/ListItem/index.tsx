@@ -11,11 +11,11 @@ interface Props {
 export const ListItem: FC<Props> = ({ name, icon = <CollectionIcon /> }) => {
   return (
     <div className="leftnav-list-item flex justify-between px-4 py-1 hover:bg-gray-800">
-      <div className="flex gap-2 text-white">
+      <div className="flex gap-2 text-white cursor-default">
         {icon}
         {name}
       </div>
-      <div className="leftnav-list-item-optionsIcon invisible">
+      <div className="leftnav-list-item-optionsIcon invisible cursor-pointer">
         <OptionsIcon className="hover:text-white" />
       </div>
     </div>

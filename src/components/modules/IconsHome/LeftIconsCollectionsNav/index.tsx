@@ -4,10 +4,16 @@ import { ReactComponent as ViewGridIcon } from 'assets/icons/view-grid.svg';
 import { ReactComponent as HeartIcon } from 'assets/icons/heart.svg';
 import { Button } from 'components/ui/atomic-components';
 import { db } from 'data/db';
+import { useQuery } from 'react-query';
+import { CollectionsApi } from 'data/collections/api';
 import { ListItem } from './ListItem';
 import { CreateEditCollectionModal } from './CreateEditCollectionModal';
 
 export const LeftIconsCollectionsNav: FC = () => {
+  const { data: collections } = useQuery('collections', () =>
+    CollectionsApi.findAll()
+  );
+
   const [showCollectionModal, setShowCollectionModal] = useState(false);
 
   const toggleCollectionsModal = () => {
@@ -32,8 +38,9 @@ export const LeftIconsCollectionsNav: FC = () => {
         <div className="mt-4">
           <div className="ml-4 text-base">Collections</div>
           <div className="flex flex-col gap-2 mt-2">
-            <ListItem name="Material icons" />
-            <ListItem name="Hero icons" />
+            {collections?.map((collection) => (
+              <ListItem name={collection.name} key={collection.id} />
+            ))}
           </div>
         </div>
 

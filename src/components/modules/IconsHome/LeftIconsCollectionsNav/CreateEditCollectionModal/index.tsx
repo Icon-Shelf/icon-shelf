@@ -3,6 +3,7 @@ import { Input, Modal, Button } from 'components/ui/atomic-components';
 import { ipcRenderer } from 'electron';
 import { Collection } from 'data/collections';
 import { CollectionsApi } from 'data/collections/api';
+import { useQueryClient } from 'react-query';
 
 const { FolderInput } = Input;
 
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
+  const queryClent = useQueryClient();
+
   const [collectionName, setCollectionName] = useState('');
 
   const [folderLoc, setFolderLoc] = useState(
@@ -26,7 +29,10 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
       updatedAt: Date.now(),
     };
 
-    return CollectionsApi.create(collection).then(() => onClose());
+    return CollectionsApi.create(collection).then(() => {
+      queryClent.invalidateQueries('collections');
+      onClose();
+    });
   };
 
   return (

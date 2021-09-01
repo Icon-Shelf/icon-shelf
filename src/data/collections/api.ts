@@ -5,4 +5,7 @@ export const CollectionsApi = {
   create: (collection: Collection) => {
     return db.collections.add(collection);
   },
+  findAll: () => {
+    return db.collections.orderBy('createdAt').toArray();
+  },
 };
