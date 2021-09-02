@@ -8,4 +8,7 @@ export const CollectionsApi = {
   findAll: () => {
     return db.collections.orderBy('createdAt').toArray();
   },
+  find: (id: number) => {
+    return db.collections.get(id);
+  },
 };

@@ -8,11 +8,19 @@ export const IconsApi = {
   },
 
   findAllInCollection: async (collectionId: string) => {
-    const icons = await db.icons
-      .where('collectionId')
-      .equals(collectionId)
-      .sortBy('updatedAt');
+    if (!collectionId) {
+      return [];
+    }
 
-    return icons;
+    try {
+      const icons = await db.icons
+        .where('collectionId')
+        .equals(collectionId)
+        .sortBy('updatedAt');
+
+      return icons || [];
+    } catch {
+      return [];
+    }
   },
 };

@@ -20,7 +20,7 @@ const IconsHome: FC = () => {
 
   const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
 
-  useCheckIfAnyNewIconsInFolder();
+  useCheckIfAnyNewIconsInFolder(collectionId);
 
   if (!icons) {
     return <></>;

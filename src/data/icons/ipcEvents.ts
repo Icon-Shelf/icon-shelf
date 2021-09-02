@@ -4,9 +4,23 @@ import { db } from 'data/db';
 import { QueryClient } from 'react-query';
 import { Icon } from './types';
 import { IconsApi } from './api';
+import { CollectionsApi } from 'data/collections/api';
 
-export const checkIfAnyNewIconsInFolder = (queryClient: QueryClient) => {
-  ipcRenderer.send('get-all-icon-in-folder');
+export const checkIfAnyNewIconsInFolder = async (
+  collectionId: string,
+  queryClient: QueryClient
+) => {
+  if (!parseInt(collectionId)) {
+    return;
+  }
+
+  const collection = await CollectionsApi.find(parseInt(collectionId));
+
+  if (collection) {
+    ipcRenderer.send('get-all-icon-in-folder', {
+      folderPath: collection?.folderSrc,
+    });
+  }
 
   ipcRenderer.once(
     'get-all-icon-in-folder_reply',
@@ -17,7 +31,7 @@ export const checkIfAnyNewIconsInFolder = (queryClient: QueryClient) => {
         name: string;
       }[]
     ) => {
-      const existingIcons = await IconsApi.findAll();
+      const existingIcons = await IconsApi.findAllInCollection(collectionId);
 
       const existingIconsMap = keyBy(existingIcons, 'name');
       const folderIconsMap = keyBy(files, 'name');
@@ -30,7 +44,7 @@ export const checkIfAnyNewIconsInFolder = (queryClient: QueryClient) => {
         if (!existingIconsMap[name] && type === 'svg') {
           iconsToAdd.push({
             name,
-            collectionId: '1',
+            collectionId: collectionId,
             mime: type,
             byteSize: 1000,
             imageSrc: file.path,

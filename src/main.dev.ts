@@ -162,13 +162,15 @@ ipcMain.on(
   }
 );
 
-ipcMain.on('get-all-icon-in-folder', async (event) => {
-  const iconsFolderPath =
-    '/Users/robinthomas/wrk-git/drive-frontend/src/assets/';
+ipcMain.on('get-all-icon-in-folder', async (event, arg) => {
+  if (arg.folderPath) {
+    const iconsFolderPath = path.join(arg.folderPath, '/');
 
-  const files = await getAllFiles(iconsFolderPath);
-
-  event.reply('get-all-icon-in-folder_reply', files);
+    try {
+      const files = await getAllFiles(iconsFolderPath);
+      event.reply('get-all-icon-in-folder_reply', files);
+    } catch {}
+  }
 });
 
 ipcMain.on('get-default-icon-storage-folder', (event) => {
