@@ -13,7 +13,7 @@ export class IconShelfDatabase extends Dexie {
     super('IconShelfDatabase');
 
     this.version(1).stores({
-      icons: '++id,name,createdAt,updatedAt',
+      icons: '++id,name,collectionId,createdAt,updatedAt',
       collections: '++id,name,createdAt,updatedAt',
     });
 

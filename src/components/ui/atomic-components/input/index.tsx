@@ -1,4 +1,4 @@
-import { ChangeEvent, EventHandler, ReactElement, ReactNode } from 'react';
+import { ChangeEvent, ReactElement, ReactNode } from 'react';
 import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 import { FolderInput } from './folder-input';
 

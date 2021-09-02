@@ -6,4 +6,13 @@ export const IconsApi = {
 
     return icons;
   },
+
+  findAllInCollection: async (collectionId: string) => {
+    const icons = await db.icons
+      .where('collectionId')
+      .equals(collectionId)
+      .sortBy('updatedAt');
+
+    return icons;
+  },
 };

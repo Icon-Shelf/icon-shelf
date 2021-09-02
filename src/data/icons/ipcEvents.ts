@@ -30,6 +30,7 @@ export const checkIfAnyNewIconsInFolder = (queryClient: QueryClient) => {
         if (!existingIconsMap[name] && type === 'svg') {
           iconsToAdd.push({
             name,
+            collectionId: '1',
             mime: type,
             byteSize: 1000,
             imageSrc: file.path,

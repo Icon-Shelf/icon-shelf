@@ -14,7 +14,9 @@ const { Search } = Input;
 const IconsHome: FC = () => {
   const { collectionId }: { collectionId: string } = useParams();
 
-  const { data: icons } = useQuery('icons-list', IconsApi.findAll);
+  const { data: icons } = useQuery(['icons-list', collectionId], () =>
+    IconsApi.findAllInCollection(collectionId)
+  );
 
   const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
 

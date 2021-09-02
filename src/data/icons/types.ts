@@ -1,5 +1,6 @@
 export interface Icon {
   id?: number;
+  collectionId: string;
   name: string;
   mime: string;
   byteSize: number;
