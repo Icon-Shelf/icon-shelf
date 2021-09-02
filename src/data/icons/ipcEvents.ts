@@ -18,7 +18,8 @@ export const checkIfAnyNewIconsInFolder = async (
 
   if (collection) {
     ipcRenderer.send('get-all-icon-in-folder', {
-      folderPath: collection?.folderSrc,
+      collectionId: collection.id,
+      folderPath: collection.folderSrc,
     });
   }
 
@@ -29,9 +30,14 @@ export const checkIfAnyNewIconsInFolder = async (
       files: {
         path: string;
         name: string;
-      }[]
+      }[],
+      collectionIdNo: number
     ) => {
-      const existingIcons = await IconsApi.findAllInCollection(collectionId);
+      const collectionIdString = String(collectionIdNo);
+
+      const existingIcons = await IconsApi.findAllInCollection(
+        collectionIdString
+      );
 
       const existingIconsMap = keyBy(existingIcons, 'name');
       const folderIconsMap = keyBy(files, 'name');
@@ -44,7 +50,7 @@ export const checkIfAnyNewIconsInFolder = async (
         if (!existingIconsMap[name] && type === 'svg') {
           iconsToAdd.push({
             name,
-            collectionId: collectionId,
+            collectionId: collectionIdString,
             mime: type,
             byteSize: 1000,
             imageSrc: file.path,
