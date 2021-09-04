@@ -10,12 +10,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
     'promise/always-return': 'off',
-    'jsx-a11y/label-has-associated-control': [
-      'error',
-      {
-        controlComponents: ['Input', 'FolderInput'],
-      },
-    ],
+    'jsx-a11y/label-has-associated-control': ['off'],
     'react/jsx-props-no-spreading': ['off'],
     radix: ['off'],
   },
