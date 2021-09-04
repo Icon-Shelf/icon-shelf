@@ -2,9 +2,9 @@ import { ipcRenderer } from 'electron';
 import { keyBy } from 'lodash';
 import { db } from 'data/db';
 import { QueryClient } from 'react-query';
+import { CollectionsApi } from 'data/collections/api';
 import { Icon } from './types';
 import { IconsApi } from './api';
-import { CollectionsApi } from 'data/collections/api';
 
 export const checkIfAnyNewIconsInFolder = async (
   collectionId: string,

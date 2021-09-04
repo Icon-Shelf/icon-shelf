@@ -169,7 +169,9 @@ ipcMain.on('get-all-icon-in-folder', async (event, arg) => {
     try {
       const files = await getAllFiles(iconsFolderPath);
       event.reply('get-all-icon-in-folder_reply', files, arg.collectionId);
-    } catch {}
+    } catch {
+      console.log();
+    }
   }
 });
 
