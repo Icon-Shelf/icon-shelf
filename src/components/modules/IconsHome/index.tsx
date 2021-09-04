@@ -1,6 +1,5 @@
 import { FC, useState } from 'react';
-import { Button, Input } from 'components/ui/atomic-components';
-import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
+import { Input } from 'components/ui/atomic-components';
 import { Icon, IconsApi } from 'data/icons';
 import { useQuery } from 'react-query';
 import { useCheckIfAnyNewIconsInFolder } from 'data/icons/hooks';
@@ -8,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { IconCardsSection } from './IconCardsSection';
 import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
 import { RightIconDetailsSection } from './RightIconDetailsSection';
+import { AddIconToCollection } from './LeftIconsCollectionsNav/AddIconToCollection';
 
 const { Search } = Input;
 
@@ -37,9 +37,7 @@ const IconsHome: FC = () => {
             placeholder="Search Icons"
             className="flex-1"
           />
-          <Button className="ml-4" icon={<PlusIcon />}>
-            Add icon
-          </Button>
+          <AddIconToCollection />
         </div>
 
         <IconCardsSection
