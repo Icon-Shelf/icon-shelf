@@ -21,7 +21,7 @@ export const Select: FC<Props> = ({
     <div className={`w-full ${className}`}>
       <Listbox value={selectedVal} onChange={onChange}>
         <div className="relative my-1">
-          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-transparent rounded-lg border-2 border-inputBorder outline-none transition-shadow	focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-white">
+          <Listbox.Button className="relative w-full h-11 py-2 pl-3 pr-10 text-left bg-transparent rounded-lg border-2 border-inputBorder outline-none transition-shadow	focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-white">
             <span className="block truncate">{selectedVal?.name}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <SelectorIcon

@@ -24,7 +24,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
         <CollectionsDropdown />
 
         <button
-          className="w-full flex flex-col items-center justify-center outline-none border-2 border-gray-500 border-dashed rounded-md py-14"
+          className="w-full flex flex-col items-center justify-center outline-none border-2 border-gray-500 border-dashed rounded-md py-14 hover:border-gray-400 focus:border-gray-400"
           type="button"
         >
           <UploadIcon />
@@ -33,7 +33,9 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
               Drag and drop your icons here
             </span>
 
-            <span className="text-xs">or click to browse your files</span>
+            <span className="text-xs hover:text-white">
+              or click to browse your files
+            </span>
           </div>
         </button>
       </div>
