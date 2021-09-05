@@ -16,6 +16,7 @@ export const IconsApi = {
       const icons = await db.icons
         .where('collectionId')
         .equals(collectionId)
+        .reverse()
         .sortBy('updatedAt');
 
       return icons || [];
