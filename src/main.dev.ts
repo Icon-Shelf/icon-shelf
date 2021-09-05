@@ -16,6 +16,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
+import { ImageListType } from 'react-images-uploading';
+import fs from 'fs';
 
 import { getAllFiles } from './main/utils/getAllFiles';
 import MenuBuilder from './menu';
@@ -195,3 +197,35 @@ ipcMain.on('select-folder', async (event) => {
     event.returnValue = result.filePaths;
   }
 });
+
+ipcMain.on(
+  'create-and-add-icon-to-folder',
+  async (
+    _,
+    {
+      uploadedIcons,
+      folderPath,
+    }: {
+      uploadedIcons: { dataURL: string; fileName: string }[];
+      folderPath: string;
+    }
+  ) => {
+    const regex = /^data:.+\/(.+);base64,(.*)$/;
+
+    uploadedIcons.forEach((icon) => {
+      const dataUrl = icon.dataURL;
+
+      const matches = dataUrl?.match(regex);
+      const filename = icon.fileName;
+      // const ext = matches?.[1];
+      const data = matches?.[2];
+      if (data && filename) {
+        const buffer = Buffer.from(data, 'base64');
+
+        const formattedPath = path.join(folderPath, filename);
+
+        fs.writeFile(formattedPath, buffer, () => {});
+      }
+    });
+  }
+);
