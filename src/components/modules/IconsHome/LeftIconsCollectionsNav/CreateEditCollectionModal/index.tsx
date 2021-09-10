@@ -12,13 +12,25 @@ interface Props {
   onClose: () => void;
 }
 
+function uuidv4() {
+  return 'xxxxx'.replace(/[xy]/g, function (c) {
+    // eslint-disable-next-line no-bitwise
+    const r = (Math.random() * 16) | 0;
+    // eslint-disable-next-line no-bitwise
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
 export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
   const queryClent = useQueryClient();
 
   const [collectionName, setCollectionName] = useState('');
 
   const [folderLoc, setFolderLoc] = useState(
-    ipcRenderer.sendSync('get-default-icon-storage-folder')
+    `${ipcRenderer.sendSync(
+      'get-default-icon-storage-folder'
+    )}/collection-${uuidv4()}`
   );
 
   const onCreate = () => {
@@ -35,6 +47,15 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
     });
   };
 
+  const afterModalClose = () => {
+    setCollectionName('');
+    setFolderLoc(
+      `${ipcRenderer.sendSync(
+        'get-default-icon-storage-folder'
+      )}/collection-${uuidv4()}`
+    );
+  };
+
   return (
     <Modal
       show={show}
@@ -46,6 +67,7 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
           Create
         </Button>
       }
+      afterLeave={afterModalClose}
     >
       <div>
         <label>

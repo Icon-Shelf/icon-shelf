@@ -37,13 +37,13 @@ export const LeftIconsCollectionsNav: FC = () => {
         <div className="flex flex-col gap-2 mt-5">
           <ListItem
             name="All icons"
-            id={'all-icons'}
+            id="all-icons"
             icon={<ViewGridIcon />}
             isActive={false}
           />
           <ListItem
             name="All icons"
-            id={'fav-icons'}
+            id="fav-icons"
             icon={<HeartIcon />}
             isActive={false}
           />
@@ -67,6 +67,8 @@ export const LeftIconsCollectionsNav: FC = () => {
           <Button
             onClick={() => {
               db.icons.clear();
+              db.collections.clear();
+              window.location.reload();
             }}
           >
             Clear
