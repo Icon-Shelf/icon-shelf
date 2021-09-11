@@ -8,7 +8,13 @@ export const CollectionsApi = {
   findAll: () => {
     return db.collections.orderBy('createdAt').toArray();
   },
-  find: (id: number) => {
-    return db.collections.get(id);
+  find: (id: number | string) => {
+    let parsedId: number;
+    if (typeof id === 'string') {
+      parsedId = parseInt(id);
+    } else {
+      parsedId = id;
+    }
+    return db.collections.get(parsedId);
   },
 };

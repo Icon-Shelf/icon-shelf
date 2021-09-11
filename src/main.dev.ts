@@ -11,12 +11,19 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell, screen, ipcMain, dialog } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  shell,
+  screen,
+  ipcMain,
+  dialog,
+  Menu,
+} from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
-import { ImageListType } from 'react-images-uploading';
 import fs from 'fs';
 
 import { getAllFiles } from './main/utils/getAllFiles';
@@ -229,3 +236,28 @@ ipcMain.on(
     });
   }
 );
+
+ipcMain.on('icon-show-context-menu', (event, props) => {
+  const template = [
+    {
+      label: 'Delete icon',
+      accelerator: 'Command+Backspace',
+      click: () => {
+        event.sender.send('icon-show-context-menu_delete', props);
+      },
+    },
+  ];
+  const menu = Menu.buildFromTemplate(template);
+
+  menu.popup();
+});
+
+ipcMain.on('remove-icon-from-folder', (_, props) => {
+  const iconFilePath = path.join(props.folderSrc, props.fileName);
+
+  try {
+    fs.unlinkSync(iconFilePath);
+  } catch (err) {
+    console.error(err);
+  }
+});

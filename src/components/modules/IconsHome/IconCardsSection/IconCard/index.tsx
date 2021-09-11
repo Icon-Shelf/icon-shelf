@@ -1,6 +1,7 @@
-import { FC, Dispatch, SetStateAction } from 'react';
+import { FC, Dispatch, SetStateAction, useRef } from 'react';
 import { Icon } from 'data/icons/types';
 import SVG from 'react-inlinesvg';
+import { useContextMenu } from './useContextMenu';
 
 interface Props {
   icon: Icon;
@@ -9,8 +10,12 @@ interface Props {
 }
 
 export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
+  const IconBoxDomRef = useRef<HTMLButtonElement>(null);
+  useContextMenu(IconBoxDomRef, icon);
+
   return (
     <button
+      ref={IconBoxDomRef}
       className="w-full h-full min-w-full min-h-full flex items-center justify-center rounded-2xl cursor-pointer outline-none"
       style={{
         minHeight: '8rem',

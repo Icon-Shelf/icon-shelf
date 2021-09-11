@@ -8,6 +8,7 @@ import { IconCardsSection } from './IconCardsSection';
 import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
 import { RightIconDetailsSection } from './RightIconDetailsSection';
 import { AddIconToCollection } from './LeftIconsCollectionsNav/AddIconToCollection';
+import { useRegisterIpcRendererCallbacks } from './hooks/useRegisterIpcRendererCallbacks';
 
 const { Search } = Input;
 
@@ -21,6 +22,7 @@ const IconsHome: FC = () => {
   const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
 
   useCheckIfAnyNewIconsInFolder(collectionId);
+  useRegisterIpcRendererCallbacks(collectionId);
 
   if (!icons) {
     return <></>;

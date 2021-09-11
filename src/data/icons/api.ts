@@ -24,4 +24,8 @@ export const IconsApi = {
       return [];
     }
   },
+
+  delete: (iconId: number) => {
+    return db.icons.delete(iconId);
+  },
 };
