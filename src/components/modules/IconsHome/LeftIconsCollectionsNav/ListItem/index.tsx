@@ -1,15 +1,19 @@
 import { FC, ReactNode } from 'react';
 import { ReactComponent as OptionsIcon } from 'assets/icons/dots-horizontal.svg';
 import { ReactComponent as CollectionIcon } from 'assets/icons/collection.svg';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Dropdown } from 'components/ui/atomic-components';
 import { ReactComponent as TrashIcon } from 'assets/icons/trash-16.svg';
+import { CollectionsApi, Collection } from 'data/collections';
+import { ipcRenderer } from 'electron';
+import { useQueryClient } from 'react-query';
 
 interface Props {
   name: string;
   id: string;
   icon?: ReactNode;
   isActive: boolean;
+  collection?: Collection;
 }
 
 export const ListItem: FC<Props> = ({
@@ -17,9 +21,21 @@ export const ListItem: FC<Props> = ({
   id,
   icon = <CollectionIcon />,
   isActive,
+  collection,
 }) => {
+  const queryClent = useQueryClient();
+  const history = useHistory();
+
+  const deleteCollection = () => {
+    CollectionsApi.delete(id).then(async () => {
+      ipcRenderer.send('remove-collection-folder', collection?.folderSrc);
+      await queryClent.invalidateQueries('collections-list');
+      history.push('/');
+    });
+  };
+
   const OptionsOverlay = (
-    <Dropdown.Item className="">
+    <Dropdown.Item onClick={deleteCollection}>
       <TrashIcon className="mr-2" />
       <div>Delete</div>
     </Dropdown.Item>

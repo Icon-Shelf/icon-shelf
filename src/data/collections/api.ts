@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { db } from 'data/db';
 import { Collection } from './types';
 
@@ -16,5 +17,14 @@ export const CollectionsApi = {
       parsedId = id;
     }
     return db.collections.get(parsedId);
+  },
+  delete: (id: number | string) => {
+    let parsedId: number;
+    if (typeof id === 'string') {
+      parsedId = parseInt(id);
+    } else {
+      parsedId = id;
+    }
+    return db.collections.delete(parsedId);
   },
 };

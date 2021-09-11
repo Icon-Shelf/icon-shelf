@@ -4,6 +4,7 @@ import { ipcRenderer } from 'electron';
 import { Collection } from 'data/collections';
 import { CollectionsApi } from 'data/collections/api';
 import { useQueryClient } from 'react-query';
+import { useHistory } from 'react-router-dom';
 
 const { FolderInput } = Input;
 
@@ -24,6 +25,7 @@ function uuidv4() {
 
 export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
   const queryClent = useQueryClient();
+  const history = useHistory();
 
   const [collectionName, setCollectionName] = useState('');
 
@@ -41,9 +43,10 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
       updatedAt: Date.now(),
     };
 
-    return CollectionsApi.create(collection).then(() => {
-      queryClent.invalidateQueries('collections');
+    return CollectionsApi.create(collection).then(async (newCollectionId) => {
+      await queryClent.invalidateQueries('collections-list');
       onClose();
+      history.push(`/collections/${newCollectionId}`);
     });
   };
 

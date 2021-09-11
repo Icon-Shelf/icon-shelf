@@ -14,7 +14,7 @@ export const LeftIconsCollectionsNav: FC = () => {
   const { collectionId: selectedCollectionId }: { collectionId: string } =
     useParams();
 
-  const { data: collections } = useQuery('collections', () =>
+  const { data: collections } = useQuery('collections-list', () =>
     CollectionsApi.findAll()
   );
 
@@ -58,6 +58,7 @@ export const LeftIconsCollectionsNav: FC = () => {
                 name={collection.name}
                 id={`${collection.id}`}
                 isActive={selectedCollectionId === String(collection.id)}
+                collection={collection}
               />
             ))}
           </div>

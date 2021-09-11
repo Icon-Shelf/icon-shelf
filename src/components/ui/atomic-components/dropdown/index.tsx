@@ -36,12 +36,12 @@ export const Dropdown = ({
   );
 };
 
-const DropdownItem: FC<{ className?: string }> = ({
-  className = '',
-  children,
-}) => {
+const DropdownItem: FC<{
+  className?: string;
+  onClick?: () => void;
+}> = ({ className = '', children, ...rest }) => {
   return (
-    <div className="px-1 py-1">
+    <div className="px-1 py-1" {...rest}>
       <Menu.Item>
         {({ active }) => (
           <button

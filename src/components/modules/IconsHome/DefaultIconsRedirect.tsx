@@ -4,7 +4,7 @@ import { CollectionsApi } from 'data/collections/api';
 import { Redirect } from 'react-router-dom';
 
 export const DefaultIconsRedirect: FC = () => {
-  const { data, isFetched } = useQuery('collections', () =>
+  const { data, isFetched } = useQuery('collections-list', () =>
     CollectionsApi.findAll()
   );
 

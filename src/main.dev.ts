@@ -261,3 +261,13 @@ ipcMain.on('remove-icon-from-folder', (_, props) => {
     console.error(err);
   }
 });
+
+ipcMain.on('remove-collection-folder', (_, folderSrc) => {
+  const folderPath = path.join(folderSrc);
+
+  try {
+    fs.rmdirSync(folderPath, { recursive: true });
+  } catch (err) {
+    console.error(err);
+  }
+});
