@@ -13,6 +13,7 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': ['off'],
     'react/jsx-props-no-spreading': ['off'],
     radix: ['off'],
+    'promise/catch-or-return': ['off'],
   },
   parserOptions: {
     ecmaVersion: 2020,

@@ -1,8 +1,9 @@
 import { FC, ReactNode } from 'react';
 import { ReactComponent as OptionsIcon } from 'assets/icons/dots-horizontal.svg';
 import { ReactComponent as CollectionIcon } from 'assets/icons/collection.svg';
-import './styles.css';
 import { Link } from 'react-router-dom';
+import { Dropdown } from 'components/ui/atomic-components';
+import { ReactComponent as TrashIcon } from 'assets/icons/trash-16.svg';
 
 interface Props {
   name: string;
@@ -17,10 +18,17 @@ export const ListItem: FC<Props> = ({
   icon = <CollectionIcon />,
   isActive,
 }) => {
+  const OptionsOverlay = (
+    <Dropdown.Item className="">
+      <TrashIcon className="mr-2" />
+      <div>Delete</div>
+    </Dropdown.Item>
+  );
+
   return (
     <Link
       to={`/collections/${id}`}
-      className={`leftnav-list-item flex justify-between px-4 py-1 hover:bg-gray-800 ${
+      className={`group flex justify-between items-center px-4 py-1 hover:bg-gray-800 ${
         isActive && 'bg-primary hover:bg-primary'
       }`}
     >
@@ -28,8 +36,15 @@ export const ListItem: FC<Props> = ({
         {icon}
         {name}
       </div>
-      <div className="leftnav-list-item-optionsIcon invisible cursor-pointer">
-        <OptionsIcon className="hover:text-white" />
+      {/*  eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+      <div onClick={(e) => e.preventDefault()}>
+        <Dropdown overlay={OptionsOverlay}>
+          <OptionsIcon
+            className={`opacity-0 leftnav-list-item-optionsIcon cursor-pointer hover:text-white group-hover:opacity-100 ${
+              isActive ? 'text-white' : ''
+            }`}
+          />
+        </Dropdown>
       </div>
     </Link>
   );

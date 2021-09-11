@@ -67,8 +67,9 @@ export const LeftIconsCollectionsNav: FC = () => {
           <Button
             onClick={() => {
               db.icons.clear();
-              db.collections.clear();
-              window.location.reload();
+              db.collections.clear().then(() => {
+                window.location.reload();
+              });
             }}
           >
             Clear

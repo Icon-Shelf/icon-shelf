@@ -37,12 +37,12 @@ export const Select: FC<Props> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-black2 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 border border-gray-600 outline-none">
+            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-gray-600 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 border border-gray-600 outline-none">
               {options?.map((option) => (
                 <Listbox.Option
                   key={option.name}
                   className={({ active }) =>
-                    `${active ? 'bg-black3' : ''}
+                    `${active ? 'bg-black2 text-white' : 'text-gray-200'}
               text-white cursor-default select-none outline-none relative py-2 pl-10 pr-4`
                   }
                   value={option}
