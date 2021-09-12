@@ -2,6 +2,7 @@ import { FC, Dispatch, SetStateAction, useRef } from 'react';
 import { Icon } from 'data/icons/types';
 import SVG from 'react-inlinesvg';
 import { useContextMenu } from './useContextMenu';
+import './style.css';
 
 interface Props {
   icon: Icon;
@@ -16,10 +17,9 @@ export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
   return (
     <button
       ref={IconBoxDomRef}
-      className="w-full h-full min-w-full min-h-full flex items-center justify-center rounded-2xl cursor-pointer outline-none"
+      className="icon-card-wrapper w-full h-full min-w-full min-h-full flex items-center justify-center rounded-2xl cursor-pointer outline-none"
       style={{
         minHeight: '8rem',
-        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         background: isSelected
           ? 'linear-gradient(180deg, #696EFF 0%, #F7ABFF 100%)'
           : '',
@@ -28,7 +28,7 @@ export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
       onClick={() => setSelectedIcon(icon)}
     >
       <div
-        className="rounded-2xl bg-black2 flex flex-col items-center justify-center"
+        className="rounded-2xl bg-black2 flex flex-col items-center justify-center border border-transparent hover:border-gray-600"
         style={{ width: 'calc(100% - 2px)', height: 'calc(100% - 2px)' }}
       >
         <SVG src={icon.imageSrc} className="h-10 w-10 mt-4 text-white" />

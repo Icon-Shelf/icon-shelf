@@ -78,7 +78,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
         </div>
 
         <div className="mt-8">
-          <span className="text-white text-lg">Details</span>
+          <div className="text-white mb-1">Details</div>
 
           <div className="flex justify-between">
             <span className="mt-1">Format</span>
