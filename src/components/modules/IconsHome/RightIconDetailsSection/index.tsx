@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useRef, useState, useEffect } from 'react';
 import { Button } from 'components/ui/atomic-components';
 import { ReactComponent as CopyIcon } from 'assets/icons/clipboard-copy.svg';
 import { Icon } from 'data/icons';
@@ -14,7 +14,7 @@ interface Props {
 export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
   const svgRef = useRef<SVGElement>(null);
 
-  const [svgDimensions, setSvgDimensions] = useState('');
+  const [svgDimensions, setSvgDimensions] = useState('-');
 
   const onCopyClick = () => {
     if (selectedIcon) {
@@ -51,6 +51,10 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
     }
   };
 
+  useEffect(() => {
+    setSvgDimensions('-');
+  }, [selectedIcon]);
+
   return (
     <div className="flex flex-col justify-between bg-black2 w-96 p-4 pt-5 min-w-max flex-shrink-0">
       <div>
@@ -68,7 +72,8 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
         <div className="flex flex-col mt-3">
           <span className="text-white">{selectedIcon?.name}</span>
           <span className="mt-1 text-sm">
-            {selectedIcon?.byteSize && formatBytes(selectedIcon?.byteSize)}
+            {(selectedIcon?.byteSize && formatBytes(selectedIcon?.byteSize)) ||
+              '-'}
           </span>
         </div>
 
@@ -78,7 +83,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
           <div className="flex justify-between">
             <span className="mt-1">Format</span>
             <span className="mt-1 text-white uppercase">
-              {selectedIcon?.mime}
+              {selectedIcon?.mime || '-'}
             </span>
           </div>
 
@@ -90,7 +95,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
           <div className="flex justify-between mt-1">
             <span className="mt-1">Updated</span>
             <span className="mt-1 text-white">
-              {formatDate(selectedIcon?.updatedAt)}
+              {formatDate(selectedIcon?.updatedAt) || '-'}
             </span>
           </div>
         </div>

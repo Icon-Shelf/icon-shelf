@@ -48,7 +48,7 @@ const DropdownItem: FC<{
             type="button"
             className={`${
               active ? 'bg-black2 text-white' : 'text-gray-200'
-            } group flex rounded-md items-center outline-none px-2 py-2 text-sm ${className}`}
+            } group flex rounded-md items-center w-full outline-none px-2 py-2 text-sm ${className}`}
           >
             {children}
           </button>

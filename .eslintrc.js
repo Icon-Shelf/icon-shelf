@@ -14,6 +14,7 @@ module.exports = {
     'react/jsx-props-no-spreading': ['off'],
     radix: ['off'],
     'promise/catch-or-return': ['off'],
+    'import/no-cycle': ['off'],
   },
   parserOptions: {
     ecmaVersion: 2020,

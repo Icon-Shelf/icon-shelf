@@ -274,3 +274,9 @@ ipcMain.on('remove-collection-folder', (_, folderSrc) => {
     console.error(err);
   }
 });
+
+ipcMain.on('open-collection-folder', (_, folderSrc) => {
+  const folderPath = path.join(folderSrc);
+
+  shell.openPath(folderPath);
+});
