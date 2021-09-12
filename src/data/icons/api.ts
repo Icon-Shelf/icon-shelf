@@ -1,4 +1,9 @@
 import { db } from 'data/db';
+import { Icon } from './types';
+
+const filterIconsBasedOnSearch = (icons: Icon[], searchQuery = '') => {
+  return icons.filter((icon) => icon.name.includes(searchQuery));
+};
 
 export const IconsApi = {
   findAll: async () => {
@@ -7,7 +12,7 @@ export const IconsApi = {
     return icons;
   },
 
-  findAllInCollection: async (collectionId: string) => {
+  findAllInCollection: async (collectionId: string, searchQuery?: string) => {
     if (!collectionId) {
       return [];
     }
@@ -15,7 +20,7 @@ export const IconsApi = {
     if (collectionId === 'all-icons') {
       const icons = await db.icons.orderBy('updatedAt').toArray();
 
-      return icons || [];
+      return filterIconsBasedOnSearch(icons, searchQuery) || [];
     }
 
     const icons = await db.icons
@@ -24,7 +29,7 @@ export const IconsApi = {
       .reverse()
       .sortBy('updatedAt');
 
-    return icons || [];
+    return filterIconsBasedOnSearch(icons, searchQuery) || [];
   },
 
   delete: (iconId: number) => {

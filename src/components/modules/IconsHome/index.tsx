@@ -4,6 +4,7 @@ import { Icon, IconsApi } from 'data/icons';
 import { useQuery } from 'react-query';
 import { useCheckIfAnyNewIconsInFolder } from 'data/icons/hooks';
 import { useParams } from 'react-router-dom';
+import { useQueryParam, StringParam } from 'use-query-params';
 import { IconCardsSection } from './IconCardsSection';
 import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
 import { RightIconDetailsSection } from './RightIconDetailsSection';
@@ -14,11 +15,19 @@ const { Search } = Input;
 
 const IconsHome: FC = () => {
   const { collectionId }: { collectionId: string } = useParams();
+  const [searchQuery, setSearchQuery] = useQueryParam('f', StringParam);
 
-  const { data: icons } = useQuery(['icons-list', collectionId], () =>
-    IconsApi.findAllInCollection(collectionId).catch(() => {
-      return [];
-    })
+  const { data: icons } = useQuery(
+    ['icons-list', collectionId, searchQuery],
+    () =>
+      IconsApi.findAllInCollection(collectionId, searchQuery || '').catch(
+        () => {
+          return [];
+        }
+      ),
+    {
+      keepPreviousData: true,
+    }
   );
 
   const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
@@ -40,6 +49,8 @@ const IconsHome: FC = () => {
             name="icons-search"
             placeholder="Search Icons"
             className="flex-1"
+            value={searchQuery || ''}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
           <AddIconToCollection />
         </div>
