@@ -47,7 +47,15 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
       // add icons to db
       const icons = uploadedIcons
         .filter((icon) => !!icon.file)
-        .map((icon) => icon.file as File);
+        .map(
+          (icon) =>
+            ({
+              name: icon.file?.name,
+              path: `${selectedCollection.folderSrc.replace(/\/$/, '')}/${
+                icon.file?.name
+              }`,
+            } as File)
+        );
 
       addIconsToDb(icons, collectionId)
         .then(() => {
