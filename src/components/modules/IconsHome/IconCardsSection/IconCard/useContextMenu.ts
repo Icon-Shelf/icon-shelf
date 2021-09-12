@@ -12,6 +12,7 @@ export const useContextMenu = (
       ipcRenderer.send('icon-show-context-menu', {
         iconId: icon.id,
         fileName: `${icon.name}.${icon.mime}`,
+        collectionId: icon.collectionId,
       });
     },
     [icon]

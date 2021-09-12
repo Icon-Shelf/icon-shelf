@@ -4,30 +4,38 @@ import { IconsApi } from 'data/icons';
 import { useQueryClient } from 'react-query';
 import { CollectionsApi } from 'data/collections';
 
-export const useRegisterIpcRendererCallbacks = (collectionId: string) => {
+export const useRegisterIpcRendererCallbacks = (
+  currentCollectionId: string
+) => {
   const queryClient = useQueryClient();
 
   const deleteIconCallback = useCallback(
     (
       _: IpcRendererEvent,
-      { iconId, fileName }: { iconId: number; fileName: string }
+      {
+        iconId,
+        fileName,
+        collectionId,
+      }: { iconId: number; fileName: string; collectionId: string }
     ) => {
       if (iconId) {
         IconsApi.delete(iconId)
           .then(() => {
-            queryClient.invalidateQueries(['icons-list', collectionId]);
+            queryClient.invalidateQueries(['icons-list', currentCollectionId]);
           })
           .then(async () => {
-            const collection = await CollectionsApi.find(collectionId);
-            ipcRenderer.send('remove-icon-from-folder', {
-              folderSrc: collection?.folderSrc,
-              fileName,
-            });
+            if (collectionId) {
+              const collection = await CollectionsApi.find(collectionId);
+              ipcRenderer.send('remove-icon-from-folder', {
+                folderSrc: collection?.folderSrc,
+                fileName,
+              });
+            }
           })
           .catch(() => {});
       }
     },
-    [collectionId, queryClient]
+    [currentCollectionId, queryClient]
   );
 
   useEffect(() => {
@@ -39,5 +47,5 @@ export const useRegisterIpcRendererCallbacks = (collectionId: string) => {
         deleteIconCallback
       );
     };
-  });
+  }, [deleteIconCallback]);
 };
