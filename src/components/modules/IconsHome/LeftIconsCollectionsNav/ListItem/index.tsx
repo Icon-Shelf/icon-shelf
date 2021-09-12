@@ -13,6 +13,7 @@ interface Props {
   id: string;
   icon?: ReactNode;
   isActive: boolean;
+  hideOptions?: boolean;
   collection?: Collection;
 }
 
@@ -21,6 +22,7 @@ export const ListItem: FC<Props> = ({
   id,
   icon = <CollectionIcon />,
   isActive,
+  hideOptions,
   collection,
 }) => {
   const queryClent = useQueryClient();
@@ -52,16 +54,18 @@ export const ListItem: FC<Props> = ({
         {icon}
         {name}
       </div>
-      {/*  eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-      <div onClick={(e) => e.preventDefault()}>
-        <Dropdown overlay={OptionsOverlay}>
-          <OptionsIcon
-            className={`opacity-0 leftnav-list-item-optionsIcon cursor-pointer hover:text-white group-hover:opacity-100 ${
-              isActive ? 'text-white' : ''
-            }`}
-          />
-        </Dropdown>
-      </div>
+      {!hideOptions && (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+        <div onClick={(e) => e.preventDefault()}>
+          <Dropdown overlay={OptionsOverlay}>
+            <OptionsIcon
+              className={`opacity-0 leftnav-list-item-optionsIcon cursor-pointer hover:text-white group-hover:opacity-100 ${
+                isActive ? 'text-white' : ''
+              }`}
+            />
+          </Dropdown>
+        </div>
+      )}
     </Link>
   );
 };

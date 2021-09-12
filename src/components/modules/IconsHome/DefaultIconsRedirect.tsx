@@ -12,7 +12,7 @@ export const DefaultIconsRedirect: FC = () => {
     if (data?.length) {
       return <Redirect to={`/collections/${data[0].id}`} />;
     }
-    return <Redirect to="/collections/all" />;
+    return <Redirect to="/collections/all-icons" />;
   }
 
   return <></>;

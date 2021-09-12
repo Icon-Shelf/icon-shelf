@@ -67,9 +67,12 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
   };
 
   useEffect(() => {
-    CollectionsApi.find(parseInt(collectionId))
-      .then((collection) => collection && setSelectedCollection(collection))
-      .catch(() => {});
+    const parsedCollectionId = parseInt(collectionId);
+    if (parsedCollectionId) {
+      CollectionsApi.find(parseInt(collectionId)).then(
+        (collection) => collection && setSelectedCollection(collection)
+      );
+    }
   }, [collectionId]);
 
   return (

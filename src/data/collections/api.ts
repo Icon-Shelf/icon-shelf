@@ -10,21 +10,13 @@ export const CollectionsApi = {
     return db.collections.orderBy('createdAt').toArray();
   },
   find: (id: number | string) => {
-    let parsedId: number;
-    if (typeof id === 'string') {
-      parsedId = parseInt(id);
-    } else {
-      parsedId = id;
-    }
+    const parsedId: number = parseInt(id as string);
+
     return db.collections.get(parsedId);
   },
   delete: (id: number | string) => {
-    let parsedId: number;
-    if (typeof id === 'string') {
-      parsedId = parseInt(id);
-    } else {
-      parsedId = id;
-    }
+    const parsedId: number = parseInt(id as string);
+
     return db.collections.delete(parsedId);
   },
 };

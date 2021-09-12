@@ -12,17 +12,19 @@ export const IconsApi = {
       return [];
     }
 
-    try {
-      const icons = await db.icons
-        .where('collectionId')
-        .equals(collectionId)
-        .reverse()
-        .sortBy('updatedAt');
+    if (collectionId === 'all-icons') {
+      const icons = await db.icons.orderBy('updatedAt').toArray();
 
       return icons || [];
-    } catch {
-      return [];
     }
+
+    const icons = await db.icons
+      .where('collectionId')
+      .equals(collectionId)
+      .reverse()
+      .sortBy('updatedAt');
+
+    return icons || [];
   },
 
   delete: (iconId: number) => {

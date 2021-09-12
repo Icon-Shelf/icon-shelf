@@ -6,7 +6,7 @@ export const useCheckIfAnyNewIconsInFolder = (collectionId: string) => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (collectionId) {
+    if (collectionId && parseInt(collectionId)) {
       checkIfAnyNewIconsInFolder(collectionId, queryClient);
     }
   }, [queryClient, collectionId]);

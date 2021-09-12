@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { ReactComponent as ViewGridIcon } from 'assets/icons/view-grid.svg';
-import { ReactComponent as HeartIcon } from 'assets/icons/heart.svg';
+// import { ReactComponent as HeartIcon } from 'assets/icons/heart.svg';
 import { Button } from 'components/ui/atomic-components';
 import { db } from 'data/db';
 import { useQuery } from 'react-query';
@@ -39,14 +39,16 @@ export const LeftIconsCollectionsNav: FC = () => {
             name="All icons"
             id="all-icons"
             icon={<ViewGridIcon />}
-            isActive={false}
+            isActive={selectedCollectionId === 'all-icons'}
+            hideOptions
           />
-          <ListItem
-            name="All icons"
+          {/* <ListItem
+            name="Fav icons"
             id="fav-icons"
             icon={<HeartIcon />}
             isActive={false}
-          />
+            hideOptions
+          /> */}
         </div>
 
         <div className="mt-4">
