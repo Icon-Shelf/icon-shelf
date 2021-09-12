@@ -6,8 +6,9 @@ import { ReactComponent as DocumentIcon } from 'assets/icons/document.svg';
 import { Collection, CollectionsApi } from 'data/collections';
 import { useParams } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
-import { addIconsToDb } from 'data/icons/utils';
+import { addIconsToDb2 } from 'data/icons/utils';
 import { useQueryClient } from 'react-query';
+import { Icon } from 'data/icons';
 import { CollectionsDropdown } from './CollectionsDropdown';
 
 interface Props {
@@ -47,17 +48,24 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
       // add icons to db
       const icons = uploadedIcons
         .filter((icon) => !!icon.file)
-        .map(
-          (icon) =>
-            ({
-              name: icon.file?.name,
-              path: `${selectedCollection.folderSrc.replace(/\/$/, '')}/${
-                icon.file?.name
-              }`,
-            } as File)
-        );
+        .map((icon) => {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const [name, type] = icon!.file!.name.split('.');
 
-      addIconsToDb(icons, collectionId)
+          return {
+            name,
+            collectionId,
+            mime: type,
+            byteSize: icon.file?.size,
+            imageSrc: `${selectedCollection.folderSrc.replace(/\/$/, '')}/${
+              icon.file?.name
+            }`,
+            createdAt: Date.now(),
+            updatedAt: icon.file?.lastModified,
+          } as Icon;
+        });
+
+      addIconsToDb2(icons, collectionId)
         .then(() => {
           queryClient.invalidateQueries('icons-list');
           onClose();

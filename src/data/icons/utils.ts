@@ -3,11 +3,8 @@ import { keyBy } from 'lodash';
 import { db } from 'data/db';
 import { Icon } from './types';
 
-export const addIconsToDb = async (
-  files: {
-    path: string;
-    name: string;
-  }[],
+export const addIconsToDb2 = async (
+  icons: Icon[],
   collectionIdNo: number | string
 ) => {
   const collectionIdString = String(collectionIdNo);
@@ -18,19 +15,9 @@ export const addIconsToDb = async (
 
   const iconsToAdd: Icon[] = [];
 
-  files.forEach((file) => {
-    const [name, type] = file.name.split('.');
-
-    if (!existingIconsMap[name] && type === 'svg') {
-      iconsToAdd.push({
-        name,
-        collectionId: collectionIdString,
-        mime: type,
-        byteSize: 1000,
-        imageSrc: file.path,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      });
+  icons.forEach((icon) => {
+    if (!existingIconsMap[icon.name]) {
+      iconsToAdd.push(icon);
     }
   });
 
@@ -39,4 +26,30 @@ export const addIconsToDb = async (
   }
 
   return Promise.resolve();
+};
+
+export const addIconsToDb = async (
+  files: {
+    path: string;
+    name: string;
+  }[],
+  collectionIdNo: number | string
+) => {
+  const iconsToAdd: Icon[] = [];
+
+  files.forEach((file) => {
+    const [name, type] = file.name.split('.');
+
+    iconsToAdd.push({
+      name,
+      collectionId: `${collectionIdNo}`,
+      mime: type,
+      byteSize: 1000,
+      imageSrc: file.path,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    });
+  });
+
+  return addIconsToDb2(iconsToAdd, collectionIdNo);
 };

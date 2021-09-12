@@ -4,6 +4,7 @@ import { ReactComponent as CopyIcon } from 'assets/icons/clipboard-copy.svg';
 import { Icon } from 'data/icons';
 import SVG from 'react-inlinesvg';
 import { camelCase } from 'lodash';
+import { formatBytes } from 'utils/formatBytes';
 
 interface Props {
   selectedIcon: Icon | null;
@@ -31,7 +32,9 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
 
         <div className="flex flex-col mt-3">
           <span className="text-white">{selectedIcon?.name}</span>
-          <span className="mt-1 text-sm">150Bytes</span>
+          <span className="mt-1 text-sm">
+            {formatBytes(selectedIcon?.byteSize)}
+          </span>
         </div>
 
         <div className="mt-8">

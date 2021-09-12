@@ -227,8 +227,11 @@ ipcMain.on(
       // const ext = matches?.[1];
       const data = matches?.[2];
       if (data && filename) {
-        const buffer = Buffer.from(data, 'base64');
+        if (!fs.existsSync(folderPath)) {
+          fs.mkdirSync(folderPath, { recursive: true });
+        }
 
+        const buffer = Buffer.from(data, 'base64');
         const formattedPath = path.join(folderPath, filename);
 
         fs.writeFile(formattedPath, buffer, () => {});
