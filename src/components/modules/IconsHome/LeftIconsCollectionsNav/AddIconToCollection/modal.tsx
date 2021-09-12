@@ -74,6 +74,10 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
     }
   };
 
+  const afterClose = () => {
+    setUploadedIcons([]);
+  };
+
   useEffect(() => {
     const parsedCollectionId = parseInt(collectionId);
     if (parsedCollectionId) {
@@ -89,6 +93,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
       title="Add icons to collection"
       onClose={onClose}
       className="w-96"
+      afterClose={afterClose}
       footer={
         <Button type="primary" onClick={onAdd}>
           Add

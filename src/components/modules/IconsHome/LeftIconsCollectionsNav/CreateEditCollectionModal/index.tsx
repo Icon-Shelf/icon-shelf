@@ -70,7 +70,7 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
           Create
         </Button>
       }
-      afterLeave={afterModalClose}
+      afterClose={afterModalClose}
     >
       <div>
         <label>
