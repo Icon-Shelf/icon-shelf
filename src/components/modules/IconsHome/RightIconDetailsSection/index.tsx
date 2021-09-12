@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useRef, useState } from 'react';
 import { Button } from 'components/ui/atomic-components';
 import { ReactComponent as CopyIcon } from 'assets/icons/clipboard-copy.svg';
 import { Icon } from 'data/icons';
@@ -12,6 +12,10 @@ interface Props {
 }
 
 export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
+  const svgRef = useRef<SVGElement>(null);
+
+  const [svgDimensions, setSvgDimensions] = useState('');
+
   const onCopyClick = () => {
     if (selectedIcon) {
       const copyText = `import { ReactComponent as ${camelCase(
@@ -22,12 +26,42 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
     }
   };
 
+  const getSvgDimensions = (node: SVGElement) => {
+    const widthAttr = node?.getAttribute('width');
+    const heightAttr = node?.getAttribute('height');
+    const viewBox = node.getAttribute('viewBox');
+    if (widthAttr && heightAttr) {
+      return `${widthAttr} x ${heightAttr}`;
+    }
+    if (viewBox) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { width, height } = (node as any).viewBox.baseVal;
+
+      return `${width} x ${height}`;
+    }
+
+    return '';
+  };
+
+  const onSvgLoad = () => {
+    const node = svgRef.current;
+
+    if (node) {
+      setSvgDimensions(getSvgDimensions(node));
+    }
+  };
+
   return (
     <div className="flex flex-col justify-between bg-black2 w-96 p-4 pt-5 min-w-max flex-shrink-0">
       <div>
         <div className="w-full bg-black h-40 rounded-md flex items-center justify-center">
           {selectedIcon?.imageSrc && (
-            <SVG src={selectedIcon.imageSrc} className="h-14 w-14 text-white" />
+            <SVG
+              onLoad={onSvgLoad}
+              src={selectedIcon.imageSrc}
+              className="h-14 w-14 text-white"
+              innerRef={svgRef}
+            />
           )}
         </div>
 
@@ -50,7 +84,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
 
           <div className="flex justify-between mt-1">
             <span className="mt-1">Dimensions</span>
-            <span className="mt-1 text-white">16x16</span>
+            <span className="mt-1 text-white">{svgDimensions}</span>
           </div>
 
           <div className="flex justify-between mt-1">
