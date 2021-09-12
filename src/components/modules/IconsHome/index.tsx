@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { Input } from 'components/ui/atomic-components';
 import { Icon, IconsApi } from 'data/icons';
 import { useQuery } from 'react-query';
 import { useCheckIfAnyNewIconsInFolder } from 'data/icons/hooks';
@@ -8,10 +7,8 @@ import { useQueryParam, StringParam } from 'use-query-params';
 import { IconCardsSection } from './IconCardsSection';
 import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
 import { RightIconDetailsSection } from './RightIconDetailsSection';
-import { AddIconToCollection } from './LeftIconsCollectionsNav/AddIconToCollection';
 import { useRegisterIpcRendererCallbacks } from './hooks/useRegisterIpcRendererCallbacks';
-
-const { Search } = Input;
+import { SearchAddTopSection } from './SearchAddTopSection';
 
 const IconsHome: FC = () => {
   const { collectionId }: { collectionId: string } = useParams();
@@ -44,16 +41,10 @@ const IconsHome: FC = () => {
       <LeftIconsCollectionsNav />
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex mt-5 mx-4">
-          <Search
-            name="icons-search"
-            placeholder="Search Icons"
-            className="flex-1"
-            value={searchQuery || ''}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <AddIconToCollection />
-        </div>
+        <SearchAddTopSection
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
 
         <IconCardsSection
           icons={icons}
