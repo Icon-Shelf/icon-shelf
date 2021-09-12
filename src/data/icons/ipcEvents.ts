@@ -28,8 +28,9 @@ export const checkIfAnyNewIconsInFolder = async (
     async (
       _,
       files: {
-        path: string;
         name: string;
+        imageSrc: string;
+        byteSize: number;
       }[],
       collectionIdNo: number
     ) => {
@@ -52,8 +53,8 @@ export const checkIfAnyNewIconsInFolder = async (
             name,
             collectionId: collectionIdString,
             mime: type,
-            byteSize: 1000,
-            imageSrc: file.path,
+            byteSize: file.byteSize,
+            imageSrc: file.imageSrc,
             createdAt: Date.now(),
             updatedAt: Date.now(),
           });

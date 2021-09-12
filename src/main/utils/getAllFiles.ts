@@ -1,4 +1,4 @@
-import { promises as fs } from 'fs';
+import { promises as fs, statSync } from 'fs';
 
 export async function getAllFiles(path: string) {
   const entries = await fs.readdir(path, { withFileTypes: true });
@@ -6,7 +6,12 @@ export async function getAllFiles(path: string) {
   // Get files within the current directory and add a path key to the file objects
   const files = entries
     .filter((file) => !file.isDirectory() && !/^\..*/.test(file.name))
-    .map((file) => ({ ...file, path: `${path}${file.name}` }));
+    .map((file) => {
+      const iconPath = `${path}${file.name}`;
+      const fileStats = statSync(iconPath);
+
+      return { ...file, imageSrc: iconPath, byteSize: fileStats.size };
+    });
 
   // Get folders within the current directory
   const folders = entries.filter((folder) => folder.isDirectory());
