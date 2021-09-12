@@ -10,7 +10,13 @@ export async function getAllFiles(path: string) {
       const iconPath = `${path}${file.name}`;
       const fileStats = statSync(iconPath);
 
-      return { ...file, imageSrc: iconPath, byteSize: fileStats.size };
+      return {
+        ...file,
+        imageSrc: iconPath,
+        byteSize: fileStats.size,
+        createdAt: fileStats.birthtimeMs,
+        updatedAt: fileStats.mtimeMs,
+      };
     });
 
   // Get folders within the current directory

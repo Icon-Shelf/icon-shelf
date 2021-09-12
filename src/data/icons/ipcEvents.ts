@@ -31,6 +31,8 @@ export const checkIfAnyNewIconsInFolder = async (
         name: string;
         imageSrc: string;
         byteSize: number;
+        createdAt: number;
+        updatedAt: number;
       }[],
       collectionIdNo: number
     ) => {
@@ -55,8 +57,8 @@ export const checkIfAnyNewIconsInFolder = async (
             mime: type,
             byteSize: file.byteSize,
             imageSrc: file.imageSrc,
-            createdAt: Date.now(),
-            updatedAt: Date.now(),
+            createdAt: file.createdAt,
+            updatedAt: file.updatedAt,
           });
         }
       });
