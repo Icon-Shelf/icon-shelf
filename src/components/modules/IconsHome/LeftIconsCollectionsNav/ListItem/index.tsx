@@ -13,6 +13,7 @@ interface Props {
   isActive: boolean;
   hideOptions?: boolean;
   collection?: Collection;
+  editCollection?: (v?: Collection) => void;
 }
 
 export const ListItem: FC<Props> = ({
@@ -22,6 +23,7 @@ export const ListItem: FC<Props> = ({
   isActive,
   hideOptions,
   collection,
+  editCollection,
 }) => {
   return (
     <Link
@@ -34,11 +36,18 @@ export const ListItem: FC<Props> = ({
         {icon}
         {name}
       </div>
+
       {!hideOptions && (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
         <div onClick={(e) => e.preventDefault()}>
           <Dropdown
-            overlay={<OptionsOverlay id={id} collection={collection} />}
+            overlay={
+              <OptionsOverlay
+                id={id}
+                collection={collection}
+                editCollection={editCollection}
+              />
+            }
           >
             <OptionsIcon
               className={`opacity-0 leftnav-list-item-optionsIcon cursor-pointer hover:text-white group-hover:opacity-100 ${

@@ -28,6 +28,8 @@ module.exports = {
       textColor: ['active'],
       ringWidth: ['active', 'focus-visible'],
       ringColor: ['active', 'focus-visible'],
+      opacity: ['disabled'],
+      cursor: ['disabled'],
     },
   },
   plugins: [],

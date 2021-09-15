@@ -1,12 +1,12 @@
+// import { ReactComponent as HeartIcon } from 'assets/icons/heart.svg';
 import { FC, useState } from 'react';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { ReactComponent as ViewGridIcon } from 'assets/icons/view-grid.svg';
-// import { ReactComponent as HeartIcon } from 'assets/icons/heart.svg';
 import { Button } from 'components/ui/atomic-components';
-import { db } from 'data/db';
 import { useQuery } from 'react-query';
 import { CollectionsApi } from 'data/collections/api';
 import { useParams } from 'react-router-dom';
+import { Collection } from 'data/collections';
 import { ListItem } from './ListItem';
 import { CreateEditCollectionModal } from './CreateEditCollectionModal';
 
@@ -20,7 +20,12 @@ export const LeftIconsCollectionsNav: FC = () => {
 
   const [showCollectionModal, setShowCollectionModal] = useState(false);
 
-  const toggleCollectionsModal = () => {
+  const [selectedCollection, setSelectedCollection] = useState<
+    Collection | null | undefined
+  >(null);
+
+  const editCollection = (collection?: Collection) => {
+    setSelectedCollection(collection);
     setShowCollectionModal((state) => !state);
   };
 
@@ -31,7 +36,7 @@ export const LeftIconsCollectionsNav: FC = () => {
           <Button
             icon={<PlusIcon />}
             type="text"
-            onClick={toggleCollectionsModal}
+            onClick={() => editCollection()}
           />
         </div>
         <div className="flex flex-col gap-2 mt-5">
@@ -61,28 +66,17 @@ export const LeftIconsCollectionsNav: FC = () => {
                 id={`${collection.id}`}
                 isActive={selectedCollectionId === String(collection.id)}
                 collection={collection}
+                editCollection={editCollection}
               />
             ))}
           </div>
-        </div>
-
-        <div className="mt-20">
-          <Button
-            onClick={() => {
-              db.icons.clear();
-              db.collections.clear().then(() => {
-                window.location.reload();
-              });
-            }}
-          >
-            Clear
-          </Button>
         </div>
       </div>
 
       <CreateEditCollectionModal
         show={showCollectionModal}
-        onClose={toggleCollectionsModal}
+        collection={selectedCollection}
+        onClose={() => setShowCollectionModal(false)}
       />
     </>
   );

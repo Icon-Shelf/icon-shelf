@@ -6,11 +6,13 @@ import { useQueryClient } from 'react-query';
 import { ReactComponent as ExternalLinkIcon } from 'assets/icons/external-link-16.svg';
 import { useHistory } from 'react-router-dom';
 import { Dropdown } from 'components/ui/atomic-components';
+import { ReactComponent as PencilIcon } from 'assets/icons/pencil.svg';
 
 export const OptionsOverlay: FC<{
   id: string;
   collection?: Collection;
-}> = ({ id, collection }) => {
+  editCollection?: (c?: Collection) => void;
+}> = ({ id, collection, editCollection }) => {
   const queryClent = useQueryClient();
   const history = useHistory();
 
@@ -28,6 +30,10 @@ export const OptionsOverlay: FC<{
 
   return (
     <>
+      <Dropdown.Item onClick={() => editCollection?.(collection)}>
+        <PencilIcon className="mr-2" />
+        <div>Edit</div>
+      </Dropdown.Item>
       <Dropdown.Item onClick={openCollectionFolderInFinder}>
         <ExternalLinkIcon className="mr-2" />
         <div>Open in finder</div>

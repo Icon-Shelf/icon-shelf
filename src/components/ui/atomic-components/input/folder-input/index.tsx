@@ -7,9 +7,11 @@ import { formatFolderPath } from './utils';
 
 export const FolderInput = ({
   folderPath,
+  disabled,
   onChange,
 }: {
   folderPath: string;
+  disabled: boolean;
   onChange: (path: string) => void;
 }): ReactElement => {
   const onChangeBtnClick = () => {
@@ -31,7 +33,9 @@ export const FolderInput = ({
           disabled
           aria-hidden
         />
-        <Button onClick={onChangeBtnClick}>Change</Button>
+        <Button onClick={onChangeBtnClick} disabled={disabled}>
+          Change
+        </Button>
       </div>
     </>
   );

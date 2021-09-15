@@ -6,6 +6,9 @@ export const CollectionsApi = {
   create: (collection: Collection) => {
     return db.collections.add(collection);
   },
+  update: (id: number, collection: Partial<Collection>) => {
+    return db.collections.update(id, collection);
+  },
   findAll: () => {
     return db.collections.orderBy('createdAt').toArray();
   },

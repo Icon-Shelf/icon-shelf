@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Input, Modal, Button } from 'components/ui/atomic-components';
 import { ipcRenderer } from 'electron';
 import { Collection } from 'data/collections';
@@ -7,11 +7,6 @@ import { useQueryClient } from 'react-query';
 import { useHistory } from 'react-router-dom';
 
 const { FolderInput } = Input;
-
-interface Props {
-  show: boolean;
-  onClose: () => void;
-}
 
 function uuidv4() {
   return 'xxxxx'.replace(/[xy]/g, function (c) {
@@ -23,11 +18,21 @@ function uuidv4() {
   });
 }
 
-export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
+interface Props {
+  show: boolean;
+  collection?: Collection | null;
+  onClose: () => void;
+}
+
+export const CreateEditCollectionModal: FC<Props> = ({
+  show,
+  collection,
+  onClose,
+}) => {
   const queryClent = useQueryClient();
   const history = useHistory();
 
-  const [collectionName, setCollectionName] = useState('');
+  const [collectionName, setCollectionName] = useState(collection?.name || '');
 
   const [folderLoc, setFolderLoc] = useState(
     `${ipcRenderer.sendSync(
@@ -35,19 +40,35 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
     )}/collection-${uuidv4()}`
   );
 
-  const onCreate = () => {
-    const collection: Collection = {
+  const onSubmit = () => {
+    if (!collection?.id) {
+      const updatedCollection: Collection = {
+        name: collectionName,
+        folderSrc: folderLoc,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+      };
+
+      return CollectionsApi.create(updatedCollection).then(
+        async (newCollectionId) => {
+          await queryClent.invalidateQueries('collections-list');
+          onClose();
+          history.push(`/collections/${newCollectionId}`);
+        }
+      );
+    }
+
+    const updatedCollection: Partial<Collection> = {
       name: collectionName,
-      folderSrc: folderLoc,
-      createdAt: Date.now(),
       updatedAt: Date.now(),
     };
 
-    return CollectionsApi.create(collection).then(async (newCollectionId) => {
-      await queryClent.invalidateQueries('collections-list');
-      onClose();
-      history.push(`/collections/${newCollectionId}`);
-    });
+    return CollectionsApi.update(collection.id, updatedCollection).then(
+      async () => {
+        await queryClent.invalidateQueries('collections-list');
+        onClose();
+      }
+    );
   };
 
   const afterModalClose = () => {
@@ -59,15 +80,19 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
     );
   };
 
+  useEffect(() => {
+    setCollectionName(collection?.name || '');
+  }, [collection]);
+
   return (
     <Modal
       show={show}
-      title="Create a new collection"
+      title={collection?.id ? 'Update collection' : 'Create a new collection'}
       onClose={onClose}
       className="w-52"
       footer={
-        <Button type="primary" onClick={onCreate}>
-          Create
+        <Button type="primary" onClick={onSubmit}>
+          {collection?.id ? 'Update' : 'Create'}
         </Button>
       }
       afterClose={afterModalClose}
@@ -92,6 +117,7 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, onClose }) => {
 
           <FolderInput
             folderPath={folderLoc}
+            disabled={!!collection?.id}
             onChange={(path) => setFolderLoc(path)}
           />
         </label>
