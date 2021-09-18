@@ -6,6 +6,7 @@ interface Props {
   show: boolean;
   title: string;
   onClose: () => void;
+  onSubmit: () => void;
 }
 
 export const DeleteConfirmModal: FC<Props> = ({
@@ -13,6 +14,7 @@ export const DeleteConfirmModal: FC<Props> = ({
   title,
   children,
   onClose,
+  onSubmit,
 }) => {
   const deleteBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -64,7 +66,12 @@ export const DeleteConfirmModal: FC<Props> = ({
 
               <div className="flex items-end justify-end w-full mt-4 gap-2">
                 <Button onClick={onClose}>Cancel</Button>
-                <Button type="danger" btnType="submit" ref={deleteBtnRef}>
+                <Button
+                  type="danger"
+                  btnType="submit"
+                  ref={deleteBtnRef}
+                  onClick={onSubmit}
+                >
                   Delete
                 </Button>
               </div>

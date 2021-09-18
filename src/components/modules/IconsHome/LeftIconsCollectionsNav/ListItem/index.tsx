@@ -1,8 +1,8 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useState, useRef } from 'react';
 import { ReactComponent as OptionsIcon } from 'assets/icons/dots-horizontal.svg';
 import { ReactComponent as CollectionIcon } from 'assets/icons/collection.svg';
 import { Link, useHistory } from 'react-router-dom';
-import { Dropdown } from 'components/ui/atomic-components';
+import { Checkbox, Dropdown } from 'components/ui/atomic-components';
 import { Collection, CollectionsApi } from 'data/collections';
 import { useQueryClient } from 'react-query';
 import { ipcRenderer } from 'electron';
@@ -32,12 +32,16 @@ export const ListItem: FC<Props> = ({
   const history = useHistory();
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const deleteFolderFromFileSystem = useRef(true);
 
   const deleteCollection = () => {
     CollectionsApi.delete(id).then(async () => {
-      ipcRenderer.send('remove-collection-folder', collection?.folderSrc);
       await queryClent.invalidateQueries('collections-list');
       history.push('/');
+
+      if (deleteFolderFromFileSystem.current) {
+        ipcRenderer.send('remove-collection-folder', collection?.folderSrc);
+      }
     });
   };
 
@@ -80,11 +84,21 @@ export const ListItem: FC<Props> = ({
         show={showDeleteConfirm}
         title="Are you sure you  want to delete this collection ?"
         onClose={() => setShowDeleteConfirm(false)}
+        onSubmit={deleteCollection}
       >
         <p className="text-sm text-gray-500">
-          Your payment has been successfully submitted. We’ve sent your an email
-          with all of the details of your order.
+          This will delete the collection and icons in it from the icon shelf
+          records.
         </p>
+        <div className="mt-3 mb-8">
+          <Checkbox
+            defaultChecked
+            label="remove collection folder from file system as well"
+            onChange={(val) => {
+              deleteFolderFromFileSystem.current = val;
+            }}
+          />
+        </div>
       </DeleteConfirmModal>
     </>
   );
