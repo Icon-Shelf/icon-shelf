@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Icon, IconsApi } from 'data/icons';
 import { useQuery } from 'react-query';
 import { useCheckIfAnyNewIconsInFolder } from 'data/icons/hooks';
@@ -31,6 +31,10 @@ const IconsHome: FC = () => {
 
   useCheckIfAnyNewIconsInFolder(collectionId);
   useRegisterIpcRendererCallbacks(collectionId);
+
+  useEffect(() => {
+    setSelectedIcon(icons?.[0] || null);
+  }, [collectionId, icons]);
 
   if (!icons) {
     return <></>;
