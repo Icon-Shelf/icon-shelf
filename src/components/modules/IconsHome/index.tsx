@@ -50,6 +50,7 @@ const IconsHome: FC = () => {
           icons={icons}
           selectedIcon={selectedIcon || icons[0]}
           setSelectedIcon={setSelectedIcon}
+          searchQuery={searchQuery}
         />
       </div>
 

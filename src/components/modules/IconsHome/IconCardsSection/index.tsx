@@ -1,18 +1,25 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { Icon } from 'data/icons/types';
 import { IconCard } from './IconCard';
+import { EmptyPlaceholder } from './EmptyPlaceholder';
 
 interface Props {
   icons?: Icon[];
   selectedIcon: Icon | null;
   setSelectedIcon: Dispatch<SetStateAction<Icon | null>>;
+  searchQuery?: string | null;
 }
 
 export const IconCardsSection: FC<Props> = ({
   icons,
   selectedIcon,
   setSelectedIcon,
+  searchQuery,
 }) => {
+  if (!icons?.length) {
+    return <EmptyPlaceholder searchQuery={searchQuery} />;
+  }
+
   return (
     <div
       className="flex-1 w-full overflow-y-auto p-4 grid gap-3 grid-flow-row place-items-center h-full"
