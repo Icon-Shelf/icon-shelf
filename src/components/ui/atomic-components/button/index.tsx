@@ -1,6 +1,6 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-props-no-spreading */
-import { FC, HTMLProps, ReactNode, forwardRef } from 'react';
+import { HTMLProps, ReactNode, forwardRef } from 'react';
 import './styles.css';
 
 interface Props {
@@ -13,7 +13,10 @@ interface Props {
   className?: string;
   btnType?: 'submit' | 'reset' | 'button';
 }
-export const Button: FC<Props & HTMLProps<HTMLButtonElement>> = forwardRef(
+export const Button = forwardRef<
+  HTMLButtonElement,
+  Props & HTMLProps<HTMLButtonElement>
+>(
   (
     {
       children,
