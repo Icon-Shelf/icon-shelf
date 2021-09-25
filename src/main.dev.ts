@@ -11,14 +11,22 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell, screen, ipcMain } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  shell,
+  screen,
+  ipcMain,
+  dialog,
+  Menu,
+} from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
-import notifier from 'node-notifier';
 import fs from 'fs';
 
+import { getAllFiles } from './main/utils/getAllFiles';
 import MenuBuilder from './menu';
 
 electronDl();
@@ -158,19 +166,117 @@ ipcMain.on(
         filename: info.icon.name,
       });
 
-      notifier.notify('Icon downloaded to folder successfully.');
-
       event.reply('download-icon-reply', { icon: info.icon });
     }
   }
 );
 
-ipcMain.on('get-list-of-stored-icons', (event, args: { path: string }) => {
-  const pathString = args.path.replace(/\\/g, '/');
+ipcMain.on('get-all-icon-in-folder', async (event, arg) => {
+  if (arg.folderPath) {
+    const iconsFolderPath = path.join(arg.folderPath, '/');
 
-  let fileNames = fs.readdirSync(pathString);
+    try {
+      const files = await getAllFiles(iconsFolderPath);
+      event.reply('get-all-icon-in-folder_reply', files, arg.collectionId);
+    } catch {
+      console.log();
+    }
+  }
+});
 
-  fileNames = fileNames.filter((fileName) => !/^\..*/.test(fileName));
+ipcMain.on('get-default-icon-storage-folder', (event) => {
+  const defaultUserDataStoragePath = app.getPath('userData');
 
-  event.returnValue = fileNames;
+  const defaultIconStorageFolder = path.join(
+    defaultUserDataStoragePath,
+    'icon-library'
+  );
+
+  event.returnValue = defaultIconStorageFolder;
+});
+
+ipcMain.on('select-folder', async (event) => {
+  if (mainWindow) {
+    const result = await dialog.showOpenDialog(mainWindow, {
+      properties: ['openDirectory'],
+    });
+
+    event.returnValue = result.filePaths;
+  }
+});
+
+ipcMain.on(
+  'create-and-add-icon-to-folder',
+  async (
+    _,
+    {
+      uploadedIcons,
+      folderPath,
+    }: {
+      uploadedIcons: { dataURL: string; fileName: string }[];
+      folderPath: string;
+    }
+  ) => {
+    const regex = /^data:.+\/(.+);base64,(.*)$/;
+
+    uploadedIcons.forEach((icon) => {
+      const dataUrl = icon.dataURL;
+
+      const matches = dataUrl?.match(regex);
+      const filename = icon.fileName;
+      // const ext = matches?.[1];
+      const data = matches?.[2];
+      if (data && filename) {
+        if (!fs.existsSync(folderPath)) {
+          fs.mkdirSync(folderPath, { recursive: true });
+        }
+
+        const buffer = Buffer.from(data, 'base64');
+        const formattedPath = path.join(folderPath, filename);
+
+        fs.writeFile(formattedPath, buffer, () => {});
+      }
+    });
+  }
+);
+
+ipcMain.on('icon-show-context-menu', (event, props) => {
+  const template = [
+    {
+      label: 'Delete icon',
+      accelerator: 'Command+Backspace',
+      click: () => {
+        event.sender.send('icon-show-context-menu_delete', props);
+      },
+    },
+  ];
+  const menu = Menu.buildFromTemplate(template);
+
+  menu.popup();
+});
+
+ipcMain.on('remove-icon-from-folder', (_, props) => {
+  const iconFilePath = path.join(props.folderSrc, props.fileName);
+
+  try {
+    fs.unlinkSync(iconFilePath);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+ipcMain.on('remove-collection-folder', (_, folderSrc) => {
+  const folderPath = path.join(folderSrc);
+
+  try {
+    fs.rmdirSync(folderPath, { recursive: true });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+ipcMain.on('open-collection-folder', (_, folderSrc) => {
+  const folderPath = path.join(folderSrc);
+
+  shell.openPath(folderPath);
 });

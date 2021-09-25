@@ -1,11 +1,14 @@
-import firebase from 'firebase';
+function getLang() {
+  if (navigator.languages !== undefined) return navigator.languages[0];
+  return navigator.language;
+}
 
-export function formatDate(date?: firebase.firestore.Timestamp) {
+export function formatDate(date?: number) {
   if (!date) {
     return '';
   }
 
-  const jsDate = new Date(date.toDate());
+  const jsDate = new Date(date);
 
-  return jsDate.toLocaleDateString('en-IN');
+  return jsDate.toLocaleDateString(getLang(), { dateStyle: 'medium' });
 }

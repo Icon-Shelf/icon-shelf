@@ -1,39 +1,41 @@
-import { firestore } from 'configs/firebase';
-import firebase from 'firebase';
+import { db } from 'data/db';
 import { Icon } from './types';
 
-const storage = firebase.storage();
+const filterIconsBasedOnSearch = (icons: Icon[], searchQuery = '') => {
+  return icons.filter((icon) => icon.name.includes(searchQuery));
+};
 
 export const IconsApi = {
-  getAllIcons: async (): Promise<Icon[]> => {
-    const iconsRef = await firestore
-      .collection('icons')
-      .orderBy('updatedAt', 'desc')
-      .get();
+  findAll: async () => {
+    const icons = await db.icons.orderBy('updatedAt').toArray();
 
-    const icons: Icon[] = iconsRef.docs.map((doc) => doc.data() as Icon);
     return icons;
   },
-  uploadIcon: async (icon: Icon, image: File): Promise<void> => {
-    const iconStoragePath = `icons/${icon.name}`;
-    const storageRef = storage.ref();
-    const imageRef = storageRef.child(iconStoragePath);
-    await imageRef.put(image);
-    const url = await storageRef.child(iconStoragePath).getDownloadURL();
 
-    return firestore
-      .collection('icons')
-      .doc(icon.name)
-      .set({
-        ...icon,
-        imageSrc: url,
-      });
+  findAllInCollection: async (collectionId: string, searchQuery?: string) => {
+    if (!collectionId) {
+      return [];
+    }
+
+    if (collectionId === 'all-icons') {
+      const icons = await db.icons
+        .orderBy('collectionId')
+        .reverse()
+        .sortBy('updatedAt');
+
+      return filterIconsBasedOnSearch(icons, searchQuery) || [];
+    }
+
+    const icons = await db.icons
+      .where('collectionId')
+      .equals(collectionId)
+      .reverse()
+      .sortBy('updatedAt');
+
+    return filterIconsBasedOnSearch(icons, searchQuery) || [];
   },
-  deleteIcon: async (icon: Icon): Promise<void> => {
-    await firestore.collection('icons').doc(icon.name).delete();
 
-    const storageRef = storage.ref();
-    const iconStorageRef = storageRef.child(`icons/${icon.name}`);
-    iconStorageRef.delete();
+  delete: (iconId: number) => {
+    return db.icons.delete(iconId);
   },
 };

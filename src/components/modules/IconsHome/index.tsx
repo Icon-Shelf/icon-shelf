@@ -1,74 +1,64 @@
-import React, { FC, useEffect, useState } from 'react';
-import { Icon } from 'data/icons';
-import { firestore } from 'configs/firebase';
-import { ipcRenderer } from 'electron';
-import { IconDetailsSection } from './DetailsSectoin';
-import { IconsListSection } from './List/IconsListSection';
+import { FC, useState, useEffect } from 'react';
+import { Icon, IconsApi } from 'data/icons';
+import { useQuery } from 'react-query';
+import { useCheckIfAnyNewIconsInFolder } from 'data/icons/hooks';
+import { useParams } from 'react-router-dom';
+import { useQueryParam, StringParam } from 'use-query-params';
+import { IconCardsSection } from './IconCardsSection';
+import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
+import { RightIconDetailsSection } from './RightIconDetailsSection';
+import { useRegisterIpcRendererCallbacks } from './hooks/useRegisterIpcRendererCallbacks';
+import { SearchAddTopSection } from './SearchAddTopSection';
 
 const IconsHome: FC = () => {
-  const [backendIconsList, setBackendIconsList] = useState<Icon[]>([]);
-  const [iconsList, setIconsList] = useState<Icon[]>([]);
-  const [storedFileNames, setStoredFileNames] = useState<string[]>([]);
+  const { collectionId }: { collectionId: string } = useParams();
+  const [searchQuery, setSearchQuery] = useQueryParam('f', StringParam);
 
-  const [selectedIcon, setSelectedIcon] = useState<Icon | null>([][0] || null);
+  const { data: icons } = useQuery(
+    ['icons-list', collectionId, searchQuery],
+    () =>
+      IconsApi.findAllInCollection(collectionId, searchQuery || '').catch(
+        () => {
+          return [];
+        }
+      ),
+    {
+      keepPreviousData: true,
+    }
+  );
 
-  const onIconSelect = (icon: Icon) => {
-    setSelectedIcon(icon);
-  };
+  const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
 
-  useEffect(() => {
-    firestore
-      .collection('icons')
-      .orderBy('updatedAt', 'desc')
-      .onSnapshot((querySnapshot) => {
-        const icons: Icon[] = [];
-        querySnapshot.forEach((doc) => {
-          icons.push(doc.data() as Icon);
-        });
-
-        setBackendIconsList(icons);
-      });
-  }, []);
+  useCheckIfAnyNewIconsInFolder(collectionId);
+  useRegisterIpcRendererCallbacks(collectionId);
 
   useEffect(() => {
-    const iconsLocalStorageLoc = localStorage.getItem('iconsLocalStorageLoc');
-    const storedFiles: string[] = ipcRenderer.sendSync(
-      'get-list-of-stored-icons',
-      {
-        path: iconsLocalStorageLoc,
-      }
-    );
+    setSelectedIcon(icons?.[0] || null);
+  }, [collectionId, icons]);
 
-    setStoredFileNames(storedFiles);
-  }, []);
-
-  useEffect(() => {
-    const updatedIcons = backendIconsList.map((icon) => {
-      return {
-        ...icon,
-        isInStorage: storedFileNames.some((fileName) => fileName === icon.name),
-      };
-    });
-
-    setIconsList(updatedIcons);
-  }, [backendIconsList, storedFileNames]);
-
-  useEffect(() => {
-    ipcRenderer.on('download-icon-reply', (_, info: { icon: Icon }) => {
-      if (info.icon.name) {
-        setStoredFileNames((fileNames) => [...fileNames, info.icon.name]);
-      }
-    });
-  }, []);
+  if (!icons) {
+    return <></>;
+  }
 
   return (
-    <div className="w-full h-full flex">
-      <IconsListSection
-        icons={iconsList}
-        selectedIcon={selectedIcon || iconsList[0]}
-        onIconSelect={onIconSelect}
-      />
-      <IconDetailsSection selectedIcon={selectedIcon} />
+    <div className="flex h-full w-full overflow-hidden">
+      <LeftIconsCollectionsNav />
+
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <SearchAddTopSection
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+
+        <IconCardsSection
+          icons={icons}
+          selectedIcon={selectedIcon || icons[0]}
+          setSelectedIcon={setSelectedIcon}
+          searchQuery={searchQuery}
+        />
+      </div>
+
+      <RightIconDetailsSection selectedIcon={selectedIcon || icons[0]} />
     </div>
   );
 };

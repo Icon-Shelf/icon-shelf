@@ -7,6 +7,7 @@ import { spawn, execSync } from 'child_process';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import CleanTerminalPlugin from 'clean-terminal-webpack-plugin';
 
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
@@ -70,7 +71,7 @@ export default merge(baseConfig, {
         ],
       },
       {
-        test: /\.global\.css$/,
+        test: /\.css$/,
         use: [
           {
             loader: 'style-loader',
@@ -92,65 +93,8 @@ export default merge(baseConfig, {
         ],
       },
       {
-        test: /^((?!\.global).)*\.css$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[name]__[local]__[hash:base64:5]',
-              },
-              sourceMap: true,
-              importLoaders: 1,
-            },
-          },
-        ],
-      },
-      // SASS support - compile all .global.scss files and pipe it to style.css
-      {
-        test: /\.global\.(scss|sass)$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'sass-loader',
-          },
-        ],
-      },
-      // SASS support - compile all other .scss files and pipe it to style.css
-      {
-        test: /^((?!\.global).)*\.(scss|sass)$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: '@teamsupercell/typings-for-css-modules-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[name]__[local]__[hash:base64:5]',
-              },
-              sourceMap: true,
-              importLoaders: 1,
-            },
-          },
-          {
-            loader: 'sass-loader',
-          },
-        ],
+        test: /\.svg$/,
+        use: ['@svgr/webpack', 'url-loader'],
       },
       // WOFF Font
       {
@@ -251,6 +195,7 @@ export default merge(baseConfig, {
     }),
 
     new ReactRefreshWebpackPlugin(),
+    new CleanTerminalPlugin(),
   ],
 
   node: {

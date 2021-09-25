@@ -67,15 +67,16 @@ export default merge(baseConfig, {
         test: /^((?!\.global).)*\.css$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              // `./dist` can't be inerhited for publicPath for styles. Otherwise generated paths will be ./dist/dist
-              publicPath: './',
-            },
+            loader: 'style-loader',
           },
-          'css-loader',
-          'sass-loader',
+          {
+            loader: 'css-loader',
+          },
         ],
+      },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack', 'url-loader'],
       },
       // WOFF Font
       {

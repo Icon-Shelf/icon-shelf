@@ -25,6 +25,9 @@
     "yarn.lock": true,
     "*.{css,sass,scss}.d.ts": true
   },
+  "files.exclude": {
+    "node_modules/": true
+  },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
