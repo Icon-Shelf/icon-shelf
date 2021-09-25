@@ -28,7 +28,7 @@ import fs from 'fs';
 
 import { getAllFiles } from './main/utils/getAllFiles';
 import MenuBuilder from './menu';
-import { version } from './package.json';
+import { version as appVersion } from './package.json';
 
 electronDl();
 
@@ -280,4 +280,8 @@ ipcMain.on('open-collection-folder', (_, folderSrc) => {
   const folderPath = path.join(folderSrc);
 
   shell.openPath(folderPath);
+});
+
+ipcMain.on('get-current-app-version', (event) => {
+  event.returnValue = appVersion;
 });
