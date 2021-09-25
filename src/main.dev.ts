@@ -28,6 +28,7 @@ import fs from 'fs';
 
 import { getAllFiles } from './main/utils/getAllFiles';
 import MenuBuilder from './menu';
+import { version } from './package.json';
 
 electronDl();
 
