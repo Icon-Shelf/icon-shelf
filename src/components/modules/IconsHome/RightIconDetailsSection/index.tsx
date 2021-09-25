@@ -3,9 +3,10 @@ import { Button } from 'components/ui/atomic-components';
 import { ReactComponent as CopyIcon } from 'assets/icons/clipboard-copy.svg';
 import { Icon } from 'data/icons';
 import SVG from 'react-inlinesvg';
-import { camelCase } from 'lodash';
+import { camelCase, capitalize } from 'lodash';
 import { formatBytes } from 'utils/formatBytes';
 import { formatDate } from 'utils/formatDate';
+import { CollectionsApi } from 'data/collections';
 
 interface Props {
   selectedIcon: Icon | null;
@@ -16,11 +17,16 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
 
   const [svgDimensions, setSvgDimensions] = useState('-');
 
-  const onCopyClick = () => {
+  const onCopyClick = async () => {
     if (selectedIcon) {
-      const copyText = `import { ReactComponent as ${camelCase(
-        selectedIcon.name
-      )}Icon } from '${selectedIcon.imageSrc}';`;
+      const collection = await CollectionsApi.find(selectedIcon.collectionId);
+
+      const collectionLoc = collection?.folderSrc || '';
+      const relativeIconPath = selectedIcon.imageSrc.replace(collectionLoc, '');
+
+      const copyText = `import { ReactComponent as ${capitalize(
+        camelCase(selectedIcon.name.replace(/^ic_/, ''))
+      )}Icon } from 'assets${relativeIconPath}';`;
 
       navigator.clipboard.writeText(copyText);
     }

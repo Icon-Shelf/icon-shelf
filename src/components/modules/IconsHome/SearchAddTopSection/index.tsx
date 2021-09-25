@@ -11,7 +11,7 @@ interface Props {
 }
 
 const keyMap = {
-  FOCUS_ICON_SEARCH: ['cmd+k', 'ctrl+k'],
+  FOCUS_ICON_SEARCH: ['cmd+f', 'ctrl+f'],
 };
 
 export const SearchAddTopSection: FC<Props> = ({
@@ -32,7 +32,7 @@ export const SearchAddTopSection: FC<Props> = ({
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
       <Search
         name="icons-search"
-        placeholder="Quick search for icons (⌘k)"
+        placeholder="Quick search for icons (⌘f)"
         className="flex-1"
         value={searchQuery || ''}
         onChange={(e) => setSearchQuery(e.target.value)}

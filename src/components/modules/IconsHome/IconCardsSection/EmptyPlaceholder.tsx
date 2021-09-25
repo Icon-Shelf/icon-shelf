@@ -23,7 +23,7 @@ export const EmptyPlaceholder: FC<{
           </svg>
         </div>
         <div className="text-white w-1/2 text-center">
-          There are no icons in collection for “{searchQuery}”.
+          No icons in collection for “{searchQuery}”.
         </div>
       </div>
     );
