@@ -7,7 +7,6 @@ import { useQueryParam, StringParam } from 'use-query-params';
 import { IconCardsSection } from './IconCardsSection';
 import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
 import { RightIconDetailsSection } from './RightIconDetailsSection';
-import { useRegisterIpcRendererCallbacks } from './hooks/useRegisterIpcRendererCallbacks';
 import { SearchAddTopSection } from './SearchAddTopSection';
 
 const IconsHome: FC = () => {
@@ -30,7 +29,6 @@ const IconsHome: FC = () => {
   const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
 
   useCheckIfAnyNewIconsInFolder(collectionId);
-  useRegisterIpcRendererCallbacks(collectionId);
 
   useEffect(() => {
     setSelectedIcon(icons?.[0] || null);

@@ -1,7 +1,8 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction, useRef } from 'react';
 import { Icon } from 'data/icons/types';
 import { IconCard } from './IconCard';
 import { EmptyPlaceholder } from './EmptyPlaceholder';
+import { IconContextMenu } from './IconContextMenu';
 
 interface Props {
   icons?: Icon[];
@@ -16,26 +17,35 @@ export const IconCardsSection: FC<Props> = ({
   setSelectedIcon,
   searchQuery,
 }) => {
+  const wrapperDivRef = useRef<HTMLDivElement>(null);
+
   if (!icons?.length) {
     return <EmptyPlaceholder searchQuery={searchQuery} />;
   }
 
   return (
     <div
-      className="flex-1 w-full overflow-y-auto p-4 grid gap-3 grid-flow-row place-items-center h-full"
-      style={{
-        gridTemplateColumns: 'repeat(auto-fill, minmax(8rem, 1fr))',
-        gridTemplateRows: 'repeat(auto-fill, 8rem)',
-      }}
+      className="w-full h-full overflow-y-auto pb-6 relative"
+      ref={wrapperDivRef}
     >
-      {icons?.map((icon) => (
-        <IconCard
-          key={icon.id}
-          icon={icon}
-          isSelected={selectedIcon?.id === icon?.id}
-          setSelectedIcon={setSelectedIcon}
-        />
-      ))}
+      <div
+        className="flex-1 w-full p-4 grid gap-3 grid-flow-row place-items-center h-auto"
+        style={{
+          gridTemplateColumns: 'repeat(auto-fill, minmax(8rem, 1fr))',
+          gridTemplateRows: 'repeat(auto-fill, 8rem)',
+        }}
+      >
+        {icons?.map((icon) => (
+          <IconCard
+            key={icon.id}
+            icon={icon}
+            isSelected={selectedIcon?.id === icon?.id}
+            setSelectedIcon={setSelectedIcon}
+          />
+        ))}
+      </div>
+
+      <IconContextMenu />
     </div>
   );
 };

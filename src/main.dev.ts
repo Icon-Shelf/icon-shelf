@@ -11,15 +11,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import {
-  app,
-  BrowserWindow,
-  shell,
-  screen,
-  ipcMain,
-  dialog,
-  Menu,
-} from 'electron';
+import { app, BrowserWindow, shell, screen, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import electronDl, { download } from 'electron-dl';
@@ -241,21 +233,6 @@ ipcMain.on(
   }
 );
 
-ipcMain.on('icon-show-context-menu', (event, props) => {
-  const template = [
-    {
-      label: 'Delete icon',
-      accelerator: 'Command+Backspace',
-      click: () => {
-        event.sender.send('icon-show-context-menu_delete', props);
-      },
-    },
-  ];
-  const menu = Menu.buildFromTemplate(template);
-
-  menu.popup();
-});
-
 ipcMain.on('remove-icon-from-folder', (_, props) => {
   const iconFilePath = path.join(props.folderSrc, props.fileName);
 
@@ -280,6 +257,12 @@ ipcMain.on('open-collection-folder', (_, folderSrc) => {
   const folderPath = path.join(folderSrc);
 
   shell.openPath(folderPath);
+});
+
+ipcMain.on('open-collection-folder-icon', (_, props) => {
+  const iconFilePath = path.join(props.folderSrc, props.fileName);
+
+  shell.showItemInFolder(iconFilePath);
 });
 
 ipcMain.on('get-current-app-version', (event) => {
