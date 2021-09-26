@@ -259,6 +259,12 @@ ipcMain.on('open-collection-folder', (_, folderSrc) => {
   shell.openPath(folderPath);
 });
 
+ipcMain.on('open-collection-folder-icon', (_, props) => {
+  const iconFilePath = path.join(props.folderSrc, props.fileName);
+
+  shell.showItemInFolder(iconFilePath);
+});
+
 ipcMain.on('get-current-app-version', (event) => {
   event.returnValue = appVersion;
 });
