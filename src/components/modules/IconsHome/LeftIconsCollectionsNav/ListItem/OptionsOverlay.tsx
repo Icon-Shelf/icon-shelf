@@ -5,7 +5,7 @@ import { ipcRenderer } from 'electron';
 import { ReactComponent as ExternalLinkIcon } from 'assets/icons/external-link-16.svg';
 import { Dropdown } from 'components/ui/atomic-components';
 import { ReactComponent as PencilIcon } from 'assets/icons/pencil.svg';
-import { ReactComponent as CursorClickIcon } from 'assets/icons/cursor-click-sm.svg';
+// import { ReactComponent as CursorClickIcon } from 'assets/icons/cursor-click-sm.svg';
 
 export const OptionsOverlay: FC<{
   collection?: Collection;

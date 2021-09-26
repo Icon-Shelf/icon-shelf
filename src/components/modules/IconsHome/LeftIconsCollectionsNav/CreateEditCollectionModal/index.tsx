@@ -112,7 +112,7 @@ export const CreateEditCollectionModal: FC<Props> = ({
 
         <label>
           <div className="mb-2 font-medium text-gray-400 focus-within:text-white">
-            Icons in collection will be stored in
+            Folder to store icons in collection
           </div>
 
           <FolderInput

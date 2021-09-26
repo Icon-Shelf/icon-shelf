@@ -30,6 +30,7 @@ module.exports = {
       ringColor: ['active', 'focus-visible'],
       opacity: ['disabled'],
       cursor: ['disabled'],
+      borderWidth: ['last'],
     },
   },
   plugins: [],

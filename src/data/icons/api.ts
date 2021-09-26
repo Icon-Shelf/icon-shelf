@@ -11,6 +11,11 @@ export const IconsApi = {
 
     return icons;
   },
+  find: (id: number | string) => {
+    const parsedId: number = parseInt(id as string);
+
+    return db.icons.get(parsedId);
+  },
 
   findAllInCollection: async (collectionId: string, searchQuery?: string) => {
     if (!collectionId) {
