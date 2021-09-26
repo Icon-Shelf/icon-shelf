@@ -11,7 +11,9 @@ import { ipcRenderer } from 'electron';
 import { useContextMenu } from './hooks/useContextMenu';
 import { deleteIcon } from './utils';
 
-export const IconContextMenu: FC = () => {
+export const IconContextMenu: FC<{
+  parentDom: HTMLDivElement;
+}> = ({ parentDom }) => {
   const queryClient = useQueryClient();
   const { anchorPoint, clickedIconId } = useContextMenu();
 
@@ -63,7 +65,12 @@ export const IconContextMenu: FC = () => {
   }
 
   return (
-    <ContextMenu style={{ top: anchorPoint.y - 65, left: anchorPoint.x - 260 }}>
+    <ContextMenu
+      style={{
+        top: anchorPoint.y + parentDom.scrollTop - parentDom.clientTop - 60,
+        left: anchorPoint.x + parentDom.scrollLeft - parentDom.clientLeft - 260,
+      }}
+    >
       <ContextMenu.Item onClick={onCopy}>
         <CopyIcon className="mr-2" />
         <div>Copy as React</div>

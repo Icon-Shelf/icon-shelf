@@ -15,7 +15,10 @@ export const useContextMenu = () => {
       if (clickedIconCard) {
         event.preventDefault();
 
-        setAnchorPoint({ x: event.pageX, y: event.pageY });
+        setAnchorPoint({
+          x: event.pageX,
+          y: event.pageY,
+        });
         setClickedIconId(clickedIconCard.getAttribute('data-icon-card-id'));
       }
     },
