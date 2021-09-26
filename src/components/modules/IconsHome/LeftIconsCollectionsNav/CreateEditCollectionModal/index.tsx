@@ -5,6 +5,8 @@ import { Collection } from 'data/collections';
 import { CollectionsApi } from 'data/collections/api';
 import { useQueryClient } from 'react-query';
 import { useHistory } from 'react-router-dom';
+import Tooltip from 'rc-tooltip';
+import { ReactComponent as InfoIcon } from 'assets/icons/information-circle-16.svg';
 
 const { FolderInput } = Input;
 
@@ -110,9 +112,22 @@ export const CreateEditCollectionModal: FC<Props> = ({
           />
         </label>
 
-        <label>
+        <label id="folder-label-container">
           <div className="mb-2 font-medium text-gray-400 focus-within:text-white">
-            Folder to store icons in collection
+            Folder where your icons will reside
+            <Tooltip
+              placement="right"
+              overlay={
+                <span>
+                  You can even select an existing folder <br /> with icons in
+                  it.
+                </span>
+              }
+            >
+              <span className="ml-1">
+                <InfoIcon className="inline" />
+              </span>
+            </Tooltip>
           </div>
 
           <FolderInput

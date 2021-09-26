@@ -7,6 +7,7 @@ import IconsHome from './components/modules/IconsHome';
 import { Layout } from './components/ui/layout/index';
 
 import './App.global.css';
+import 'rc-tooltip/assets/bootstrap.css';
 import '@fontsource/dm-sans';
 
 const queryClient = new QueryClient({
