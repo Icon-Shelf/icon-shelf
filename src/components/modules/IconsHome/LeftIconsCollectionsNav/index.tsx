@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import { CollectionsApi } from 'data/collections/api';
 import { useParams } from 'react-router-dom';
 import { Collection } from 'data/collections';
+import Tooltip from 'rc-tooltip';
 import { ListItem } from './ListItem';
 import { CreateEditCollectionModal } from './CreateEditCollectionModal';
 
@@ -33,11 +34,14 @@ export const LeftIconsCollectionsNav: FC = () => {
     <>
       <div className="bg-black2 w-64 min-w-max flex-shrink-0">
         <div className="flex justify-end mt-5 mx-4">
-          <Button
-            icon={<PlusIcon />}
-            type="text"
-            onClick={() => editCollection()}
-          />
+          <Tooltip placement="left" overlay={<span>Create collection</span>}>
+            <Button
+              icon={<PlusIcon />}
+              type="text"
+              id="create-collection-btn"
+              onClick={() => editCollection()}
+            />
+          </Tooltip>
         </div>
         <div className="flex flex-col gap-2 mt-5">
           <ListItem

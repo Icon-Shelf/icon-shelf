@@ -4,7 +4,7 @@ import { HTMLProps, ReactNode, forwardRef } from 'react';
 import './styles.css';
 
 interface Props {
-  type?: 'primary' | 'default' | 'text' | 'link' | 'danger';
+  type?: 'primary' | 'default' | 'text' | 'link' | 'danger' | 'link';
   size?: 'large' | 'default' | 'small';
   danger?: boolean;
   disabled?: boolean;
@@ -55,6 +55,20 @@ export const Button = forwardRef<
       );
     }
 
+    if (type === 'link') {
+      return (
+        <button
+          type={btnType}
+          className={`btn-link ${className}`}
+          ref={ref}
+          {...rest}
+        >
+          {icon && <span className={children ? 'mr-2' : ''}>{icon}</span>}
+          {children}
+        </button>
+      );
+    }
+
     if (type === 'danger') {
       return (
         <button
@@ -68,6 +82,7 @@ export const Button = forwardRef<
         </button>
       );
     }
+
     return (
       <button
         type={btnType}

@@ -114,7 +114,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
           className="w-full"
           onClick={onCopyClick}
         >
-          Copy Icon
+          Copy as React
         </Button>
       </div>
     </div>
