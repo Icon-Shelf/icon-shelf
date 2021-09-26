@@ -1,7 +1,7 @@
 {
   "name": "icon-shelf",
   "productName": "Icon Shelf",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
+  "description": "Icon Shelf is a free icon manager for developers",
   "scripts": {
     "build": "concurrently \"yarn build:main\" \"yarn build:renderer\"",
     "build:main": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.main.prod.babel.js",
@@ -10,6 +10,7 @@
     "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
     "lint-ts": "yarn tsc --noemit --noErrorTruncation --pretty true --watch",
     "package": "rm -rf src/dist && yarn build && electron-builder build --publish never",
+    "package:mac-silicon": "yarn package --mac --arm64",
     "postinstall": "node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
     "start": "node -r @babel/register ./.erb/scripts/CheckPortInUse.js && yarn start:renderer",
     "start:main": "cross-env NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
@@ -43,7 +44,8 @@
     "afterSign": ".erb/scripts/Notarize.js",
     "mac": {
       "target": [
-        "dmg"
+        "dmg",
+        "pkg"
       ],
       "type": "distribution",
       "hardenedRuntime": true,
@@ -96,16 +98,15 @@
   },
   "author": {
     "name": "Robin",
-    "email": "robin@drivetrain.ai",
-    "url": "https://electron-react-boilerplate.js.org"
+    "url": "https://github.com/MrRobz"
   },
   "contributors": [],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/MrRobz/icon-shelf/issues"
   },
   "keywords": [],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/MrRobz/icon-shelf#readme",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {

@@ -20,7 +20,7 @@ import fs from 'fs';
 
 import { getAllFiles } from './main/utils/getAllFiles';
 import MenuBuilder from './menu';
-import { version as appVersion } from './package.json';
+import packageJson from './package.json';
 
 electronDl();
 
@@ -266,5 +266,5 @@ ipcMain.on('open-collection-folder-icon', (_, props) => {
 });
 
 ipcMain.on('get-current-app-version', (event) => {
-  event.returnValue = appVersion;
+  event.returnValue = packageJson.version;
 });

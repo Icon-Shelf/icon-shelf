@@ -45,7 +45,7 @@ export default merge(baseConfig, {
   module: {
     rules: [
       {
-        test: /\.global\.css$/,
+        test: /\.css$/,
         use: [
           {
             loader: 'style-loader',
@@ -60,17 +60,6 @@ export default merge(baseConfig, {
                 plugins: [require('tailwindcss'), require('autoprefixer')],
               },
             },
-          },
-        ],
-      },
-      {
-        test: /^((?!\.global).)*\.css$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
           },
         ],
       },
