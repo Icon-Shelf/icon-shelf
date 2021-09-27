@@ -14,4 +14,4 @@ Link the icons folder of your project to icon shelf and see all your icons in an
 * Copy as code eg Copy as React, Vue,...
 
 #### Download
-Check releases page to download the latest version.
+Check [releases page](https://github.com/MrRobz/icon-shelf/releases) to download the latest version.
