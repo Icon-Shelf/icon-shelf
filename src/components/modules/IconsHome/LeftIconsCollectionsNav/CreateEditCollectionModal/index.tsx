@@ -49,6 +49,7 @@ export const CreateEditCollectionModal: FC<Props> = ({
         folderSrc: folderLoc,
         createdAt: Date.now(),
         updatedAt: Date.now(),
+        actions: [],
       };
 
       return CollectionsApi.create(updatedCollection).then(

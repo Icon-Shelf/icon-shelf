@@ -10,6 +10,7 @@ import { Collection } from 'data/collections';
 import Tooltip from 'rc-tooltip';
 import { ListItem } from './ListItem';
 import { CreateEditCollectionModal } from './CreateEditCollectionModal';
+import { CustomizeActionsModal } from './CustomizeActionsModal/index';
 
 export const LeftIconsCollectionsNav: FC = () => {
   const { collectionId: selectedCollectionId }: { collectionId: string } =
@@ -20,6 +21,7 @@ export const LeftIconsCollectionsNav: FC = () => {
   );
 
   const [showCollectionModal, setShowCollectionModal] = useState(false);
+  const [showCustomizeModal, setShowCustomizeModal] = useState(false);
 
   const [selectedCollection, setSelectedCollection] = useState<
     Collection | null | undefined
@@ -28,6 +30,11 @@ export const LeftIconsCollectionsNav: FC = () => {
   const editCollection = (collection?: Collection) => {
     setSelectedCollection(collection);
     setShowCollectionModal((state) => !state);
+  };
+
+  const onCustomizeActionsClick = (collection?: Collection) => {
+    setSelectedCollection(collection);
+    setShowCustomizeModal((state) => !state);
   };
 
   return (
@@ -71,6 +78,7 @@ export const LeftIconsCollectionsNav: FC = () => {
                 isActive={selectedCollectionId === String(collection.id)}
                 collection={collection}
                 editCollection={editCollection}
+                onCustomizeActionsClick={onCustomizeActionsClick}
               />
             ))}
           </div>
@@ -80,7 +88,19 @@ export const LeftIconsCollectionsNav: FC = () => {
       <CreateEditCollectionModal
         show={showCollectionModal}
         collection={selectedCollection}
-        onClose={() => setShowCollectionModal(false)}
+        onClose={() => {
+          setShowCollectionModal(false);
+          setSelectedCollection(null);
+        }}
+      />
+
+      <CustomizeActionsModal
+        show={showCustomizeModal}
+        collection={selectedCollection}
+        onClose={() => {
+          setShowCustomizeModal(false);
+          setSelectedCollection(null);
+        }}
       />
     </>
   );

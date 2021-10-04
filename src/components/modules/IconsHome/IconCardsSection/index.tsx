@@ -45,7 +45,9 @@ export const IconCardsSection: FC<Props> = ({
         ))}
       </div>
 
-      <IconContextMenu parentDom={wrapperDivRef.current} />
+      {wrapperDivRef.current && (
+        <IconContextMenu parentDom={wrapperDivRef.current} />
+      )}
     </div>
   );
 };

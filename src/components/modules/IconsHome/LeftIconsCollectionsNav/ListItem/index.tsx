@@ -17,6 +17,7 @@ interface Props {
   hideOptions?: boolean;
   collection?: Collection;
   editCollection?: (v?: Collection) => void;
+  onCustomizeActionsClick?: (v?: Collection) => void;
 }
 
 export const ListItem: FC<Props> = ({
@@ -27,6 +28,7 @@ export const ListItem: FC<Props> = ({
   hideOptions,
   collection,
   editCollection,
+  onCustomizeActionsClick,
 }) => {
   const queryClent = useQueryClient();
   const history = useHistory();
@@ -66,6 +68,7 @@ export const ListItem: FC<Props> = ({
                 <OptionsOverlay
                   collection={collection}
                   editCollection={editCollection}
+                  onCustomizeActionsClick={onCustomizeActionsClick}
                   onDeleteClick={() => setShowDeleteConfirm(true)}
                 />
               }
