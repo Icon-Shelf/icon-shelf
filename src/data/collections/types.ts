@@ -1,3 +1,5 @@
+import { inlineIconsMap } from './inlineIconsMap';
+
 export interface Collection {
   id?: number;
   name: string;
@@ -10,7 +12,7 @@ export interface Collection {
 export interface CollectionAction {
   name: string;
   action: string;
-  icon: string;
+  icon: keyof typeof inlineIconsMap;
   isPrimary: boolean;
   hidden: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

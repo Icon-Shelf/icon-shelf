@@ -6,7 +6,7 @@ import './style.css';
 interface Props {
   icon: Icon;
   isSelected: boolean;
-  setSelectedIcon: Dispatch<SetStateAction<Icon | null>>;
+  setSelectedIcon?: Dispatch<SetStateAction<Icon | null>>;
 }
 
 export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
@@ -21,7 +21,7 @@ export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
       }}
       type="button"
       data-icon-card-id={icon.id}
-      onClick={() => setSelectedIcon(icon)}
+      onClick={() => setSelectedIcon?.(icon)}
     >
       <div
         className="rounded-2xl bg-black2 flex flex-col items-center justify-center border border-transparent hover:border-gray-600"
