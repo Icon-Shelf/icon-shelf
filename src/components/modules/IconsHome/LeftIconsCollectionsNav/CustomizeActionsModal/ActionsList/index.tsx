@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { ReactComponent as CursorIcon } from 'assets/icons/cursor-click.svg';
-import { defaultCollectionActions } from 'data/collections/constants';
+import { defaultCollectionActions } from 'data/collections/iconActions/constants';
 import { ActionItem } from './ActionItem';
 
 export const ActionsList: FC = () => {

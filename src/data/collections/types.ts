@@ -1,4 +1,4 @@
-import { inlineIconsMap } from './inlineIconsMap';
+import { inlineIconsMap } from './iconActions/inlineIconsMap';
 
 export interface Collection {
   id?: number;
@@ -11,6 +11,7 @@ export interface Collection {
 
 export interface CollectionAction {
   name: string;
+  id: string;
   action: string;
   icon: keyof typeof inlineIconsMap;
   isPrimary: boolean;

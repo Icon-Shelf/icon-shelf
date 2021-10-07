@@ -8,7 +8,7 @@ export const ContextMenu = ({ style, children }: PropsWithChildren<Props>) => {
   return (
     <div
       style={style}
-      className="absolute w-max mt-2 bg-gray-600 rounded-md shadow-lg ring-1 ring-white ring-opacity-20 z-10 focus:outline-none cursor-pointer"
+      className="absolute w-max mt-2 bg-gray-600 rounded-md shadow-lg ring-1 ring-white ring-opacity-20 z-50 focus:outline-none cursor-pointer"
     >
       {children}
     </div>

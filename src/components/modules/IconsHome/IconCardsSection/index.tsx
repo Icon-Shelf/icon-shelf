@@ -25,7 +25,7 @@ export const IconCardsSection: FC<Props> = ({
 
   return (
     <div
-      className="w-full h-full overflow-y-auto pb-6 relative"
+      className="w-full h-full overflow-y-auto overflow-x-hidden pb-6 relative"
       ref={wrapperDivRef}
     >
       <div

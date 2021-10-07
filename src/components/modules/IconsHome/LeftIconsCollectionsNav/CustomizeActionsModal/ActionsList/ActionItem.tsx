@@ -1,5 +1,5 @@
 import { CollectionAction } from 'data/collections';
-import { inlineIconsMap } from 'data/collections/inlineIconsMap';
+import { inlineIconsMap } from 'data/collections/iconActions/inlineIconsMap';
 import { FC } from 'react';
 import { ReactComponent as EditIcon } from 'assets/icons/pencil-alt.svg';
 
@@ -12,7 +12,7 @@ export const ActionItem: FC<Props> = ({ item }) => {
 
   return (
     <div className="group p-1 border-b border-gray-400 relative">
-      <div className="text-gray-200 group flex items-center w-full outline-none px-2 py-2 text-sm ">
+      <div className="text-gray-200 group flex items-center w-full outline-none px-2 py-2 text-sm">
         <div className="mr-2">{icon}</div>
         {item.name}
       </div>

@@ -12,7 +12,7 @@ interface Props {
 
 export const CustomizeActionsModal: FC<Props> = ({
   show,
-  collection,
+  // collection,
   onClose,
 }) => {
   return (
