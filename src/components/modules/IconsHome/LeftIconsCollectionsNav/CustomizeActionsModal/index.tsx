@@ -61,6 +61,7 @@ export const CustomizeActionsModal: FC<Props> = ({
           actionItems={actionItems}
           onEditClick={onEditClick}
           onActionChange={onActionChange}
+          setActionItems={setActionItems}
         />
       )}
     </Modal>
