@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Modal, Button } from 'components/ui/atomic-components';
-import { Collection } from 'data/collections';
-import { TempIconCard } from './TempIconCard';
+import { Collection, CollectionAction } from 'data/collections';
+import { defaultCollectionActions } from 'data/collections/iconActions/constants';
 import { ActionsList } from './ActionsList';
+import { EditActionSection } from './EditActionSection';
 
 interface Props {
   show: boolean;
@@ -15,23 +16,53 @@ export const CustomizeActionsModal: FC<Props> = ({
   // collection,
   onClose,
 }) => {
+  const [actionItems, setActionItems] = useState(defaultCollectionActions);
+  const [showEditScreen, setShowEditScreen] = useState(false);
+  const [selectedAction, setSelectedAction] = useState<CollectionAction | null>(
+    null
+  );
+
+  const onEditClick = (action: CollectionAction) => {
+    setShowEditScreen(true);
+    setSelectedAction(action);
+  };
+
+  const onBackClick = () => {
+    setShowEditScreen(false);
+    setSelectedAction(null);
+  };
+
+  const onActionChange = (action: CollectionAction) => {
+    const actionItemsCopy = [...actionItems];
+    const index = actionItemsCopy.findIndex((item) => item.id === action.id);
+
+    if (index > -1) {
+      actionItemsCopy[index] = action;
+      setActionItems(actionItemsCopy);
+    }
+  };
+
   return (
     <Modal
       show={show}
       title="Customize collection actions"
       onClose={onClose}
       className="max-w-4xl"
-      footer={<Button type="primary">Done</Button>}
+      footer={
+        <Button type="primary" disabled={showEditScreen}>
+          Done
+        </Button>
+      }
     >
-      <div className="text-white">
-        Configure actions for icons in collection
-      </div>
-
-      <div className="mt-3 relative">
-        <TempIconCard />
-
-        <ActionsList />
-      </div>
+      {showEditScreen && selectedAction ? (
+        <EditActionSection action={selectedAction} onBackClick={onBackClick} />
+      ) : (
+        <ActionsList
+          actionItems={actionItems}
+          onEditClick={onEditClick}
+          onActionChange={onActionChange}
+        />
+      )}
     </Modal>
   );
 };

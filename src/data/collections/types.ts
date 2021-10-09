@@ -15,7 +15,9 @@ export interface CollectionAction {
   action: string;
   icon: keyof typeof inlineIconsMap;
   isPrimary: boolean;
-  hidden: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  meta: any;
+  hidden?: boolean;
+  isEditable: boolean;
+  meta: {
+    templateString?: string;
+  };
 }

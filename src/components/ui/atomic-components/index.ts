@@ -5,3 +5,4 @@ export * from './select';
 export * from './dropdown';
 export * from './dropdown/context-menu';
 export * from './checkbox';
+export * from './TextArea';

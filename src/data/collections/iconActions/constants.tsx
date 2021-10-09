@@ -9,6 +9,7 @@ export const defaultCollectionActions: CollectionAction[] = [
     icon: 'react-icon',
     isPrimary: false,
     hidden: false,
+    isEditable: true,
     meta: {
       templateString:
         "import { ReactComponent as <%= _.capitalize(_.camelCase( iconName )) %> } from '${iconRelativeFilePath}';",
@@ -21,6 +22,7 @@ export const defaultCollectionActions: CollectionAction[] = [
     icon: 'react-icon',
     isPrimary: false,
     hidden: false,
+    isEditable: true,
     meta: {
       templateString:
         "import <%= _.capitalize(_.camelCase( iconName )) %> from '${iconRelativeFilePath}';",
@@ -33,6 +35,7 @@ export const defaultCollectionActions: CollectionAction[] = [
     icon: 'react-icon',
     isPrimary: false,
     hidden: false,
+    isEditable: true,
     meta: {
       templateString: "{{svg-jar '${iconName}'}}",
     },
@@ -44,6 +47,7 @@ export const defaultCollectionActions: CollectionAction[] = [
     icon: 'external_link-icon',
     isPrimary: false,
     hidden: false,
+    isEditable: false,
     meta: {},
   },
   {
@@ -53,6 +57,7 @@ export const defaultCollectionActions: CollectionAction[] = [
     icon: 'trash-icon',
     isPrimary: false,
     hidden: false,
+    isEditable: false,
     meta: {},
   },
 ];
