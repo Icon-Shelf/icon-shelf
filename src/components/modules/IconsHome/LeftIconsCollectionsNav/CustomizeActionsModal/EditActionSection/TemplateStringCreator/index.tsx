@@ -19,7 +19,7 @@ export const TemplateStringCreator: FC<Props> = ({
   return (
     <div className="mt-8">
       <label className="flex font-medium text-gray-400 ml-1 mb-1">
-        Template copy string:
+        Copy string template
       </label>
       <TextArea defaultValue={defaultValue} onChange={onTextChange} />
     </div>

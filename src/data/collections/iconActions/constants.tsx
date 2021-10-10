@@ -12,7 +12,7 @@ export const defaultCollectionActions: CollectionAction[] = [
     isEditable: true,
     meta: {
       templateString:
-        "import { ReactComponent as <%= _.capitalize(_.camelCase( iconName )) %> } from '${iconRelativeFilePath}';",
+        "import { ReactComponent as <%= _.upperFirst(_.camelCase(iconName)) %>Icon } from '${iconRelativeFilePath}';",
     },
   },
   {

@@ -1,12 +1,9 @@
 import { FC, useRef, useState, useEffect } from 'react';
-import { Button } from 'components/ui/atomic-components';
-import { ReactComponent as CopyIcon } from 'assets/icons/clipboard-copy.svg';
 import { Icon } from 'data/icons';
 import SVG from 'react-inlinesvg';
-import { camelCase, capitalize } from 'lodash';
 import { formatBytes } from 'utils/formatBytes';
 import { formatDate } from 'utils/formatDate';
-import { CollectionsApi } from 'data/collections';
+import { IconActionsButton } from './IconActionsButton';
 
 interface Props {
   selectedIcon: Icon | null;
@@ -16,21 +13,6 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
   const svgRef = useRef<SVGElement>(null);
 
   const [svgDimensions, setSvgDimensions] = useState('-');
-
-  const onCopyClick = async () => {
-    if (selectedIcon) {
-      const collection = await CollectionsApi.find(selectedIcon.collectionId);
-
-      const collectionLoc = collection?.folderSrc || '';
-      const relativeIconPath = selectedIcon.imageSrc.replace(collectionLoc, '');
-
-      const copyText = `import { ReactComponent as ${capitalize(
-        camelCase(selectedIcon.name.replace(/^ic_/, ''))
-      )}Icon } from 'assets${relativeIconPath}';`;
-
-      navigator.clipboard.writeText(copyText);
-    }
-  };
 
   const getSvgDimensions = (node: SVGElement) => {
     const widthAttr = node?.getAttribute('width');
@@ -107,16 +89,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
         </div>
       </div>
 
-      <div>
-        <Button
-          type="primary"
-          icon={<CopyIcon />}
-          className="w-full"
-          onClick={onCopyClick}
-        >
-          Copy as React
-        </Button>
-      </div>
+      <div>{selectedIcon && <IconActionsButton icon={selectedIcon} />}</div>
     </div>
   );
 };

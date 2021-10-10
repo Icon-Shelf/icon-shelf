@@ -7,7 +7,10 @@ export const useCheckIfAnyNewIconsInFolder = (collectionId: string) => {
 
   useEffect(() => {
     if (collectionId && parseInt(collectionId)) {
-      checkIfAnyNewIconsInFolder(collectionId, queryClient);
+      window.requestIdleCallback(
+        () => checkIfAnyNewIconsInFolder(collectionId, queryClient),
+        { timeout: 3000 }
+      );
     }
   }, [queryClient, collectionId]);
 };
