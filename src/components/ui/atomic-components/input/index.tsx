@@ -1,8 +1,8 @@
-import { ChangeEvent, ReactElement, ReactNode } from 'react';
+import { ChangeEvent, HTMLProps, ReactElement, ReactNode } from 'react';
 import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 import { FolderInput } from './folder-input';
 
-interface InputProps {
+interface InputProps extends HTMLProps<HTMLInputElement> {
   name?: string;
   className?: string;
   placeholder?: string;

@@ -5,13 +5,19 @@ import { ipcRenderer } from 'electron';
 import { ReactComponent as ExternalLinkIcon } from 'assets/icons/external-link-16.svg';
 import { Dropdown } from 'components/ui/atomic-components';
 import { ReactComponent as PencilIcon } from 'assets/icons/pencil.svg';
-// import { ReactComponent as CursorClickIcon } from 'assets/icons/cursor-click-sm.svg';
+import { ReactComponent as CursorClickIcon } from 'assets/icons/cursor-click-sm.svg';
 
 export const OptionsOverlay: FC<{
   collection?: Collection;
   onDeleteClick?: () => void;
   editCollection?: (c?: Collection) => void;
-}> = ({ collection, editCollection, onDeleteClick }) => {
+  onCustomizeActionsClick?: (c?: Collection) => void;
+}> = ({
+  collection,
+  editCollection,
+  onDeleteClick,
+  onCustomizeActionsClick,
+}) => {
   const openCollectionFolderInFinder = () => {
     ipcRenderer.send('open-collection-folder', collection?.folderSrc);
   };
@@ -27,10 +33,10 @@ export const OptionsOverlay: FC<{
         <div>Open in finder</div>
       </Dropdown.Item>
 
-      {/* <Dropdown.Item onClick={openCollectionFolderInFinder}>
+      <Dropdown.Item onClick={() => onCustomizeActionsClick?.(collection)}>
         <CursorClickIcon className="mr-2" />
         <div>Customize actions</div>
-      </Dropdown.Item> */}
+      </Dropdown.Item>
 
       <Dropdown.Item onClick={onDeleteClick}>
         <TrashIcon className="mr-2" />

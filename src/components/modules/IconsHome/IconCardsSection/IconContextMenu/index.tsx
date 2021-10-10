@@ -1,64 +1,38 @@
-import { FC } from 'react';
-import { ReactComponent as TrashIcon } from 'assets/icons/trash-16.svg';
-import { ReactComponent as CopyIcon } from 'assets/icons/clipboard-copy-16.svg';
+import { FC, useEffect, useRef, useState } from 'react';
 import { ContextMenu } from 'components/ui/atomic-components';
-import { useQueryClient } from 'react-query';
-import { ReactComponent as ExternalLinkIcon } from 'assets/icons/external-link-16.svg';
-import { CollectionsApi } from 'data/collections';
-import { IconsApi } from 'data/icons';
-import { capitalize, camelCase } from 'lodash';
-import { ipcRenderer } from 'electron';
+import { CollectionAction, CollectionsApi } from 'data/collections';
+import { Icon, IconsApi } from 'data/icons';
+import { getIconActionOfCollection } from 'data/collections/iconActions/utils';
+import { useOnActionClick } from 'data/collections/iconActions/useOnActionClick';
+import { inlineIconsMap } from 'data/collections/iconActions/inlineIconsMap';
 import { useContextMenu } from './hooks/useContextMenu';
-import { deleteIcon } from './utils';
 
 export const IconContextMenu: FC<{
   parentDom: HTMLDivElement;
 }> = ({ parentDom }) => {
-  const queryClient = useQueryClient();
+  const [iconActions, setIconActions] = useState<CollectionAction[]>([]);
+  const selectedIconRef = useRef<Icon | null>(null);
+
   const { anchorPoint, clickedIconId } = useContextMenu();
 
-  const onCopy = async () => {
-    if (clickedIconId) {
-      const selectedIcon = await IconsApi.find(clickedIconId);
+  const onActionClick = useOnActionClick();
 
-      if (selectedIcon) {
-        const collection = await CollectionsApi.find(selectedIcon.collectionId);
+  useEffect(() => {
+    (async () => {
+      if (clickedIconId) {
+        const selectedIcon = await IconsApi.find(clickedIconId);
 
-        const collectionLoc = collection?.folderSrc || '';
-        const relativeIconPath = selectedIcon.imageSrc.replace(
-          collectionLoc,
-          ''
-        );
+        if (selectedIcon) {
+          selectedIconRef.current = selectedIcon;
+          const collection = await CollectionsApi.find(
+            selectedIcon.collectionId
+          );
 
-        const copyText = `import { ReactComponent as ${capitalize(
-          camelCase(selectedIcon.name.replace(/^ic_/, ''))
-        )}Icon } from 'assets${relativeIconPath}';`;
-
-        navigator.clipboard.writeText(copyText);
-      }
-    }
-  };
-
-  const openInFinder = async () => {
-    if (clickedIconId) {
-      const selectedIcon = await IconsApi.find(clickedIconId);
-
-      if (selectedIcon) {
-        const collection = await CollectionsApi.find(selectedIcon.collectionId);
-
-        if (collection) {
-          ipcRenderer.send('open-collection-folder-icon', {
-            folderSrc: collection?.folderSrc,
-            fileName: `${selectedIcon.name}.${selectedIcon.mime}`,
-          });
+          setIconActions(getIconActionOfCollection(collection));
         }
       }
-    }
-  };
-
-  const onDelete = () => {
-    deleteIcon(clickedIconId, queryClient);
-  };
+    })();
+  });
 
   if (!clickedIconId) {
     return <></>;
@@ -71,20 +45,19 @@ export const IconContextMenu: FC<{
         left: anchorPoint.x + parentDom.scrollLeft - parentDom.clientLeft - 260,
       }}
     >
-      <ContextMenu.Item onClick={onCopy}>
-        <CopyIcon className="mr-2" />
-        <div>Copy as React</div>
-      </ContextMenu.Item>
-
-      <ContextMenu.Item onClick={openInFinder}>
-        <ExternalLinkIcon className="mr-2" />
-        <div>Open in finder</div>
-      </ContextMenu.Item>
-
-      <ContextMenu.Item onClick={onDelete}>
-        <TrashIcon className="mr-2" />
-        <div>Delete</div>
-      </ContextMenu.Item>
+      {iconActions
+        .filter((action) => !action.hidden)
+        .map((actionObj) => (
+          <ContextMenu.Item
+            onClick={() =>
+              onActionClick({ actionObj, icon: selectedIconRef.current })
+            }
+            key={actionObj.id}
+          >
+            <div className="mr-2">{inlineIconsMap[actionObj.icon]}</div>
+            <div>{actionObj.name}</div>
+          </ContextMenu.Item>
+        ))}
     </ContextMenu>
   );
 };
