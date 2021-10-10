@@ -255,7 +255,10 @@ ipcMain.on('remove-collection-folder', (_, folderSrc) => {
 
 ipcMain.on('open-collection-folder', (_, folderSrc) => {
   const folderPath = path.join(folderSrc);
-
+  if (!fs.existsSync(folderPath)) {
+    // If directory does not exist, create one
+    fs.mkdirSync(folderPath, { recursive: true });
+  }
   shell.openPath(folderPath);
 });
 
