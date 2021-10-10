@@ -45,17 +45,19 @@ export const IconContextMenu: FC<{
         left: anchorPoint.x + parentDom.scrollLeft - parentDom.clientLeft - 260,
       }}
     >
-      {iconActions.map((actionObj) => (
-        <ContextMenu.Item
-          onClick={() =>
-            onActionClick({ actionObj, icon: selectedIconRef.current })
-          }
-          key={actionObj.id}
-        >
-          <div className="mr-2">{inlineIconsMap[actionObj.icon]}</div>
-          <div>{actionObj.name}</div>
-        </ContextMenu.Item>
-      ))}
+      {iconActions
+        .filter((action) => !action.hidden)
+        .map((actionObj) => (
+          <ContextMenu.Item
+            onClick={() =>
+              onActionClick({ actionObj, icon: selectedIconRef.current })
+            }
+            key={actionObj.id}
+          >
+            <div className="mr-2">{inlineIconsMap[actionObj.icon]}</div>
+            <div>{actionObj.name}</div>
+          </ContextMenu.Item>
+        ))}
     </ContextMenu>
   );
 };

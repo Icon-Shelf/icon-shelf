@@ -33,7 +33,7 @@ export const OptionsOverlay: FC<{
         <div>Open in finder</div>
       </Dropdown.Item>
 
-      <Dropdown.Item onClick={onCustomizeActionsClick}>
+      <Dropdown.Item onClick={() => onCustomizeActionsClick?.(collection)}>
         <CursorClickIcon className="mr-2" />
         <div>Customize actions</div>
       </Dropdown.Item>

@@ -19,9 +19,9 @@ export const defaultCollectionActions: CollectionAction[] = [
     name: 'Copy as Vue',
     id: 'copy-as-vue',
     action: 'clipboard-copy-template',
-    icon: 'react-icon',
+    icon: 'vue-icon',
     isPrimary: false,
-    hidden: false,
+    hidden: true,
     isEditable: true,
     meta: {
       templateString:
@@ -32,9 +32,9 @@ export const defaultCollectionActions: CollectionAction[] = [
     name: 'Copy as Ember',
     id: 'copy-as-ember',
     action: 'clipboard-copy-template',
-    icon: 'react-icon',
+    icon: 'ember-icon',
     isPrimary: false,
-    hidden: false,
+    hidden: true,
     isEditable: true,
     meta: {
       templateString: "{{svg-jar '${iconName}'}}",
@@ -51,7 +51,7 @@ export const defaultCollectionActions: CollectionAction[] = [
     meta: {},
   },
   {
-    name: 'delete',
+    name: 'Delete',
     id: 'delete-icon',
     action: 'delete-icon',
     icon: 'trash-icon',

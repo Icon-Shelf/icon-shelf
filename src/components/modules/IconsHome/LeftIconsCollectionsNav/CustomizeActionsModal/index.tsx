@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Modal, Button } from 'components/ui/atomic-components';
-import { Collection, CollectionAction } from 'data/collections';
+import { Collection, CollectionAction, CollectionsApi } from 'data/collections';
 import { defaultCollectionActions } from 'data/collections/iconActions/constants';
 import { ActionsList } from './ActionsList';
 import { EditActionSection } from './EditActionSection';
@@ -13,7 +13,7 @@ interface Props {
 
 export const CustomizeActionsModal: FC<Props> = ({
   show,
-  // collection,
+  collection,
   onClose,
 }) => {
   const [actionItems, setActionItems] = useState(defaultCollectionActions);
@@ -42,6 +42,15 @@ export const CustomizeActionsModal: FC<Props> = ({
     }
   };
 
+  const onSubmit = async () => {
+    if (collection && collection.id) {
+      const updatedCollection = { ...collection, actions: actionItems };
+      await CollectionsApi.update(collection.id, updatedCollection);
+    }
+
+    onClose();
+  };
+
   return (
     <Modal
       show={show}
@@ -49,7 +58,7 @@ export const CustomizeActionsModal: FC<Props> = ({
       onClose={onClose}
       className="max-w-4xl"
       footer={
-        <Button type="primary" disabled={showEditScreen}>
+        <Button type="primary" disabled={showEditScreen} onClick={onSubmit}>
           Done
         </Button>
       }
