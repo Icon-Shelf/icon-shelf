@@ -1,23 +1,44 @@
-### Icon Shelf
+# Icon Shelf
 
 <img width="1554" alt="icon-shelf" src="https://user-images.githubusercontent.com/21201812/134767938-7f30e3b2-2ce1-4ed6-8a61-5df0607fe858.png">
 
 Icon Shelf is a **free SVG icon manager** for developers.
 
-Link the icons folder of your project to icon shelf and see all your icons in an easiely previewable and copyable interface.
+Working on a frontend project and struggling with finding your icons and importing them. Worry not Icon shelf is here to help you.
+Link the icons folder of your project to icon shelf and see all your icons in an easily previewable manner. And with a click of a button copy to clipboard the import statement for the icon.
 
 ## Features
 
-⭐️ easy to view icon previews
+⭐️ Easy to view icon previews
 
-⭐️ searchable icon library
+⭐️ Searchable icon library
 
-⭐️ file based
+⭐️ File based (adding,deleting,modyfying icons in app get reflected in file system as well.)
 
-⭐️ Customize icon copy action, copy as react,vue,ember...
+⭐️ Customize icon import statement texts. Copy as react,vue,ember...
 
-⭐️ cross platform: Windows,Mac and Linux
+⭐️ Cross platform: Windows, Mac and Linux
 
-#### Download
+## Download icon shelf
 
-Check [releases page](https://github.com/MrRobz/icon-shelf/releases) to download the latest version.
+[Download the latest release](https://github.com/MrRobz/icon-shelf/releases/latest)
+
+For mac users since icon shelf is an unsigned app for the moment, to open the app, once downloaded and app moved to applications folder, you need to right-click or Control-click the app and select “Open”.
+
+## Local development
+
+Start the app in the `dev` environment:
+
+```bash
+yarn install
+
+yarn start
+```
+
+## Contributing
+
+Contributions are always welcome!
+
+See `contributing.md` for ways to get started.
+
+Please adhere to this project's `code of conduct`.
