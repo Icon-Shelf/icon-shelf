@@ -23,7 +23,11 @@ Link the icons folder of your project to icon shelf and see all your icons in an
 
 [Download the latest release](https://github.com/MrRobz/icon-shelf/releases/latest)
 
-For mac users since icon shelf is an unsigned app for the moment, to open the app, once downloaded and app moved to applications folder, you need to right-click or Control-click the app and select “Open”.
+For mac users since icon shelf is an unsigned app for the moment, to open the app, once downloaded, you need to right-click or Control-click the app and select “Open”.
+
+![image](https://user-images.githubusercontent.com/21201812/136710451-a8d06019-d134-4edb-9a4d-d63a1d1755d7.png)
+
+
 
 ## Local development
 
