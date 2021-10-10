@@ -23,9 +23,10 @@ export async function getAllFiles(path: string) {
   const folders = entries.filter((folder) => folder.isDirectory());
 
   /*
-        Add the found files within the subdirectory to the files array by calling the
-        current function itself
-      */
+    Add the found files within the subdirectory to the files array by calling the
+    current function itself
+  */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const folderFilesPromise: Promise<any>[] = [];
 
   folders.forEach((folder) => {

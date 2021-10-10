@@ -18,7 +18,9 @@ export interface ExecuterProps {
   queryClient: QueryClient;
 }
 
-const actionExecuters = {
+const actionExecuters: {
+  [action: string]: (props: ExecuterProps) => Promise<void>;
+} = {
   'open-in-finder': openInFinder,
   'delete-icon': deleteIcon,
   'clipboard-copy-template': copyToClipboardFromTemplate,
@@ -26,12 +28,12 @@ const actionExecuters = {
 
 export const useOnActionClick = () => {
   const queryClient = useQueryClient();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onActionClick = ({ actionObj, icon }: FnProps): any => {
+  const onActionClick = ({
+    actionObj,
+    icon,
+  }: FnProps): Promise<void> | null => {
     if (icon) {
       if (actionObj.action in actionExecuters) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         return actionExecuters[actionObj.action]({
           actionObj,
           icon,
@@ -39,6 +41,7 @@ export const useOnActionClick = () => {
         });
       }
     }
+    return null;
   };
 
   return onActionClick;
