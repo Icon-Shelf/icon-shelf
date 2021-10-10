@@ -1,17 +1,27 @@
 import { TextArea } from 'components/ui/atomic-components';
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 
 interface Props {
-  value: string;
+  defaultValue: string;
+  onChange: (v: string) => void;
 }
 
-export const TemplateStringCreator: FC<Props> = ({ value }) => {
+export const TemplateStringCreator: FC<Props> = ({
+  defaultValue,
+  onChange,
+}) => {
+  const onTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+
+    onChange(value);
+  };
+
   return (
     <div className="mt-8">
       <label className="flex font-medium text-gray-400 ml-1 mb-1">
         Template copy string:
       </label>
-      <TextArea defaultValue={value} />
+      <TextArea defaultValue={defaultValue} onChange={onTextChange} />
     </div>
   );
 };

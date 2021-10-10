@@ -58,13 +58,21 @@ export const CustomizeActionsModal: FC<Props> = ({
       onClose={onClose}
       className="max-w-4xl"
       footer={
-        <Button type="primary" disabled={showEditScreen} onClick={onSubmit}>
-          Done
-        </Button>
+        !showEditScreen ? (
+          <Button type="primary" onClick={onSubmit}>
+            Done
+          </Button>
+        ) : (
+          <></>
+        )
       }
     >
       {showEditScreen && selectedAction ? (
-        <EditActionSection action={selectedAction} onBackClick={onBackClick} />
+        <EditActionSection
+          action={selectedAction}
+          onBackClick={onBackClick}
+          onActionChange={onActionChange}
+        />
       ) : (
         <ActionsList
           actionItems={actionItems}
