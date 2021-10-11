@@ -33,6 +33,7 @@ export const ListItem: FC<Props> = ({
   const queryClent = useQueryClient();
   const history = useHistory();
 
+  const [dropdownIsVisible, setDropdownIsVisible] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const deleteFolderFromFileSystem = useRef(true);
 
@@ -72,11 +73,12 @@ export const ListItem: FC<Props> = ({
                   onDeleteClick={() => setShowDeleteConfirm(true)}
                 />
               }
+              onMenuButtonClick={(opened) => setDropdownIsVisible(opened)}
             >
               <OptionsIcon
-                className={`opacity-0 leftnav-list-item-optionsIcon cursor-pointer hover:text-white group-hover:opacity-100 ${
-                  isActive ? 'text-white' : ''
-                }`}
+                className={`leftnav-list-item-optionsIcon cursor-pointer hover:text-white group-hover:opacity-100 
+                ${isActive ? 'text-white' : ''}
+                ${dropdownIsVisible ? 'opacity-100' : 'opacity-0'}`}
               />
             </Dropdown>
           </div>
