@@ -9,7 +9,7 @@ export const AddIconToCollection: FC = () => {
   return (
     <>
       <Button
-        className="ml-4"
+        className="ml-4 py-2"
         id="add-icon-to-collection-btn"
         icon={<PlusIcon />}
         onClick={() => setShowIconAddModal(true)}
