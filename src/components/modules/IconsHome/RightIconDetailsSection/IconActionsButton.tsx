@@ -8,7 +8,7 @@ import { FC, useEffect, useState } from 'react';
 import { GlobalHotKeys } from 'react-hotkeys';
 
 const keyMap = {
-  COLLECTION_FIRST_ACTION: ['cmd+l', 'ctrl+l'],
+  COLLECTION_FIRST_ACTION: ['cmd+c', 'ctrl+c'],
 };
 
 export const IconActionsButton: FC<{
