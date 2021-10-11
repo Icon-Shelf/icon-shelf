@@ -1,0 +1,30 @@
+name: Lint
+
+on:
+  # Trigger the workflow on pull request
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install Node.js dependencies
+        run: yarn install
+
+      - name: yarn lint
+        run: yarn lint
+
+      - name: yarn lint-ts-nowatch
+        run: yarn lint-ts-nowatch
