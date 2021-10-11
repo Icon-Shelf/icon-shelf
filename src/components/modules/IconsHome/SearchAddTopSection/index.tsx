@@ -28,7 +28,7 @@ export const SearchAddTopSection: FC<Props> = ({
   };
 
   return (
-    <div className="flex mt-5 mx-4">
+    <div className="flex mt-5 mx-4 pb-3">
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
       <Search
         name="icons-search"
