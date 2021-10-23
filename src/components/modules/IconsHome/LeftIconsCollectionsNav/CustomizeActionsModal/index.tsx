@@ -60,7 +60,7 @@ export const CustomizeActionsModal: FC<Props> = ({
       footer={
         !showEditScreen ? (
           <Button type="primary" onClick={onSubmit}>
-            Done
+            Done and save
           </Button>
         ) : (
           <></>
