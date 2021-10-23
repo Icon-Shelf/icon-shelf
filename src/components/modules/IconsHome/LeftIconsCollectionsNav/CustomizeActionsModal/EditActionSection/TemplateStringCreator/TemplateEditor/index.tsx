@@ -59,6 +59,7 @@ export const TemplateEditor = ({
     });
 
     return () => view.destroy();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor]);
 
   return <div ref={editor} />;
