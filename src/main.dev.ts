@@ -18,6 +18,7 @@ import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
 import fs from 'fs';
 
+import { activateAnalytics } from './main/utils/analytics';
 import { getAllFiles } from './main/utils/getAllFiles';
 import MenuBuilder from './menu';
 import packageJson from './package.json';
@@ -116,6 +117,8 @@ const createWindow = async () => {
     event.preventDefault();
     shell.openExternal(url);
   });
+
+  activateAnalytics();
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line

@@ -8,7 +8,7 @@ import { FC, useEffect, useState } from 'react';
 import { GlobalHotKeys } from 'react-hotkeys';
 
 const keyMap = {
-  COLLECTION_FIRST_ACTION: ['cmd+c', 'ctrl+c'],
+  COLLECTION_FIRST_ACTION: ['cmd+shift+c', 'ctrl+shift+c'],
 };
 
 export const IconActionsButton: FC<{
@@ -50,6 +50,8 @@ export const IconActionsButton: FC<{
         >
           <div className="mr-2">{inlineIconsMap[iconActions[0].icon]}</div>
           <div>{iconActions[0].name}</div>
+          &nbsp;
+          <span className="text-xs">(⌘⇧C)</span>
         </Button>
       </div>
     );
