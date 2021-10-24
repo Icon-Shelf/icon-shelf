@@ -161,6 +161,8 @@
     "@types/react": "^17.0.00",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.6",
+    "@types/universal-analytics": "^0.4.5",
+    "@types/uuid": "^8.3.1",
     "@types/webpack-env": "^1.15.2",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
@@ -242,6 +244,7 @@
     "electron-debug": "^3.1.0",
     "electron-dl": "^3.2.1",
     "electron-log": "^4.2.4",
+    "electron-store": "^8.0.1",
     "electron-updater": "^4.3.4",
     "history": "^5.0.0",
     "lodash": "^4.17.21",
@@ -256,7 +259,9 @@
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.5",
     "source-map-support": "^0.5.19",
-    "use-query-params": "^1.2.3"
+    "universal-analytics": "^0.4.23",
+    "use-query-params": "^1.2.3",
+    "uuid": "^8.3.2"
   },
   "devEngines": {
     "node": ">=10.x",

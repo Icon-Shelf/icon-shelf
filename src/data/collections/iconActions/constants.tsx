@@ -21,7 +21,7 @@ export const defaultCollectionActions: CollectionAction[] = [
     action: 'clipboard-copy-template',
     icon: 'vue-icon',
     isPrimary: false,
-    hidden: true,
+    hidden: false,
     isEditable: true,
     meta: {
       templateString:
@@ -34,7 +34,7 @@ export const defaultCollectionActions: CollectionAction[] = [
     action: 'clipboard-copy-template',
     icon: 'ember-icon',
     isPrimary: false,
-    hidden: true,
+    hidden: false,
     isEditable: true,
     meta: {
       templateString: "{{svg-jar '${iconName}'}}",
