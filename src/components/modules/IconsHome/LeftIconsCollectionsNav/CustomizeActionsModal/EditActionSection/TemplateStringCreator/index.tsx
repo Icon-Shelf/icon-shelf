@@ -1,6 +1,6 @@
 import { ViewUpdate } from '@codemirror/view';
+import { TemplateEditor } from 'components/ui/TemplateEditor';
 import { FC } from 'react';
-import { TemplateEditor } from './TemplateEditor';
 
 interface Props {
   defaultValue: string;

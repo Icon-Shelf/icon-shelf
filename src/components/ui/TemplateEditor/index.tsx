@@ -13,6 +13,7 @@ import { autocompletion, completionKeymap } from '@codemirror/autocomplete';
 import { defaultKeymap } from '@codemirror/commands';
 import { commentKeymap } from '@codemirror/comment';
 import './styles.css';
+import { evaluationBlockPlugin } from './EvaluationBlock';
 
 interface EditorProps {
   value?: string;
@@ -31,6 +32,8 @@ export const TemplateEditor = ({
       null
     >;
     const extensions: Extension[] = [
+      evaluationBlockPlugin,
+
       history(),
       drawSelection(),
       indentOnInput(),
