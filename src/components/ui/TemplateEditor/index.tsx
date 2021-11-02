@@ -14,6 +14,7 @@ import { defaultKeymap } from '@codemirror/commands';
 import { commentKeymap } from '@codemirror/comment';
 import './styles.css';
 import { evaluationBlockPlugin } from './EvaluationBlock';
+import { completionSource } from './autocomplete';
 
 interface EditorProps {
   value?: string;
@@ -39,7 +40,9 @@ export const TemplateEditor = ({
       indentOnInput(),
       bracketMatching(),
       closeBrackets(),
-      autocompletion(),
+      autocompletion({
+        override: completionSource,
+      }),
       oneDark,
       javascript(),
       keymap.of([
@@ -56,6 +59,7 @@ export const TemplateEditor = ({
       doc: value,
       extensions,
     });
+
     const view = new EditorView({
       state,
       parent: currentEditor,
