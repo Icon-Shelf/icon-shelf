@@ -1,6 +1,7 @@
 import { ViewUpdate } from '@codemirror/view';
 import { TemplateEditor } from 'components/ui/TemplateEditor';
 import { FC } from 'react';
+import { PlaceholderSelectDropdown } from './PlaceholderSelectDropdown';
 
 interface Props {
   defaultValue: string;
@@ -23,6 +24,8 @@ export const TemplateStringCreator: FC<Props> = ({
       <label className="flex font-medium text-gray-400 ml-1 mb-1">
         Copy string template
       </label>
+
+      <PlaceholderSelectDropdown />
       <TemplateEditor value={defaultValue} onUpdate={onTextChange} />
     </div>
   );

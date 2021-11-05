@@ -1,5 +1,5 @@
 .cm-editor {
-  @apply h-20 p-1 text-xl;
+  @apply h-20 p-1 text-lg;
 }
 
 .cm-editor.cm-focused {

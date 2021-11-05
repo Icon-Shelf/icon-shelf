@@ -1,0 +1,32 @@
+.template-editor-placeholder-dropdown--dropdown
+  .template-editor-placeholder-dropdown--button {
+  @apply h-8 rounded-lg bg-black3 flex items-center gap-2 text-sm;
+}
+
+.template-editor-placeholder-dropdown--dropdown {
+  @apply mb-2;
+}
+
+.template-editor-placeholder-dropdown--dropdown
+  .template-editor-placeholder-dropdown--menu,
+.template-editor-placeholder-dropdown--dropdown .r2RE2lPs6-EbUXHaTVS6k {
+  @apply text-base bg-gray-600 text-gray-200 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 border border-gray-600 outline-none;
+}
+
+.template-editor-placeholder-dropdown--dropdown
+  .template-editor-placeholder-dropdown--menu
+  ul {
+  @apply mt-1 mb-1;
+}
+
+.template-editor-placeholder-dropdown--dropdown
+  .template-editor-placeholder-dropdown--menu
+  ul
+  li:hover {
+  @apply bg-black2 text-white;
+}
+
+.template-editor-function-dropdown-menu {
+  height: 250px;
+  overflow-y: auto;
+}
