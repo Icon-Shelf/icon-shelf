@@ -1,11 +1,5 @@
 export const ReactIcon = (
-  <svg
-    width={16}
-    height={16}
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width={16} height={16} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M7.9998 9.41553C8.78888 9.41553 9.42856 8.77585 9.42856 7.98677C9.42856 7.19769 8.78888 6.55801 7.9998 6.55801C7.21072 6.55801 6.57104 7.19769 6.57104 7.98677C6.57104 8.77585 7.21072 9.41553 7.9998 9.41553Z"
       fill="white"

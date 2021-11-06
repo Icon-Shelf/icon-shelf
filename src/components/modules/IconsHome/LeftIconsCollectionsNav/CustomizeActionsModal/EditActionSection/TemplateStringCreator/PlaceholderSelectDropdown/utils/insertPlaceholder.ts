@@ -9,10 +9,7 @@ const checkIsCursorInsideExecutionBlock = (editorView: EditorView) => {
 
   const tokensInBeforeText = textBeforeCursor.match(/(<%=)|(%>)/g);
 
-  if (
-    tokensInBeforeText?.length &&
-    tokensInBeforeText[tokensInBeforeText?.length - 1] === '<%='
-  ) {
+  if (tokensInBeforeText?.length && tokensInBeforeText[tokensInBeforeText?.length - 1] === '<%=') {
     return true;
   }
 
@@ -24,8 +21,7 @@ const generateTextToInsert = (
   type: PlaceholderType,
   value: string
 ): string => {
-  const isCursorInsideExecutionBlock =
-    checkIsCursorInsideExecutionBlock(editorView);
+  const isCursorInsideExecutionBlock = checkIsCursorInsideExecutionBlock(editorView);
 
   if (type === 'execution-block') {
     return ' <%=    %> ';
@@ -48,11 +44,7 @@ const generateTextToInsert = (
   return '';
 };
 
-export const insertPlaceholder = (
-  editorView: EditorView,
-  type: PlaceholderType,
-  value: string
-) => {
+export const insertPlaceholder = (editorView: EditorView, type: PlaceholderType, value: string) => {
   const cursorPos = editorView.state.selection.main.head;
 
   const textToInsert = generateTextToInsert(editorView, type, value);

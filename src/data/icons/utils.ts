@@ -3,10 +3,7 @@ import { keyBy } from 'lodash';
 import { db } from 'data/db';
 import { Icon } from './types';
 
-export const addIconsToDb2 = async (
-  icons: Icon[],
-  collectionIdNo: number | string
-) => {
+export const addIconsToDb2 = async (icons: Icon[], collectionIdNo: number | string) => {
   const collectionIdString = String(collectionIdNo);
 
   const existingIcons = await IconsApi.findAllInCollection(collectionIdString);

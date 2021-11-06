@@ -30,10 +30,7 @@ export const TemplateEditor = ({
   const editor = useRef(null);
 
   useEffect(() => {
-    const currentEditor = editor.current as Exclude<
-      typeof editor['current'],
-      null
-    >;
+    const currentEditor = editor.current as Exclude<typeof editor['current'], null>;
     const extensions: Extension[] = [
       evaluationBlockPlugin,
 

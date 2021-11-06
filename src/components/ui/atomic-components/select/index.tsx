@@ -11,12 +11,7 @@ interface Props {
   onChange: (item: any) => void;
 }
 
-export const Select: FC<Props> = ({
-  className = '',
-  selected: selectedVal,
-  options,
-  onChange,
-}) => {
+export const Select: FC<Props> = ({ className = '', selected: selectedVal, options, onChange }) => {
   return (
     <div className={`w-full ${className}`}>
       <Listbox value={selectedVal} onChange={onChange}>
@@ -24,10 +19,7 @@ export const Select: FC<Props> = ({
           <Listbox.Button className="relative w-full h-11 py-2 pl-3 pr-10 text-left bg-transparent rounded-lg border-2 border-inputBorder outline-none transition-shadow	focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-white">
             <span className="block truncate">{selectedVal?.name}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-              <SelectorIcon
-                className="w-5 h-5 text-gray-400"
-                aria-hidden="true"
-              />
+              <SelectorIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
             </span>
           </Listbox.Button>
 
@@ -50,17 +42,13 @@ export const Select: FC<Props> = ({
                   {({ selected, active }) => (
                     <>
                       <span
-                        className={`${
-                          selected ? 'font-medium' : 'font-normal'
-                        } block truncate`}
+                        className={`${selected ? 'font-medium' : 'font-normal'} block truncate`}
                       >
                         {option.name}
                       </span>
                       {selected ? (
                         <span
-                          className={`${
-                            active ? 'text-amber-600' : 'text-amber-600'
-                          }
+                          className={`${active ? 'text-amber-600' : 'text-amber-600'}
                           absolute inset-y-0 left-0 flex items-center pl-3`}
                         >
                           <CheckIcon className="w-5 h-5" aria-hidden="true" />

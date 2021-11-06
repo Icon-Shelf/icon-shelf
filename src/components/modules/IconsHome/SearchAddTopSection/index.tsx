@@ -14,15 +14,10 @@ const keyMap = {
   FOCUS_ICON_SEARCH: ['cmd+f', 'ctrl+f'],
 };
 
-export const SearchAddTopSection: FC<Props> = ({
-  searchQuery,
-  setSearchQuery,
-}) => {
+export const SearchAddTopSection: FC<Props> = ({ searchQuery, setSearchQuery }) => {
   const handlers = {
     FOCUS_ICON_SEARCH: () => {
-      const searchDom = document.querySelector<HTMLInputElement>(
-        '[name="icons-search"]'
-      );
+      const searchDom = document.querySelector<HTMLInputElement>('[name="icons-search"]');
       searchDom?.focus?.();
     },
   };

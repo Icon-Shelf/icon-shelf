@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import { ReactComponent as CheveronDownIcon } from 'assets/icons/cheveron-down.svg';
 import { ReactComponent as CheveronRightIcon } from 'assets/icons/cheveron-right.svg';
-import MultiDropdown, {
-  Dropdown as DropdownType,
-} from 'react-multilevel-dropdown';
+import MultiDropdown, { Dropdown as DropdownType } from 'react-multilevel-dropdown';
 import { editorFunctionOptions } from 'components/ui/TemplateEditor/autocomplete';
 import { EditorView } from '@codemirror/view';
 import './styles.css';
@@ -46,19 +44,13 @@ export const PlaceholderSelectDropdown: FC<{
           <Dropdown.Item onClick={() => handleClick('variable', 'iconName')}>
             Icon name
           </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => handleClick('variable', 'iconRelativeFilePath')}
-          >
+          <Dropdown.Item onClick={() => handleClick('variable', 'iconRelativeFilePath')}>
             Icon relative file path
           </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => handleClick('variable', 'iconAbsoluteFilePath')}
-          >
+          <Dropdown.Item onClick={() => handleClick('variable', 'iconAbsoluteFilePath')}>
             Icon absolute file path
           </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => handleClick('variable', 'iconFileType')}
-          >
+          <Dropdown.Item onClick={() => handleClick('variable', 'iconFileType')}>
             Icon file type
           </Dropdown.Item>
         </Dropdown.Submenu>
@@ -68,15 +60,9 @@ export const PlaceholderSelectDropdown: FC<{
         <div className="w-full">Function</div>
         <CheveronRightIcon className="float-right" />
 
-        <Dropdown.Submenu
-          position="right"
-          className="template-editor-function-dropdown-menu"
-        >
+        <Dropdown.Submenu position="right" className="template-editor-function-dropdown-menu">
           {editorFunctionOptions.map((fnItem) => (
-            <Dropdown.Item
-              key={fnItem.label}
-              onClick={() => handleClick('function', fnItem.apply)}
-            >
+            <Dropdown.Item key={fnItem.label} onClick={() => handleClick('function', fnItem.apply)}>
               _.{fnItem.label}
             </Dropdown.Item>
           ))}

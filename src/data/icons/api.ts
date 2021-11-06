@@ -23,10 +23,7 @@ export const IconsApi = {
     }
 
     if (collectionId === 'all-icons') {
-      const icons = await db.icons
-        .orderBy('collectionId')
-        .reverse()
-        .sortBy('updatedAt');
+      const icons = await db.icons.orderBy('collectionId').reverse().sortBy('updatedAt');
 
       return filterIconsBasedOnSearch(icons, searchQuery) || [];
     }

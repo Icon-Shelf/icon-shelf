@@ -9,13 +9,7 @@ interface Props {
   onSubmit: () => void;
 }
 
-export const DeleteConfirmModal: FC<Props> = ({
-  show,
-  title,
-  children,
-  onClose,
-  onSubmit,
-}) => {
+export const DeleteConfirmModal: FC<Props> = ({ show, title, children, onClose, onSubmit }) => {
   const deleteBtnRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -40,10 +34,7 @@ export const DeleteConfirmModal: FC<Props> = ({
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
-          <span
-            className="inline-block h-screen align-middle"
-            aria-hidden="true"
-          >
+          <span className="inline-block h-screen align-middle" aria-hidden="true">
             &#8203;
           </span>
           <Transition.Child
@@ -56,22 +47,14 @@ export const DeleteConfirmModal: FC<Props> = ({
             leaveTo="opacity-0 scale-95"
           >
             <div className="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-black2 shadow-xl rounded-2xl border border-gray-600">
-              <Dialog.Title
-                as="h3"
-                className="text-lg font-medium leading-6 text-white"
-              >
+              <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-white">
                 {title}
               </Dialog.Title>
               <div className="mt-2">{children}</div>
 
               <div className="flex items-end justify-end w-full mt-4 gap-2">
                 <Button onClick={onClose}>Cancel</Button>
-                <Button
-                  type="danger"
-                  btnType="submit"
-                  ref={deleteBtnRef}
-                  onClick={onSubmit}
-                >
+                <Button type="danger" btnType="submit" ref={deleteBtnRef} onClick={onSubmit}>
                   Delete
                 </Button>
               </div>

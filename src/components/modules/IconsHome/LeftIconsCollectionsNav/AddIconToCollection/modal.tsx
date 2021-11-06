@@ -21,8 +21,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
 
   const { collectionId }: { collectionId: string } = useParams();
 
-  const [selectedCollection, setSelectedCollection] =
-    useState<Collection | null>(null);
+  const [selectedCollection, setSelectedCollection] = useState<Collection | null>(null);
 
   const [uploadedIcons, setUploadedIcons] = useState<ImageListType>([]);
 
@@ -57,9 +56,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
             collectionId,
             mime: type,
             byteSize: icon.file?.size,
-            imageSrc: `${selectedCollection.folderSrc.replace(/\/$/, '')}/${
-              icon.file?.name
-            }`,
+            imageSrc: `${selectedCollection.folderSrc.replace(/\/$/, '')}/${icon.file?.name}`,
             createdAt: Date.now(),
             updatedAt: icon.file?.lastModified,
           } as Icon;
@@ -106,12 +103,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
           onChange={onCollectionChange}
         />
 
-        <ImageUploading
-          multiple
-          value={uploadedIcons}
-          onChange={onChange}
-          maxNumber={69}
-        >
+        <ImageUploading multiple value={uploadedIcons} onChange={onChange} maxNumber={69}>
           {({ imageList, onImageUpload, isDragging, dragProps }) => (
             <div
               className={`w-full flex flex-col items-center justify-center outline-none border-2 border-gray-500 border-dashed rounded-md py-14 hover:border-gray-400 ${
@@ -123,30 +115,22 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
               tabIndex={-1}
               {...dragProps}
             >
-              {!imageList.length && (
-                <UploadIcon className="pointer-events-none" />
-              )}
+              {!imageList.length && <UploadIcon className="pointer-events-none" />}
 
               {imageList.length > 0 && (
                 <div className="flex items-center gap-1">
                   <DocumentIcon className="pointer-events-none" />
                   <span className="text-white text-lg">
-                    {imageList.length}{' '}
-                    {imageList.length === 1 ? 'icon' : 'icons'} chosen
+                    {imageList.length} {imageList.length === 1 ? 'icon' : 'icons'} chosen
                   </span>
                 </div>
               )}
 
               {!imageList.length && (
                 <div className="flex flex-col items-center pointer-events-none">
-                  <span className="text-sm text-white">
-                    Drag and drop your icons here
-                  </span>
+                  <span className="text-sm text-white">Drag and drop your icons here</span>
 
-                  <button
-                    className="text-xs hover:text-white focus:text-white"
-                    type="button"
-                  >
+                  <button className="text-xs hover:text-white focus:text-white" type="button">
                     or click to browse your files
                   </button>
                 </div>

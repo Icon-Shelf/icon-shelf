@@ -8,9 +8,7 @@ export const useContextMenu = () => {
     (evt: Event) => {
       const event = evt as unknown as MouseEvent;
 
-      const clickedIconCard = (event.target as HTMLButtonElement).closest(
-        '[data-icon-card-id]'
-      );
+      const clickedIconCard = (event.target as HTMLButtonElement).closest('[data-icon-card-id]');
 
       if (clickedIconCard) {
         event.preventDefault();

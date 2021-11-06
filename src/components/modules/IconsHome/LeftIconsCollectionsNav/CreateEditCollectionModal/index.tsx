@@ -26,20 +26,14 @@ interface Props {
   onClose: () => void;
 }
 
-export const CreateEditCollectionModal: FC<Props> = ({
-  show,
-  collection,
-  onClose,
-}) => {
+export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose }) => {
   const queryClent = useQueryClient();
   const history = useHistory();
 
   const [collectionName, setCollectionName] = useState(collection?.name || '');
 
   const [folderLoc, setFolderLoc] = useState(
-    `${ipcRenderer.sendSync(
-      'get-default-icon-storage-folder'
-    )}/collection-${uuidv4()}`
+    `${ipcRenderer.sendSync('get-default-icon-storage-folder')}/collection-${uuidv4()}`
   );
 
   const onSubmit = () => {
@@ -52,13 +46,11 @@ export const CreateEditCollectionModal: FC<Props> = ({
         actions: [],
       };
 
-      return CollectionsApi.create(updatedCollection).then(
-        async (newCollectionId) => {
-          await queryClent.invalidateQueries('collections-list');
-          onClose();
-          history.push(`/collections/${newCollectionId}`);
-        }
-      );
+      return CollectionsApi.create(updatedCollection).then(async (newCollectionId) => {
+        await queryClent.invalidateQueries('collections-list');
+        onClose();
+        history.push(`/collections/${newCollectionId}`);
+      });
     }
 
     const updatedCollection: Partial<Collection> = {
@@ -66,20 +58,16 @@ export const CreateEditCollectionModal: FC<Props> = ({
       updatedAt: Date.now(),
     };
 
-    return CollectionsApi.update(collection.id, updatedCollection).then(
-      async () => {
-        await queryClent.invalidateQueries('collections-list');
-        onClose();
-      }
-    );
+    return CollectionsApi.update(collection.id, updatedCollection).then(async () => {
+      await queryClent.invalidateQueries('collections-list');
+      onClose();
+    });
   };
 
   const afterModalClose = () => {
     setCollectionName('');
     setFolderLoc(
-      `${ipcRenderer.sendSync(
-        'get-default-icon-storage-folder'
-      )}/collection-${uuidv4()}`
+      `${ipcRenderer.sendSync('get-default-icon-storage-folder')}/collection-${uuidv4()}`
     );
   };
 
@@ -102,9 +90,7 @@ export const CreateEditCollectionModal: FC<Props> = ({
     >
       <div>
         <label>
-          <div className="mb-2 font-medium text-gray-400">
-            Enter a name for the collection
-          </div>
+          <div className="mb-2 font-medium text-gray-400">Enter a name for the collection</div>
           <Input
             id="collection-name"
             className="mb-6"
@@ -120,8 +106,7 @@ export const CreateEditCollectionModal: FC<Props> = ({
               placement="right"
               overlay={
                 <span>
-                  You can even select an existing folder <br /> with icons in
-                  it.
+                  You can even select an existing folder <br /> with icons in it.
                 </span>
               }
             >

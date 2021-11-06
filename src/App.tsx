@@ -28,11 +28,7 @@ export default function App() {
             <QueryClientProvider client={queryClient}>
               <UpdateChecker>
                 <Route path="/" component={DefaultIconsRedirect} exact />
-                <Route
-                  path="/collections/:collectionId"
-                  component={IconsHome}
-                  exact
-                />
+                <Route path="/collections/:collectionId" component={IconsHome} exact />
               </UpdateChecker>
             </QueryClientProvider>
           </Layout>

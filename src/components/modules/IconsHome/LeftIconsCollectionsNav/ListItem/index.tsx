@@ -92,8 +92,7 @@ export const ListItem: FC<Props> = ({
         onSubmit={deleteCollection}
       >
         <p className="text-sm text-gray-500">
-          This will delete the collection and icons in it from the icon shelf
-          records.
+          This will delete the collection and icons in it from the icon shelf records.
         </p>
         <div className="mt-3 mb-8">
           <Checkbox

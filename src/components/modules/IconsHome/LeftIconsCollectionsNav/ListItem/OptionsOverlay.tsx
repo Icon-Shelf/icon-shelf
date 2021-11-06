@@ -12,12 +12,7 @@ export const OptionsOverlay: FC<{
   onDeleteClick?: () => void;
   editCollection?: (c?: Collection) => void;
   onCustomizeActionsClick?: (c?: Collection) => void;
-}> = ({
-  collection,
-  editCollection,
-  onDeleteClick,
-  onCustomizeActionsClick,
-}) => {
+}> = ({ collection, editCollection, onDeleteClick, onCustomizeActionsClick }) => {
   const openCollectionFolderInFinder = () => {
     ipcRenderer.send('open-collection-folder', collection?.folderSrc);
   };

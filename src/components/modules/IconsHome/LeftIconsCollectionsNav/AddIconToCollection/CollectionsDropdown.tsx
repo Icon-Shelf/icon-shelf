@@ -8,19 +8,12 @@ interface Props {
   onChange: (collection: Collection) => void;
 }
 
-export const CollectionsDropdown: FC<Props> = ({
-  selectedCollection,
-  onChange,
-}) => {
-  const { data: collections } = useQuery('collections', () =>
-    CollectionsApi.findAll()
-  );
+export const CollectionsDropdown: FC<Props> = ({ selectedCollection, onChange }) => {
+  const { data: collections } = useQuery('collections', () => CollectionsApi.findAll());
 
   return (
     <>
-      <label className="mb-2 font-medium text-gray-400">
-        Collection to add icons to
-      </label>
+      <label className="mb-2 font-medium text-gray-400">Collection to add icons to</label>
       <Select
         className="mb-6"
         selected={selectedCollection}

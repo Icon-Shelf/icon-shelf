@@ -15,9 +15,7 @@ export const Dropdown = ({
 }: PropsWithChildren<Props>) => {
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="flex items-center outline-none">
-        {children}
-      </Menu.Button>
+      <Menu.Button className="flex items-center outline-none">{children}</Menu.Button>
 
       <Transition
         as={Fragment}

@@ -60,8 +60,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
         <div className="flex flex-col mt-3">
           <span className="text-white">{selectedIcon?.name}</span>
           <span className="mt-1 text-sm">
-            {(selectedIcon?.byteSize && formatBytes(selectedIcon?.byteSize)) ||
-              '-'}
+            {(selectedIcon?.byteSize && formatBytes(selectedIcon?.byteSize)) || '-'}
           </span>
         </div>
 
@@ -70,9 +69,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
 
           <div className="flex justify-between">
             <span className="mt-1">Format</span>
-            <span className="mt-1 text-white uppercase">
-              {selectedIcon?.mime || '-'}
-            </span>
+            <span className="mt-1 text-white uppercase">{selectedIcon?.mime || '-'}</span>
           </div>
 
           <div className="flex justify-between mt-1">
@@ -82,9 +79,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
 
           <div className="flex justify-between mt-1">
             <span className="mt-1">Updated</span>
-            <span className="mt-1 text-white">
-              {formatDate(selectedIcon?.updatedAt) || '-'}
-            </span>
+            <span className="mt-1 text-white">{formatDate(selectedIcon?.updatedAt) || '-'}</span>
           </div>
         </div>
       </div>

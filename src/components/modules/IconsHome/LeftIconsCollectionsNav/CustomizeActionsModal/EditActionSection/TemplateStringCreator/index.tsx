@@ -8,10 +8,7 @@ interface Props {
   onChange: (v: string) => void;
 }
 
-export const TemplateStringCreator: FC<Props> = ({
-  defaultValue,
-  onChange,
-}) => {
+export const TemplateStringCreator: FC<Props> = ({ defaultValue, onChange }) => {
   const [editorView, setEditorView] = useState<EditorView | null>(null);
 
   const onTextChange = (v: ViewUpdate) => {
@@ -27,9 +24,7 @@ export const TemplateStringCreator: FC<Props> = ({
 
   return (
     <div className="mt-8">
-      <label className="flex font-medium text-gray-400 ml-1 mb-1">
-        Copy string template
-      </label>
+      <label className="flex font-medium text-gray-400 ml-1 mb-1">Copy string template</label>
 
       {editorView && <PlaceholderSelectDropdown editorView={editorView} />}
       <TemplateEditor

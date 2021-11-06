@@ -34,8 +34,7 @@ export const EmptyPlaceholder: FC<{
   const queryClient = useQueryClient();
   const { collectionId }: { collectionId: string } = useParams();
 
-  const collectionsList: Collection[] | undefined =
-    queryClient.getQueryData('collections-list');
+  const collectionsList: Collection[] | undefined = queryClient.getQueryData('collections-list');
 
   if (searchQuery) {
     return (
@@ -58,9 +57,7 @@ export const EmptyPlaceholder: FC<{
           <Button
             type="link"
             onClick={() => {
-              document
-                ?.querySelector<HTMLButtonElement>('#create-collection-btn')
-                ?.click();
+              document?.querySelector<HTMLButtonElement>('#create-collection-btn')?.click();
             }}
           >
             here
@@ -78,9 +75,7 @@ export const EmptyPlaceholder: FC<{
         <Button
           type="link"
           onClick={() => {
-            document
-              ?.querySelector<HTMLButtonElement>('#add-icon-to-collection-btn')
-              ?.click();
+            document?.querySelector<HTMLButtonElement>('#add-icon-to-collection-btn')?.click();
           }}
         >
           here

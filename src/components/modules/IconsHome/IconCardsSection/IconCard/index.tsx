@@ -15,9 +15,7 @@ export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
       className="icon-card-wrapper w-full h-full min-w-full min-h-full flex items-center justify-center rounded-2xl cursor-pointer outline-none"
       style={{
         minHeight: '8rem',
-        background: isSelected
-          ? 'linear-gradient(180deg, #696EFF 0%, #F7ABFF 100%)'
-          : '',
+        background: isSelected ? 'linear-gradient(180deg, #696EFF 0%, #F7ABFF 100%)' : '',
       }}
       type="button"
       data-icon-card-id={icon.id}
