@@ -15,16 +15,9 @@ export const IconActionsButton: FC<{
   icon: Icon;
 }> = ({ icon }) => {
   const [iconActions, setIconActions] = useState<CollectionAction[]>([]);
+  const [intermText, setIntermText] = useState('');
 
   const onActionClick = useOnActionClick();
-
-  useEffect(() => {
-    (async () => {
-      const collection = await CollectionsApi.find(icon.collectionId);
-
-      setIconActions(getIconActionOfCollection(collection));
-    })();
-  });
 
   const handlers = {
     COLLECTION_FIRST_ACTION: () =>
@@ -34,24 +27,45 @@ export const IconActionsButton: FC<{
       }),
   };
 
+  const onActionBtnClick = () => {
+    onActionClick({
+      actionObj: iconActions[0],
+      icon,
+    });
+
+    let text = 'DONE!';
+    if (iconActions[0].action.includes('copy')) {
+      text = 'COPIED!';
+    }
+    setIntermText(text);
+    setTimeout(() => {
+      setIntermText('');
+    }, 1500);
+  };
+
+  useEffect(() => {
+    (async () => {
+      const collection = await CollectionsApi.find(icon.collectionId);
+
+      setIconActions(getIconActionOfCollection(collection));
+    })();
+  });
+
   if (iconActions[0]) {
     return (
       <div>
         <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges />
-        <Button
-          type="primary"
-          className="w-full"
-          onClick={() =>
-            onActionClick({
-              actionObj: iconActions[0],
-              icon,
-            })
-          }
-        >
-          <div className="mr-2">{inlineIconsMap[iconActions[0].icon]}</div>
-          <div>{iconActions[0].name}</div>
-          &nbsp;
-          <span className="text-xs">(⌘⇧C)</span>
+
+        <Button type="primary" className="w-full" onClick={onActionBtnClick}>
+          {intermText && intermText}
+          {!intermText && (
+            <>
+              <div className="mr-2">{inlineIconsMap[iconActions[0].icon]}</div>
+              <div>{iconActions[0].name}</div>
+              &nbsp;
+              <span className="text-xs">(⌘⇧C)</span>
+            </>
+          )}
         </Button>
       </div>
     );
