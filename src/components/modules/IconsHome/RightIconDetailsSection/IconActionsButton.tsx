@@ -19,14 +19,6 @@ export const IconActionsButton: FC<{
 
   const onActionClick = useOnActionClick();
 
-  const handlers = {
-    COLLECTION_FIRST_ACTION: () =>
-      onActionClick({
-        actionObj: iconActions[0],
-        icon,
-      }),
-  };
-
   const onActionBtnClick = () => {
     onActionClick({
       actionObj: iconActions[0],
@@ -41,6 +33,10 @@ export const IconActionsButton: FC<{
     setTimeout(() => {
       setIntermText('');
     }, 1500);
+  };
+
+  const handlers = {
+    COLLECTION_FIRST_ACTION: () => onActionBtnClick(),
   };
 
   useEffect(() => {
