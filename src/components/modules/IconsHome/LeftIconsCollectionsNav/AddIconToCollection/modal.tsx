@@ -58,7 +58,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
             byteSize: icon.file?.size,
             imageSrc: `${selectedCollection.folderSrc.replace(/\/$/, '')}/${icon.file?.name}`,
             createdAt: Date.now(),
-            updatedAt: icon.file?.lastModified,
+            updatedAt: Date.now(),
           } as Icon;
         });
 

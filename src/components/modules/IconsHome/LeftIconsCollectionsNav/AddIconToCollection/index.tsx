@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { DragEvent, FC, useCallback, useEffect, useState } from 'react';
 import { Button } from 'components/ui/atomic-components';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { AddIconToCollectionModal } from './modal';
@@ -7,8 +7,13 @@ export const AddIconToCollection: FC = () => {
   const [showIconAddModal, setShowIconAddModal] = useState(false);
 
   const handleDragStart = useCallback((event: Event) => {
-    setShowIconAddModal(true);
-    event.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const e = event as any as DragEvent;
+
+    if ([...e.dataTransfer.items].find((item) => item.kind === 'file')) {
+      setShowIconAddModal(true);
+      event.preventDefault();
+    }
   }, []);
 
   useEffect(() => {
