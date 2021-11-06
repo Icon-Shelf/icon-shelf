@@ -40,10 +40,7 @@ if (process.env.NODE_ENV === 'production') {
   sourceMapSupport.install();
 }
 
-if (
-  process.env.NODE_ENV === 'development' ||
-  process.env.DEBUG_PROD === 'true'
-) {
+if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
   require('electron-debug')();
 }
 
@@ -61,10 +58,7 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
-  if (
-    process.env.NODE_ENV === 'development' ||
-    process.env.DEBUG_PROD === 'true'
-  ) {
+  if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
     await installExtensions();
   }
 
@@ -183,10 +177,7 @@ ipcMain.on('get-all-icon-in-folder', async (event, arg) => {
 ipcMain.on('get-default-icon-storage-folder', (event) => {
   const defaultUserDataStoragePath = app.getPath('userData');
 
-  const defaultIconStorageFolder = path.join(
-    defaultUserDataStoragePath,
-    'icon-library'
-  );
+  const defaultIconStorageFolder = path.join(defaultUserDataStoragePath, 'icon-library');
 
   event.returnValue = defaultIconStorageFolder;
 });
@@ -273,4 +264,12 @@ ipcMain.on('open-collection-folder-icon', (_, props) => {
 
 ipcMain.on('get-current-app-version', (event) => {
   event.returnValue = packageJson.version;
+});
+
+ipcMain.on('get-icon-file-content', (event, fileSrc) => {
+  if (fs.existsSync(fileSrc)) {
+    const svg = fs.readFileSync(fileSrc);
+
+    event.returnValue = svg.toString();
+  }
 });

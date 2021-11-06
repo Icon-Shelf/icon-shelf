@@ -53,35 +53,28 @@ export const ActionsList: FC<ActionsListProps> = ({
 
   return (
     <>
-      <div className="text-white">
-        Configure actions for icons in collection
-      </div>
+      <div className="text-white">Configure actions for icons in collection</div>
 
-      <div className="mt-3 relative">
-        <TempIconCard />
+      <div className="mt-3">
+        <div className="relative">
+          <TempIconCard />
+          <CursorIcon className="absolute bottom-0 left-16 z-20" />
+        </div>
 
-        <div className="w-56 h-72 relative left-14 bottom-5 bg-gray-600 rounded-md shadow-lg z-10 flex flex-col">
-          <CursorIcon className="absolute -top-2 -left-2 z-10" />
-
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-          >
-            <SortableContext
-              items={actionItems}
-              strategy={verticalListSortingStrategy}
+        <div className="h-72 relative overflow-y-auto -top-4 ml-4">
+          <div className="w-56 relative left-14 -bottom-1 bg-gray-600 rounded-md shadow-lg z-10 flex flex-col">
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
             >
-              {actionItems.map((item) => (
-                <ActionItem
-                  key={item.id}
-                  item={item}
-                  onEditClick={onEditClick}
-                  {...rest}
-                />
-              ))}
-            </SortableContext>
-          </DndContext>
+              <SortableContext items={actionItems} strategy={verticalListSortingStrategy}>
+                {actionItems.map((item) => (
+                  <ActionItem key={item.id} item={item} onEditClick={onEditClick} {...rest} />
+                ))}
+              </SortableContext>
+            </DndContext>
+          </div>
         </div>
       </div>
     </>

@@ -35,6 +35,12 @@ export const CustomizeActionsModal: FC<Props> = ({ show, collection, onClose }) 
 
     if (index > -1) {
       actionItemsCopy[index] = action;
+
+      // if made hidden move to last
+      if (action.hidden) {
+        actionItemsCopy.splice(index, 1);
+        actionItemsCopy.push(action);
+      }
       setActionItems(actionItemsCopy);
     }
   };

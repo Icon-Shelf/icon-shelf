@@ -9,31 +9,21 @@ import { CSS } from '@dnd-kit/utilities';
 import { ReactComponent as DragHandleIcon } from 'assets/icons/drag-handle.svg';
 import { ActionsListProps } from '.';
 
-interface Props
-  extends Omit<ActionsListProps, 'actionItems' | 'setActionItems'> {
+interface Props extends Omit<ActionsListProps, 'actionItems' | 'setActionItems'> {
   item: CollectionAction;
   onActionChange: (selectedAction: CollectionAction) => void;
 }
 
-export const ActionItem: FC<Props> = ({
-  item,
-  onEditClick,
-  onActionChange,
-}) => {
+export const ActionItem: FC<Props> = ({ item, onEditClick, onActionChange }) => {
   const icon = inlineIconsMap[item.icon];
 
   const onVisibleChange = () => {
     onActionChange({ ...item, hidden: !item.hidden });
   };
 
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isSorting,
-  } = useSortable({ id: item.id });
+  const { attributes, listeners, setNodeRef, transform, transition, isSorting } = useSortable({
+    id: item.id,
+  });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -52,11 +42,7 @@ export const ActionItem: FC<Props> = ({
         {item.name}
       </div>
 
-      <div
-        {...attributes}
-        {...listeners}
-        className="flex items-center mr-1 outline-none"
-      >
+      <div {...attributes} {...listeners} className="flex items-center mr-1 outline-none">
         <DragHandleIcon />
       </div>
 
@@ -67,19 +53,11 @@ export const ActionItem: FC<Props> = ({
       >
         <div className="absolute px-2 py-2 flex gap-3">
           {item.isEditable && (
-            <button
-              className="outline-none"
-              type="button"
-              onClick={() => onEditClick(item)}
-            >
+            <button className="outline-none" type="button" onClick={() => onEditClick(item)}>
               <EditIcon />
             </button>
           )}
-          <button
-            className="outline-none"
-            type="button"
-            onClick={onVisibleChange}
-          >
+          <button className="outline-none" type="button" onClick={onVisibleChange}>
             {item.hidden ? <EyeOffIcon /> : <EyeIcon />}
           </button>
         </div>

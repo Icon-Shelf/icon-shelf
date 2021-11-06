@@ -8,5 +8,8 @@ export const getIconActionOfCollection = (collection?: Collection) => {
     return defaultCollectionActions;
   }
 
-  return actions;
+  return defaultCollectionActions.map((action) => {
+    const match = actions.find((item) => item.id === action.id);
+    return match || action;
+  });
 };
