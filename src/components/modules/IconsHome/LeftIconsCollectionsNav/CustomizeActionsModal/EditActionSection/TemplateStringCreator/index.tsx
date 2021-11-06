@@ -1,6 +1,6 @@
-import { ViewUpdate } from '@codemirror/view';
+import { EditorView, ViewUpdate } from '@codemirror/view';
 import { TemplateEditor } from 'components/ui/TemplateEditor';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { PlaceholderSelectDropdown } from './PlaceholderSelectDropdown';
 
 interface Props {
@@ -12,11 +12,17 @@ export const TemplateStringCreator: FC<Props> = ({
   defaultValue,
   onChange,
 }) => {
+  const [editorView, setEditorView] = useState<EditorView | null>(null);
+
   const onTextChange = (v: ViewUpdate) => {
     if (v.docChanged) {
       const value = v.state.doc.toString();
       onChange(value);
     }
+  };
+
+  const onEditorInitialize = (view: EditorView) => {
+    setEditorView(view);
   };
 
   return (
@@ -25,8 +31,12 @@ export const TemplateStringCreator: FC<Props> = ({
         Copy string template
       </label>
 
-      <PlaceholderSelectDropdown />
-      <TemplateEditor value={defaultValue} onUpdate={onTextChange} />
+      {editorView && <PlaceholderSelectDropdown editorView={editorView} />}
+      <TemplateEditor
+        value={defaultValue}
+        onUpdate={onTextChange}
+        onEditorInitialize={onEditorInitialize}
+      />
     </div>
   );
 };

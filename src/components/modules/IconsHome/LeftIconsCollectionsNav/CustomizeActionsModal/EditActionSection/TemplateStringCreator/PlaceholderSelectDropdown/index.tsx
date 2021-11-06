@@ -1,23 +1,28 @@
 import { FC } from 'react';
 import { ReactComponent as CheveronDownIcon } from 'assets/icons/cheveron-down.svg';
 import { ReactComponent as CheveronRightIcon } from 'assets/icons/cheveron-right.svg';
-import './styles.css';
-
 import MultiDropdown, {
   Dropdown as DropdownType,
 } from 'react-multilevel-dropdown';
 import { editorFunctionOptions } from 'components/ui/TemplateEditor/autocomplete';
+import { EditorView } from '@codemirror/view';
+import './styles.css';
+import { insertPlaceholder } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Dropdown = MultiDropdown as any as typeof DropdownType;
 
-export const PlaceholderSelectDropdown: FC = () => {
+export const PlaceholderSelectDropdown: FC<{
+  editorView: EditorView;
+}> = ({ editorView }) => {
   const handleClick = (type: string, value: string) => {
     const trigger = document.querySelector(
       '.template-editor-placeholder-dropdown--button'
     ) as HTMLElement;
 
     trigger?.click();
+
+    insertPlaceholder(editorView, type, value);
   };
 
   return (
