@@ -7,7 +7,7 @@ import MultiDropdown, {
 import { editorFunctionOptions } from 'components/ui/TemplateEditor/autocomplete';
 import { EditorView } from '@codemirror/view';
 import './styles.css';
-import { insertPlaceholder } from './utils';
+import { insertPlaceholder, PlaceholderType } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Dropdown = MultiDropdown as any as typeof DropdownType;
@@ -15,7 +15,7 @@ const Dropdown = MultiDropdown as any as typeof DropdownType;
 export const PlaceholderSelectDropdown: FC<{
   editorView: EditorView;
 }> = ({ editorView }) => {
-  const handleClick = (type: string, value: string) => {
+  const handleClick = (type: PlaceholderType, value: string) => {
     const trigger = document.querySelector(
       '.template-editor-placeholder-dropdown--button'
     ) as HTMLElement;

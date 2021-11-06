@@ -1,6 +1,6 @@
 import { EditorView } from '@codemirror/view';
 
-type PlaceholderType = 'execution-block' | 'variable' | 'function';
+export type PlaceholderType = 'execution-block' | 'variable' | 'function';
 
 const checkIsCursorInsideExecutionBlock = (editorView: EditorView) => {
   const cursorPos = editorView.state.selection.main.head;
