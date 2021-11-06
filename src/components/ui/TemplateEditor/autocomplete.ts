@@ -10,18 +10,6 @@ export const editorFunctionOptions = [
     apply: 'capitalize(',
   },
   {
-    label: 'endsWith',
-    apply: 'endsWith(',
-  },
-  {
-    label: 'escape',
-    apply: 'escape(',
-  },
-  {
-    label: 'escapeRegExp',
-    apply: 'escapeRegExp(',
-  },
-  {
     label: 'kebabCase',
     apply: 'kebabCase(',
   },
@@ -32,6 +20,58 @@ export const editorFunctionOptions = [
   {
     label: 'lowerFirst',
     apply: 'lowerFirst(',
+  },
+  {
+    label: 'snakeCase',
+    apply: 'snakeCase(',
+  },
+  {
+    label: 'startCase',
+    apply: 'startCase(',
+  },
+  {
+    label: 'toLower',
+    apply: 'toLower(',
+  },
+  {
+    label: 'toUpper',
+    apply: 'toUpper(',
+  },
+  {
+    label: 'upperCase',
+    apply: 'upperCase(',
+  },
+  {
+    label: 'upperFirst',
+    apply: 'upperFirst(',
+  },
+  {
+    label: 'endsWith',
+    apply: 'endsWith(',
+  },
+  {
+    label: 'trim',
+    apply: 'trim(',
+  },
+  {
+    label: 'trimEnd',
+    apply: 'trimEnd(',
+  },
+  {
+    label: 'trimStart',
+    apply: 'trimStart(',
+  },
+  {
+    label: 'truncate',
+    apply: 'truncate(',
+  },
+  {
+    label: 'escape',
+    apply: 'escape(',
+  },
+  {
+    label: 'escapeRegExp',
+    apply: 'escapeRegExp(',
   },
   {
     label: 'pad',
@@ -58,56 +98,16 @@ export const editorFunctionOptions = [
     apply: 'replace(',
   },
   {
-    label: 'snakeCase',
-    apply: 'snakeCase(',
-  },
-  {
     label: 'split',
     apply: 'split(',
-  },
-  {
-    label: 'startCase',
-    apply: 'startCase(',
   },
   {
     label: 'startsWith',
     apply: 'startsWith(',
   },
   {
-    label: 'toLower',
-    apply: 'toLower(',
-  },
-  {
-    label: 'toUpper',
-    apply: 'toUpper(',
-  },
-  {
-    label: 'trim',
-    apply: 'trim(',
-  },
-  {
-    label: 'trimEnd',
-    apply: 'trimEnd(',
-  },
-  {
-    label: 'trimStart',
-    apply: 'trimStart(',
-  },
-  {
-    label: 'truncate',
-    apply: 'truncate(',
-  },
-  {
     label: 'unescape',
     apply: 'unescape(',
-  },
-  {
-    label: 'upperCase',
-    apply: 'upperCase(',
-  },
-  {
-    label: 'upperFirst',
-    apply: 'upperFirst(',
   },
   {
     label: 'words',

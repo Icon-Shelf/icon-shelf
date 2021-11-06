@@ -58,7 +58,7 @@ export const Modal: FC<Props> = ({
             afterLeave={afterClose}
           >
             <div
-              className={`inline-block w-full max-w-xl text-left align-middle transition-all transform bg-black2 shadow-xl rounded-lg ${className}`}
+              className={`inline-block w-full max-w-xl text-left align-middle transition-all bg-black2 shadow-xl rounded-lg relative ${className}`}
             >
               <Dialog.Title
                 as="h3"

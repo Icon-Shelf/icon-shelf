@@ -34,11 +34,6 @@
   position: relative;
 }
 
-/* to offset transform of modal */
-.cm-tooltip {
-  transform: translate(-264px, -60px);
-}
-
 .cm-custom-tooltip .cm-tooltip-text {
   @apply text-xs text-white;
   visibility: hidden;
