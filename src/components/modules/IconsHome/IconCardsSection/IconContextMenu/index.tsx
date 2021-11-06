@@ -6,6 +6,7 @@ import { getIconActionOfCollection } from 'data/collections/iconActions/utils';
 import { useOnActionClick } from 'data/collections/iconActions/useOnActionClick';
 import { inlineIconsMap } from 'data/collections/iconActions/inlineIconsMap';
 import { useContextMenu } from './hooks/useContextMenu';
+import { calculateMenuLeft, calculateMenuTop } from './utils';
 
 export const IconContextMenu: FC<{
   parentDom: HTMLDivElement;
@@ -24,9 +25,7 @@ export const IconContextMenu: FC<{
 
         if (selectedIcon) {
           selectedIconRef.current = selectedIcon;
-          const collection = await CollectionsApi.find(
-            selectedIcon.collectionId
-          );
+          const collection = await CollectionsApi.find(selectedIcon.collectionId);
 
           setIconActions(getIconActionOfCollection(collection));
         }
@@ -41,17 +40,19 @@ export const IconContextMenu: FC<{
   return (
     <ContextMenu
       style={{
-        top: anchorPoint.y + parentDom.scrollTop - parentDom.clientTop - 60,
-        left: anchorPoint.x + parentDom.scrollLeft - parentDom.clientLeft - 260,
+        top: calculateMenuTop(
+          anchorPoint.y,
+          parentDom,
+          iconActions.filter((action) => !action.hidden).length
+        ),
+        left: calculateMenuLeft(anchorPoint.x, parentDom),
       }}
     >
       {iconActions
         .filter((action) => !action.hidden)
         .map((actionObj) => (
           <ContextMenu.Item
-            onClick={() =>
-              onActionClick({ actionObj, icon: selectedIconRef.current })
-            }
+            onClick={() => onActionClick({ actionObj, icon: selectedIconRef.current })}
             key={actionObj.id}
           >
             <div className="mr-2">{inlineIconsMap[actionObj.icon]}</div>

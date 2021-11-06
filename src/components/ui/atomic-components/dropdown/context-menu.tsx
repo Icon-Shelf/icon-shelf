@@ -15,15 +15,9 @@ export const ContextMenu = ({ style, children }: PropsWithChildren<Props>) => {
   );
 };
 
-const ContextMenuItem: FC<HTMLAttributes<HTMLDivElement>> = ({
-  children,
-  ...rest
-}) => {
+const ContextMenuItem: FC<HTMLAttributes<HTMLDivElement>> = ({ children, ...rest }) => {
   return (
-    <div
-      className="px-1 py-1 border-b border-gray-400 last:border-b-0"
-      {...rest}
-    >
+    <div className="px-1 py-1 border-b border-gray-400 last:border-b-0" {...rest}>
       <div>
         <button
           type="button"
