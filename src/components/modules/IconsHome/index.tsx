@@ -16,11 +16,9 @@ const IconsHome: FC = () => {
   const { data: icons } = useQuery(
     ['icons-list', collectionId, searchQuery],
     () =>
-      IconsApi.findAllInCollection(collectionId, searchQuery || '').catch(
-        () => {
-          return [];
-        }
-      ),
+      IconsApi.findAllInCollection(collectionId, searchQuery || '').catch(() => {
+        return [];
+      }),
     {
       keepPreviousData: true,
     }
@@ -43,10 +41,7 @@ const IconsHome: FC = () => {
       <LeftIconsCollectionsNav />
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <SearchAddTopSection
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <SearchAddTopSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
         <IconCardsSection
           icons={icons}

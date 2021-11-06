@@ -1,7 +1,8 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Modal, Button } from 'components/ui/atomic-components';
 import { Collection, CollectionAction, CollectionsApi } from 'data/collections';
-import { defaultCollectionActions } from 'data/collections/iconActions/constants';
+import { getIconActionOfCollection } from 'data/collections/iconActions/utils';
+import { useQueryClient } from 'react-query';
 import { ActionsList } from './ActionsList';
 import { EditActionSection } from './EditActionSection';
 
@@ -11,16 +12,12 @@ interface Props {
   onClose: () => void;
 }
 
-export const CustomizeActionsModal: FC<Props> = ({
-  show,
-  collection,
-  onClose,
-}) => {
-  const [actionItems, setActionItems] = useState(defaultCollectionActions);
+export const CustomizeActionsModal: FC<Props> = ({ show, collection, onClose }) => {
+  const queryClient = useQueryClient();
+
+  const [actionItems, setActionItems] = useState<CollectionAction[]>([]);
   const [showEditScreen, setShowEditScreen] = useState(false);
-  const [selectedAction, setSelectedAction] = useState<CollectionAction | null>(
-    null
-  );
+  const [selectedAction, setSelectedAction] = useState<CollectionAction | null>(null);
 
   const onEditClick = (action: CollectionAction) => {
     setShowEditScreen(true);
@@ -49,7 +46,20 @@ export const CustomizeActionsModal: FC<Props> = ({
     }
 
     onClose();
+    queryClient.invalidateQueries('collections-list');
   };
+
+  const afterClose = () => {
+    setActionItems([]);
+    setShowEditScreen(false);
+    setSelectedAction(null);
+  };
+
+  useEffect(() => {
+    if (collection) {
+      setActionItems(getIconActionOfCollection(collection));
+    }
+  }, [collection]);
 
   return (
     <Modal
@@ -57,6 +67,7 @@ export const CustomizeActionsModal: FC<Props> = ({
       title="Customize collection actions"
       onClose={onClose}
       className="max-w-4xl"
+      afterClose={afterClose}
       footer={
         !showEditScreen ? (
           <Button type="primary" onClick={onSubmit}>

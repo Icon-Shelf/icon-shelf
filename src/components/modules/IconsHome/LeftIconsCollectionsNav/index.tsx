@@ -13,19 +13,14 @@ import { CreateEditCollectionModal } from './CreateEditCollectionModal';
 import { CustomizeActionsModal } from './CustomizeActionsModal/index';
 
 export const LeftIconsCollectionsNav: FC = () => {
-  const { collectionId: selectedCollectionId }: { collectionId: string } =
-    useParams();
+  const { collectionId: selectedCollectionId }: { collectionId: string } = useParams();
 
-  const { data: collections } = useQuery('collections-list', () =>
-    CollectionsApi.findAll()
-  );
+  const { data: collections } = useQuery('collections-list', () => CollectionsApi.findAll());
 
   const [showCollectionModal, setShowCollectionModal] = useState(false);
   const [showCustomizeModal, setShowCustomizeModal] = useState(false);
 
-  const [selectedCollection, setSelectedCollection] = useState<
-    Collection | null | undefined
-  >(null);
+  const [selectedCollection, setSelectedCollection] = useState<Collection | null | undefined>(null);
 
   const editCollection = (collection?: Collection) => {
     setSelectedCollection(collection);
