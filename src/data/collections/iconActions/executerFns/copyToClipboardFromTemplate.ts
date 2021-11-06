@@ -9,7 +9,9 @@ export const copyToClipboardFromTemplate = async ({
   const collection = await CollectionsApi.find(icon.collectionId);
 
   const collectionLoc = collection?.folderSrc || '';
-  const relativeIconPath = icon.imageSrc.replace(collectionLoc, '');
+  const relativeIconPath = icon.imageSrc
+    .replace(collectionLoc, '')
+    .replace(/^\//, ''); // remove slash at the beginning
 
   const compiled = template(actionObj.meta.templateString, { imports: { _ } });
 
