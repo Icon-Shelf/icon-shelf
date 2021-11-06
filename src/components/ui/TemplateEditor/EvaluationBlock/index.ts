@@ -50,11 +50,16 @@ function evaluationBlock(view: EditorView) {
         let matchedText;
         let matchedFrom = 0;
         let matchedTo = 0;
+
         if (type.name === 'Equals') {
           matchedFrom = to - 3;
           matchedTo = to + 1;
           matchedText = view.state.doc.sliceString(to - 3, to);
-        } else if (type.name === 'CompareOp') {
+        } else if (view.state.doc.sliceString(from, to) === '%>') {
+          matchedFrom = from - 1;
+          matchedTo = to;
+          matchedText = view.state.doc.sliceString(from, to);
+        } else if (view.state.doc.sliceString(from, to) === '>') {
           matchedFrom = from - 1;
           matchedTo = to;
           matchedText = view.state.doc.sliceString(from - 1, to);

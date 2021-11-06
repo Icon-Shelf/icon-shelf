@@ -19,11 +19,13 @@ import { completionSource } from './autocomplete';
 interface EditorProps {
   value?: string;
   onUpdate?: (update: ViewUpdate) => void;
+  onEditorInitialize: (view: EditorView) => void;
 }
 
 export const TemplateEditor = ({
   value = '',
   onUpdate = undefined,
+  onEditorInitialize,
 }: EditorProps) => {
   const editor = useRef(null);
 
@@ -64,6 +66,8 @@ export const TemplateEditor = ({
       state,
       parent: currentEditor,
     });
+
+    onEditorInitialize(view);
 
     return () => view.destroy();
     // eslint-disable-next-line react-hooks/exhaustive-deps

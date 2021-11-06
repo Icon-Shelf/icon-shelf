@@ -15,7 +15,9 @@ export const copyToClipboardFromTemplate = async ({
 
   const copyText = compiled({
     iconName: icon.name,
+    iconFileType: icon.mime,
     iconRelativeFilePath: relativeIconPath,
+    iconAbsoluteFilePath: icon.imageSrc,
   });
 
   navigator.clipboard.writeText(copyText);

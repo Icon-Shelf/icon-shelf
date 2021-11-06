@@ -27,7 +27,7 @@ export const Modal: FC<Props> = ({
         className="fixed inset-0 z-10 overflow-y-auto"
         onClose={onClose}
       >
-        <div className="min-h-screen px-4 text-center">
+        <div className="min-h-screen px-4 text-center overflow-hidden">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -58,7 +58,7 @@ export const Modal: FC<Props> = ({
             afterLeave={afterClose}
           >
             <div
-              className={`inline-block w-full max-w-xl overflow-hidden text-left align-middle transition-all transform bg-black2 shadow-xl rounded-lg ${className}`}
+              className={`inline-block w-full max-w-xl text-left align-middle transition-all transform bg-black2 shadow-xl rounded-lg ${className}`}
             >
               <Dialog.Title
                 as="h3"

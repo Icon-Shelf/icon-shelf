@@ -1,5 +1,5 @@
 .cm-editor {
-  @apply h-20 p-1 text-xl;
+  @apply h-20 p-1 text-lg;
 }
 
 .cm-editor.cm-focused {
@@ -27,7 +27,7 @@
   background-color: #ffffff;
   color: #ff5930;
   border-radius: 4px;
-  margin: 4px;
+  margin: 1px;
 }
 
 .cm-custom-tooltip {
