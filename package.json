@@ -11,6 +11,7 @@
     "lint-ts": "yarn tsc --noemit --noErrorTruncation --pretty true --watch",
     "lint-ts-nowatch": "yarn tsc --noemit --noErrorTruncation --pretty true",
     "package": "rm -rf src/dist && yarn build && electron-builder build --publish never",
+    "package:all": "yarn package -mwl",
     "package:mac-silicon": "yarn package --mac --arm64",
     "postinstall": "node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
     "start": "node -r @babel/register ./.erb/scripts/CheckPortInUse.js && yarn start:renderer",
