@@ -33,7 +33,8 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
   const [collectionName, setCollectionName] = useState(collection?.name || '');
 
   const [folderLoc, setFolderLoc] = useState(
-    `${ipcRenderer.sendSync('get-default-icon-storage-folder')}/collection-${uuidv4()}`
+    collection?.folderSrc ||
+      `${ipcRenderer.sendSync('get-default-icon-storage-folder')}/collection-${uuidv4()}`
   );
 
   const onSubmit = () => {
@@ -73,6 +74,7 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
 
   useEffect(() => {
     setCollectionName(collection?.name || '');
+    if (collection) setFolderLoc(collection.folderSrc);
   }, [collection]);
 
   return (
