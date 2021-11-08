@@ -35,7 +35,7 @@ export const ListItem: FC<Props> = ({
 
   const [dropdownIsVisible, setDropdownIsVisible] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const deleteFolderFromFileSystem = useRef(true);
+  const deleteFolderFromFileSystem = useRef(false);
 
   const deleteCollection = () => {
     CollectionsApi.delete(id).then(async () => {
@@ -76,7 +76,7 @@ export const ListItem: FC<Props> = ({
               onMenuButtonClick={(opened) => setDropdownIsVisible(opened)}
             >
               <OptionsIcon
-                className={`leftnav-list-item-optionsIcon cursor-pointer hover:text-white group-hover:opacity-100 
+                className={`leftnav-list-item-optionsIcon cursor-pointer hover:text-white group-hover:opacity-100
                 ${isActive ? 'text-white' : ''}
                 ${dropdownIsVisible ? 'opacity-100' : 'opacity-0'}`}
               />
@@ -96,7 +96,6 @@ export const ListItem: FC<Props> = ({
         </p>
         <div className="mt-3 mb-8">
           <Checkbox
-            defaultChecked
             label="remove collection folder from file system as well"
             onChange={(val) => {
               deleteFolderFromFileSystem.current = val;
