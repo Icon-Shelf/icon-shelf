@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { DefaultIconsRedirect } from 'components/modules/IconsHome/DefaultIconsRedirect';
 import { QueryParamProvider } from 'use-query-params';
 import { UpdateChecker } from 'components/modules/UpdateChecker';
+import { setupGlobalListeners } from 'data/globalListeners';
 import IconsHome from './components/modules/IconsHome';
 import { Layout } from './components/ui/layout/index';
 
@@ -18,6 +19,8 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+setupGlobalListeners();
 
 export default function App() {
   return (
