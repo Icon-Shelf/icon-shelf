@@ -12,8 +12,8 @@ export class IconShelfDatabase extends Dexie {
   constructor() {
     super('IconShelfDatabase');
 
-    this.version(1).stores({
-      icons: '++id,name,collectionId,createdAt,updatedAt',
+    this.version(2).stores({
+      icons: '++id,name,collectionId,createdAt,updatedAt,&[name+collectionId]',
       collections: '++id,name,createdAt,updatedAt',
     });
 

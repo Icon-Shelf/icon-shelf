@@ -163,13 +163,13 @@ ipcMain.on(
 
 ipcMain.on('get-all-icon-in-folder', async (event, arg) => {
   if (arg.folderPath) {
-    const iconsFolderPath = path.join(arg.folderPath, '/');
+    const iconsFolderPath = arg.folderPath.replace(/\/$/, '');
 
     try {
       const files = await getAllFiles(iconsFolderPath);
       event.reply('get-all-icon-in-folder_reply', files, arg.collectionId);
-    } catch {
-      console.log();
+    } catch (e) {
+      console.log(e);
     }
   }
 });

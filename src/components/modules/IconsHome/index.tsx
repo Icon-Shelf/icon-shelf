@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import { Icon, IconsApi } from 'data/icons';
 import { useQuery } from 'react-query';
-import { useCheckIfAnyNewIconsInFolder } from 'data/icons/hooks';
+import { useCheckIfAnyNewIconsInFolder } from 'data/icons/hooks/useCheckIfAnyNewIconsInFolder';
 import { useParams } from 'react-router-dom';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { IconCardsSection } from './IconCardsSection';

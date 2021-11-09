@@ -6,9 +6,9 @@ import { ReactComponent as DocumentIcon } from 'assets/icons/document.svg';
 import { Collection, CollectionsApi } from 'data/collections';
 import { useParams } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
-import { addIconsToDb2 } from 'data/icons/utils';
 import { useQueryClient } from 'react-query';
 import { Icon } from 'data/icons';
+import { addIconsToDb } from 'data/icons/utils';
 import { CollectionsDropdown } from './CollectionsDropdown';
 
 interface Props {
@@ -62,7 +62,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
           } as Icon;
         });
 
-      addIconsToDb2(icons, collectionId)
+      addIconsToDb(icons, collectionId)
         .then(() => {
           queryClient.invalidateQueries('icons-list');
           onClose();

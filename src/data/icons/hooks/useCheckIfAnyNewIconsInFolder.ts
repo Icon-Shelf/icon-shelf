@@ -1,6 +1,7 @@
-import { checkIfAnyNewIconsInFolder } from 'data/icons';
 import { useEffect } from 'react';
 import { useQueryClient } from 'react-query';
+import { checkIfAnyNewIconsInFolder } from '../utils';
+import { useHandleIconInFolderReply } from './useHandleIconInFolderReply';
 
 declare function requestIdleCallback(callback: () => void, options?: { timeout: number }): number;
 
@@ -9,9 +10,11 @@ export const useCheckIfAnyNewIconsInFolder = (collectionId: string) => {
 
   useEffect(() => {
     if (collectionId && parseInt(collectionId)) {
-      requestIdleCallback(() => checkIfAnyNewIconsInFolder(collectionId, queryClient), {
-        timeout: 3000,
+      requestIdleCallback(() => checkIfAnyNewIconsInFolder(collectionId), {
+        timeout: 5000,
       });
     }
   }, [queryClient, collectionId]);
+
+  useHandleIconInFolderReply();
 };
