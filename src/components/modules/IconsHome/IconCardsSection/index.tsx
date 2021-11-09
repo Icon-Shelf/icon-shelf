@@ -29,7 +29,7 @@ export const IconCardsSection: FC<Props> = ({
       ref={wrapperDivRef}
     >
       <div
-        className="flex-1 w-full p-4 grid gap-3 grid-flow-row place-items-center h-auto"
+        className="flex-1 w-full p-4 pt-1 grid gap-3 grid-flow-row place-items-center h-auto"
         style={{
           gridTemplateColumns: 'repeat(auto-fill, minmax(8rem, 1fr))',
           gridTemplateRows: 'repeat(auto-fill, 8rem)',

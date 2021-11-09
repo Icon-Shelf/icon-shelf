@@ -52,3 +52,4 @@ npm-debug.log.*
 .env
 .vscode/personal-snippets.json.code-snippets
 /workspace
+src/main.prod.js.LICENSE.txt
