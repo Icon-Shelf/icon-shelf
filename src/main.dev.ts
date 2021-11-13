@@ -18,12 +18,15 @@ import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
 import fs from 'fs';
 
+import chokidar, { FSWatcher } from 'chokidar';
 import { activateAnalytics } from './main/utils/analytics';
 import { getAllFiles } from './main/utils/getAllFiles';
 import MenuBuilder from './menu';
 import packageJson from './package.json';
 
 electronDl();
+
+let watcher: FSWatcher;
 
 export default class AppUpdater {
   constructor() {
@@ -272,4 +275,23 @@ ipcMain.on('get-icon-file-content', (event, fileSrc) => {
 
     event.returnValue = svg.toString();
   }
+});
+
+ipcMain.on('collection-switch', async (event, props) => {
+  if (watcher) {
+    await watcher.close();
+  }
+
+  watcher = chokidar.watch(props.folderSrc, {
+    ignored: /(^|[/\\])\../, // ignore dotfiles
+    ignoreInitial: true,
+    depth: 1,
+    awaitWriteFinish: true,
+  });
+
+  const eventReply = () => {
+    event.reply('collection-folder-change_reply', props.collectionId);
+  };
+
+  watcher.on('add', eventReply).on('unlink', eventReply);
 });
