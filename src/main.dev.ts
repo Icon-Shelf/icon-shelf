@@ -17,8 +17,10 @@ import log from 'electron-log';
 import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
 import fs from 'fs';
+import { optimize as svgOptimize } from 'svgo';
 
 import chokidar, { FSWatcher } from 'chokidar';
+import { svgoPluginsConfiguration } from './main/constants/svgoPluginsConfiguration';
 import { activateAnalytics } from './main/utils/analytics';
 import { getAllFiles } from './main/utils/getAllFiles';
 import MenuBuilder from './menu';
@@ -202,9 +204,11 @@ ipcMain.on(
     {
       uploadedIcons,
       folderPath,
+      optimizeIcon,
     }: {
       uploadedIcons: { dataURL: string; fileName: string }[];
       folderPath: string;
+      optimizeIcon: boolean;
     }
   ) => {
     const regex = /^data:.+\/(.+);base64,(.*)$/;
@@ -222,9 +226,18 @@ ipcMain.on(
         }
 
         const buffer = Buffer.from(data, 'base64');
+
+        let fileData: Buffer | string = buffer;
+
+        if (optimizeIcon) {
+          fileData = svgOptimize(buffer, {
+            plugins: svgoPluginsConfiguration,
+          }).data;
+        }
+
         const formattedPath = path.join(folderPath, filename);
 
-        fs.writeFile(formattedPath, buffer, () => {});
+        fs.writeFile(formattedPath, fileData, () => {});
       }
     });
   }

@@ -1,14 +1,11 @@
 import { FC, useState, useEffect } from 'react';
-import { Modal, Button } from 'components/ui/atomic-components';
+import { Modal, Button, Checkbox } from 'components/ui/atomic-components';
 import { ReactComponent as UploadIcon } from 'assets/icons/upload.svg';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { ReactComponent as DocumentIcon } from 'assets/icons/document.svg';
 import { Collection, CollectionsApi } from 'data/collections';
 import { useParams } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
-import { useQueryClient } from 'react-query';
-import { Icon } from 'data/icons';
-import { addIconsToDb } from 'data/icons/utils';
 import { CollectionsDropdown } from './CollectionsDropdown';
 
 interface Props {
@@ -17,7 +14,9 @@ interface Props {
 }
 
 export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
-  const queryClient = useQueryClient();
+  const [optimizeIcon, setOptimizeIcon] = useState<boolean>(
+    localStorage.getItem('optimizeIcon') === 'true'
+  );
 
   const { collectionId }: { collectionId: string } = useParams();
 
@@ -42,32 +41,10 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
           fileName: icon.file?.name,
         })),
         folderPath: selectedCollection.folderSrc,
+        optimizeIcon,
       });
 
-      // add icons to db
-      const icons = uploadedIcons
-        .filter((icon) => !!icon.file)
-        .map((icon) => {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const [name, type] = icon!.file!.name.split('.');
-
-          return {
-            name,
-            collectionId,
-            mime: type,
-            byteSize: icon.file?.size,
-            imageSrc: `${selectedCollection.folderSrc.replace(/\/$/, '')}/${icon.file?.name}`,
-            createdAt: Date.now(),
-            updatedAt: Date.now(),
-          } as Icon;
-        });
-
-      addIconsToDb(icons, collectionId)
-        .then(() => {
-          queryClient.invalidateQueries('icons-list');
-          onClose();
-        })
-        .catch(() => {});
+      onClose();
     }
   };
 
@@ -138,6 +115,29 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
             </div>
           )}
         </ImageUploading>
+
+        <div className="mt-4">
+          <Checkbox
+            checked={optimizeIcon}
+            label={
+              <>
+                SVGO optimize icon.{' '}
+                <a
+                  className="text-blue-300 text-xs hover:text-blue-400"
+                  href="https://github.com/svg/svgo"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Learn more
+                </a>
+              </>
+            }
+            onChange={(val) => {
+              setOptimizeIcon(val);
+              localStorage.setItem('optimizeIcon', String(val));
+            }}
+          />
+        </div>
       </div>
     </Modal>
   );

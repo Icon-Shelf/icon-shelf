@@ -163,6 +163,7 @@
     "@types/react": "^17.0.00",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.6",
+    "@types/svgo": "^2.6.0",
     "@types/universal-analytics": "^0.4.5",
     "@types/uuid": "^8.3.1",
     "@types/webpack-env": "^1.15.2",
@@ -264,6 +265,7 @@
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.5",
     "source-map-support": "^0.5.19",
+    "svgo": "^2.8.0",
     "universal-analytics": "^0.4.23",
     "use-query-params": "^1.2.3",
     "uuid": "^8.3.2"

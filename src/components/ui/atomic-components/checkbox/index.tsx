@@ -1,11 +1,12 @@
-import { FC, ChangeEvent } from 'react';
+import { FC, ChangeEvent, ReactNode } from 'react';
 import './styles.css';
 
 export const Checkbox: FC<{
   defaultChecked?: boolean;
-  label: string;
+  label: ReactNode;
+  checked?: boolean;
   onChange: (val: boolean) => void;
-}> = ({ label, defaultChecked, onChange }) => {
+}> = ({ checked, label, defaultChecked, onChange }) => {
   const checkBoxInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked;
 
@@ -17,7 +18,8 @@ export const Checkbox: FC<{
       <input
         type="checkbox"
         name="checked-demo"
-        defaultChecked={!!defaultChecked}
+        defaultChecked={defaultChecked}
+        checked={checked}
         className="form-tick appearance-none h-5 w-5 border border-gray-300 rounded-md focus:outline-none"
         onChange={checkBoxInputChange}
       />
