@@ -18,7 +18,6 @@ import electronDl, { download } from 'electron-dl';
 import { Icon } from 'data/icons';
 import fs from 'fs';
 import { optimize as svgOptimize } from 'svgo';
-
 import chokidar, { FSWatcher } from 'chokidar';
 import { svgoPluginsConfiguration } from './main/constants/svgoPluginsConfiguration';
 import { activateAnalytics } from './main/utils/analytics';
