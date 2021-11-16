@@ -45,7 +45,7 @@ export const IconActionsButton: FC<{
 
       setIconActions(getIconActionOfCollection(collection));
     })();
-  });
+  }, [icon.collectionId]);
 
   if (iconActions[0]) {
     return (
