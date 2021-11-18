@@ -84,7 +84,13 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
           onChange={onCollectionChange}
         />
 
-        <ImageUploading multiple value={uploadedIcons} onChange={onChange} maxNumber={69}>
+        <ImageUploading
+          multiple
+          value={uploadedIcons}
+          onChange={onChange}
+          maxNumber={69}
+          acceptType={['svg', 'image/svg+xm']}
+        >
           {({ imageList, onImageUpload, isDragging, dragProps }) => (
             <div
               className={`w-full flex flex-col items-center justify-center outline-none border-2 border-gray-500 border-dashed rounded-md py-14 hover:border-gray-400 ${
@@ -109,7 +115,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
 
               {!imageList.length && (
                 <div className="flex flex-col items-center pointer-events-none">
-                  <span className="text-sm text-white">Drag and drop your icons here</span>
+                  <span className="text-sm text-white">Drag and drop your SVG icons here</span>
 
                   <button className="text-xs hover:text-white focus:text-white" type="button">
                     or click to browse your files
