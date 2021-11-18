@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useRef } from 'react';
 import { Modal, Button, Checkbox } from 'components/ui/atomic-components';
 import { ReactComponent as UploadIcon } from 'assets/icons/upload.svg';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
@@ -14,6 +14,8 @@ interface Props {
 }
 
 export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
+  const addButtonRef = useRef<HTMLButtonElement>(null);
+
   const [optimizeIcon, setOptimizeIcon] = useState<boolean>(
     localStorage.getItem('optimizeIcon') === 'true'
   );
@@ -26,6 +28,8 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
 
   const onChange = (iconsList: ImageListType) => {
     setUploadedIcons(iconsList);
+
+    addButtonRef.current?.focus();
   };
 
   const onCollectionChange = (collection: Collection) => {
@@ -69,7 +73,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
       className="w-96"
       afterClose={afterClose}
       footer={
-        <Button type="primary" onClick={onAdd}>
+        <Button type="primary" onClick={onAdd} ref={addButtonRef}>
           Add
         </Button>
       }
