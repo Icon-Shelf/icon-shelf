@@ -1,10 +1,16 @@
 import { DragEvent, FC, useCallback, useEffect, useState } from 'react';
 import { Button } from 'components/ui/atomic-components';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
+import { useQueryClient } from 'react-query';
+import { Collection } from 'data/collections';
+import Tooltip from 'rc-tooltip';
 import { AddIconToCollectionModal } from './modal';
 
 export const AddIconToCollection: FC = () => {
+  const queryClient = useQueryClient();
+
   const [showIconAddModal, setShowIconAddModal] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   const handleDragStart = useCallback((event: Event) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,6 +21,10 @@ export const AddIconToCollection: FC = () => {
       event.preventDefault();
     }
   }, []);
+
+  const onAddIconClick = () => {
+    setShowIconAddModal(true);
+  };
 
   useEffect(() => {
     const dom = document.querySelector('#root');
@@ -27,14 +37,32 @@ export const AddIconToCollection: FC = () => {
 
   return (
     <>
-      <Button
-        className="ml-4"
-        id="add-icon-to-collection-btn"
-        icon={<PlusIcon />}
-        onClick={() => setShowIconAddModal(true)}
+      <Tooltip
+        visible={tooltipVisible}
+        overlay="You need to create a collection before adding icons"
+        placement="bottom"
+        onVisibleChange={(v) => {
+          if (v) {
+            if (!queryClient.getQueryData<Collection[]>('collections-list')?.length) {
+              setTooltipVisible(v);
+            }
+          } else {
+            setTooltipVisible(v);
+          }
+        }}
       >
-        Add icon
-      </Button>
+        <div>
+          <Button
+            className="ml-4"
+            id="add-icon-to-collection-btn"
+            icon={<PlusIcon />}
+            onClick={onAddIconClick}
+            disabled={!queryClient.getQueryData<Collection[]>('collections-list')?.length}
+          >
+            Add icon
+          </Button>
+        </div>
+      </Tooltip>
 
       <AddIconToCollectionModal
         show={showIconAddModal}
