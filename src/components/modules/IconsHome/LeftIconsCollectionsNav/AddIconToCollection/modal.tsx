@@ -1,5 +1,5 @@
 import { FC, useState, useEffect, useRef } from 'react';
-import { Modal, Button, Checkbox } from 'components/ui/atomic-components';
+import { Modal, Button, Checkbox, Spinner } from 'components/ui/atomic-components';
 import { ReactComponent as UploadIcon } from 'assets/icons/upload.svg';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { ReactComponent as DocumentIcon } from 'assets/icons/document.svg';
@@ -15,6 +15,7 @@ interface Props {
 
 export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
   const addButtonRef = useRef<HTMLButtonElement>(null);
+  const [showLoader, setShowLoader] = useState(false);
 
   const [optimizeIcon, setOptimizeIcon] = useState<boolean>(
     localStorage.getItem('optimizeIcon') === 'true'
@@ -38,6 +39,8 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
 
   const onAdd = () => {
     if (uploadedIcons.length && selectedCollection) {
+      setShowLoader(true);
+
       // add icons to collection folder
       ipcRenderer.send('create-and-add-icon-to-folder', {
         uploadedIcons: uploadedIcons.map((icon) => ({
@@ -48,12 +51,16 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
         optimizeIcon,
       });
 
-      onClose();
+      setTimeout(() => {
+        setShowLoader(false);
+        onClose();
+      }, 1500);
     }
   };
 
   const afterClose = () => {
     setUploadedIcons([]);
+    setShowLoader(false);
   };
 
   useEffect(() => {
@@ -74,6 +81,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
       afterClose={afterClose}
       footer={
         <Button type="primary" onClick={onAdd} ref={addButtonRef}>
+          {showLoader && <Spinner className="mr-2" />}
           Add
         </Button>
       }
