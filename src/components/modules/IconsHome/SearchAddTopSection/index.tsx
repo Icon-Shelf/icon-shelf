@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Input } from 'components/ui/atomic-components';
 import { GlobalHotKeys } from 'react-hotkeys';
+import { getSearchShortcut } from 'utils/platformText';
 import { AddIconToCollection } from '../LeftIconsCollectionsNav/AddIconToCollection/index';
 
 const { Search } = Input;
@@ -27,7 +28,8 @@ export const SearchAddTopSection: FC<Props> = ({ searchQuery, setSearchQuery }) 
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
       <Search
         name="icons-search"
-        placeholder="Quick search for icons (⌘f)"
+        // eslint-disable-next-line prefer-template
+        placeholder={'Quick search for icons (' + getSearchShortcut() + ')'}
         className="flex-1"
         value={searchQuery || ''}
         onChange={(e) => setSearchQuery(e.target.value)}
