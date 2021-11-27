@@ -28,7 +28,6 @@ export const SearchAddTopSection: FC<Props> = ({ searchQuery, setSearchQuery }) 
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
       <Search
         name="icons-search"
-        // eslint-disable-next-line prefer-template
         placeholder={`Quick search for icons (${platformBasedText({
           mac: '⌘f',
           win: 'Ctrl+f',
