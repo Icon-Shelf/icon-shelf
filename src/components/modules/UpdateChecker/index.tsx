@@ -6,13 +6,13 @@ export const UpdateChecker: FC = ({ children }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const onUpdateClick = () => {
-    window.open('https://github.com/MrRobz/icon-shelf/releases/latest', '_blank');
+    window.open('https://github.com/Icon-Shelf/icon-shelf/releases/latest', '_blank');
   };
 
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        'https://api.github.com/repos/MrRobz/icon-shelf/releases/latest'
+        'https://api.github.com/repos/Icon-Shelf/icon-shelf/releases/latest'
       );
       if (response.ok) {
         const data = await response.json();
