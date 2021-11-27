@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Input } from 'components/ui/atomic-components';
 import { GlobalHotKeys } from 'react-hotkeys';
-import { getSearchShortcut } from 'utils/platformText';
+import { platformBasedText } from 'utils/platformText';
 import { AddIconToCollection } from '../LeftIconsCollectionsNav/AddIconToCollection/index';
 
 const { Search } = Input;
@@ -29,7 +29,11 @@ export const SearchAddTopSection: FC<Props> = ({ searchQuery, setSearchQuery }) 
       <Search
         name="icons-search"
         // eslint-disable-next-line prefer-template
-        placeholder={'Quick search for icons (' + getSearchShortcut() + ')'}
+        placeholder={`Quick search for icons (${platformBasedText({
+          mac: '⌘f',
+          win: 'Ctrl+f',
+          linux: 'Ctrl+f',
+        })})`}
         className="flex-1"
         value={searchQuery || ''}
         onChange={(e) => setSearchQuery(e.target.value)}

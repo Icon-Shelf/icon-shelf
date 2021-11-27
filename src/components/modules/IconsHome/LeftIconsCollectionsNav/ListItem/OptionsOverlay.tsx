@@ -6,7 +6,7 @@ import { ReactComponent as ExternalLinkIcon } from 'assets/icons/external-link-1
 import { Dropdown } from 'components/ui/atomic-components';
 import { ReactComponent as PencilIcon } from 'assets/icons/pencil.svg';
 import { ReactComponent as CursorClickIcon } from 'assets/icons/cursor-click-sm.svg';
-import { getOpenText } from 'utils/platformText';
+import { platformBasedText } from 'utils/platformText';
 
 export const OptionsOverlay: FC<{
   collection?: Collection;
@@ -26,7 +26,13 @@ export const OptionsOverlay: FC<{
       </Dropdown.Item>
       <Dropdown.Item onClick={openCollectionFolderInFinder}>
         <ExternalLinkIcon className="mr-2" />
-        <div>{getOpenText()}</div>
+        <div>
+          {platformBasedText({
+            mac: 'Open in finder',
+            win: 'Open in explorer',
+            linux: 'Open in file manager',
+          })}
+        </div>
       </Dropdown.Item>
 
       <Dropdown.Item onClick={() => onCustomizeActionsClick?.(collection)}>

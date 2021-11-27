@@ -6,7 +6,7 @@ import { getIconActionOfCollection } from 'data/collections/iconActions/utils';
 import { Icon } from 'data/icons';
 import { FC, useEffect, useState } from 'react';
 import { GlobalHotKeys } from 'react-hotkeys';
-import { getCopyShortcut } from 'utils/platformText';
+import { platformBasedText } from 'utils/platformText';
 
 const keyMap = {
   COLLECTION_FIRST_ACTION: ['cmd+shift+c', 'ctrl+shift+c'],
@@ -60,7 +60,15 @@ export const IconActionsButton: FC<{
               <div className="mr-2">{inlineIconsMap[iconActions[0].icon]}</div>
               <div>{iconActions[0].name}</div>
               &nbsp;
-              <span className="text-xs">({getCopyShortcut()})</span>
+              <span className="text-xs">
+                (
+                {platformBasedText({
+                  mac: '⌘⇧C',
+                  win: 'Ctrl+Shift+c',
+                  linux: 'Ctrl+Shift+c',
+                })}
+                )
+              </span>
             </>
           )}
         </Button>

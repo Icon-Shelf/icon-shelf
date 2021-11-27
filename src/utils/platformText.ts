@@ -1,30 +1,22 @@
 import os from 'os';
 
-export function getCopyShortcut() {
-  if (os.platform() === 'darwin') {
-    return '⌘⇧C';
+export function platformBasedText({
+  mac,
+  win,
+  linux,
+}: {
+  mac: string;
+  win: string;
+  linux: string;
+}) {
+  const platform = os.platform();
+
+  if (platform === 'darwin') {
+    return mac;
+  }
+  if (platform === 'win32') {
+    return win;
   }
 
-  return 'Ctrl+Shift+c';
-}
-
-export function getOpenText() {
-  switch (os.platform()) {
-    case 'darwin':
-      return 'Open in finder';
-    case 'win32':
-      return 'Open in explorer';
-    case 'linux':
-      return 'Open in file manager';
-    default:
-      return 'Open in file manager';
-  }
-}
-
-export function getSearchShortcut() {
-  if (os.platform() === 'darwin') {
-    return '⌘f';
-  }
-
-  return 'Ctrl+f';
+  return linux;
 }

@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { getOpenText } from 'utils/platformText';
+import { platformBasedText } from 'utils/platformText';
 import { CollectionAction } from '../types';
 
 export const defaultCollectionActions: CollectionAction[] = [
@@ -50,7 +50,11 @@ export const defaultCollectionActions: CollectionAction[] = [
     meta: {},
   },
   {
-    name: getOpenText(),
+    name: platformBasedText({
+      mac: 'Open in finder',
+      win: 'Open in explorer',
+      linux: 'Open in file manager',
+    }),
     id: 'open-in-finder',
     action: 'open-in-finder',
     icon: 'external_link-icon',
