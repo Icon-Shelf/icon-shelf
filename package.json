@@ -12,6 +12,7 @@
     "lint-ts-nowatch": "yarn tsc --noemit --noErrorTruncation --pretty true",
     "package": "rm -rf src/dist && yarn build && electron-builder build --publish never",
     "publish": "rm -rf src/dist && yarn build && electron-builder build --publish always -mwl",
+    "publish:mac-silicon": "rm -rf src/dist && yarn build && electron-builder build --publish always --mac --arm64",
     "package:mac-silicon": "yarn package --mac --arm64",
     "package:all": "rm -rf release/* && yarn package -mwl && yarn package:mac-silicon",
     "postinstall": "node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
@@ -35,7 +36,7 @@
   },
   "build": {
     "productName": "Icon Shelf",
-    "appId": "org.erb.IconShelf",
+    "appId": "com.IconShelf.app",
     "files": [
       "dist/",
       "node_modules/",
