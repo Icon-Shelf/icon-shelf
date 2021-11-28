@@ -11,6 +11,7 @@
     "lint-ts": "yarn tsc --noemit --noErrorTruncation --pretty true --watch",
     "lint-ts-nowatch": "yarn tsc --noemit --noErrorTruncation --pretty true",
     "package": "rm -rf src/dist && yarn build && electron-builder build --publish never",
+    "publish": "rm -rf src/dist && yarn build && electron-builder build --publish always -mwl",
     "package:mac-silicon": "yarn package --mac --arm64",
     "package:all": "rm -rf release/* && yarn package -mwl && yarn package:mac-silicon",
     "postinstall": "node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
@@ -92,7 +93,7 @@
     "publish": {
       "provider": "github",
       "owner": "MrRobz",
-      "repo": "Icon-Shelf/icon-shelf"
+      "repo": "icon-shelf"
     }
   },
   "repository": {
