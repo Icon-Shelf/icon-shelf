@@ -1,4 +1,4 @@
-import os from 'os';
+import { detectOS } from './detectOS';
 
 export function platformBasedText({
   mac,
@@ -9,14 +9,15 @@ export function platformBasedText({
   win: string;
   linux: string;
 }) {
-  const platform = os.platform();
+  const platform = detectOS();
 
-  if (platform === 'darwin') {
+  if (platform === 'Mac OS') {
     return mac;
   }
-  if (platform === 'win32') {
-    return win;
+
+  if (platform === 'Linux') {
+    return linux;
   }
 
-  return linux;
+  return win;
 }

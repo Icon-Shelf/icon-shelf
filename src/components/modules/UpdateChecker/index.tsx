@@ -1,6 +1,7 @@
 import { Button, Modal } from 'components/ui/atomic-components';
 import { FC, useState, useEffect } from 'react';
 import { ipcRenderer } from 'electron';
+import { detectOS } from 'utils/detectOS';
 
 export const UpdateChecker: FC = ({ children }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -11,20 +12,24 @@ export const UpdateChecker: FC = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(
-        'https://api.github.com/repos/Icon-Shelf/icon-shelf/releases/latest'
-      );
-      if (response.ok) {
-        const data = await response.json();
-        const latestTag = data.tag_name;
+      const platform = detectOS();
 
-        const currentAppVersion = ipcRenderer.sendSync('get-current-app-version');
+      if (platform === 'Mac OS') {
+        const response = await fetch(
+          'https://api.github.com/repos/Icon-Shelf/icon-shelf/releases/latest'
+        );
+        if (response.ok) {
+          const data = await response.json();
+          const latestTag = data.tag_name;
 
-        const formattedLatestVersion = latestTag.replaceAll(/v|\./g, '');
-        const formattedCurrentVersion = currentAppVersion.replaceAll(/\./g, '');
+          const currentAppVersion = ipcRenderer.sendSync('get-current-app-version');
 
-        if (parseInt(formattedLatestVersion) > parseInt(formattedCurrentVersion)) {
-          setShowUpdateModal(true);
+          const formattedLatestVersion = latestTag.replaceAll(/v|\./g, '');
+          const formattedCurrentVersion = currentAppVersion.replaceAll(/\./g, '');
+
+          if (parseInt(formattedLatestVersion) > parseInt(formattedCurrentVersion)) {
+            setShowUpdateModal(true);
+          }
         }
       }
     })();
