@@ -1,13 +1,13 @@
 import { DragEvent, FC, useCallback, useEffect, useState } from 'react';
 import { Button } from 'components/ui/atomic-components';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
-import { useQueryClient } from 'react-query';
-import { Collection } from 'data/collections';
+import { useQuery } from 'react-query';
+import { CollectionsApi } from 'data/collections';
 import Tooltip from 'rc-tooltip';
 import { AddIconToCollectionModal } from './modal';
 
 export const AddIconToCollection: FC = () => {
-  const queryClient = useQueryClient();
+  const { data: collectionsList } = useQuery('collections-list', () => CollectionsApi.findAll());
 
   const [showIconAddModal, setShowIconAddModal] = useState(false);
   const [tooltipVisible, setTooltipVisible] = useState(false);
@@ -43,7 +43,7 @@ export const AddIconToCollection: FC = () => {
         placement="bottom"
         onVisibleChange={(v) => {
           if (v) {
-            if (!queryClient.getQueryData<Collection[]>('collections-list')?.length) {
+            if (!collectionsList?.length) {
               setTooltipVisible(v);
             }
           } else {
@@ -57,7 +57,7 @@ export const AddIconToCollection: FC = () => {
             id="add-icon-to-collection-btn"
             icon={<PlusIcon />}
             onClick={onAddIconClick}
-            disabled={!queryClient.getQueryData<Collection[]>('collections-list')?.length}
+            disabled={!collectionsList?.length}
           >
             Add icon
           </Button>
