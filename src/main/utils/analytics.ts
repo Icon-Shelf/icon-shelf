@@ -9,6 +9,7 @@ store.set('userId', userId);
 function activateAnalytics() {
   const user = ua('UA-138326907-3', userId);
   user.pageview('/').send();
+  user.set('platform', process.platform);
 }
 
 export { activateAnalytics };
