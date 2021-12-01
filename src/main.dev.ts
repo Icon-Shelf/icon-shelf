@@ -23,7 +23,6 @@ import { svgoPluginsConfiguration } from './main/constants/svgoPluginsConfigurat
 import { activateAnalytics } from './main/utils/analytics';
 import { getAllFiles } from './main/utils/getAllFiles';
 import MenuBuilder from './menu';
-import packageJson from './package.json';
 
 electronDl();
 
@@ -45,7 +44,7 @@ export default class AppUpdater {
           title: 'Application Update',
           message: process.platform === 'win32' ? releaseNotes : releaseName,
           detail:
-            'A new version has been downloaded. Restart the application to apply the updates.',
+            'A new version of Icon Shelf has been downloaded. Restart the application to apply the updates.',
         };
 
         dialog.showMessageBox(dialogOpts).then(({ response }) => {
@@ -303,7 +302,7 @@ ipcMain.on('open-collection-folder-icon', (_, props) => {
 });
 
 ipcMain.on('get-current-app-version', (event) => {
-  event.returnValue = packageJson.version;
+  event.returnValue = app.getVersion();
 });
 
 ipcMain.on('get-icon-file-content', (event, fileSrc) => {
