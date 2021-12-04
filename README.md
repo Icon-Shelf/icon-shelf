@@ -5,7 +5,7 @@
 </p>
 
 <h1 align="center">Icon Shelf</h1>
-<h3 align="center">Fantastic Icon manager for web developers.</h3>
+<h3 align="center">Fantastic icon manager for web developers.</h3>
 
 <p align="center">
   <br>
