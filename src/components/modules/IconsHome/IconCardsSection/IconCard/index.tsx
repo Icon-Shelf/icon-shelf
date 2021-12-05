@@ -18,6 +18,7 @@ export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
         background: isSelected ? 'linear-gradient(180deg, #696EFF 0%, #F7ABFF 100%)' : '',
       }}
       type="button"
+      data-is-selected={isSelected}
       data-icon-card-id={icon.id}
       onClick={() => setSelectedIcon?.(icon)}
     >
