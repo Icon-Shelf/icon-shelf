@@ -2,7 +2,6 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { DefaultIconsRedirect } from 'components/modules/IconsHome/DefaultIconsRedirect';
 import { QueryParamProvider } from 'use-query-params';
-import { UpdateChecker } from 'components/modules/UpdateChecker';
 import { setupGlobalListeners } from 'data/globalListeners';
 import IconsHome from './components/modules/IconsHome';
 import { Layout } from './components/ui/layout/index';
@@ -29,10 +28,8 @@ export default function App() {
         <Switch>
           <Layout>
             <QueryClientProvider client={queryClient}>
-              <UpdateChecker>
-                <Route path="/" component={DefaultIconsRedirect} exact />
-                <Route path="/collections/:collectionId" component={IconsHome} exact />
-              </UpdateChecker>
+              <Route path="/" component={DefaultIconsRedirect} exact />
+              <Route path="/collections/:collectionId" component={IconsHome} exact />
             </QueryClientProvider>
           </Layout>
         </Switch>

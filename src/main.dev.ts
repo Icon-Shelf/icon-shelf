@@ -301,10 +301,6 @@ ipcMain.on('open-collection-folder-icon', (_, props) => {
   shell.showItemInFolder(iconFilePath);
 });
 
-ipcMain.on('get-current-app-version', (event) => {
-  event.returnValue = app.getVersion();
-});
-
 ipcMain.on('get-icon-file-content', (event, fileSrc) => {
   if (fs.existsSync(fileSrc)) {
     const svg = fs.readFileSync(fileSrc);
