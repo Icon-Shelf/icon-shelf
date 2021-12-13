@@ -288,5 +288,6 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "version": "0.0.1"
 }
