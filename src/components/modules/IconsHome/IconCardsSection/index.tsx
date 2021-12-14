@@ -91,7 +91,7 @@ export const IconCardsSection: FC<Props> = ({
       className="w-full h-full overflow-y-auto overflow-x-hidden pb-6 relative"
       ref={wrapperDivRef}
     >
-      <HotKeys keyMap={keyMap} handlers={handlers}>
+      <HotKeys keyMap={keyMap} handlers={handlers} className="outline-none">
         <div
           id="icon-list-grid"
           className="flex-1 w-full p-4 pt-1 grid gap-3 grid-flow-row place-items-center h-auto"
