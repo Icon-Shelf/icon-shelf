@@ -96,12 +96,6 @@ Available for Windows, macOS, and Linux.
 
 Download the latest version from the [Releases Page](https://github.com/MrRobz/icon-shelf/releases/latest) or from the :point_right: [Download Page](https://icon-shelf.github.io/download) .
 
-**For Mac users:**
-
-For mac users, since Icon Shelf is an unsigned app for the moment, to open the app, once downloaded, you need to right-click or Control-click the app and select “Open”.
-
-![image](https://user-images.githubusercontent.com/21201812/136710451-a8d06019-d134-4edb-9a4d-d63a1d1755d7.png)
-
 Please consider starring this project to show your :blue_heart: and support.
 
 <br>
