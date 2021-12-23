@@ -30,7 +30,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Install Node.js dependencies
+      - name: Install dependencies
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install
 
