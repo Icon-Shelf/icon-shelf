@@ -7,3 +7,4 @@ export * from './dropdown/context-menu';
 export * from './checkbox';
 export * from './TextArea';
 export * from './Spinner';
+export * from './TitleBarDrag';

@@ -105,6 +105,7 @@ const createWindow = async () => {
     show: false,
     width: dimensions.width - 350,
     height: dimensions.height - 200,
+    titleBarStyle: 'hiddenInset',
     icon: getAssetPath('icon.png'),
     webPreferences: {
       nodeIntegration: true,

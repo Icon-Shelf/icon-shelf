@@ -2,7 +2,7 @@
 import { FC, useState } from 'react';
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { ReactComponent as ViewGridIcon } from 'assets/icons/view-grid.svg';
-import { Button } from 'components/ui/atomic-components';
+import { Button, TitleBarDrag } from 'components/ui/atomic-components';
 import { useQuery } from 'react-query';
 import { CollectionsApi } from 'data/collections/api';
 import { useParams } from 'react-router-dom';
@@ -34,7 +34,9 @@ export const LeftIconsCollectionsNav: FC = () => {
 
   return (
     <>
-      <div className="bg-black2 w-64 min-w-max flex-shrink-0">
+      <div className="relative bg-black2 w-64 min-w-max flex-shrink-0">
+        <TitleBarDrag className="h-8 absolute inset-0" />
+
         <div className="flex justify-end mt-5 mx-4">
           <Tooltip placement="left" overlay={<span>Create collection</span>}>
             <Button
@@ -45,6 +47,7 @@ export const LeftIconsCollectionsNav: FC = () => {
             />
           </Tooltip>
         </div>
+
         <div className="flex flex-col gap-2 mt-5">
           <ListItem
             name="All icons"
