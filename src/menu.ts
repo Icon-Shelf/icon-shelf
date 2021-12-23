@@ -140,25 +140,25 @@ export default class MenuBuilder {
         {
           label: 'Learn More',
           click() {
-            shell.openExternal('https://electronjs.org');
+            shell.openExternal('https://icon-shelf.github.io/');
           },
         },
         {
-          label: 'Documentation',
+          label: 'FAQs',
           click() {
-            shell.openExternal('https://github.com/electron/electron/tree/master/docs#readme');
+            shell.openExternal('https://icon-shelf.github.io/faqs');
           },
         },
         {
           label: 'Community Discussions',
           click() {
-            shell.openExternal('https://www.electronjs.org/community');
+            shell.openExternal('https://github.com/Icon-Shelf/icon-shelf/discussions');
           },
         },
         {
           label: 'Search Issues',
           click() {
-            shell.openExternal('https://github.com/electron/electron/issues');
+            shell.openExternal('https://github.com/Icon-Shelf/icon-shelf/issues');
           },
         },
       ],
