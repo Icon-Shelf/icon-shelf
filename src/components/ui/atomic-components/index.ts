@@ -8,3 +8,4 @@ export * from './checkbox';
 export * from './TextArea';
 export * from './Spinner';
 export * from './TitleBarDrag';
+export * from './IconDisplay';
