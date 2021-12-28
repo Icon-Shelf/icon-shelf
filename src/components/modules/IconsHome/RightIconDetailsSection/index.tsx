@@ -3,6 +3,7 @@ import { Icon } from 'data/icons';
 import SVG from 'react-inlinesvg';
 import { formatBytes } from 'utils/formatBytes';
 import { formatDate } from 'utils/formatDate';
+import { IconDisplay } from 'components/ui/atomic-components';
 import { IconActionsButton } from './IconActionsButton';
 
 interface Props {
@@ -48,12 +49,15 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
       <div>
         <div className="w-full bg-black h-40 rounded-md flex items-center justify-center">
           {selectedIcon?.imageSrc && (
-            <SVG
-              onLoad={onSvgLoad}
-              src={selectedIcon.imageSrc}
-              className="h-14 w-14 text-white"
-              innerRef={svgRef}
-            />
+            <>
+              <SVG
+                onLoad={onSvgLoad}
+                src={selectedIcon.imageSrc}
+                className="h-14 w-14 text-white hidden"
+                innerRef={svgRef}
+              />
+              <IconDisplay src={selectedIcon.imageSrc} className="h-14 w-14 text-white bg-white" />
+            </>
           )}
         </div>
 

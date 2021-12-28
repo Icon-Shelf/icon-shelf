@@ -1,6 +1,6 @@
 import { FC, Dispatch, SetStateAction } from 'react';
 import { Icon } from 'data/icons/types';
-import SVG from 'react-inlinesvg';
+import { IconDisplay } from 'components/ui/atomic-components';
 import './style.css';
 
 interface Props {
@@ -26,7 +26,7 @@ export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
         className="rounded-2xl bg-black2 flex flex-col items-center justify-center border border-transparent hover:border-gray-600"
         style={{ width: 'calc(100% - 2px)', height: 'calc(100% - 2px)' }}
       >
-        <SVG src={icon.imageSrc} className="h-10 w-10 mt-4 text-white" />
+        <IconDisplay src={icon.imageSrc} className="h-10 w-10 mt-4 text-white bg-white" />
 
         <div
           className="mt-4 h-6 w-4/5 text-gray-400 text-sm text-center whitespace-nowrap overflow-hidden overflow-ellipsis"
