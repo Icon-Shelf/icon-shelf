@@ -1,7 +1,7 @@
 {
   "name": "icon-shelf",
   "productName": "Icon Shelf",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Icon Shelf is a free icon manager for developers",
   "main": "./main.prod.js",
   "author": {
