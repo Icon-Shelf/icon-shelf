@@ -11,7 +11,7 @@ function activateAnalytics() {
   user.set('platform', process.platform);
   user.pageview('/').send();
 
-  user.event('user', 'platform', 'Platform OS', process.platform).send();
+  user.event('user platform', 'platform', 'Platform OS', process.platform).send();
 }
 
 export { activateAnalytics };
