@@ -1,28 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-    "target": "ES2019",
-    "module": "CommonJS",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "declaration": true,
-    "declarationMap": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "strict": true,
-    "pretty": true,
+    "module": "esnext",
+    "target": "esnext",
     "sourceMap": true,
-    /* Additional Checks */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    /* Module Resolution Options */
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "skipLibCheck": true
-  },
-  "exclude": ["test", "release", "src/main.prod.js", "src/renderer.prod.js", "src/dist", ".erb/dll"]
+    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "strict": true,
+    "isolatedModules": true,
+    "types": ["node"],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["ESNext"]
+  }
 }

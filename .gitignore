@@ -13,14 +13,6 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
-# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
-.grunt
-
-# node-waf configuration
-.lock-wscript
-
-# Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
 .eslintcache
 
 # Dependency directory
@@ -31,25 +23,14 @@ node_modules
 .DS_Store
 
 # App packaged
-release
-src/main.prod.js
-src/main.prod.js.map
-src/renderer.prod.js
-src/renderer.prod.js.map
-src/style.css
-src/style.css.map
 dist
-dll
-main.js
-main.js.map
+
+.eslintcache
+
 
 .idea
 npm-debug.log.*
-*.css.d.ts
-*.sass.d.ts
-*.scss.d.ts
 
 .env
 .vscode/personal-snippets.json.code-snippets
 /workspace
-src/main.prod.js.LICENSE.txt
