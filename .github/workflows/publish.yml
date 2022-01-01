@@ -27,11 +27,11 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
+          key: npm-full-modules-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm install --no-save
 
       - name: Bump version
         run: |
