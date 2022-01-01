@@ -50,5 +50,4 @@ jobs:
           # This is used for uploading release assets to github
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          npm run postinstall
           npm run publish
