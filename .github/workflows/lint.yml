@@ -4,22 +4,22 @@ on:
     branches:
       - main
     paths:
-      - "**.js"
-      - "**.ts"
-      - "**.tsx"
-      - "package-lock.json"
-      - ".github/workflows/lint.yml"
+      - '**.js'
+      - '**.ts'
+      - '**.tsx'
+      - 'package-lock.json'
+      - '.github/workflows/lint.yml'
   pull_request:
     paths:
-      - "**.js"
-      - "**.ts"
-      - "**.tsx"
-      - "package-lock.json"
-      - ".github/workflows/lint.yml"
+      - '**.js'
+      - '**.ts'
+      - '**.tsx'
+      - 'package-lock.json'
+      - '.github/workflows/lint.yml'
 
 defaults:
   run:
-    shell: "bash"
+    shell: 'bash'
 
 jobs:
   eslint:
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16 # Need for npm >=7.7
-          cache: "npm"
+          cache: 'npm'
 
       - name: Cache dependencies
         id: npm-cache
@@ -41,6 +41,6 @@ jobs:
 
       - name: Install dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
 
       - run: npm run lint

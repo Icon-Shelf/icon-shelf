@@ -31,13 +31,13 @@ jobs:
 
       - name: Install dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
 
       - name: Bump version
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          npm version patch
+          npm version patch -m "bump package version"
           git push
 
       - name: Publish releases
