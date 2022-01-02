@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { MouseEvent, ReactNode } from "react";
-import { useState, useRef, useCallback } from "react";
+import type { MouseEvent, ReactNode } from 'react';
+import { useState, useRef, useCallback } from 'react';
 
-import Item from "./Item";
-import Submenu from "./Submenu";
-import "./styles.css";
+import Item from './Item';
+import Submenu from './Submenu';
+import './styles.css';
 
 interface Props {
   title?: ReactNode | ReactNode[];
   isDisabled?: boolean;
-  position?: "left" | "right" | "top-right" | "top-left";
+  position?: 'left' | 'right' | 'top-right' | 'top-left';
   isActive?: boolean;
   wrapperClassName?: string;
   menuClassName?: string;
@@ -47,9 +47,9 @@ export const MultilevelDropdown = ({
     setOpen(!isOpen);
 
     if (!isOpen) {
-      document.addEventListener("mousedown", handleClick, { once: true });
+      document.addEventListener('mousedown', handleClick, { once: true });
     } else {
-      document.addEventListener("mousedown", handleClick);
+      document.addEventListener('mousedown', handleClick);
     }
   };
 
@@ -65,9 +65,7 @@ export const MultilevelDropdown = ({
         {title}
       </button>
       {isOpen && (
-        <div
-          className={`multi-dropdown--menu multi-dropdown--menu-${position} ${menuClassName}`}
-        >
+        <div className={`multi-dropdown--menu multi-dropdown--menu-${position} ${menuClassName}`}>
           <ul>{children}</ul>
         </div>
       )}

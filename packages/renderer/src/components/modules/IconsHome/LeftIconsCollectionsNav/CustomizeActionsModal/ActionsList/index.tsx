@@ -1,24 +1,23 @@
-import type { Dispatch, FC, SetStateAction } from "react";
-import { ReactComponent as CursorIcon } from "/assets/icons/cursor-click.svg";
-import type { CollectionAction } from "/@/data/collections";
-import type {
-  DragEndEvent} from "@dnd-kit/core";
+import type { Dispatch, FC, SetStateAction } from 'react';
+import { ReactComponent as CursorIcon } from '/assets/icons/cursor-click.svg';
+import type { CollectionAction } from '/@/data/collections';
+import type { DragEndEvent } from '@dnd-kit/core';
 import {
   DndContext,
   closestCenter,
   KeyboardSensor,
   PointerSensor,
   useSensor,
-  useSensors
-} from "@dnd-kit/core";
+  useSensors,
+} from '@dnd-kit/core';
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import { ActionItem } from "./ActionItem";
-import { TempIconCard } from "./TempIconCard";
+} from '@dnd-kit/sortable';
+import { ActionItem } from './ActionItem';
+import { TempIconCard } from './TempIconCard';
 
 export interface ActionsListProps {
   actionItems: CollectionAction[];
@@ -54,9 +53,7 @@ export const ActionsList: FC<ActionsListProps> = ({
 
   return (
     <>
-      <div className="text-white">
-        Configure actions for icons in collection
-      </div>
+      <div className="text-white">Configure actions for icons in collection</div>
 
       <div className="mt-3">
         <div className="relative">
@@ -71,17 +68,9 @@ export const ActionsList: FC<ActionsListProps> = ({
               collisionDetection={closestCenter}
               onDragEnd={handleDragEnd}
             >
-              <SortableContext
-                items={actionItems}
-                strategy={verticalListSortingStrategy}
-              >
+              <SortableContext items={actionItems} strategy={verticalListSortingStrategy}>
                 {actionItems.map((item) => (
-                  <ActionItem
-                    key={item.id}
-                    item={item}
-                    onEditClick={onEditClick}
-                    {...rest}
-                  />
+                  <ActionItem key={item.id} item={item} onEditClick={onEditClick} {...rest} />
                 ))}
               </SortableContext>
             </DndContext>

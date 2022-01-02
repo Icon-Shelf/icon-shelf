@@ -1,12 +1,12 @@
 export function formatMimeType(mime: string) {
   if (!mime) {
-    return "";
+    return '';
   }
 
-  const updatedMime = mime.replace(/^image\//, "");
+  const updatedMime = mime.replace(/^image\//, '');
 
-  if (updatedMime === "svg+xml") {
-    return "svg";
+  if (updatedMime === 'svg+xml') {
+    return 'svg';
   }
   return updatedMime;
 }

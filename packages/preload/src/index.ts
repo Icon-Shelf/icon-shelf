@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { contextBridge, ipcRenderer } from "electron";
-const HTMLtoJSX = require("htmltojsx");
+import { contextBridge, ipcRenderer } from 'electron';
+const HTMLtoJSX = require('htmltojsx');
 
 /**
  * The "Main World" is the JavaScript context that your main renderer code runs in.
@@ -23,9 +23,9 @@ const HTMLtoJSX = require("htmltojsx");
  * @example
  * console.log( window.versions )
  */
-contextBridge.exposeInMainWorld("versions", process.versions);
+contextBridge.exposeInMainWorld('versions', process.versions);
 
-contextBridge.exposeInMainWorld("electron", {
+contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
     send(channel: string, ...args: any[]) {
       ipcRenderer.send(channel, ...args);
@@ -55,7 +55,7 @@ const htmlToJsx = new HTMLtoJSX({
   createClass: false,
 });
 
-contextBridge.exposeInMainWorld("htmlToJsx", {
+contextBridge.exposeInMainWorld('htmlToJsx', {
   convert(data: any) {
     return htmlToJsx.convert(data);
   },

@@ -1,24 +1,24 @@
-import { Button } from "/@/components/ui/atomic-components";
-import type { CollectionAction} from "/@/data/collections";
-import { CollectionsApi } from "/@/data/collections";
-import { inlineIconsMap } from "/@/data/collections/iconActions/inlineIconsMap";
-import { useOnActionClick } from "/@/data/collections/iconActions/useOnActionClick";
-import { getIconActionOfCollection } from "/@/data/collections/iconActions/utils";
-import type { Icon } from "/@/data/icons";
-import type { FC} from "react";
-import { useEffect, useState } from "react";
-import { GlobalHotKeys } from "react-hotkeys";
-import { platformBasedText } from "/@/utils/platformText";
+import { Button } from '/@/components/ui/atomic-components';
+import type { CollectionAction } from '/@/data/collections';
+import { CollectionsApi } from '/@/data/collections';
+import { inlineIconsMap } from '/@/data/collections/iconActions/inlineIconsMap';
+import { useOnActionClick } from '/@/data/collections/iconActions/useOnActionClick';
+import { getIconActionOfCollection } from '/@/data/collections/iconActions/utils';
+import type { Icon } from '/@/data/icons';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
+import { GlobalHotKeys } from 'react-hotkeys';
+import { platformBasedText } from '/@/utils/platformText';
 
 const keyMap = {
-  COLLECTION_FIRST_ACTION: ["cmd+shift+c", "ctrl+shift+c"],
+  COLLECTION_FIRST_ACTION: ['cmd+shift+c', 'ctrl+shift+c'],
 };
 
 export const IconActionsButton: FC<{
   icon: Icon;
 }> = ({ icon }) => {
   const [iconActions, setIconActions] = useState<CollectionAction[]>([]);
-  const [intermText, setIntermText] = useState("");
+  const [intermText, setIntermText] = useState('');
 
   const onActionClick = useOnActionClick();
 
@@ -28,13 +28,13 @@ export const IconActionsButton: FC<{
       icon,
     });
 
-    let text = "DONE!";
-    if (iconActions[0].action.includes("copy")) {
-      text = "COPIED!";
+    let text = 'DONE!';
+    if (iconActions[0].action.includes('copy')) {
+      text = 'COPIED!';
     }
     setIntermText(text);
     setTimeout(() => {
-      setIntermText("");
+      setIntermText('');
     }, 1500);
   };
 
@@ -65,9 +65,9 @@ export const IconActionsButton: FC<{
               <span className="text-xs">
                 (
                 {platformBasedText({
-                  mac: "⌘⇧C",
-                  win: "Ctrl+Shift+c",
-                  linux: "Ctrl+Shift+c",
+                  mac: '⌘⇧C',
+                  win: 'Ctrl+Shift+c',
+                  linux: 'Ctrl+Shift+c',
                 })}
                 )
               </span>

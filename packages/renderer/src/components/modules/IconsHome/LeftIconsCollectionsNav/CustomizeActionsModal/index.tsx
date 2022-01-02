@@ -1,16 +1,12 @@
-import type { FC} from "react";
-import { useEffect, useState } from "react";
-import { Modal, Button } from "/@/components/ui/atomic-components";
-import type {
-  Collection,
-  CollectionAction} from "/@/data/collections";
-import {
-  CollectionsApi,
-} from "/@/data/collections";
-import { getIconActionOfCollection } from "/@/data/collections/iconActions/utils";
-import { useQueryClient } from "react-query";
-import { ActionsList } from "./ActionsList";
-import { EditActionSection } from "./EditActionSection";
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
+import { Modal, Button } from '/@/components/ui/atomic-components';
+import type { Collection, CollectionAction } from '/@/data/collections';
+import { CollectionsApi } from '/@/data/collections';
+import { getIconActionOfCollection } from '/@/data/collections/iconActions/utils';
+import { useQueryClient } from 'react-query';
+import { ActionsList } from './ActionsList';
+import { EditActionSection } from './EditActionSection';
 
 interface Props {
   show: boolean;
@@ -18,18 +14,12 @@ interface Props {
   onClose: () => void;
 }
 
-export const CustomizeActionsModal: FC<Props> = ({
-  show,
-  collection,
-  onClose,
-}) => {
+export const CustomizeActionsModal: FC<Props> = ({ show, collection, onClose }) => {
   const queryClient = useQueryClient();
 
   const [actionItems, setActionItems] = useState<CollectionAction[]>([]);
   const [showEditScreen, setShowEditScreen] = useState(false);
-  const [selectedAction, setSelectedAction] = useState<CollectionAction | null>(
-    null
-  );
+  const [selectedAction, setSelectedAction] = useState<CollectionAction | null>(null);
 
   const onEditClick = (action: CollectionAction) => {
     setShowEditScreen(true);
@@ -64,7 +54,7 @@ export const CustomizeActionsModal: FC<Props> = ({
     }
 
     onClose();
-    queryClient.invalidateQueries("collections-list");
+    queryClient.invalidateQueries('collections-list');
   };
 
   const afterClose = () => {

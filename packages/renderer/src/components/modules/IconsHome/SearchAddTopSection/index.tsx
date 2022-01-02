@@ -24,16 +24,16 @@ export const SearchAddTopSection: FC<Props> = ({ searchQuery, setSearchQuery }) 
   };
 
   return (
-    <div className='flex mt-5 mx-4 pb-3'>
+    <div className="flex mt-5 mx-4 pb-3">
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
       <Search
-        name='icons-search'
+        name="icons-search"
         placeholder={`Quick search for icons (${platformBasedText({
           mac: '⌘f',
           win: 'Ctrl+f',
           linux: 'Ctrl+f',
         })})`}
-        className='flex-1'
+        className="flex-1"
         value={searchQuery || ''}
         onChange={(e) => setSearchQuery(e.target.value)}
       />

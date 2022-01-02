@@ -1,5 +1,5 @@
-import { join } from "path";
-import { promises as fs, statSync } from "fs";
+import { join } from 'path';
+import { promises as fs, statSync } from 'fs';
 
 export async function getAllFiles(folderPath: string) {
   const entries = await fs.readdir(folderPath, { withFileTypes: true });

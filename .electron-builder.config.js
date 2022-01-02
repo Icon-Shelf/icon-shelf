@@ -4,24 +4,24 @@
  */
 const config = {
   directories: {
-    output: "dist",
-    buildResources: "buildResources",
+    output: 'dist',
+    buildResources: 'buildResources',
   },
-  files: ["packages/**/dist/**"],
-  productName: "Icon Shelf",
-  appId: "com.IconShelf.app",
-  afterSign: "./scripts/Notarize.js",
+  files: ['packages/**/dist/**'],
+  productName: 'Icon Shelf',
+  appId: 'com.IconShelf.app',
+  afterSign: './scripts/Notarize.js',
   mac: {
     target: [
       {
-        target: "default",
-        arch: ["arm64", "x64"],
+        target: 'default',
+        arch: ['arm64', 'x64'],
       },
     ],
-    type: "distribution",
+    type: 'distribution',
     hardenedRuntime: true,
-    entitlements: "buildResources/entitlements.mac.plist",
-    entitlementsInherit: "buildResources/entitlements.mac.plist",
+    entitlements: 'buildResources/entitlements.mac.plist',
+    entitlementsInherit: 'buildResources/entitlements.mac.plist',
     gatekeeperAssess: false,
   },
   dmg: {
@@ -33,22 +33,22 @@ const config = {
       {
         x: 410,
         y: 220,
-        type: "link",
-        path: "/Applications",
+        type: 'link',
+        path: '/Applications',
       },
     ],
   },
   win: {
-    target: ["nsis"],
+    target: ['nsis'],
   },
   linux: {
-    target: ["AppImage"],
-    category: "Development",
+    target: ['AppImage'],
+    category: 'Development',
   },
   publish: {
-    provider: "github",
-    owner: "MrRobz",
-    repo: "icon-shelf",
+    provider: 'github',
+    owner: 'MrRobz',
+    repo: 'icon-shelf',
   },
 };
 

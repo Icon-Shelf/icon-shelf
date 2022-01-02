@@ -1,21 +1,21 @@
-import type { FC } from "react";
-import { useState, useEffect } from "react";
-import { Input, Modal, Button } from "/@/components/ui/atomic-components";
-import type { Collection } from "/@/data/collections";
-import { CollectionsApi } from "/@/data/collections/api";
-import { useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
-import Tooltip from "rc-tooltip";
-import { ReactComponent as InfoIcon } from "/assets/icons/information-circle-16.svg";
+import type { FC } from 'react';
+import { useState, useEffect } from 'react';
+import { Input, Modal, Button } from '/@/components/ui/atomic-components';
+import type { Collection } from '/@/data/collections';
+import { CollectionsApi } from '/@/data/collections/api';
+import { useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import Tooltip from 'rc-tooltip';
+import { ReactComponent as InfoIcon } from '/assets/icons/information-circle-16.svg';
 
 const { FolderInput } = Input;
 
 function uuidv4() {
-  return "xxxxx".replace(/[xy]/g, function (c) {
+  return 'xxxxx'.replace(/[xy]/g, function (c) {
     // eslint-disable-next-line no-bitwise
     const r = (Math.random() * 16) | 0;
     // eslint-disable-next-line no-bitwise
-    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 }
@@ -26,20 +26,16 @@ interface Props {
   onClose: () => void;
 }
 
-export const CreateEditCollectionModal: FC<Props> = ({
-  show,
-  collection,
-  onClose,
-}) => {
+export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose }) => {
   const queryClent = useQueryClient();
   const navigate = useNavigate();
 
-  const [collectionName, setCollectionName] = useState(collection?.name || "");
+  const [collectionName, setCollectionName] = useState(collection?.name || '');
 
   const [folderLoc, setFolderLoc] = useState(
     collection?.folderSrc ||
       `${window.electron.ipcRenderer.sendSync(
-        "get-default-icon-storage-folder"
+        'get-default-icon-storage-folder'
       )}/collection-${uuidv4()}`
   );
 
@@ -53,13 +49,11 @@ export const CreateEditCollectionModal: FC<Props> = ({
         actions: [],
       };
 
-      return CollectionsApi.create(updatedCollection).then(
-        async (newCollectionId) => {
-          await queryClent.invalidateQueries("collections-list");
-          onClose();
-          navigate(`/collections/${newCollectionId}`);
-        }
-      );
+      return CollectionsApi.create(updatedCollection).then(async (newCollectionId) => {
+        await queryClent.invalidateQueries('collections-list');
+        onClose();
+        navigate(`/collections/${newCollectionId}`);
+      });
     }
 
     const updatedCollection: Partial<Collection> = {
@@ -67,45 +61,41 @@ export const CreateEditCollectionModal: FC<Props> = ({
       updatedAt: Date.now(),
     };
 
-    return CollectionsApi.update(collection.id, updatedCollection).then(
-      async () => {
-        await queryClent.invalidateQueries("collections-list");
-        onClose();
-      }
-    );
+    return CollectionsApi.update(collection.id, updatedCollection).then(async () => {
+      await queryClent.invalidateQueries('collections-list');
+      onClose();
+    });
   };
 
   const afterModalClose = () => {
-    setCollectionName("");
+    setCollectionName('');
     setFolderLoc(
       `${window.electron.ipcRenderer.sendSync(
-        "get-default-icon-storage-folder"
+        'get-default-icon-storage-folder'
       )}/collection-${uuidv4()}`
     );
   };
 
   useEffect(() => {
-    setCollectionName(collection?.name || "");
+    setCollectionName(collection?.name || '');
     if (collection) setFolderLoc(collection.folderSrc);
   }, [collection]);
 
   return (
     <Modal
       show={show}
-      title={collection?.id ? "Update collection" : "Create a new collection"}
+      title={collection?.id ? 'Update collection' : 'Create a new collection'}
       onClose={onClose}
       footer={
         <Button type="primary" onClick={onSubmit}>
-          {collection?.id ? "Update" : "Create"}
+          {collection?.id ? 'Update' : 'Create'}
         </Button>
       }
       afterClose={afterModalClose}
     >
       <div>
         <label>
-          <div className="mb-2 font-medium text-gray-400">
-            Enter a name for the collection
-          </div>
+          <div className="mb-2 font-medium text-gray-400">Enter a name for the collection</div>
           <Input
             id="collection-name"
             className="mb-6"
@@ -121,8 +111,7 @@ export const CreateEditCollectionModal: FC<Props> = ({
               placement="right"
               overlay={
                 <span>
-                  You can even select an existing folder <br /> with icons in
-                  it.
+                  You can even select an existing folder <br /> with icons in it.
                 </span>
               }
             >

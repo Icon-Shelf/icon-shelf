@@ -1,6 +1,6 @@
-import type { ChangeEvent, HTMLProps, ReactElement, ReactNode } from "react";
-import { ReactComponent as SearchIcon } from "/assets/icons/search.svg";
-import { FolderInput } from "./folder-input";
+import type { ChangeEvent, HTMLProps, ReactElement, ReactNode } from 'react';
+import { ReactComponent as SearchIcon } from '/assets/icons/search.svg';
+import { FolderInput } from './folder-input';
 
 interface InputProps extends HTMLProps<HTMLInputElement> {
   name?: string;
@@ -15,7 +15,7 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
 
 export const Input = ({
   name,
-  className = "",
+  className = '',
   id,
   placeholder,
   icon,
@@ -34,7 +34,7 @@ export const Input = ({
         id={id}
         name={name}
         className={`block w-full h-10 px-4 rounded-lg bg-transparent border-2 border-inputBorder outline-none transition-shadow	focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-white ${
-          icon && "pl-10"
+          icon && 'pl-10'
         }`}
         placeholder={placeholder}
         value={value}

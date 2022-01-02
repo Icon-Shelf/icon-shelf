@@ -27,8 +27,8 @@ export default function App() {
       <Layout>
         <QueryClientProvider client={queryClient}>
           <Routes>
-            <Route path='/' element={<DefaultIconsRedirect />} />
-            <Route path='/collections/:collectionId' element={<IconsHome />} />
+            <Route path="/" element={<DefaultIconsRedirect />} />
+            <Route path="/collections/:collectionId" element={<IconsHome />} />
           </Routes>
         </QueryClientProvider>
       </Layout>

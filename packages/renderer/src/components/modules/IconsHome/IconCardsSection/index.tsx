@@ -1,11 +1,11 @@
-import type { Dispatch, FC, SetStateAction} from "react";
-import { useRef } from "react";
-import type { Icon } from "/@/data/icons/types";
-import { HotKeys } from "react-hotkeys";
-import { IconCard } from "./IconCard";
-import { EmptyPlaceholder } from "./EmptyPlaceholder";
-import { IconContextMenu } from "./IconContextMenu";
-import { findSelectedIconPos, getNumberOfIconInRow } from "./util";
+import type { Dispatch, FC, SetStateAction } from 'react';
+import { useRef } from 'react';
+import type { Icon } from '/@/data/icons/types';
+import { HotKeys } from 'react-hotkeys';
+import { IconCard } from './IconCard';
+import { EmptyPlaceholder } from './EmptyPlaceholder';
+import { IconContextMenu } from './IconContextMenu';
+import { findSelectedIconPos, getNumberOfIconInRow } from './util';
 
 interface Props {
   icons?: Icon[];
@@ -31,10 +31,10 @@ export const IconCardsSection: FC<Props> = ({
   };
 
   const keyMap = {
-    MOVE_UP: "up",
-    MOVE_DOWN: "down",
-    MOVE_RIGHT: "right",
-    MOVE_LEFT: "left",
+    MOVE_UP: 'up',
+    MOVE_DOWN: 'down',
+    MOVE_RIGHT: 'right',
+    MOVE_LEFT: 'left',
   };
 
   const handlers = {
@@ -42,7 +42,7 @@ export const IconCardsSection: FC<Props> = ({
       if (icons?.length) {
         const selectedIconPos = findSelectedIconPos(icons);
 
-        if (typeof selectedIconPos === "number" && icons[selectedIconPos + 1]) {
+        if (typeof selectedIconPos === 'number' && icons[selectedIconPos + 1]) {
           selectIcon(icons[selectedIconPos + 1]);
         }
 
@@ -53,7 +53,7 @@ export const IconCardsSection: FC<Props> = ({
       if (icons?.length) {
         const selectedIconPos = findSelectedIconPos(icons);
 
-        if (typeof selectedIconPos === "number" && icons[selectedIconPos - 1]) {
+        if (typeof selectedIconPos === 'number' && icons[selectedIconPos - 1]) {
           selectIcon(icons[selectedIconPos - 1]);
         }
         keyEvent?.preventDefault();
@@ -64,10 +64,7 @@ export const IconCardsSection: FC<Props> = ({
         const selectedIconPos = findSelectedIconPos(icons);
         const numberOfIconInRow = getNumberOfIconInRow();
 
-        if (
-          typeof selectedIconPos === "number" &&
-          icons[selectedIconPos + numberOfIconInRow]
-        ) {
+        if (typeof selectedIconPos === 'number' && icons[selectedIconPos + numberOfIconInRow]) {
           selectIcon(icons[selectedIconPos + numberOfIconInRow]);
         }
         keyEvent?.preventDefault();
@@ -78,10 +75,7 @@ export const IconCardsSection: FC<Props> = ({
         const selectedIconPos = findSelectedIconPos(icons);
         const numberOfIconInRow = getNumberOfIconInRow();
 
-        if (
-          typeof selectedIconPos === "number" &&
-          icons[selectedIconPos - numberOfIconInRow]
-        ) {
+        if (typeof selectedIconPos === 'number' && icons[selectedIconPos - numberOfIconInRow]) {
           selectIcon(icons[selectedIconPos - numberOfIconInRow]);
         }
         keyEvent?.preventDefault();
@@ -103,8 +97,8 @@ export const IconCardsSection: FC<Props> = ({
           id="icon-list-grid"
           className="flex-1 w-full p-4 pt-1 grid gap-3 grid-flow-row place-items-center h-auto"
           style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(8rem, 1fr))",
-            gridTemplateRows: "repeat(auto-fill, 8rem)",
+            gridTemplateColumns: 'repeat(auto-fill, minmax(8rem, 1fr))',
+            gridTemplateRows: 'repeat(auto-fill, 8rem)',
           }}
         >
           {icons?.map((icon) => (
@@ -117,9 +111,7 @@ export const IconCardsSection: FC<Props> = ({
           ))}
         </div>
       </HotKeys>
-      {wrapperDivRef.current && (
-        <IconContextMenu parentDom={wrapperDivRef.current} />
-      )}
+      {wrapperDivRef.current && <IconContextMenu parentDom={wrapperDivRef.current} />}
     </div>
   );
 };

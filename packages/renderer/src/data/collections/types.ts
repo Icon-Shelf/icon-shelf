@@ -1,4 +1,4 @@
-import type { inlineIconsMap } from "./iconActions/inlineIconsMap";
+import type { inlineIconsMap } from './iconActions/inlineIconsMap';
 
 export interface Collection {
   id?: number;

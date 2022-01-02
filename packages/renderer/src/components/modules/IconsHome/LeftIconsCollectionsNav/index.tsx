@@ -1,31 +1,27 @@
 // import { ReactComponent as HeartIcon } from '/assets/icons/heart.svg';
-import type { FC } from "react";
-import { useState } from "react";
-import { ReactComponent as PlusIcon } from "/assets/icons/plus.svg";
-import { ReactComponent as ViewGridIcon } from "/assets/icons/view-grid.svg";
-import { Button, TitleBarDrag } from "/@/components/ui/atomic-components";
-import { useQuery } from "react-query";
-import { CollectionsApi } from "/@/data/collections/api";
-import { useParams } from "react-router-dom";
-import type { Collection } from "/@/data/collections";
-import Tooltip from "rc-tooltip";
-import { ListItem } from "./ListItem";
-import { CreateEditCollectionModal } from "./CreateEditCollectionModal";
-import { CustomizeActionsModal } from "./CustomizeActionsModal/index";
+import type { FC } from 'react';
+import { useState } from 'react';
+import { ReactComponent as PlusIcon } from '/assets/icons/plus.svg';
+import { ReactComponent as ViewGridIcon } from '/assets/icons/view-grid.svg';
+import { Button, TitleBarDrag } from '/@/components/ui/atomic-components';
+import { useQuery } from 'react-query';
+import { CollectionsApi } from '/@/data/collections/api';
+import { useParams } from 'react-router-dom';
+import type { Collection } from '/@/data/collections';
+import Tooltip from 'rc-tooltip';
+import { ListItem } from './ListItem';
+import { CreateEditCollectionModal } from './CreateEditCollectionModal';
+import { CustomizeActionsModal } from './CustomizeActionsModal/index';
 
 export const LeftIconsCollectionsNav: FC = () => {
   const { collectionId: selectedCollectionId } = useParams();
 
-  const { data: collections } = useQuery("collections-list", () =>
-    CollectionsApi.findAll()
-  );
+  const { data: collections } = useQuery('collections-list', () => CollectionsApi.findAll());
 
   const [showCollectionModal, setShowCollectionModal] = useState(false);
   const [showCustomizeModal, setShowCustomizeModal] = useState(false);
 
-  const [selectedCollection, setSelectedCollection] = useState<
-    Collection | null | undefined
-  >(null);
+  const [selectedCollection, setSelectedCollection] = useState<Collection | null | undefined>(null);
 
   const editCollection = (collection?: Collection) => {
     setSelectedCollection(collection);
@@ -58,7 +54,7 @@ export const LeftIconsCollectionsNav: FC = () => {
             name="All icons"
             id="all-icons"
             icon={<ViewGridIcon />}
-            isActive={selectedCollectionId === "all-icons"}
+            isActive={selectedCollectionId === 'all-icons'}
             hideOptions
           />
           {/* <ListItem

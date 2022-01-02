@@ -1,1 +1,1 @@
-export * from "./useCheckIfAnyNewIconsInFolder";
+export * from './useCheckIfAnyNewIconsInFolder';

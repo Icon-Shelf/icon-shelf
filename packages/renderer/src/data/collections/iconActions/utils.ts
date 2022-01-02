@@ -1,5 +1,5 @@
-import type { Collection } from "..";
-import { defaultCollectionActions } from "./constants";
+import type { Collection } from '..';
+import { defaultCollectionActions } from './constants';
 
 export const getIconActionOfCollection = (collection?: Collection) => {
   const actions = collection?.actions;

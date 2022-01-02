@@ -1,16 +1,14 @@
-import type { DragEvent, FC} from "react";
-import { useCallback, useEffect, useState } from "react";
-import { Button } from "/@/components/ui/atomic-components";
-import { ReactComponent as PlusIcon } from "/assets/icons/plus.svg";
-import { useQuery } from "react-query";
-import { CollectionsApi } from "/@/data/collections";
-import Tooltip from "rc-tooltip";
-import { AddIconToCollectionModal } from "./modal";
+import type { DragEvent, FC } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { Button } from '/@/components/ui/atomic-components';
+import { ReactComponent as PlusIcon } from '/assets/icons/plus.svg';
+import { useQuery } from 'react-query';
+import { CollectionsApi } from '/@/data/collections';
+import Tooltip from 'rc-tooltip';
+import { AddIconToCollectionModal } from './modal';
 
 export const AddIconToCollection: FC = () => {
-  const { data: collectionsList } = useQuery("collections-list", () =>
-    CollectionsApi.findAll()
-  );
+  const { data: collectionsList } = useQuery('collections-list', () => CollectionsApi.findAll());
 
   const [showIconAddModal, setShowIconAddModal] = useState(false);
   const [tooltipVisible, setTooltipVisible] = useState(false);
@@ -19,7 +17,7 @@ export const AddIconToCollection: FC = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const e = event as any as DragEvent;
 
-    if ([...e.dataTransfer.items].find((item) => item.kind === "file")) {
+    if ([...e.dataTransfer.items].find((item) => item.kind === 'file')) {
       setShowIconAddModal(true);
       event.preventDefault();
     }
@@ -30,11 +28,11 @@ export const AddIconToCollection: FC = () => {
   };
 
   useEffect(() => {
-    const dom = document.querySelector("#root");
-    dom?.addEventListener("dragover", handleDragStart);
+    const dom = document.querySelector('#root');
+    dom?.addEventListener('dragover', handleDragStart);
 
     return () => {
-      dom?.removeEventListener("dragover", handleDragStart);
+      dom?.removeEventListener('dragover', handleDragStart);
     };
   }, [handleDragStart]);
 

@@ -1,5 +1,5 @@
-import type { FC } from "react";
-import { TitleBarDrag } from "../atomic-components";
+import type { FC } from 'react';
+import { TitleBarDrag } from '../atomic-components';
 
 export const Layout: FC = ({ children }) => {
   return (

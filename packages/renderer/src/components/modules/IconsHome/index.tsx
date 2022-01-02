@@ -38,10 +38,10 @@ const IconsHome: FC = () => {
   }
 
   return (
-    <div className='flex h-full w-full overflow-hidden'>
+    <div className="flex h-full w-full overflow-hidden">
       <LeftIconsCollectionsNav />
 
-      <div className='flex-1 flex flex-col overflow-hidden'>
+      <div className="flex-1 flex flex-col overflow-hidden">
         <SearchAddTopSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
         <IconCardsSection

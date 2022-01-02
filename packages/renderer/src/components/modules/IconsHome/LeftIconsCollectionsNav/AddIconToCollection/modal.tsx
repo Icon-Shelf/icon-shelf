@@ -1,19 +1,14 @@
-import type { FC } from "react";
-import { useState, useEffect, useRef } from "react";
-import {
-  Modal,
-  Button,
-  Checkbox,
-  Spinner,
-} from "/@/components/ui/atomic-components";
-import { ReactComponent as UploadIcon } from "/assets/icons/upload.svg";
-import type { ImageListType } from "react-images-uploading";
-import ImageUploading from "react-images-uploading";
-import { ReactComponent as DocumentIcon } from "/assets/icons/document.svg";
-import type { Collection } from "/@/data/collections";
-import { CollectionsApi } from "/@/data/collections";
-import { useParams } from "react-router-dom";
-import { CollectionsDropdown } from "./CollectionsDropdown";
+import type { FC } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Modal, Button, Checkbox, Spinner } from '/@/components/ui/atomic-components';
+import { ReactComponent as UploadIcon } from '/assets/icons/upload.svg';
+import type { ImageListType } from 'react-images-uploading';
+import ImageUploading from 'react-images-uploading';
+import { ReactComponent as DocumentIcon } from '/assets/icons/document.svg';
+import type { Collection } from '/@/data/collections';
+import { CollectionsApi } from '/@/data/collections';
+import { useParams } from 'react-router-dom';
+import { CollectionsDropdown } from './CollectionsDropdown';
 
 interface Props {
   show: boolean;
@@ -25,13 +20,12 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
   const [showLoader, setShowLoader] = useState(false);
 
   const [optimizeIcon, setOptimizeIcon] = useState<boolean>(
-    localStorage.getItem("optimizeIcon") === "true"
+    localStorage.getItem('optimizeIcon') === 'true'
   );
 
-  const { collectionId = "" } = useParams();
+  const { collectionId = '' } = useParams();
 
-  const [selectedCollection, setSelectedCollection] =
-    useState<Collection | null>(null);
+  const [selectedCollection, setSelectedCollection] = useState<Collection | null>(null);
 
   const [uploadedIcons, setUploadedIcons] = useState<ImageListType>([]);
 
@@ -50,7 +44,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
       setShowLoader(true);
 
       // add icons to collection folder
-      window.electron.ipcRenderer.send("create-and-add-icon-to-folder", {
+      window.electron.ipcRenderer.send('create-and-add-icon-to-folder', {
         uploadedIcons: uploadedIcons.map((icon) => ({
           dataURL: icon.dataURL,
           fileName: icon.file?.name,
@@ -104,12 +98,12 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
           value={uploadedIcons}
           onChange={onChange}
           maxNumber={69}
-          acceptType={["svg"]}
+          acceptType={['svg']}
         >
           {({ imageList, onImageUpload, isDragging, dragProps }) => (
             <div
               className={`w-full flex flex-col items-center justify-center outline-none border-2 border-gray-500 border-dashed rounded-md py-14 hover:border-gray-400 ${
-                isDragging && "border-primary"
+                isDragging && 'border-primary'
               }`}
               onClick={onImageUpload}
               role="button"
@@ -117,30 +111,22 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
               tabIndex={-1}
               {...dragProps}
             >
-              {!imageList.length && (
-                <UploadIcon className="pointer-events-none" />
-              )}
+              {!imageList.length && <UploadIcon className="pointer-events-none" />}
 
               {imageList.length > 0 && (
                 <div className="flex items-center gap-1">
                   <DocumentIcon className="pointer-events-none" />
                   <span className="text-white text-lg">
-                    {imageList.length}{" "}
-                    {imageList.length === 1 ? "icon" : "icons"} chosen
+                    {imageList.length} {imageList.length === 1 ? 'icon' : 'icons'} chosen
                   </span>
                 </div>
               )}
 
               {!imageList.length && (
                 <div className="flex flex-col items-center pointer-events-none">
-                  <span className="text-sm text-white">
-                    Drag and drop your SVG icons here
-                  </span>
+                  <span className="text-sm text-white">Drag and drop your SVG icons here</span>
 
-                  <button
-                    className="text-xs hover:text-white focus:text-white"
-                    type="button"
-                  >
+                  <button className="text-xs hover:text-white focus:text-white" type="button">
                     or click to browse your files
                   </button>
                 </div>
@@ -154,7 +140,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
             checked={optimizeIcon}
             label={
               <>
-                SVGO optimize icon.{" "}
+                SVGO optimize icon.{' '}
                 <a
                   className="text-blue-300 text-xs hover:text-blue-400"
                   href="https://github.com/svg/svgo"
@@ -167,7 +153,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
             }
             onChange={(val) => {
               setOptimizeIcon(val);
-              localStorage.setItem("optimizeIcon", String(val));
+              localStorage.setItem('optimizeIcon', String(val));
             }}
           />
         </div>

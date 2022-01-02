@@ -1,28 +1,20 @@
-import type { FC } from "react";
-import { ReactComponent as TrashIcon } from "/assets/icons/trash-16.svg";
-import type { Collection } from "/@/data/collections";
-import { ReactComponent as ExternalLinkIcon } from "/assets/icons/external-link-16.svg";
-import { Dropdown } from "/@/components/ui/atomic-components";
-import { ReactComponent as PencilIcon } from "/assets/icons/pencil.svg";
-import { ReactComponent as CursorClickIcon } from "/assets/icons/cursor-click-sm.svg";
-import { platformBasedText } from "/@/utils/platformText";
+import type { FC } from 'react';
+import { ReactComponent as TrashIcon } from '/assets/icons/trash-16.svg';
+import type { Collection } from '/@/data/collections';
+import { ReactComponent as ExternalLinkIcon } from '/assets/icons/external-link-16.svg';
+import { Dropdown } from '/@/components/ui/atomic-components';
+import { ReactComponent as PencilIcon } from '/assets/icons/pencil.svg';
+import { ReactComponent as CursorClickIcon } from '/assets/icons/cursor-click-sm.svg';
+import { platformBasedText } from '/@/utils/platformText';
 
 export const OptionsOverlay: FC<{
   collection?: Collection;
   onDeleteClick?: () => void;
   editCollection?: (c?: Collection) => void;
   onCustomizeActionsClick?: (c?: Collection) => void;
-}> = ({
-  collection,
-  editCollection,
-  onDeleteClick,
-  onCustomizeActionsClick,
-}) => {
+}> = ({ collection, editCollection, onDeleteClick, onCustomizeActionsClick }) => {
   const openCollectionFolderInFinder = () => {
-    window.electron.ipcRenderer.send(
-      "open-collection-folder",
-      collection?.folderSrc
-    );
+    window.electron.ipcRenderer.send('open-collection-folder', collection?.folderSrc);
   };
 
   return (
@@ -35,9 +27,9 @@ export const OptionsOverlay: FC<{
         <ExternalLinkIcon className="mr-2" />
         <div>
           {platformBasedText({
-            mac: "Open in finder",
-            win: "Open in explorer",
-            linux: "Open in file manager",
+            mac: 'Open in finder',
+            win: 'Open in explorer',
+            linux: 'Open in file manager',
           })}
         </div>
       </Dropdown.Item>

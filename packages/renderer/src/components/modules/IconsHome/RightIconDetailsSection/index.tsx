@@ -1,11 +1,11 @@
-import type { FC } from "react";
-import { useRef, useState, useEffect } from "react";
-import type { Icon } from "/@/data/icons";
-import SVG from "react-inlinesvg";
-import { formatBytes } from "/@/utils/formatBytes";
-import { formatDate } from "/@/utils/formatDate";
-import { IconDisplay } from "/@/components/ui/atomic-components";
-import { IconActionsButton } from "./IconActionsButton";
+import type { FC } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import type { Icon } from '/@/data/icons';
+import SVG from 'react-inlinesvg';
+import { formatBytes } from '/@/utils/formatBytes';
+import { formatDate } from '/@/utils/formatDate';
+import { IconDisplay } from '/@/components/ui/atomic-components';
+import { IconActionsButton } from './IconActionsButton';
 
 interface Props {
   selectedIcon: Icon | null;
@@ -14,12 +14,12 @@ interface Props {
 export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
   const svgRef = useRef<SVGElement>(null);
 
-  const [svgDimensions, setSvgDimensions] = useState("-");
+  const [svgDimensions, setSvgDimensions] = useState('-');
 
   const getSvgDimensions = (node: SVGElement) => {
-    const widthAttr = node?.getAttribute("width");
-    const heightAttr = node?.getAttribute("height");
-    const viewBox = node.getAttribute("viewBox");
+    const widthAttr = node?.getAttribute('width');
+    const heightAttr = node?.getAttribute('height');
+    const viewBox = node.getAttribute('viewBox');
     if (widthAttr && heightAttr) {
       return `${widthAttr} x ${heightAttr}`;
     }
@@ -30,7 +30,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
       return `${width} x ${height}`;
     }
 
-    return "";
+    return '';
   };
 
   const onSvgLoad = () => {
@@ -42,7 +42,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
   };
 
   useEffect(() => {
-    setSvgDimensions("-");
+    setSvgDimensions('-');
   }, [selectedIcon]);
 
   return (
@@ -57,10 +57,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
                 className="h-14 w-14 text-white hidden"
                 innerRef={svgRef}
               />
-              <IconDisplay
-                src={selectedIcon.imageSrc}
-                className="h-14 w-14 text-white bg-white"
-              />
+              <IconDisplay src={selectedIcon.imageSrc} className="h-14 w-14 text-white bg-white" />
             </>
           )}
         </div>
@@ -68,8 +65,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
         <div className="flex flex-col mt-3">
           <span className="text-white">{selectedIcon?.name}</span>
           <span className="mt-1 text-sm">
-            {(selectedIcon?.byteSize && formatBytes(selectedIcon?.byteSize)) ||
-              "-"}
+            {(selectedIcon?.byteSize && formatBytes(selectedIcon?.byteSize)) || '-'}
           </span>
         </div>
 
@@ -78,9 +74,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
 
           <div className="flex justify-between">
             <span className="mt-1">Format</span>
-            <span className="mt-1 text-white uppercase">
-              {selectedIcon?.mime || "-"}
-            </span>
+            <span className="mt-1 text-white uppercase">{selectedIcon?.mime || '-'}</span>
           </div>
 
           <div className="flex justify-between mt-1">
@@ -90,9 +84,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
 
           <div className="flex justify-between mt-1">
             <span className="mt-1">Updated</span>
-            <span className="mt-1 text-white">
-              {formatDate(selectedIcon?.updatedAt) || "-"}
-            </span>
+            <span className="mt-1 text-white">{formatDate(selectedIcon?.updatedAt) || '-'}</span>
           </div>
         </div>
       </div>

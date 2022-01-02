@@ -1,4 +1,4 @@
-import { CollectionsApi } from "/@/data/collections/api";
+import { CollectionsApi } from '/@/data/collections/api';
 
 export const checkIfAnyNewIconsInFolder = async (collectionId: string) => {
   if (!parseInt(collectionId)) {
@@ -8,7 +8,7 @@ export const checkIfAnyNewIconsInFolder = async (collectionId: string) => {
   const collection = await CollectionsApi.find(parseInt(collectionId));
 
   if (collection) {
-    window.electron.ipcRenderer.send("get-all-icon-in-folder", {
+    window.electron.ipcRenderer.send('get-all-icon-in-folder', {
       collectionId: collection.id,
       folderPath: collection.folderSrc,
     });

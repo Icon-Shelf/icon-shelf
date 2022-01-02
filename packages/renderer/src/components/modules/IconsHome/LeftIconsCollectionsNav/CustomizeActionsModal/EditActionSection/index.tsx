@@ -1,7 +1,7 @@
-import { Button, Input } from "/@/components/ui/atomic-components";
-import type { CollectionAction } from "/@/data/collections";
-import type { ChangeEvent, FC } from "react";
-import { TemplateStringCreator } from "./TemplateStringCreator";
+import { Button, Input } from '/@/components/ui/atomic-components';
+import type { CollectionAction } from '/@/data/collections';
+import type { ChangeEvent, FC } from 'react';
+import { TemplateStringCreator } from './TemplateStringCreator';
 
 interface Props {
   action: CollectionAction;
@@ -9,11 +9,7 @@ interface Props {
   onActionChange: (action: CollectionAction) => void;
 }
 
-export const EditActionSection: FC<Props> = ({
-  action,
-  onBackClick,
-  onActionChange,
-}) => {
+export const EditActionSection: FC<Props> = ({ action, onBackClick, onActionChange }) => {
   const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
@@ -37,20 +33,18 @@ export const EditActionSection: FC<Props> = ({
     <div>
       <div>
         <Button className="text-xs" onClick={onBackClick}>
-          {"<"} Back
+          {'<'} Back
         </Button>
       </div>
 
       <div className="mx-4">
         <div className="mt-4 w-60">
-          <label className="flex font-medium text-gray-400 ml-1 mb-1">
-            Name
-          </label>
+          <label className="flex font-medium text-gray-400 ml-1 mb-1">Name</label>
           <Input defaultValue={action.name} onChange={onNameChange} />
         </div>
 
         <TemplateStringCreator
-          defaultValue={action.meta.templateString || ""}
+          defaultValue={action.meta.templateString || ''}
           onChange={onTemplateStringChange}
         />
       </div>

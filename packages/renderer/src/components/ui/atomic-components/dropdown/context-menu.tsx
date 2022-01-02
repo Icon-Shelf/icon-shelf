@@ -1,4 +1,4 @@
-import type { PropsWithChildren, FC, CSSProperties, HTMLAttributes } from "react";
+import type { PropsWithChildren, FC, CSSProperties, HTMLAttributes } from 'react';
 
 interface Props {
   style?: CSSProperties;

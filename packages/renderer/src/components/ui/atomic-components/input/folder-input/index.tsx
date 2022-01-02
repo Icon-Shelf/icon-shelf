@@ -1,8 +1,8 @@
-import type { ReactElement } from "react";
-import { ReactComponent as FolderIcon } from "/assets/icons/folder.svg";
-import { formatFolderPath } from "./utils";
-import { Input } from "..";
-import { Button } from "../../button";
+import type { ReactElement } from 'react';
+import { ReactComponent as FolderIcon } from '/assets/icons/folder.svg';
+import { formatFolderPath } from './utils';
+import { Input } from '..';
+import { Button } from '../../button';
 
 export const FolderInput = ({
   folderPath,
@@ -14,7 +14,7 @@ export const FolderInput = ({
   onChange: (path: string) => void;
 }): ReactElement => {
   const onChangeBtnClick = () => {
-    const filePaths = window.electron.ipcRenderer.sendSync("select-folder");
+    const filePaths = window.electron.ipcRenderer.sendSync('select-folder');
 
     const chosenFolderPath = filePaths[0];
     if (chosenFolderPath) {

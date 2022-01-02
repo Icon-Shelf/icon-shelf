@@ -1,5 +1,5 @@
-import type { FC, ChangeEvent, ReactNode } from "react";
-import "./styles.css";
+import type { FC, ChangeEvent, ReactNode } from 'react';
+import './styles.css';
 
 export const Checkbox: FC<{
   defaultChecked?: boolean;
