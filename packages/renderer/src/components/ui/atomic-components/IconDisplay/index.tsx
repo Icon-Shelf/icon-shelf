@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { FC } from 'react';
 
 interface Props {
   src: string;
@@ -13,9 +13,9 @@ export const IconDisplay: FC<Props> = ({ src, ...rest }) => {
       {...rest}
       style={{
         WebkitMaskImage: `url(icon-image://${srcPath})`,
-        WebkitMaskRepeat: "no-repeat",
-        WebkitMaskSize: "contain",
-        WebkitMaskPosition: "center center",
+        WebkitMaskRepeat: 'no-repeat',
+        WebkitMaskSize: 'contain',
+        WebkitMaskPosition: 'center center',
       }}
     />
   );

@@ -1,5 +1,5 @@
-import type { FC } from "react";
-import { ReactComponent as MailIcon } from "/assets/icons/mail.svg";
+import type { FC } from 'react';
+import { ReactComponent as MailIcon } from '/assets/icons/mail.svg';
 
 export const TempIconCard: FC = () => {
   return (

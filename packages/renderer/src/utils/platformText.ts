@@ -1,4 +1,4 @@
-import { detectOS } from "./detectOS";
+import { detectOS } from './detectOS';
 
 export function platformBasedText({
   mac,
@@ -11,11 +11,11 @@ export function platformBasedText({
 }) {
   const platform = detectOS();
 
-  if (platform === "Mac OS") {
+  if (platform === 'Mac OS') {
     return mac;
   }
 
-  if (platform === "Linux") {
+  if (platform === 'Linux') {
     return linux;
   }
 

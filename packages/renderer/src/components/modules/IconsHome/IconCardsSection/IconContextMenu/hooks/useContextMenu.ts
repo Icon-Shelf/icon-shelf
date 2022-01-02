@@ -1,5 +1,5 @@
-import type { MouseEvent } from "react";
-import { useEffect, useCallback, useState } from "react";
+import type { MouseEvent } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 
 export const useContextMenu = () => {
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
@@ -9,7 +9,7 @@ export const useContextMenu = () => {
     (evt: Event) => {
       const event = evt as unknown as MouseEvent;
 
-      const clickedIconCard = (event.target as HTMLButtonElement).closest("[data-icon-card-id]");
+      const clickedIconCard = (event.target as HTMLButtonElement).closest('[data-icon-card-id]');
 
       if (clickedIconCard) {
         event.preventDefault();
@@ -18,7 +18,7 @@ export const useContextMenu = () => {
           x: event.pageX,
           y: event.pageY,
         });
-        setClickedIconId(clickedIconCard.getAttribute("data-icon-card-id"));
+        setClickedIconId(clickedIconCard.getAttribute('data-icon-card-id'));
       }
     },
     [setClickedIconId, setAnchorPoint]
@@ -32,12 +32,12 @@ export const useContextMenu = () => {
   useEffect(() => {
     const dom = document;
 
-    dom?.addEventListener("click", handleClick);
-    dom?.addEventListener("contextmenu", handleContextMenu);
+    dom?.addEventListener('click', handleClick);
+    dom?.addEventListener('contextmenu', handleContextMenu);
 
     return () => {
-      dom?.removeEventListener("click", handleClick);
-      dom?.removeEventListener("contextmenu", handleContextMenu);
+      dom?.removeEventListener('click', handleClick);
+      dom?.removeEventListener('contextmenu', handleContextMenu);
     };
   });
   return { anchorPoint, clickedIconId };

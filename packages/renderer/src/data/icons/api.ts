@@ -1,13 +1,13 @@
-import { db } from "../db";
-import type { Icon } from "./types";
+import { db } from '../db';
+import type { Icon } from './types';
 
-const filterIconsBasedOnSearch = (icons: Icon[], searchQuery = "") => {
+const filterIconsBasedOnSearch = (icons: Icon[], searchQuery = '') => {
   return icons.filter((icon) => icon.name.includes(searchQuery));
 };
 
 export const IconsApi = {
   findAll: async () => {
-    const icons = await db.icons.orderBy("updatedAt").toArray();
+    const icons = await db.icons.orderBy('updatedAt').toArray();
 
     return icons;
   },
@@ -22,20 +22,17 @@ export const IconsApi = {
       return [];
     }
 
-    if (collectionId === "all-icons") {
-      const icons = await db.icons
-        .orderBy("collectionId")
-        .reverse()
-        .sortBy("updatedAt");
+    if (collectionId === 'all-icons') {
+      const icons = await db.icons.orderBy('collectionId').reverse().sortBy('updatedAt');
 
       return filterIconsBasedOnSearch(icons, searchQuery) || [];
     }
 
     const icons = await db.icons
-      .where("collectionId")
+      .where('collectionId')
       .equals(collectionId)
       .reverse()
-      .sortBy("updatedAt");
+      .sortBy('updatedAt');
 
     return filterIconsBasedOnSearch(icons, searchQuery) || [];
   },

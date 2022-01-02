@@ -1,8 +1,8 @@
-import { db } from "/@/data/db";
-import { keyBy } from "lodash";
-import type { QueryClient } from "react-query";
-import type { Icon } from "..";
-import { IconsApi } from "..";
+import { db } from '/@/data/db';
+import { keyBy } from 'lodash';
+import type { QueryClient } from 'react-query';
+import type { Icon } from '..';
+import { IconsApi } from '..';
 
 export async function handleIconInFolderReply(
   queryClient: QueryClient,
@@ -19,15 +19,15 @@ export async function handleIconInFolderReply(
 
   const existingIcons = await IconsApi.findAllInCollection(collectionIdString);
 
-  const existingIconsMap = keyBy(existingIcons, "name");
-  const folderIconsMap = keyBy(files, "name");
+  const existingIconsMap = keyBy(existingIcons, 'name');
+  const folderIconsMap = keyBy(files, 'name');
 
   const iconsToAdd: Icon[] = [];
 
   files.forEach((file) => {
-    const [name, type] = file.name.split(".");
+    const [name, type] = file.name.split('.');
 
-    if (!existingIconsMap[name] && type === "svg") {
+    if (!existingIconsMap[name] && type === 'svg') {
       iconsToAdd.push({
         name,
         collectionId: collectionIdString,
@@ -44,7 +44,7 @@ export async function handleIconInFolderReply(
     db.icons
       .bulkAdd(iconsToAdd)
       .then(() => {
-        queryClient.invalidateQueries("icons-list");
+        queryClient.invalidateQueries('icons-list');
       })
       .catch(() => {});
   }
@@ -62,7 +62,7 @@ export async function handleIconInFolderReply(
     db.icons
       .bulkDelete(iconsToDelete)
       .then(() => {
-        queryClient.invalidateQueries("icons-list");
+        queryClient.invalidateQueries('icons-list');
       })
       .catch(() => {});
   }

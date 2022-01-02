@@ -1,144 +1,144 @@
-import type { Plugin } from "svgo";
+import type { Plugin } from 'svgo';
 
 export const svgoPluginsConfiguration: Plugin[] = [
   {
-    name: "cleanupAttrs",
+    name: 'cleanupAttrs',
     active: true,
   },
   {
-    name: "cleanupEnableBackground",
+    name: 'cleanupEnableBackground',
     active: true,
   },
   {
-    name: "cleanupIDs",
+    name: 'cleanupIDs',
     active: true,
   },
   {
-    name: "cleanupNumericValues",
+    name: 'cleanupNumericValues',
     active: true,
   },
   {
-    name: "collapseGroups",
+    name: 'collapseGroups',
     active: true,
   },
   {
-    name: "convertColors",
+    name: 'convertColors',
     active: true,
   },
   {
-    name: "convertEllipseToCircle",
+    name: 'convertEllipseToCircle',
     active: true,
   },
   {
-    name: "convertPathData",
+    name: 'convertPathData',
     active: true,
   },
   {
-    name: "convertShapeToPath",
+    name: 'convertShapeToPath',
     active: false,
   },
   {
-    name: "convertTransform",
+    name: 'convertTransform',
     active: true,
   },
   {
-    name: "inlineStyles",
+    name: 'inlineStyles',
     active: true,
   },
   {
-    name: "mergePaths",
+    name: 'mergePaths',
     active: false,
   },
   {
-    name: "mergeStyles",
+    name: 'mergeStyles',
     active: true,
   },
   {
-    name: "moveElemsAttrsToGroup",
+    name: 'moveElemsAttrsToGroup',
     active: true,
   },
   {
-    name: "moveGroupAttrsToElems",
+    name: 'moveGroupAttrsToElems',
     active: true,
   },
   {
-    name: "removeComments",
+    name: 'removeComments',
     active: true,
   },
   {
-    name: "removeDesc",
+    name: 'removeDesc',
     active: true,
   },
   {
-    name: "removeDoctype",
+    name: 'removeDoctype',
     active: true,
   },
   {
-    name: "removeEditorsNSData",
+    name: 'removeEditorsNSData',
     active: true,
   },
   {
-    name: "removeEmptyAttrs",
+    name: 'removeEmptyAttrs',
     active: true,
   },
   {
-    name: "removeEmptyContainers",
+    name: 'removeEmptyContainers',
     active: true,
   },
   {
-    name: "removeEmptyText",
+    name: 'removeEmptyText',
     active: true,
   },
   {
-    name: "removeHiddenElems",
+    name: 'removeHiddenElems',
     active: true,
   },
   {
-    name: "removeMetadata",
+    name: 'removeMetadata',
     active: true,
   },
   {
-    name: "removeNonInheritableGroupAttrs",
+    name: 'removeNonInheritableGroupAttrs',
     active: true,
   },
   {
-    name: "removeTitle",
+    name: 'removeTitle',
     active: true,
   },
   {
-    name: "removeUnknownsAndDefaults",
+    name: 'removeUnknownsAndDefaults',
     active: true,
   },
   {
-    name: "removeUnusedNS",
+    name: 'removeUnusedNS',
     active: true,
   },
   {
-    name: "removeUselessDefs",
+    name: 'removeUselessDefs',
     active: true,
   },
   {
-    name: "removeUselessStrokeAndFill",
+    name: 'removeUselessStrokeAndFill',
     active: true,
   },
   {
-    name: "removeViewBox",
+    name: 'removeViewBox',
     active: false,
   },
   {
-    name: "removeXMLProcInst",
+    name: 'removeXMLProcInst',
     active: true,
   },
   {
-    name: "sortDefsChildren",
+    name: 'sortDefsChildren',
     active: true,
   },
   {
-    name: "removeRasterImages",
+    name: 'removeRasterImages',
     active: false,
   },
   {
-    name: "sortAttrs",
+    name: 'sortAttrs',
     active: true,
   },
 ];

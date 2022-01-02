@@ -1,28 +1,25 @@
-import type { FC } from "react";
-import { useState, useEffect } from "react";
-import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
-import { useQueryParam, StringParam } from "use-query-params";
-import { IconCardsSection } from "./IconCardsSection";
-import { LeftIconsCollectionsNav } from "./LeftIconsCollectionsNav";
-import { RightIconDetailsSection } from "./RightIconDetailsSection";
-import { SearchAddTopSection } from "./SearchAddTopSection";
-import type { Icon } from "/@/data/icons";
-import { IconsApi } from "/@/data/icons";
-import { useCheckIfAnyNewIconsInFolder } from "/@/data/icons/hooks";
+import type { FC } from 'react';
+import { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
+import { IconCardsSection } from './IconCardsSection';
+import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
+import { RightIconDetailsSection } from './RightIconDetailsSection';
+import { SearchAddTopSection } from './SearchAddTopSection';
+import type { Icon } from '/@/data/icons';
+import { IconsApi } from '/@/data/icons';
+import { useCheckIfAnyNewIconsInFolder } from '/@/data/icons/hooks';
 
 const IconsHome: FC = () => {
-  const { collectionId = "" } = useParams();
-  const [searchQuery, setSearchQuery] = useQueryParam("f", StringParam);
+  const { collectionId = '' } = useParams();
+  const [searchQuery, setSearchQuery] = useState<string>();
 
   const { data: icons } = useQuery(
-    ["icons-list", collectionId, searchQuery],
+    ['icons-list', collectionId, searchQuery],
     () =>
-      IconsApi.findAllInCollection(collectionId, searchQuery || "").catch(
-        () => {
-          return [];
-        }
-      ),
+      IconsApi.findAllInCollection(collectionId, searchQuery).catch(() => {
+        return [];
+      }),
     {
       keepPreviousData: true,
     }
@@ -45,10 +42,7 @@ const IconsHome: FC = () => {
       <LeftIconsCollectionsNav />
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <SearchAddTopSection
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <SearchAddTopSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
         <IconCardsSection
           icons={icons}

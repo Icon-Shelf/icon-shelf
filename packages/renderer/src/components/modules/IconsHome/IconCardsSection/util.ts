@@ -1,11 +1,11 @@
-import type { Icon } from "/@/data/icons";
+import type { Icon } from '/@/data/icons';
 
 export const findSelectedIconPos = (icons: Icon[]) => {
   let iconPos = null;
-  const selectedIconDom = document.querySelector("[data-is-selected=true]");
+  const selectedIconDom = document.querySelector('[data-is-selected=true]');
 
   if (selectedIconDom) {
-    const iconId = selectedIconDom.getAttribute("data-icon-card-id");
+    const iconId = selectedIconDom.getAttribute('data-icon-card-id');
 
     if (iconId) {
       iconPos = icons.map((icon) => icon.id).indexOf(parseInt(iconId));
@@ -17,13 +17,11 @@ export const findSelectedIconPos = (icons: Icon[]) => {
 
 export const getNumberOfIconInRow = (): number => {
   let gridColumnCount = 0;
-  const iconsWrapperDom = document.querySelector("#icon-list-grid");
+  const iconsWrapperDom = document.querySelector('#icon-list-grid');
   if (iconsWrapperDom) {
     const gridComputedStyle = window.getComputedStyle(iconsWrapperDom);
 
-    gridColumnCount = gridComputedStyle
-      .getPropertyValue("grid-template-columns")
-      .split(" ").length;
+    gridColumnCount = gridComputedStyle.getPropertyValue('grid-template-columns').split(' ').length;
   }
 
   return gridColumnCount;

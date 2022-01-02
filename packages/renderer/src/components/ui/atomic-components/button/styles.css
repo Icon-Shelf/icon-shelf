@@ -18,6 +18,6 @@
   @apply bg-red-600 text-white active:bg-red-800 ring-offset-2 ring-offset-black2 focus:ring-2 focus:ring-primary;
 }
 
-.btn.btn-link {
+.btn-link {
   @apply inline text-blue-600 hover:text-blue-700 outline-none;
 }

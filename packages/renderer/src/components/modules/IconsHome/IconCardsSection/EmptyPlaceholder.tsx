@@ -1,8 +1,8 @@
-import type { FC } from "react";
-import { useParams } from "react-router";
-import { useQueryClient } from "react-query";
-import type { Collection } from "/@/data/collections";
-import { Button } from "/@/components/ui/atomic-components";
+import type { FC } from 'react';
+import { useParams } from 'react-router';
+import { useQueryClient } from 'react-query';
+import type { Collection } from '/@/data/collections';
+import { Button } from '/@/components/ui/atomic-components';
 
 const Wrapper: FC = ({ children }) => {
   return (
@@ -34,8 +34,7 @@ export const EmptyPlaceholder: FC<{
   const queryClient = useQueryClient();
   const { collectionId } = useParams();
 
-  const collectionsList: Collection[] | undefined =
-    queryClient.getQueryData("collections-list");
+  const collectionsList: Collection[] | undefined = queryClient.getQueryData('collections-list');
 
   if (searchQuery) {
     return (
@@ -47,24 +46,22 @@ export const EmptyPlaceholder: FC<{
     );
   }
 
-  if (collectionId === "all-icons" && !collectionsList?.length) {
+  if (collectionId === 'all-icons' && !collectionsList?.length) {
     return (
       <Wrapper>
         <div className="w-1/2 text-center">
           {/*  eslint-disable-next-line react/no-unescaped-entities */}
           You don't have any collection created
           <br />
-          Click{" "}
+          Click{' '}
           <Button
             type="link"
             onClick={() => {
-              document
-                ?.querySelector<HTMLButtonElement>("#create-collection-btn")
-                ?.click();
+              document?.querySelector<HTMLButtonElement>('#create-collection-btn')?.click();
             }}
           >
             here
-          </Button>{" "}
+          </Button>{' '}
           to create a new collection.
         </div>
       </Wrapper>
@@ -74,17 +71,15 @@ export const EmptyPlaceholder: FC<{
   return (
     <Wrapper>
       <div className="w-1/2 text-center">
-        Click{" "}
+        Click{' '}
         <Button
           type="link"
           onClick={() => {
-            document
-              ?.querySelector<HTMLButtonElement>("#add-icon-to-collection-btn")
-              ?.click();
+            document?.querySelector<HTMLButtonElement>('#add-icon-to-collection-btn')?.click();
           }}
         >
           here
-        </Button>{" "}
+        </Button>{' '}
         to add icons to collection.
       </div>
     </Wrapper>

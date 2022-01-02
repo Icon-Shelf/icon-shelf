@@ -2,17 +2,9 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-loop-func */
 /* eslint-disable no-restricted-syntax */
-import type {
-  EditorView,
-  ViewUpdate,
-  DecorationSet,
-  Range} from "@codemirror/view";
-import {
-  WidgetType,
-  Decoration,
-  ViewPlugin
-} from "@codemirror/view";
-import { syntaxTree } from "@codemirror/language";
+import type { EditorView, ViewUpdate, DecorationSet, Range } from '@codemirror/view';
+import { WidgetType, Decoration, ViewPlugin } from '@codemirror/view';
+import { syntaxTree } from '@codemirror/language';
 
 // Widget
 class EvaluationWidget extends WidgetType {
@@ -21,18 +13,18 @@ class EvaluationWidget extends WidgetType {
   }
 
   toDOM() {
-    const wrap = document.createElement("span");
+    const wrap = document.createElement('span');
 
-    wrap.className = "cm-evaluation-block cm-custom-tooltip";
+    wrap.className = 'cm-evaluation-block cm-custom-tooltip';
     wrap.textContent = this.matchedText;
 
-    const tooltip = wrap.appendChild(document.createElement("span"));
-    tooltip.className = "cm-tooltip-text";
+    const tooltip = wrap.appendChild(document.createElement('span'));
+    tooltip.className = 'cm-tooltip-text';
 
-    if (this.matchedText === "<%=") {
-      tooltip.textContent = "Execution block start";
+    if (this.matchedText === '<%=') {
+      tooltip.textContent = 'Execution block start';
     } else {
-      tooltip.textContent = "Execution block end";
+      tooltip.textContent = 'Execution block end';
     }
 
     return wrap;
@@ -52,21 +44,21 @@ function evaluationBlock(view: EditorView) {
         let matchedFrom = 0;
         let matchedTo = 0;
 
-        if (type.name === "Equals") {
+        if (type.name === 'Equals') {
           matchedFrom = to - 3;
           matchedTo = to + 1;
           matchedText = view.state.doc.sliceString(to - 3, to);
-        } else if (view.state.doc.sliceString(from, to) === "%>") {
+        } else if (view.state.doc.sliceString(from, to) === '%>') {
           matchedFrom = from - 1;
           matchedTo = to;
           matchedText = view.state.doc.sliceString(from, to);
-        } else if (view.state.doc.sliceString(from, to) === ">") {
+        } else if (view.state.doc.sliceString(from, to) === '>') {
           matchedFrom = from - 1;
           matchedTo = to;
           matchedText = view.state.doc.sliceString(from - 1, to);
         }
 
-        if (matchedText && ["<%=", "%>"].includes(matchedText)) {
+        if (matchedText && ['<%=', '%>'].includes(matchedText)) {
           const deco = Decoration.replace({
             widget: new EvaluationWidget(matchedText),
             inclusive: true,

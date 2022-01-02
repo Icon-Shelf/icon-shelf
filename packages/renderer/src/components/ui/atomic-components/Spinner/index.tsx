@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { FC } from 'react';
 
 export const Spinner: FC<{ className: string }> = ({ className }) => {
   return (

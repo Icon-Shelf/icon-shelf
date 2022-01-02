@@ -1,15 +1,15 @@
-import type { FC} from "react";
-import { useEffect, useRef, useState } from "react";
-import { ContextMenu } from "/@/components/ui/atomic-components";
-import type { CollectionAction} from "/@/data/collections";
-import { CollectionsApi } from "/@/data/collections";
-import type { Icon} from "/@/data/icons";
-import { IconsApi } from "/@/data/icons";
-import { getIconActionOfCollection } from "/@/data/collections/iconActions/utils";
-import { useOnActionClick } from "/@/data/collections/iconActions/useOnActionClick";
-import { inlineIconsMap } from "/@/data/collections/iconActions/inlineIconsMap";
-import { useContextMenu } from "./hooks/useContextMenu";
-import { calculateMenuLeft, calculateMenuTop } from "./utils";
+import type { FC } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { ContextMenu } from '/@/components/ui/atomic-components';
+import type { CollectionAction } from '/@/data/collections';
+import { CollectionsApi } from '/@/data/collections';
+import type { Icon } from '/@/data/icons';
+import { IconsApi } from '/@/data/icons';
+import { getIconActionOfCollection } from '/@/data/collections/iconActions/utils';
+import { useOnActionClick } from '/@/data/collections/iconActions/useOnActionClick';
+import { inlineIconsMap } from '/@/data/collections/iconActions/inlineIconsMap';
+import { useContextMenu } from './hooks/useContextMenu';
+import { calculateMenuLeft, calculateMenuTop } from './utils';
 
 export const IconContextMenu: FC<{
   parentDom: HTMLDivElement;
@@ -28,9 +28,7 @@ export const IconContextMenu: FC<{
 
         if (selectedIcon) {
           selectedIconRef.current = selectedIcon;
-          const collection = await CollectionsApi.find(
-            selectedIcon.collectionId
-          );
+          const collection = await CollectionsApi.find(selectedIcon.collectionId);
 
           setIconActions(getIconActionOfCollection(collection));
         }
@@ -57,9 +55,7 @@ export const IconContextMenu: FC<{
         .filter((action) => !action.hidden)
         .map((actionObj) => (
           <ContextMenu.Item
-            onClick={() =>
-              onActionClick({ actionObj, icon: selectedIconRef.current })
-            }
+            onClick={() => onActionClick({ actionObj, icon: selectedIconRef.current })}
             key={actionObj.id}
           >
             <div className="mr-2">{inlineIconsMap[actionObj.icon]}</div>

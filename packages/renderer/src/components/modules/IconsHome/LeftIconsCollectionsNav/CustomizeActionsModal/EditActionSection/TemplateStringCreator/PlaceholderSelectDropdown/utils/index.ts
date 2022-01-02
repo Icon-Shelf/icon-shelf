@@ -1,1 +1,1 @@
-export * from "./insertPlaceholder";
+export * from './insertPlaceholder';

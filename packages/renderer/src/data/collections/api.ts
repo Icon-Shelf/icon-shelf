@@ -1,6 +1,6 @@
-import { db } from "../db";
-import { IconsApi } from "../icons";
-import type { Collection } from "./types";
+import { db } from '../db';
+import { IconsApi } from '../icons';
+import type { Collection } from './types';
 
 export const CollectionsApi = {
   create: (collection: Collection) => {
@@ -10,7 +10,7 @@ export const CollectionsApi = {
     return db.collections.update(id, collection);
   },
   findAll: () => {
-    return db.collections.orderBy("createdAt").toArray();
+    return db.collections.orderBy('createdAt').toArray();
   },
   find: (id: number | string) => {
     const parsedId: number = parseInt(id as string);

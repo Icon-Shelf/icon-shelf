@@ -1,17 +1,14 @@
-import { IconsApi } from "/@/data/icons";
-import { keyBy } from "lodash";
-import { db } from "/@/data/db";
-import type { Icon } from "../types";
+import { IconsApi } from '/@/data/icons';
+import { keyBy } from 'lodash';
+import { db } from '/@/data/db';
+import type { Icon } from '../types';
 
-export const addIconsToDb = async (
-  icons: Icon[],
-  collectionIdNo: number | string
-) => {
+export const addIconsToDb = async (icons: Icon[], collectionIdNo: number | string) => {
   const collectionIdString = String(collectionIdNo);
 
   const existingIcons = await IconsApi.findAllInCollection(collectionIdString);
 
-  const existingIconsMap = keyBy(existingIcons, "name");
+  const existingIconsMap = keyBy(existingIcons, 'name');
 
   const iconsToAdd: Icon[] = [];
 

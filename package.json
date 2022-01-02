@@ -44,6 +44,7 @@
     "electron-devtools-installer": "3.2.0",
     "electron-notarize": "^1.1.1",
     "eslint": "8.5.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "nano-staged": "0.5.0",
@@ -90,7 +91,6 @@
     "react-router-dom": "^6.2.1",
     "svgo": "^2.8.0",
     "universal-analytics": "^0.4.23",
-    "use-query-params": "^1.2.3",
     "uuid": "^8.3.2"
   },
   "repository": {

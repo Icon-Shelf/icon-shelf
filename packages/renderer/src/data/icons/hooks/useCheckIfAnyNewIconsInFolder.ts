@@ -1,8 +1,8 @@
-import { CollectionsApi } from "/@/data/collections";
-import { useEffect } from "react";
-import { useQueryClient } from "react-query";
-import { checkIfAnyNewIconsInFolder } from "../utils";
-import { useHandleIconInFolderReply } from "./useHandleIconInFolderReply";
+import { CollectionsApi } from '/@/data/collections';
+import { useEffect } from 'react';
+import { useQueryClient } from 'react-query';
+import { checkIfAnyNewIconsInFolder } from '../utils';
+import { useHandleIconInFolderReply } from './useHandleIconInFolderReply';
 
 export const useCheckIfAnyNewIconsInFolder = (collectionId: string) => {
   const queryClient = useQueryClient();
@@ -14,7 +14,7 @@ export const useCheckIfAnyNewIconsInFolder = (collectionId: string) => {
       });
 
       CollectionsApi.find(parseInt(collectionId)).then((collection) => {
-        window.electron.ipcRenderer.send("collection-switch", {
+        window.electron.ipcRenderer.send('collection-switch', {
           collectionId: collection?.id,
           folderSrc: collection?.folderSrc,
         });

@@ -1,4 +1,4 @@
-import type { ChangeEvent, HTMLProps, ReactElement, ReactNode } from "react";
+import type { ChangeEvent, HTMLProps, ReactElement, ReactNode } from 'react';
 
 interface Props extends HTMLProps<HTMLTextAreaElement> {
   name?: string;
@@ -12,7 +12,7 @@ interface Props extends HTMLProps<HTMLTextAreaElement> {
 
 export const TextArea = ({
   name,
-  className = "",
+  className = '',
   id,
   placeholder,
   value,

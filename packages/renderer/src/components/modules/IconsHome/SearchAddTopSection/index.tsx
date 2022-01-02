@@ -1,29 +1,24 @@
-import type { FC } from "react";
-import { Input } from "/@/components/ui/atomic-components";
-import { GlobalHotKeys } from "react-hotkeys";
-import { platformBasedText } from "/@/utils/platformText";
-import { AddIconToCollection } from "../LeftIconsCollectionsNav/AddIconToCollection/index";
+import type { FC } from 'react';
+import { Input } from '/@/components/ui/atomic-components';
+import { GlobalHotKeys } from 'react-hotkeys';
+import { platformBasedText } from '/@/utils/platformText';
+import { AddIconToCollection } from '../LeftIconsCollectionsNav/AddIconToCollection/index';
 
 const { Search } = Input;
 
 interface Props {
-  searchQuery: string | null | undefined;
+  searchQuery: string | undefined;
   setSearchQuery: (newValue: string) => void;
 }
 
 const keyMap = {
-  FOCUS_ICON_SEARCH: ["cmd+f", "ctrl+f"],
+  FOCUS_ICON_SEARCH: ['cmd+f', 'ctrl+f'],
 };
 
-export const SearchAddTopSection: FC<Props> = ({
-  searchQuery,
-  setSearchQuery,
-}) => {
+export const SearchAddTopSection: FC<Props> = ({ searchQuery, setSearchQuery }) => {
   const handlers = {
     FOCUS_ICON_SEARCH: () => {
-      const searchDom = document.querySelector<HTMLInputElement>(
-        "[name=\"icons-search\"]"
-      );
+      const searchDom = document.querySelector<HTMLInputElement>('[name="icons-search"]');
       searchDom?.focus?.();
     },
   };
@@ -34,12 +29,12 @@ export const SearchAddTopSection: FC<Props> = ({
       <Search
         name="icons-search"
         placeholder={`Quick search for icons (${platformBasedText({
-          mac: "⌘f",
-          win: "Ctrl+f",
-          linux: "Ctrl+f",
+          mac: '⌘f',
+          win: 'Ctrl+f',
+          linux: 'Ctrl+f',
         })})`}
         className="flex-1"
-        value={searchQuery || ""}
+        value={searchQuery || ''}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
       <AddIconToCollection />

@@ -1,9 +1,9 @@
-import type { FC } from "react";
+import type { FC } from 'react';
 
 const Submenu: FC<{
-  position?: "left" | "right" | "bottom" | "left-top" | "right-top";
+  position?: 'left' | 'right' | 'bottom' | 'left-top' | 'right-top';
   className?: string;
-}> = ({ children, position, className = "", ...props }) => (
+}> = ({ children, position, className = '', ...props }) => (
   <div
     className={`multi-dropdown-submenu multi-dropdown-submenu--${position} ${className}`}
     {...props}

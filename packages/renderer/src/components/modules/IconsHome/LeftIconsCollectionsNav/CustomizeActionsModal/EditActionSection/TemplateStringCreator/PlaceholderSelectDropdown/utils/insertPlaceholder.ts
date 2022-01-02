@@ -1,6 +1,6 @@
-import type { EditorView } from "@codemirror/view";
+import type { EditorView } from '@codemirror/view';
 
-export type PlaceholderType = "execution-block" | "variable" | "function";
+export type PlaceholderType = 'execution-block' | 'variable' | 'function';
 
 const checkIsCursorInsideExecutionBlock = (editorView: EditorView) => {
   const cursorPos = editorView.state.selection.main.head;
@@ -9,7 +9,7 @@ const checkIsCursorInsideExecutionBlock = (editorView: EditorView) => {
 
   const tokensInBeforeText = textBeforeCursor.match(/(<%=)|(%>)/g);
 
-  if (tokensInBeforeText?.length && tokensInBeforeText[tokensInBeforeText?.length - 1] === "<%=") {
+  if (tokensInBeforeText?.length && tokensInBeforeText[tokensInBeforeText?.length - 1] === '<%=') {
     return true;
   }
 
@@ -23,17 +23,17 @@ const generateTextToInsert = (
 ): string => {
   const isCursorInsideExecutionBlock = checkIsCursorInsideExecutionBlock(editorView);
 
-  if (type === "execution-block") {
-    return " <%=    %> ";
+  if (type === 'execution-block') {
+    return ' <%=    %> ';
   }
-  if (type === "variable") {
+  if (type === 'variable') {
     // check if in execution block, if so insert as such else add ${}
     if (isCursorInsideExecutionBlock) {
       return value;
     }
     return `\${${value}}`;
   }
-  if (type === "function") {
+  if (type === 'function') {
     // check if in execution block, if not insert execution block as well
     if (!isCursorInsideExecutionBlock) {
       return `<%= _.${value} %>`;
@@ -41,7 +41,7 @@ const generateTextToInsert = (
     return `_.${value}`;
   }
 
-  return "";
+  return '';
 };
 
 export const insertPlaceholder = (editorView: EditorView, type: PlaceholderType, value: string) => {
@@ -53,7 +53,7 @@ export const insertPlaceholder = (editorView: EditorView, type: PlaceholderType,
     changes: { from: cursorPos, insert: textToInsert },
   });
 
-  if (type !== "execution-block") {
+  if (type !== 'execution-block') {
     editorView.dispatch({
       selection: { anchor: cursorPos + textToInsert.length },
       scrollIntoView: true,

@@ -1,7 +1,7 @@
-import type { IconShelfDatabase } from "./index";
+import type { IconShelfDatabase } from './index';
 
 export const bootstrapDb = (db: IconShelfDatabase) => {
-  db.on("populate", function () {
+  db.on('populate', function () {
     // Init your DB with some default icons:
     // db.icons.bulkAdd([
     //   {

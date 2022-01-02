@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from "react";
-import { useQueryClient } from "react-query";
-import { checkIfAnyNewIconsInFolder, handleIconInFolderReply } from "../utils";
+import { useCallback, useEffect } from 'react';
+import { useQueryClient } from 'react-query';
+import { checkIfAnyNewIconsInFolder, handleIconInFolderReply } from '../utils';
 
 export const useHandleIconInFolderReply = () => {
   const queryClient = useQueryClient();
@@ -26,18 +26,12 @@ export const useHandleIconInFolderReply = () => {
   }, []);
 
   useEffect(() => {
-    window.electron.ipcRenderer.on(
-      "get-all-icon-in-folder_reply",
-      handleIconInFolderReplyFn
-    );
-    window.electron.ipcRenderer.on(
-      "collection-folder-change_reply",
-      handleFolderChangeReply
-    );
+    window.electron.ipcRenderer.on('get-all-icon-in-folder_reply', handleIconInFolderReplyFn);
+    window.electron.ipcRenderer.on('collection-folder-change_reply', handleFolderChangeReply);
 
     return () => {
       window.electron.ipcRenderer.removeListener(
-        "get-all-icon-in-folder_reply",
+        'get-all-icon-in-folder_reply',
         handleIconInFolderReplyFn
       );
     };

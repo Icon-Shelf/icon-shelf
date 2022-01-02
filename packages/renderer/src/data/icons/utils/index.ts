@@ -1,3 +1,3 @@
-export * from "./addIconsToDb";
-export * from "./handleIconInFolderReply";
-export * from "./checkIfAnyNewIconsInFolder";
+export * from './addIconsToDb';
+export * from './handleIconInFolderReply';
+export * from './checkIfAnyNewIconsInFolder';

@@ -12,13 +12,14 @@
     "npm-debug.log.*": true,
     "test/**/__snapshots__": true,
     "yarn.lock": true,
+    "package-lock.json": true,
     "*.{css,sass,scss}.d.ts": true
   },
   "files.exclude": {
     "node_modules/": true
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    // "source.fixAll.eslint": true
   },
   "editor.quickSuggestions": {
     "strings": true

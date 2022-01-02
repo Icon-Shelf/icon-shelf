@@ -1,5 +1,5 @@
 export const formatFolderPath = (path: string): string => {
-  const pathSplit = path.split("/");
+  const pathSplit = path.split('/');
 
   const splitLength = pathSplit.length - 1;
 

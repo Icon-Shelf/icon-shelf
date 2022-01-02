@@ -1,11 +1,11 @@
-import type { FC } from "react";
-import { ReactComponent as CheveronDownIcon } from "/assets/icons/cheveron-down.svg";
-import { ReactComponent as CheveronRightIcon } from "/assets/icons/cheveron-right.svg";
-import { editorFunctionOptions } from "/@/components/ui/TemplateEditor/autocomplete";
-import type { EditorView } from "@codemirror/view";
-import type { PlaceholderType } from "./utils";
-import { insertPlaceholder } from "./utils";
-import { MultilevelDropdown } from "../../../../../../../ui/atomic-components/MultilevelDropdown";
+import type { FC } from 'react';
+import { ReactComponent as CheveronDownIcon } from '/assets/icons/cheveron-down.svg';
+import { ReactComponent as CheveronRightIcon } from '/assets/icons/cheveron-right.svg';
+import { editorFunctionOptions } from '/@/components/ui/TemplateEditor/autocomplete';
+import type { EditorView } from '@codemirror/view';
+import type { PlaceholderType } from './utils';
+import { insertPlaceholder } from './utils';
+import { MultilevelDropdown } from '../../../../../../../ui/atomic-components/MultilevelDropdown';
 
 export const PlaceholderSelectDropdown: FC<{
   editorView: EditorView;
@@ -30,24 +30,20 @@ export const PlaceholderSelectDropdown: FC<{
         <CheveronRightIcon className="float-right" />
 
         <MultilevelDropdown.Submenu position="right">
-          <MultilevelDropdown.Item
-            onMouseDown={() => handleClick("variable", "iconName")}
-          >
+          <MultilevelDropdown.Item onMouseDown={() => handleClick('variable', 'iconName')}>
             Icon name
           </MultilevelDropdown.Item>
           <MultilevelDropdown.Item
-            onMouseDown={() => handleClick("variable", "iconRelativeFilePath")}
+            onMouseDown={() => handleClick('variable', 'iconRelativeFilePath')}
           >
             Icon relative file path
           </MultilevelDropdown.Item>
           <MultilevelDropdown.Item
-            onMouseDown={() => handleClick("variable", "iconAbsoluteFilePath")}
+            onMouseDown={() => handleClick('variable', 'iconAbsoluteFilePath')}
           >
             Icon absolute file path
           </MultilevelDropdown.Item>
-          <MultilevelDropdown.Item
-            onMouseDown={() => handleClick("variable", "iconFileType")}
-          >
+          <MultilevelDropdown.Item onMouseDown={() => handleClick('variable', 'iconFileType')}>
             Icon file type
           </MultilevelDropdown.Item>
         </MultilevelDropdown.Submenu>
@@ -61,7 +57,7 @@ export const PlaceholderSelectDropdown: FC<{
           {editorFunctionOptions.map((fnItem) => (
             <MultilevelDropdown.Item
               key={fnItem.label}
-              onMouseDown={() => handleClick("function", fnItem.apply)}
+              onMouseDown={() => handleClick('function', fnItem.apply)}
             >
               _.{fnItem.label}
             </MultilevelDropdown.Item>
@@ -69,9 +65,7 @@ export const PlaceholderSelectDropdown: FC<{
         </MultilevelDropdown.Submenu>
       </MultilevelDropdown.Item>
 
-      <MultilevelDropdown.Item
-        onMouseDown={() => handleClick("execution-block", "")}
-      >
+      <MultilevelDropdown.Item onMouseDown={() => handleClick('execution-block', '')}>
         Execution block
       </MultilevelDropdown.Item>
     </MultilevelDropdown>

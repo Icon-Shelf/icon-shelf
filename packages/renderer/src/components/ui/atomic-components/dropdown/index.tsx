@@ -1,6 +1,6 @@
-import { Menu, Transition } from "@headlessui/react";
-import type { PropsWithChildren, ReactNode, FC } from "react";
-import { Fragment } from "react";
+import { Menu, Transition } from '@headlessui/react';
+import type { PropsWithChildren, ReactNode, FC } from 'react';
+import { Fragment } from 'react';
 
 interface Props {
   menuItemsClassName?: string;
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const Dropdown = ({
-  menuItemsClassName = "",
+  menuItemsClassName = '',
   overlay,
   children,
   onMenuButtonClick,
@@ -42,7 +42,7 @@ export const Dropdown = ({
 const DropdownItem: FC<{
   className?: string;
   onClick?: () => void;
-}> = ({ className = "", children, ...rest }) => {
+}> = ({ className = '', children, ...rest }) => {
   return (
     <div className="px-1 py-1" {...rest}>
       <Menu.Item>
@@ -50,7 +50,7 @@ const DropdownItem: FC<{
           <button
             type="button"
             className={`${
-              active ? "bg-black2 text-white" : "text-gray-200"
+              active ? 'bg-black2 text-white' : 'text-gray-200'
             } group flex rounded-md items-center w-full outline-none px-2 py-2 text-sm ${className}`}
           >
             {children}

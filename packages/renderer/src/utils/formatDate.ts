@@ -5,10 +5,10 @@ function getLang() {
 
 export function formatDate(date?: number) {
   if (!date) {
-    return "";
+    return '';
   }
 
   const jsDate = new Date(date);
 
-  return jsDate.toLocaleDateString(getLang(), { dateStyle: "medium" });
+  return jsDate.toLocaleDateString(getLang(), { dateStyle: 'medium' });
 }

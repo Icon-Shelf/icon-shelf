@@ -1,5 +1,5 @@
-import { autoUpdater } from "electron-updater";
-import { dialog } from "electron";
+import { autoUpdater } from 'electron-updater';
+import { dialog } from 'electron';
 
 export default class AppUpdater {
   constructor() {
@@ -10,7 +10,7 @@ export default class AppUpdater {
       error: console.error,
     };
 
-    autoUpdater.on("update-downloaded", (event, releaseNotes, releaseName) => {
+    autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
       // log.info("update-downloaded", [
       //   event,
       //   releaseNotes,
@@ -20,12 +20,12 @@ export default class AppUpdater {
       // ]);
 
       const dialogOpts = {
-        type: "info",
-        buttons: ["Restart", "Later"],
-        title: "Application Update",
-        message: process.platform === "win32" ? releaseNotes : releaseName,
+        type: 'info',
+        buttons: ['Restart', 'Later'],
+        title: 'Application Update',
+        message: process.platform === 'win32' ? releaseNotes : releaseName,
         detail:
-          "A new version of Icon Shelf has been downloaded. Restart the application to apply the updates.",
+          'A new version of Icon Shelf has been downloaded. Restart the application to apply the updates.',
       };
 
       dialog.showMessageBox(dialogOpts).then(({ response }) => {
