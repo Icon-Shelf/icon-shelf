@@ -98,9 +98,7 @@ Packages `main` and `preload` are built in [library mode](https://vitejs.dev/gui
 
 The build of web resources is performed in the [`scripts/build.js`](scripts/build.js). Its analogue is a sequential call to `vite build` for each package.
 
-<br>
-
-### 🛠 Building for Production
+### Building for Production
 
 1. Package.
 
