@@ -90,7 +90,6 @@
     "react-router-dom": "^6.2.1",
     "svgo": "^2.8.0",
     "universal-analytics": "^0.4.23",
-    "use-query-params": "^1.2.3",
     "uuid": "^8.3.2"
   },
   "repository": {

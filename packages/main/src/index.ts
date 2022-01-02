@@ -1,34 +1,19 @@
-import {
-  app,
-  BrowserWindow,
-  dialog,
-  ipcMain,
-  protocol,
-  screen,
-  shell,
-} from "electron";
-import { join } from "path";
-import {
-  existsSync,
-  mkdirSync,
-  writeFile,
-  unlinkSync,
-  rmdirSync,
-  readFileSync,
-} from "fs";
-import { URL } from "url";
-import "./security-restrictions";
-import { optimize as svgOptimize } from "svgo";
-import { getAllFiles } from "./utils/getAllFiles";
-import { svgoPluginsConfiguration } from "./constants/svgoPluginsConfiguration";
-import type { FSWatcher } from "chokidar";
-import { watch as chokidarWatch } from "chokidar";
-import MenuBuilder from "./menu";
-import { activateAnalytics } from "./utils/analytics";
-import AppUpdater from "./app-updater";
+import { app, BrowserWindow, dialog, ipcMain, protocol, screen, shell } from 'electron';
+import { join } from 'path';
+import { existsSync, mkdirSync, writeFile, unlinkSync, readFileSync, rmSync } from 'fs';
+import { URL } from 'url';
+import './security-restrictions';
+import { optimize as svgOptimize } from 'svgo';
+import { getAllFiles } from './utils/getAllFiles';
+import { svgoPluginsConfiguration } from './constants/svgoPluginsConfiguration';
+import type { FSWatcher } from 'chokidar';
+import { watch as chokidarWatch } from 'chokidar';
+import MenuBuilder from './menu';
+import { activateAnalytics } from './utils/analytics';
+import AppUpdater from './app-updater';
 
 const isSingleInstance = app.requestSingleInstanceLock();
-const isDevelopment = import.meta.env.MODE === "development";
+const isDevelopment = import.meta.env.MODE === 'development';
 
 if (!isSingleInstance) {
   app.quit();
@@ -41,7 +26,7 @@ app.disableHardwareAcceleration();
 if (isDevelopment) {
   app
     .whenReady()
-    .then(() => import("electron-devtools-installer"))
+    .then(() => import('electron-devtools-installer'))
     .then(({ default: installExtension, REACT_DEVELOPER_TOOLS }) =>
       installExtension(REACT_DEVELOPER_TOOLS, {
         loadExtensionOptions: {
@@ -49,7 +34,7 @@ if (isDevelopment) {
         },
       })
     )
-    .catch((e) => console.error("Failed install extension:", e));
+    .catch((e) => console.error('Failed install extension:', e));
 }
 
 let mainWindow: BrowserWindow | null = null;
@@ -62,11 +47,11 @@ const createWindow = async () => {
     show: false, // Use 'ready-to-show' event to show window
     width: dimensions.width - 350,
     height: dimensions.height - 200,
-    titleBarStyle: "hiddenInset",
+    titleBarStyle: 'hiddenInset',
     webPreferences: {
       nativeWindowOpen: true,
       webviewTag: false, // The webview tag is not recommended. Consider alternatives like iframe or Electron's BrowserView. https://www.electronjs.org/docs/latest/api/webview-tag#warning
-      preload: join(__dirname, "../../preload/dist/index.cjs"),
+      preload: join(__dirname, '../../preload/dist/index.cjs'),
     },
   });
 
@@ -79,7 +64,7 @@ const createWindow = async () => {
    *
    * @see https://github.com/electron/electron/issues/25012
    */
-  mainWindow.on("ready-to-show", () => {
+  mainWindow.on('ready-to-show', () => {
     mainWindow?.show();
 
     if (isDevelopment) {
@@ -95,17 +80,14 @@ const createWindow = async () => {
   const pageUrl =
     isDevelopment && import.meta.env.VITE_DEV_SERVER_URL !== undefined
       ? import.meta.env.VITE_DEV_SERVER_URL
-      : new URL(
-          "../renderer/dist/index.html",
-          "file://" + __dirname
-        ).toString();
+      : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
 
   await mainWindow.loadURL(pageUrl);
 
   activateAnalytics();
 };
 
-app.on("second-instance", () => {
+app.on('second-instance', () => {
   // Someone tried to run a second instance, we should focus our window.
   if (mainWindow) {
     if (mainWindow.isMinimized()) mainWindow.restore();
@@ -113,8 +95,8 @@ app.on("second-instance", () => {
   }
 });
 
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
     app.quit();
   }
 });
@@ -122,11 +104,11 @@ app.on("window-all-closed", () => {
 app
   .whenReady()
   .then(createWindow)
-  .catch((e) => console.error("Failed create window:", e));
+  .catch((e) => console.error('Failed create window:', e));
 
 protocol.registerSchemesAsPrivileged([
   {
-    scheme: "icon-image",
+    scheme: 'icon-image',
     privileges: {
       secure: true,
       standard: true,
@@ -136,8 +118,8 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 app.whenReady().then(() => {
-  protocol.registerFileProtocol("icon-image", (request, callback) => {
-    const url = decodeURI(request.url.replace("icon-image://", ""));
+  protocol.registerFileProtocol('icon-image', (request, callback) => {
+    const url = decodeURI(request.url.replace('icon-image://', ''));
 
     callback(url);
   });
@@ -147,40 +129,37 @@ app.whenReady().then(() => {
 if (import.meta.env.PROD) {
   app
     .whenReady()
-    .then(() => import("electron-updater"))
+    .then(() => import('electron-updater'))
     .then(() => new AppUpdater())
-    .catch((e) => console.error("Failed check updates:", e));
+    .catch((e) => console.error('Failed check updates:', e));
 }
 
 // custom listeners
-ipcMain.on("get-all-icon-in-folder", async (event, arg) => {
+ipcMain.on('get-all-icon-in-folder', async (event, arg) => {
   if (arg.folderPath) {
-    const iconsFolderPath = arg.folderPath.replace(/\/$/, "");
+    const iconsFolderPath = arg.folderPath.replace(/\/$/, '');
 
     try {
       const files = await getAllFiles(iconsFolderPath);
-      event.reply("get-all-icon-in-folder_reply", files, arg.collectionId);
+      event.reply('get-all-icon-in-folder_reply', files, arg.collectionId);
     } catch (e) {
       console.log(e);
     }
   }
 });
 
-ipcMain.on("get-default-icon-storage-folder", (event) => {
-  const defaultUserDataStoragePath = app.getPath("userData");
+ipcMain.on('get-default-icon-storage-folder', (event) => {
+  const defaultUserDataStoragePath = app.getPath('userData');
 
-  const defaultIconStorageFolder = join(
-    defaultUserDataStoragePath,
-    "icon-library"
-  );
+  const defaultIconStorageFolder = join(defaultUserDataStoragePath, 'icon-library');
 
   event.returnValue = defaultIconStorageFolder;
 });
 
-ipcMain.on("select-folder", async (event) => {
+ipcMain.on('select-folder', async (event) => {
   if (mainWindow) {
     const result = await dialog.showOpenDialog(mainWindow, {
-      properties: ["openDirectory"],
+      properties: ['openDirectory'],
     });
 
     event.returnValue = result.filePaths;
@@ -188,7 +167,7 @@ ipcMain.on("select-folder", async (event) => {
 });
 
 ipcMain.on(
-  "create-and-add-icon-to-folder",
+  'create-and-add-icon-to-folder',
   async (
     _,
     {
@@ -215,7 +194,7 @@ ipcMain.on(
           mkdirSync(folderPath, { recursive: true });
         }
 
-        const buffer = Buffer.from(data, "base64");
+        const buffer = Buffer.from(data, 'base64');
 
         let fileData: Buffer | string = buffer;
 
@@ -235,7 +214,7 @@ ipcMain.on(
   }
 );
 
-ipcMain.on("remove-icon-from-folder", (_, props) => {
+ipcMain.on('remove-icon-from-folder', (_, props) => {
   const iconFilePath = join(props.folderSrc, props.fileName);
 
   try {
@@ -245,17 +224,17 @@ ipcMain.on("remove-icon-from-folder", (_, props) => {
   }
 });
 
-ipcMain.on("remove-collection-folder", (_, folderSrc) => {
+ipcMain.on('remove-collection-folder', (_, folderSrc) => {
   const folderPath = join(folderSrc);
 
   try {
-    rmdirSync(folderPath, { recursive: true });
+    rmSync(folderPath, { recursive: true });
   } catch (err) {
     console.error(err);
   }
 });
 
-ipcMain.on("open-collection-folder", (_, folderSrc) => {
+ipcMain.on('open-collection-folder', (_, folderSrc) => {
   const folderPath = join(folderSrc);
   if (!existsSync(folderPath)) {
     // If directory does not exist, create one
@@ -264,13 +243,13 @@ ipcMain.on("open-collection-folder", (_, folderSrc) => {
   shell.openPath(folderPath);
 });
 
-ipcMain.on("open-collection-folder-icon", (_, props) => {
+ipcMain.on('open-collection-folder-icon', (_, props) => {
   const iconFilePath = join(props.folderSrc, props.fileName);
 
   shell.showItemInFolder(iconFilePath);
 });
 
-ipcMain.on("get-icon-file-content", (event, fileSrc) => {
+ipcMain.on('get-icon-file-content', (event, fileSrc) => {
   if (existsSync(fileSrc)) {
     const svg = readFileSync(fileSrc);
 
@@ -280,7 +259,7 @@ ipcMain.on("get-icon-file-content", (event, fileSrc) => {
 
 let watcher: FSWatcher;
 
-ipcMain.on("collection-switch", async (event, props) => {
+ipcMain.on('collection-switch', async (event, props) => {
   if (watcher) {
     await watcher.close();
   }
@@ -293,11 +272,8 @@ ipcMain.on("collection-switch", async (event, props) => {
   });
 
   const eventReply = () => {
-    mainWindow?.webContents.send(
-      "collection-folder-change_reply",
-      props?.collectionId
-    );
+    mainWindow?.webContents.send('collection-folder-change_reply', props?.collectionId);
   };
 
-  watcher.on("add", eventReply).on("unlink", eventReply);
+  watcher.on('add', eventReply).on('unlink', eventReply);
 });

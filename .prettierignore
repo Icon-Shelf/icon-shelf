@@ -1,0 +1,6 @@
+dist
+coverage
+.eslintcache
+node_modules
+.idea
+npm-debug.log.*
