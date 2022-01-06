@@ -9,15 +9,18 @@ export const IconDisplay: FC<Props> = ({ src, ...rest }) => {
   const srcPath = encodeURI(src);
 
   return (
-    <div
-      {...rest}
-      style={{
-        WebkitMaskImage: `url(icon-image://${srcPath})`,
-        WebkitMaskRepeat: 'no-repeat',
-        WebkitMaskSize: 'contain',
-        WebkitMaskPosition: 'center center',
-      }}
-    />
+    <>
+      <div
+        {...rest}
+        draggable
+        style={{
+          WebkitMaskImage: `url(icon-image://${srcPath})`,
+          WebkitMaskRepeat: 'no-repeat',
+          WebkitMaskSize: 'contain',
+          WebkitMaskPosition: 'center center',
+        }}
+      />
+    </>
   );
 };
 

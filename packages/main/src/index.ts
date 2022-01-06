@@ -1,4 +1,13 @@
-import { app, BrowserWindow, dialog, ipcMain, protocol, screen, shell } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  dialog,
+  ipcMain,
+  nativeImage,
+  protocol,
+  screen,
+  shell,
+} from 'electron';
 import { join } from 'path';
 import { existsSync, mkdirSync, writeFile, unlinkSync, readFileSync, rmSync } from 'fs';
 import { URL } from 'url';
@@ -276,4 +285,15 @@ ipcMain.on('collection-switch', async (event, props) => {
   };
 
   watcher.on('add', eventReply).on('unlink', eventReply);
+});
+
+const dragIcon = nativeImage.createFromDataURL(
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='
+);
+
+ipcMain.on('drag-icon-start', async (event, iconsPaths: string[]) => {
+  event.sender.startDrag({
+    file: iconsPaths[0],
+    icon: dragIcon,
+  });
 });
