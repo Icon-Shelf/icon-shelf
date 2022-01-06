@@ -1,4 +1,4 @@
-import type { FC, Dispatch, SetStateAction } from 'react';
+import type { FC, Dispatch, SetStateAction, DragEvent } from 'react';
 import type { Icon } from '/@/data/icons/types';
 import { IconDisplay } from '/@/components/ui/atomic-components';
 import './style.css';
@@ -10,6 +10,13 @@ interface Props {
 }
 
 export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
+  const onDragStart = async (e: DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.effectAllowed = 'copy';
+
+    window.electron.ipcRenderer.send('drag-icon-start', [icon.imageSrc]);
+  };
+
   return (
     <button
       className="icon-card-wrapper w-full h-full min-w-full min-h-full flex items-center justify-center rounded-2xl cursor-pointer outline-none"
@@ -18,8 +25,10 @@ export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
         background: isSelected ? 'linear-gradient(180deg, #696EFF 0%, #F7ABFF 100%)' : '',
       }}
       type="button"
+      draggable
       data-is-selected={isSelected}
       data-icon-card-id={icon.id}
+      onDragStart={onDragStart}
       onClick={() => setSelectedIcon?.(icon)}
     >
       <div
