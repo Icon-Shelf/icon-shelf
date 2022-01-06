@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { DragEvent, FC } from 'react';
 
 interface Props {
   src: string;
@@ -8,16 +8,27 @@ interface Props {
 export const IconDisplay: FC<Props> = ({ src, ...rest }) => {
   const srcPath = encodeURI(src);
 
+  const onDragStart = async (e: DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.effectAllowed = 'copy';
+
+    window.electron.ipcRenderer.send('drag-icon-start', [srcPath]);
+  };
+
   return (
-    <div
-      {...rest}
-      style={{
-        WebkitMaskImage: `url(icon-image://${srcPath})`,
-        WebkitMaskRepeat: 'no-repeat',
-        WebkitMaskSize: 'contain',
-        WebkitMaskPosition: 'center center',
-      }}
-    />
+    <>
+      <div
+        {...rest}
+        draggable
+        onDragStart={onDragStart}
+        style={{
+          WebkitMaskImage: `url(icon-image://${srcPath})`,
+          WebkitMaskRepeat: 'no-repeat',
+          WebkitMaskSize: 'contain',
+          WebkitMaskPosition: 'center center',
+        }}
+      />
+    </>
   );
 };
 
