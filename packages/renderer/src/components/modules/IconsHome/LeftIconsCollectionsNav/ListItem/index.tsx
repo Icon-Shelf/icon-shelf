@@ -53,11 +53,15 @@ export const ListItem: FC<Props> = ({
     <>
       <Link
         to={`/collections/${id}`}
-        className={`group flex justify-between items-center px-4 py-1 hover:bg-gray-800 ${
-          isActive && 'bg-primary hover:bg-primary'
+        className={`group flex justify-between items-center px-4 py-1 ${
+          isActive ? 'bg-primary hover:bg-primary' : 'hover:bg-gray-300 hover:dark:bg-gray-800'
         }`}
       >
-        <div className="flex gap-2 text-white cursor-default">
+        <div
+          className={`flex gap-2 dark:text-white cursor-default ${
+            isActive ? 'text-white' : 'text-black'
+          } `}
+        >
           {icon}
           {name}
         </div>
@@ -76,8 +80,8 @@ export const ListItem: FC<Props> = ({
               onMenuButtonClick={(opened) => setDropdownIsVisible(opened)}
             >
               <OptionsIcon
-                className={`leftnav-list-item-optionsIcon cursor-pointer hover:text-white group-hover:opacity-100
-                ${isActive ? 'text-white' : ''}
+                className={`leftnav-list-item-optionsIcon cursor-pointer hover:dark:text-white group-hover:opacity-100
+                ${isActive ? 'text-white hover:text-white' : 'hover:text-black'}
                 ${dropdownIsVisible ? 'opacity-100' : 'opacity-0'}`}
               />
             </Dropdown>

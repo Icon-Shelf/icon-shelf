@@ -7,7 +7,7 @@
 }
 
 .btn.btn-text {
-  @apply text-body hover:text-white p-1 hover:bg-gray-800 active:text-body;
+  @apply text-body hover:dark:text-white p-1 hover:dark:bg-gray-800 active:dark:text-body hover:text-black hover:bg-gray-300 active:text-black;
 }
 
 .btn.btn-primary {

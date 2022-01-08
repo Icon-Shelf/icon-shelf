@@ -20,7 +20,7 @@ export const OptionsOverlay: FC<{
   return (
     <>
       <Dropdown.Item onClick={() => editCollection?.(collection)}>
-        <PencilIcon className="mr-2" />
+        <PencilIcon className="mr-2 fill-current" />
         <div>Edit</div>
       </Dropdown.Item>
       <Dropdown.Item onClick={openCollectionFolderInFinder}>
