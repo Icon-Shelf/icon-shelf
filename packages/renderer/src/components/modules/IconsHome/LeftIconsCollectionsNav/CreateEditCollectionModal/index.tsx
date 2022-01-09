@@ -95,7 +95,9 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
     >
       <div>
         <label>
-          <div className="mb-2 font-medium text-gray-400">Enter a name for the collection</div>
+          <div className="mb-2 font-medium text-gray-800 dark:text-gray-400">
+            Enter a name for the collection
+          </div>
           <Input
             id="collection-name"
             className="mb-6"
@@ -105,7 +107,7 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
         </label>
 
         <label id="folder-label-container">
-          <div className="mb-2 font-medium text-gray-400 focus-within:text-white">
+          <div className="mb-2 font-medium text-gray-800 dark:text-gray-400 focus-within:text-white">
             Folder where your icons will reside
             <Tooltip
               placement="right"
@@ -116,7 +118,7 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
               }
             >
               <span className="ml-1">
-                <InfoIcon className="inline" />
+                <InfoIcon className="inline dark:text-body dark:fill-inherit fill-current" />
               </span>
             </Tooltip>
           </div>

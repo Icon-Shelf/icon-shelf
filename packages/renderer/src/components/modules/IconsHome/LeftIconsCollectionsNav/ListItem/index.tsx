@@ -95,7 +95,7 @@ export const ListItem: FC<Props> = ({
         onClose={() => setShowDeleteConfirm(false)}
         onSubmit={deleteCollection}
       >
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-body">
           This will delete the collection and icons in it from the icon shelf records.
         </p>
         <div className="mt-3 mb-8">

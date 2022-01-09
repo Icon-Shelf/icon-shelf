@@ -31,7 +31,7 @@ export const DeleteConfirmModal: FC<Props> = ({ show, title, children, onClose, 
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-modalOverlay bg-opacity-30" />
+            <Dialog.Overlay className="fixed inset-0 bg-black1 dark:bg-modalOverlay bg-opacity-30 dark:bg-opacity-30" />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
@@ -47,8 +47,11 @@ export const DeleteConfirmModal: FC<Props> = ({ show, title, children, onClose, 
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-black2 shadow-xl rounded-2xl border border-gray-600">
-              <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-white">
+            <div className="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-black2 shadow-xl rounded-2xl border border-gray-600">
+              <Dialog.Title
+                as="h3"
+                className="text-lg font-medium leading-6 text-black dark:text-white"
+              >
                 {title}
               </Dialog.Title>
               <div className="mt-2">{children}</div>

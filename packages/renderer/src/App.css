@@ -9,3 +9,13 @@ body,
   @apply w-full h-full overflow-hidden bg-gray-50 text-body font-sans text-base;
   font-family: 'DM Sans';
 }
+
+html {
+  --body: #1f2937;
+  --inputBorder: rgba(118, 127, 147, 0.6);
+}
+
+html.dark {
+  --body: #777f93;
+  --inputBorder: rgba(118, 127, 147, 0.3);
+}

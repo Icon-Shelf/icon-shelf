@@ -9,13 +9,13 @@ module.exports = {
 
         highlight: '#FF5930',
         white: '#f2f2f2',
-        body: '#777F93',
+        body: 'var(--body)',
         primary: '#7230FF',
         black1: '#0D1118',
         black2: '#141C25',
         black3: 'rgba(255, 255, 255, 0.1)',
 
-        inputBorder: 'rgba(118, 127, 147, 0.3)',
+        inputBorder: 'var(--inputBorder)',
         modalOverlay: '#777F93',
 
         gradientCoolMint: 'linear-gradient(180deg, #696EFF 0%, #BFEEE8 100%)',

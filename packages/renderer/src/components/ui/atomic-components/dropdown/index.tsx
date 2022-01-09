@@ -30,7 +30,7 @@ export const Dropdown = ({
         beforeLeave={() => onMenuButtonClick && onMenuButtonClick(false)}
       >
         <Menu.Items
-          className={`absolute right-0 w-max mt-2 origin-top-right bg-white dark:bg-gray-600 rounded-md shadow-lg ring-2 ring-gray-300 dark:ring-white ring-opacity-5 z-10 focus:outline-none ${menuItemsClassName}`}
+          className={`absolute right-0 w-max mt-2 origin-top-right bg-white dark:bg-gray-600 rounded-md shadow-lg ring-2 ring-gray-300  ring-opacity-5 z-10 focus:outline-none ${menuItemsClassName}`}
         >
           {overlay}
         </Menu.Items>
