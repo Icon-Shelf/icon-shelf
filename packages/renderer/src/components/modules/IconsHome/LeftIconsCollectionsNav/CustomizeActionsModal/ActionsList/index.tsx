@@ -53,16 +53,16 @@ export const ActionsList: FC<ActionsListProps> = ({
 
   return (
     <>
-      <div className="text-white">Configure actions for icons in collection</div>
+      <div className="text-body dark:text-white">Configure actions for icons in collection</div>
 
       <div className="mt-3">
         <div className="relative">
           <TempIconCard />
-          <CursorIcon className="absolute bottom-0 left-16 z-20" />
+          <CursorIcon className="absolute bottom-0 left-16 z-20 text-gray-500 dark:text-white" />
         </div>
 
         <div className="h-72 relative overflow-y-auto -top-4 ml-4">
-          <div className="w-56 relative left-14 -bottom-1 bg-gray-600 rounded-md shadow-lg z-10 flex flex-col">
+          <div className="w-56 relative left-14 -bottom-1 bg-gray-200 dark:bg-gray-600 rounded-md shadow-lg z-10 flex flex-col ring ring-gray-400">
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
