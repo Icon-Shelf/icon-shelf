@@ -7,7 +7,7 @@ import { Button } from '/@/components/ui/atomic-components';
 const Wrapper: FC = ({ children }) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-1">
-      <div className="text-gray-200">
+      <div className="dark:text-gray-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-10 w-10"
@@ -39,7 +39,7 @@ export const EmptyPlaceholder: FC<{
   if (searchQuery) {
     return (
       <Wrapper>
-        <div className="text-white w-1/2 text-center">
+        <div className="dark:text-white w-1/2 text-center">
           No icons in collection for “{searchQuery}”.
         </div>
       </Wrapper>
