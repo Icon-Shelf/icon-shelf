@@ -46,9 +46,9 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
   }, [selectedIcon]);
 
   return (
-    <div className="flex flex-col justify-between bg-black2 w-96 p-4 pt-5 min-w-max flex-shrink-0">
+    <div className="flex flex-col justify-between bg-gray-200 dark:bg-black2 w-96 p-4 pt-5 min-w-max flex-shrink-0">
       <div>
-        <div className="w-full bg-black h-40 rounded-md flex items-center justify-center">
+        <div className="w-full bg-gray-100 dark:bg-black h-40 rounded-md flex items-center justify-center">
           {selectedIcon?.imageSrc && (
             <>
               <SVG
@@ -57,34 +57,41 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
                 className="h-14 w-14 text-white hidden"
                 innerRef={svgRef}
               />
-              <IconDisplay src={selectedIcon.imageSrc} className="h-14 w-14 text-white bg-white" />
+              <IconDisplay
+                src={selectedIcon.imageSrc}
+                className="h-14 w-14 text-black bg-black dark:text-white dark:bg-white"
+              />
             </>
           )}
         </div>
 
         <div className="flex flex-col mt-3">
-          <span className="text-white">{selectedIcon?.name}</span>
+          <span className="text-black dark:text-white">{selectedIcon?.name}</span>
           <span className="mt-1 text-sm">
             {(selectedIcon?.byteSize && formatBytes(selectedIcon?.byteSize)) || '-'}
           </span>
         </div>
 
         <div className="mt-8">
-          <div className="text-white mb-1">Details</div>
+          <div className="text-black dark:text-white mb-1">Details</div>
 
           <div className="flex justify-between">
             <span className="mt-1">Format</span>
-            <span className="mt-1 text-white uppercase">{selectedIcon?.mime || '-'}</span>
+            <span className="mt-1 text-black dark:text-white uppercase">
+              {selectedIcon?.mime || '-'}
+            </span>
           </div>
 
           <div className="flex justify-between mt-1">
             <span className="mt-1">Dimensions</span>
-            <span className="mt-1 text-white">{svgDimensions}</span>
+            <span className="mt-1 text-black dark:text-white ">{svgDimensions}</span>
           </div>
 
           <div className="flex justify-between mt-1">
             <span className="mt-1">Updated</span>
-            <span className="mt-1 text-white">{formatDate(selectedIcon?.updatedAt) || '-'}</span>
+            <span className="mt-1 text-black dark:text-white">
+              {formatDate(selectedIcon?.updatedAt) || '-'}
+            </span>
           </div>
         </div>
       </div>
