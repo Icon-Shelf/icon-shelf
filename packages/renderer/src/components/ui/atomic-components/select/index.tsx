@@ -17,10 +17,10 @@ export const Select: FC<Props> = ({ className = '', selected: selectedVal, optio
     <div className={`w-full ${className}`}>
       <Listbox value={selectedVal} onChange={onChange}>
         <div className="relative my-1">
-          <Listbox.Button className="relative w-full h-11 py-2 pl-3 pr-10 text-left bg-transparent rounded-lg border-2 border-inputBorder outline-none transition-shadow	focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-white">
+          <Listbox.Button className="relative w-full h-11 py-2 pl-3 pr-10 text-left bg-transparent rounded-lg border-2 border-inputBorder outline-none transition-shadow	focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-body dark:text-white">
             <span className="block truncate">{selectedVal?.name}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-              <SelectorIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+              <SelectorIcon className="w-5 h-5 text-body dark:text-gray-400" aria-hidden="true" />
             </span>
           </Listbox.Button>
 
