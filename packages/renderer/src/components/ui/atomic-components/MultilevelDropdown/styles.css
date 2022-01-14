@@ -13,7 +13,7 @@
   z-index: 1000;
   flex-direction: column;
   min-width: 180px;
-  @apply text-base bg-gray-600 text-gray-200 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 border border-gray-600 outline-none;
+  @apply text-base bg-white dark:bg-gray-600 text-black dark:text-gray-200 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 border border-gray-600 outline-none;
 }
 .multi-dropdown--menu ul {
   @apply mt-1 mb-1;
@@ -75,7 +75,7 @@
   right: 98%;
   max-height: 250px;
   overflow-y: auto;
-  @apply text-base bg-gray-600 text-gray-200 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 border border-gray-600 outline-none;
+  @apply text-base bg-white dark:bg-gray-600 text-black dark:text-gray-200 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 border border-gray-600 outline-none;
 }
 
 .multi-dropdown-submenu--left {
