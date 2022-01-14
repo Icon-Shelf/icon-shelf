@@ -206,7 +206,6 @@ export default class MenuBuilder {
               this.mainWindow.webContents.send('toggle-dark-mode');
             },
           },
-          { type: 'separator' },
           {
             label: '&Reload',
             accelerator: 'Ctrl+R',
