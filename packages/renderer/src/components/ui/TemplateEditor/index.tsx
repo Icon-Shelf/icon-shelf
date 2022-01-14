@@ -15,6 +15,7 @@ import { commentKeymap } from '@codemirror/comment';
 import './styles.css';
 import { evaluationBlockPlugin } from './EvaluationBlock';
 import { completionSource } from './autocomplete';
+import { defaultHighlightStyle } from '@codemirror/highlight';
 
 interface EditorProps {
   value?: string;
@@ -28,6 +29,7 @@ export const TemplateEditor = ({
   onEditorInitialize,
 }: EditorProps) => {
   const editor = useRef(null);
+  const isDarkMode = document.documentElement.classList.contains('dark');
 
   useEffect(() => {
     const currentEditor = editor.current as Exclude<typeof editor['current'], null>;
@@ -42,7 +44,6 @@ export const TemplateEditor = ({
       autocompletion({
         override: completionSource,
       }),
-      oneDark,
       javascript(),
       keymap.of([
         ...closeBracketsKeymap,
@@ -52,6 +53,13 @@ export const TemplateEditor = ({
         ...completionKeymap,
       ]),
     ];
+
+    if (isDarkMode) {
+      extensions.push(oneDark);
+    } else {
+      extensions.push(defaultHighlightStyle.fallback);
+    }
+
     if (onUpdate) extensions.push(EditorView.updateListener.of(onUpdate));
 
     const state = EditorState.create({
