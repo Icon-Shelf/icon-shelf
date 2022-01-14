@@ -33,7 +33,7 @@ export const Input = ({
         type="text"
         id={id}
         name={name}
-        className={`block w-full h-10 px-4 rounded-lg bg-transparent border-2 border-inputBorder outline-none transition-shadow	focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-white ${
+        className={`block w-full h-10 px-4 rounded-lg bg-transparent border-2 border-inputBorder outline-none transition-shadow	focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-body dark:text-white ${
           icon && 'pl-10'
         }`}
         placeholder={placeholder}

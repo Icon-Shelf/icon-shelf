@@ -35,7 +35,7 @@ export const LeftIconsCollectionsNav: FC = () => {
 
   return (
     <>
-      <div className="relative bg-black2 w-64 min-w-max flex-shrink-0">
+      <div className="relative bg-gray-200 dark:bg-black2 w-64 min-w-max flex-shrink-0">
         <TitleBarDrag className="h-8 absolute inset-0" />
 
         <div className="flex justify-end mt-5 mx-4">
@@ -57,13 +57,6 @@ export const LeftIconsCollectionsNav: FC = () => {
             isActive={selectedCollectionId === 'all-icons'}
             hideOptions
           />
-          {/* <ListItem
-            name="Fav icons"
-            id="fav-icons"
-            icon={<HeartIcon />}
-            isActive={false}
-            hideOptions
-          /> */}
         </div>
 
         <div className="mt-4">

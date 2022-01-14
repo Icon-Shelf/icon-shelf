@@ -14,7 +14,9 @@ export const CollectionsDropdown: FC<Props> = ({ selectedCollection, onChange })
 
   return (
     <>
-      <label className="mb-2 font-medium text-gray-400">Collection to add icons to</label>
+      <label className="mb-2 font-medium text-body dark:text-gray-400">
+        Collection to add icons to
+      </label>
       <Select
         className="mb-6"
         selected={selectedCollection}

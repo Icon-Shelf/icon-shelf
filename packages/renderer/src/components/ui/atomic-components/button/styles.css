@@ -3,11 +3,11 @@
 }
 
 .btn.btn-default {
-  @apply bg-black3 text-white hover:text-white hover:bg-gray-800 active:bg-gray-900;
+  @apply bg-white border-2 border-inputBorder dark:border-0 hover:text-black hover:bg-gray-200 active:bg-gray-300  dark:bg-black3 text-body dark:text-white  hover:dark:bg-gray-800 active:dark:bg-gray-900;
 }
 
 .btn.btn-text {
-  @apply text-body hover:text-white p-1 hover:bg-gray-800 active:text-body;
+  @apply text-body hover:dark:text-white p-1 hover:dark:bg-gray-800 active:dark:text-body hover:text-black hover:bg-gray-300 active:text-black;
 }
 
 .btn.btn-primary {

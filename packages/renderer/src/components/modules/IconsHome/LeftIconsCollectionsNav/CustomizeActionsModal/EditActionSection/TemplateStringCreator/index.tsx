@@ -25,7 +25,9 @@ export const TemplateStringCreator: FC<Props> = ({ defaultValue, onChange }) => 
 
   return (
     <div className="mt-8">
-      <label className="flex font-medium text-gray-400 ml-1 mb-1">Copy string template</label>
+      <label className="flex font-medium text-black dark:text-gray-400 ml-1 mb-1">
+        Copy string template
+      </label>
 
       {editorView && <PlaceholderSelectDropdown editorView={editorView} />}
       <TemplateEditor

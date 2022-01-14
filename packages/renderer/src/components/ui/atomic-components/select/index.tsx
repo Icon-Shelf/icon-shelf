@@ -17,10 +17,10 @@ export const Select: FC<Props> = ({ className = '', selected: selectedVal, optio
     <div className={`w-full ${className}`}>
       <Listbox value={selectedVal} onChange={onChange}>
         <div className="relative my-1">
-          <Listbox.Button className="relative w-full h-11 py-2 pl-3 pr-10 text-left bg-transparent rounded-lg border-2 border-inputBorder outline-none transition-shadow	focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-white">
+          <Listbox.Button className="relative w-full h-11 py-2 pl-3 pr-10 text-left bg-transparent rounded-lg border-2 border-inputBorder outline-none transition-shadow	focus:ring-2 focus:ring-primary focus:border-transparent placeholder-gray-500 text-body dark:text-white">
             <span className="block truncate">{selectedVal?.name}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-              <SelectorIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+              <SelectorIcon className="w-5 h-5 text-body dark:text-gray-400" aria-hidden="true" />
             </span>
           </Listbox.Button>
 
@@ -30,13 +30,14 @@ export const Select: FC<Props> = ({ className = '', selected: selectedVal, optio
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-gray-600 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 border border-gray-600 outline-none">
+            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white dark:bg-gray-600 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 border border-gray-600 outline-none">
               {options?.map((option) => (
                 <Listbox.Option
                   key={option.name}
                   className={({ active }) =>
-                    `${active ? 'bg-black2 text-white' : 'text-gray-200'}
-              text-white cursor-default select-none outline-none relative py-2 pl-10 pr-4`
+                    `${
+                      active ? 'bg-black2 text-white' : 'text-black dark:text-gray-200'
+                    } cursor-default select-none outline-none relative py-2 pl-10 pr-4`
                   }
                   value={option}
                 >
@@ -49,7 +50,7 @@ export const Select: FC<Props> = ({ className = '', selected: selectedVal, optio
                       </span>
                       {selected ? (
                         <span
-                          className={`${active ? 'text-amber-600' : 'text-amber-600'}
+                          className={`${active ? 'text-white' : 'text-black'}
                           absolute inset-y-0 left-0 flex items-center pl-3`}
                         >
                           <CheckIcon className="w-5 h-5" aria-hidden="true" />

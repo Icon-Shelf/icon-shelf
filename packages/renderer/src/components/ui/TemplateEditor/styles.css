@@ -1,5 +1,5 @@
 .cm-editor {
-  @apply h-20 p-1 text-lg;
+  @apply h-20 p-1 text-lg border border-gray-300 bg-gray-200;
 }
 
 .cm-editor.cm-focused {
@@ -24,10 +24,11 @@
 
 .cm-evaluation-block {
   padding: 2px 8px;
-  background-color: #ffffff;
   color: #ff5930;
   border-radius: 4px;
   margin: 1px;
+
+  @apply bg-white;
 }
 
 .cm-custom-tooltip {

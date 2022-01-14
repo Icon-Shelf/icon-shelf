@@ -32,13 +32,16 @@ export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
       onClick={() => setSelectedIcon?.(icon)}
     >
       <div
-        className="rounded-2xl bg-black2 flex flex-col items-center justify-center border border-transparent hover:border-gray-600"
+        className="rounded-2xl bg-gray-200 dark:bg-black2 flex flex-col items-center justify-center border border-transparent hover:border-gray-400 hover:dark:border-gray-600"
         style={{ width: 'calc(100% - 2px)', height: 'calc(100% - 2px)' }}
       >
-        <IconDisplay src={icon.imageSrc} className="h-10 w-10 mt-4 text-white bg-white" />
+        <IconDisplay
+          src={icon.imageSrc}
+          className="h-10 w-10 mt-4 text-black bg-black dark:text-white dark:bg-white"
+        />
 
         <div
-          className="mt-4 h-6 w-4/5 text-gray-400 text-sm text-center whitespace-nowrap overflow-hidden overflow-ellipsis"
+          className="mt-4 h-6 w-4/5 text-body dark:text-gray-400 text-sm text-center whitespace-nowrap overflow-hidden overflow-ellipsis"
           title={icon.name}
         >
           {icon.name}

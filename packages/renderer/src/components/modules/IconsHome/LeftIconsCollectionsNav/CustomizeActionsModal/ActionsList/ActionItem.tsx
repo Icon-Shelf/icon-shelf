@@ -33,11 +33,11 @@ export const ActionItem: FC<Props> = ({ item, onEditClick, onActionChange }) => 
 
   return (
     <div
-      className="group py-1 border-b border-gray-400 relative flex bg-gray-600"
+      className="group py-1 border-b border-gray-400 relative flex"
       ref={setNodeRef}
       style={style}
     >
-      <div className="text-gray-200 group flex items-center w-full outline-none px-2 py-2 text-sm">
+      <div className="text-black dark:text-gray-200 group flex items-center w-full outline-none px-2 py-2 text-sm">
         <div className="mr-2">{icon}</div>
         {item.name}
       </div>
@@ -49,7 +49,7 @@ export const ActionItem: FC<Props> = ({ item, onEditClick, onActionChange }) => 
       <div
         className={`${
           !isSorting && 'group-hover:opacity-100'
-        } opacity-10 w-0 h-full relative top-0 -right-2`}
+        } opacity-20 w-0 h-full relative top-0 -right-2`}
       >
         <div className="absolute px-2 py-2 flex gap-3">
           {item.isEditable && (

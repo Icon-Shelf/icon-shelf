@@ -99,6 +99,13 @@ export default class MenuBuilder {
       label: 'View',
       submenu: [
         {
+          label: 'Toggle Dark/Light mode',
+          click: () => {
+            this.mainWindow.webContents.send('toggle-dark-mode');
+          },
+        },
+        { type: 'separator' },
+        {
           label: 'Reload',
           accelerator: 'Command+R',
           click: () => {
@@ -193,6 +200,12 @@ export default class MenuBuilder {
       {
         label: '&View',
         submenu: [
+          {
+            label: 'Toggle Dark/Light mode',
+            click: () => {
+              this.mainWindow.webContents.send('toggle-dark-mode');
+            },
+          },
           {
             label: '&Reload',
             accelerator: 'Ctrl+R',

@@ -23,7 +23,7 @@ export const Checkbox: FC<{
         className="form-tick appearance-none h-5 w-5 border border-gray-300 rounded-md focus:outline-none"
         onChange={checkBoxInputChange}
       />
-      <span className="text-white text-sm">{label}</span>
+      <span className="text-body dark:text-white text-sm">{label}</span>
     </label>
   );
 };

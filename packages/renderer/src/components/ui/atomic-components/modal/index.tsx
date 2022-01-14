@@ -34,7 +34,7 @@ export const Modal: FC<Props> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-modalOverlay bg-opacity-80" />
+            <Dialog.Overlay className="fixed inset-0 bg-black1 dark:bg-modalOverlay bg-opacity-80 dark:bg-opacity-80" />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
@@ -52,11 +52,11 @@ export const Modal: FC<Props> = ({
             afterLeave={afterClose}
           >
             <div
-              className={`inline-block w-full max-w-xl text-left align-middle transition-all bg-black2 shadow-xl rounded-lg relative ${className}`}
+              className={`inline-block w-full max-w-xl text-left align-middle transition-all bg-white dark:bg-black2 shadow-xl rounded-lg relative ${className}`}
             >
               <Dialog.Title
                 as="h3"
-                className="text-xl font-medium leading-6 text-white px-8 py-5 border-b border-black3"
+                className="text-xl font-medium leading-6 text-black dark:text-white px-8 py-5 border-b border-black3"
               >
                 {title}
               </Dialog.Title>
@@ -68,7 +68,7 @@ export const Modal: FC<Props> = ({
               </div>
 
               <button
-                className="absolute top-0 right-0 p-2 m-1 outline-none rounded-lg hover:text-white active:text-current focus:text-white focus-visible:ring-2 focus-visible:ring-primary"
+                className="absolute top-0 right-0 p-2 m-1 outline-none rounded-lg hover:text-black hover:dark:text-white active:text-current focus:text-black focus:dark:text-white focus-visible:ring-2 focus-visible:ring-primary"
                 type="button"
                 onClick={onClose}
               >

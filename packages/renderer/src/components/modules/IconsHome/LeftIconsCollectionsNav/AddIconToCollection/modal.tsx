@@ -116,7 +116,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
               {imageList.length > 0 && (
                 <div className="flex items-center gap-1">
                   <DocumentIcon className="pointer-events-none" />
-                  <span className="text-white text-lg">
+                  <span className="text-body dark:text-white text-lg">
                     {imageList.length} {imageList.length === 1 ? 'icon' : 'icons'} chosen
                   </span>
                 </div>
@@ -142,7 +142,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
               <>
                 SVGO optimize icon.{' '}
                 <a
-                  className="text-blue-300 text-xs hover:text-blue-400"
+                  className="text-xs text-blue-600 dark:text-blue-300 hover:text-blue-800 hover:dark:text-blue-400"
                   href="https://github.com/svg/svgo"
                   target="_blank"
                   rel="noreferrer"

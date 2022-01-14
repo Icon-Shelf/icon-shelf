@@ -39,7 +39,7 @@ export const EditActionSection: FC<Props> = ({ action, onBackClick, onActionChan
 
       <div className="mx-4">
         <div className="mt-4 w-60">
-          <label className="flex font-medium text-gray-400 ml-1 mb-1">Name</label>
+          <label className="flex font-medium text-black dark:text-gray-400 ml-1 mb-1">Name</label>
           <Input defaultValue={action.name} onChange={onNameChange} />
         </div>
 

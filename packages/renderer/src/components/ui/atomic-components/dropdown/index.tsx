@@ -30,7 +30,7 @@ export const Dropdown = ({
         beforeLeave={() => onMenuButtonClick && onMenuButtonClick(false)}
       >
         <Menu.Items
-          className={`absolute right-0 w-max mt-2 origin-top-right bg-gray-600 rounded-md shadow-lg ring-2 ring-white ring-opacity-5 z-10 focus:outline-none ${menuItemsClassName}`}
+          className={`absolute right-0 w-max mt-2 origin-top-right bg-white dark:bg-gray-600 rounded-md shadow-lg ring-2 ring-gray-300  ring-opacity-5 z-10 focus:outline-none ${menuItemsClassName}`}
         >
           {overlay}
         </Menu.Items>
@@ -50,7 +50,7 @@ const DropdownItem: FC<{
           <button
             type="button"
             className={`${
-              active ? 'bg-black2 text-white' : 'text-gray-200'
+              active ? 'bg-gray-400 dark:bg-black2 text-white' : 'text-black dark:text-gray-200'
             } group flex rounded-md items-center w-full outline-none px-2 py-2 text-sm ${className}`}
           >
             {children}
