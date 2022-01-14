@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import SVG from 'react-inlinesvg';
 
 interface Props {
   src: string;
@@ -6,23 +7,26 @@ interface Props {
 }
 
 export const IconDisplay: FC<Props> = ({ src, ...rest }) => {
+  const isDarkMode = document.documentElement.classList.contains('dark');
+
   const srcPath = encodeURI(src);
 
-  return (
-    <>
-      <div
-        {...rest}
-        draggable
-        style={{
-          WebkitMaskImage: `url(icon-image://${srcPath})`,
-          WebkitMaskRepeat: 'no-repeat',
-          WebkitMaskSize: 'contain',
-          WebkitMaskPosition: 'center center',
-        }}
-      />
-    </>
-  );
+  if (isDarkMode) {
+    return (
+      <>
+        <div
+          {...rest}
+          draggable
+          style={{
+            WebkitMaskImage: `url(icon-image://${srcPath})`,
+            WebkitMaskRepeat: 'no-repeat',
+            WebkitMaskSize: 'contain',
+            WebkitMaskPosition: 'center center',
+          }}
+        />
+      </>
+    );
+  } else {
+    return <SVG src={`icon-image://${srcPath}`} className="h-10 w-10 mt-4 text-black" />;
+  }
 };
-
-// to render as svg
-// <SVG src={icon.imageSrc} className="h-10 w-10 mt-4 text-white fill-white" /> */
