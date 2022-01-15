@@ -41,6 +41,7 @@ const ALLOWED_ORIGINS_AND_PERMISSIONS = new Map<
 const ALLOWED_EXTERNAL_ORIGINS = new Set<`https://${string}`>([
   'https://icon-shelf.github.io/',
   'https://github.com',
+  'https://icon-shelf.frill.co',
 ]);
 
 app.on('web-contents-created', (_, contents) => {
