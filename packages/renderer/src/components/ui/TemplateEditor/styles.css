@@ -1,5 +1,5 @@
 .cm-editor {
-  @apply h-20 p-1 text-lg border border-gray-300 bg-gray-200;
+  @apply h-20 p-1 text-lg border border-gray-300 bg-gray-200 dark:bg-zinc-900 dark:border-gray-800;
 }
 
 .cm-editor.cm-focused {
