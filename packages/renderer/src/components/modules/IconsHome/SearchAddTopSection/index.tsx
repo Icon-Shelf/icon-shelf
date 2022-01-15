@@ -28,7 +28,7 @@ export const SearchAddTopSection: FC<Props> = ({ searchQuery, setSearchQuery }) 
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
       <Search
         name="icons-search"
-        placeholder={`Quick search for icons (${platformBasedText({
+        placeholder={`Quick search in collection (${platformBasedText({
           mac: '⌘f',
           win: 'Ctrl+f',
           linux: 'Ctrl+f',
