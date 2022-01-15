@@ -12,6 +12,7 @@ import { join } from 'path';
 import { existsSync, mkdirSync, writeFile, unlinkSync, readFileSync, rmSync } from 'fs';
 import { URL } from 'url';
 import './security-restrictions';
+import type { OptimizedSvg } from 'svgo';
 import { optimize as svgOptimize } from 'svgo';
 import { getAllFiles } from './utils/getAllFiles';
 import { svgoPluginsConfiguration } from './constants/svgoPluginsConfiguration';
@@ -208,9 +209,15 @@ ipcMain.on(
         let fileData: Buffer | string = buffer;
 
         if (optimizeIcon) {
-          fileData = svgOptimize(buffer, {
-            plugins: svgoPluginsConfiguration,
-          }).data;
+          try {
+            const svgOptimizeResult = svgOptimize(buffer, {
+              plugins: svgoPluginsConfiguration,
+            });
+
+            fileData = (svgOptimizeResult as OptimizedSvg).data;
+          } catch {
+            console.log('error happened in svgOptimize');
+          }
         }
 
         const formattedPath = join(folderPath, filename);
