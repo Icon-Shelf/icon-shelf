@@ -17,7 +17,11 @@ export const AddIconToCollection: FC = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const e = event as any as DragEvent;
 
-    if ([...e.dataTransfer.items].find((item) => item.kind === 'file')) {
+    //effectAllowed copy: hack to distinguish drag of icons from inside of icon shelf
+    if (
+      e.dataTransfer.effectAllowed !== 'copy' &&
+      [...e.dataTransfer.items].find((item) => item.kind === 'file')
+    ) {
       setShowIconAddModal(true);
       event.preventDefault();
     }
@@ -28,7 +32,7 @@ export const AddIconToCollection: FC = () => {
   };
 
   useEffect(() => {
-    const dom = document.querySelector('#root');
+    const dom = document.querySelector('#app');
     dom?.addEventListener('dragover', handleDragStart);
 
     return () => {
