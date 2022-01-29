@@ -1,6 +1,7 @@
 const ua = require('universal-analytics');
 const uuid = require('uuid');
 import store from './store';
+const os = require('os');
 
 const userId = store.get('userId') || uuid.v4();
 
@@ -11,7 +12,7 @@ function activateAnalytics() {
 
   user.pageview('/').send();
 
-  user.event('platform-os', 'platform-os', 'Platform OS', process.platform || 'none').send();
+  user.event('Platform', `${process.platform}`, `${os.release()}`).send();
 }
 
 export { activateAnalytics };

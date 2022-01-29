@@ -203,7 +203,7 @@ Please consider starring this project to show your :blue_heart: and support.
 
 ## :shield: Privacy
 
-This app has analytics that will track number of users only.
+This app has analytics that will track number of users and platform OS only.
 
 <br>
 
