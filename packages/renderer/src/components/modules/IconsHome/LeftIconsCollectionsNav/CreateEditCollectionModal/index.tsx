@@ -47,6 +47,8 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
         createdAt: Date.now(),
         updatedAt: Date.now(),
         actions: [],
+        childCollectionIds: [],
+        parentCollectionId: undefined,
       };
 
       return CollectionsApi.create(updatedCollection).then(async (newCollectionId) => {

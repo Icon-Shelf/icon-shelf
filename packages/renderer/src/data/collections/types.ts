@@ -7,6 +7,8 @@ export interface Collection {
   createdAt: number;
   updatedAt: number;
   actions: CollectionAction[];
+  childCollectionIds?: number[];
+  parentCollectionId?: number;
 }
 
 export interface CollectionAction {
