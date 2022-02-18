@@ -62,17 +62,19 @@ export const LeftIconsCollectionsNav: FC = () => {
         <div className="mt-4">
           <div className="ml-4 text-base">Collections</div>
           <div className="flex flex-col gap-2 mt-2">
-            {collections?.map((collection) => (
-              <ListItem
-                key={collection.id}
-                name={collection.name}
-                id={`${collection.id}`}
-                isActive={selectedCollectionId === String(collection.id)}
-                collection={collection}
-                editCollection={editCollection}
-                onCustomizeActionsClick={onCustomizeActionsClick}
-              />
-            ))}
+            {collections
+              ?.filter((c) => !c.parentCollectionId)
+              ?.map((collection) => (
+                <ListItem
+                  key={collection.id}
+                  name={collection.name}
+                  id={`${collection.id}`}
+                  isActive={selectedCollectionId === String(collection.id)}
+                  collection={collection}
+                  editCollection={editCollection}
+                  onCustomizeActionsClick={onCustomizeActionsClick}
+                />
+              ))}
           </div>
         </div>
       </div>
