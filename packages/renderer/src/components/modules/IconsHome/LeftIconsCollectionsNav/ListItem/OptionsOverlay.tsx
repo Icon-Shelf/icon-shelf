@@ -6,6 +6,8 @@ import { Dropdown } from '/@/components/ui/atomic-components';
 import { ReactComponent as PencilIcon } from '/assets/icons/pencil.svg';
 import { ReactComponent as CursorClickIcon } from '/assets/icons/cursor-click-sm.svg';
 import { platformBasedText } from '/@/utils/platformText';
+import { ReactComponent as CollectionIcon } from '/assets/icons/collection-16.svg';
+import { uuidv4 } from '/@/utils/uuid';
 
 export const OptionsOverlay: FC<{
   collection?: Collection;
@@ -15,6 +17,18 @@ export const OptionsOverlay: FC<{
 }> = ({ collection, editCollection, onDeleteClick, onCustomizeActionsClick }) => {
   const openCollectionFolderInFinder = () => {
     window.electron.ipcRenderer.send('open-collection-folder', collection?.folderSrc);
+  };
+
+  const createSubCollection = () => {
+    if (collection?.id) {
+      let folderSrc = collection.folderSrc.replace(/\/$/, '');
+      folderSrc += `${folderSrc}/collection-${uuidv4()}`;
+
+      editCollection?.({
+        parentCollectionId: collection?.id,
+        folderSrc,
+      } as Collection);
+    }
   };
 
   return (
@@ -37,6 +51,11 @@ export const OptionsOverlay: FC<{
       <Dropdown.Item onClick={() => onCustomizeActionsClick?.(collection)}>
         <CursorClickIcon className="mr-2" />
         <div>Customize actions</div>
+      </Dropdown.Item>
+
+      <Dropdown.Item onClick={createSubCollection}>
+        <CollectionIcon className="mr-2" />
+        <div>Create sub-collection</div>
       </Dropdown.Item>
 
       <Dropdown.Item onClick={onDeleteClick}>

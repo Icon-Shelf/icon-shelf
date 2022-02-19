@@ -25,12 +25,12 @@ export const LeftIconsCollectionsNav: FC = () => {
 
   const editCollection = (collection?: Collection) => {
     setSelectedCollection(collection);
-    setShowCollectionModal((state) => !state);
+    setShowCollectionModal(true);
   };
 
   const onCustomizeActionsClick = (collection?: Collection) => {
     setSelectedCollection(collection);
-    setShowCustomizeModal((state) => !state);
+    setShowCustomizeModal(true);
   };
 
   return (
