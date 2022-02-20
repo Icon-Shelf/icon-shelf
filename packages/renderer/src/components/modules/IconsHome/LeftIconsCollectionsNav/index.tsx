@@ -53,6 +53,8 @@ export const LeftIconsCollectionsNav: FC = () => {
           <ListItem
             name="All icons"
             id="all-icons"
+            marginLeft={0}
+            showChildCollections={false}
             icon={<ViewGridIcon />}
             isActive={selectedCollectionId === 'all-icons'}
             hideOptions
