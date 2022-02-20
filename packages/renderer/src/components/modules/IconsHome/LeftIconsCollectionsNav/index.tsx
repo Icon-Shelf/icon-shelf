@@ -1,5 +1,5 @@
-import { FC, Fragment } from 'react';
-import { useState } from 'react';
+import type { FC } from 'react';
+import { useState, Fragment } from 'react';
 import { ReactComponent as PlusIcon } from '/assets/icons/plus.svg';
 import { ReactComponent as ViewGridIcon } from '/assets/icons/view-grid.svg';
 import { Button, TitleBarDrag } from '/@/components/ui/atomic-components';
@@ -35,10 +35,10 @@ export const LeftIconsCollectionsNav: FC = () => {
 
   return (
     <>
-      <div className="relative bg-gray-200 dark:bg-black2 w-64 min-w-max flex-shrink-0">
-        <TitleBarDrag className="h-8 absolute inset-0" />
+      <div className="relative w-64 min-w-max flex-shrink-0 bg-gray-200 dark:bg-black2">
+        <TitleBarDrag className="absolute inset-0 h-8" />
 
-        <div className="flex justify-end mt-5 mx-4">
+        <div className="mx-4 mt-5 flex justify-end">
           <Tooltip placement="left" overlay={<span>Create collection</span>}>
             <Button
               icon={<PlusIcon />}
@@ -49,7 +49,7 @@ export const LeftIconsCollectionsNav: FC = () => {
           </Tooltip>
         </div>
 
-        <div className="flex flex-col gap-2 mt-5">
+        <div className="mt-5 flex flex-col gap-2">
           <ListItem
             name="All icons"
             id="all-icons"
@@ -61,7 +61,7 @@ export const LeftIconsCollectionsNav: FC = () => {
 
         <div className="mt-4">
           <div className="ml-4 text-base">Collections</div>
-          <div className="flex flex-col gap-2 mt-2">
+          <div className="mt-2 flex flex-col gap-2">
             {collections
               ?.filter((c) => !c.parentCollectionId)
               ?.map((collection) => (
