@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Tooltip from 'rc-tooltip';
 import { ReactComponent as InfoIcon } from '/assets/icons/information-circle-16.svg';
 import { uuidv4 } from '/@/utils/uuid';
+import { updateParentCollectionWithChildId } from './utils';
 
 const { FolderInput } = Input;
 
@@ -39,10 +40,14 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
         updatedAt: Date.now(),
         actions: [],
         childCollectionIds: [],
-        parentCollectionId: undefined,
+        parentCollectionId: collection?.parentCollectionId,
       };
 
       return CollectionsApi.create(updatedCollection).then(async (newCollectionId) => {
+        if (collection?.parentCollectionId) {
+          await updateParentCollectionWithChildId(collection?.parentCollectionId, newCollectionId);
+        }
+
         await queryClent.invalidateQueries('collections-list');
         onClose();
         navigate(`/collections/${newCollectionId}`);
