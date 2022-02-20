@@ -27,7 +27,7 @@ interface Props {
 export const ListItem: FC<Props> = ({
   name,
   id,
-  icon = <CollectionIcon />,
+  icon = <CollectionIcon className="overflow-visible" />,
   isActive,
   hideOptions,
   collection,
@@ -59,12 +59,12 @@ export const ListItem: FC<Props> = ({
     <>
       <Link
         to={`/collections/${id}`}
-        className={`group flex items-center justify-between px-4 py-1 ${
+        className={`group flex max-w-xs items-center justify-between  px-4 py-1 ${
           isActive ? 'bg-primary hover:bg-primary' : 'hover:bg-gray-300 hover:dark:bg-gray-800'
         }`}
       >
         <div
-          className={`flex cursor-default items-center gap-2 dark:text-white ${
+          className={`flex cursor-default items-center gap-2 overflow-hidden text-ellipsis dark:text-white	 ${
             isActive ? 'text-white' : 'text-black'
           }`}
           style={{ marginLeft: marginLeft }}
@@ -76,7 +76,7 @@ export const ListItem: FC<Props> = ({
             />
           )}
           {icon}
-          {name}
+          <div className="w-full truncate">{name}</div>
         </div>
 
         {!hideOptions && (
