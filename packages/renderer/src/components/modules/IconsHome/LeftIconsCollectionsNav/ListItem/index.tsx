@@ -1,9 +1,9 @@
 import type { FC, ReactNode } from 'react';
 import { useState, useRef } from 'react';
 import { ReactComponent as OptionsIcon } from '/assets/icons/dots-horizontal.svg';
-import { ReactComponent as CollectionIcon } from '/assets/icons/collection.svg';
+import { ReactComponent as CollectionIcon } from '/assets/icons/collection-16.svg';
 import { Link, useNavigate } from 'react-router-dom';
-import { Checkbox, Dropdown } from '/@/components/ui/atomic-components';
+import { Checkbox, Dropdown, ExpandCollapseArrow } from '/@/components/ui/atomic-components';
 import type { Collection } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections';
 import { useQueryClient } from 'react-query';
@@ -34,6 +34,9 @@ export const ListItem: FC<Props> = ({
   const queryClent = useQueryClient();
   const navigate = useNavigate();
 
+  const [showChildCollections, setShowChildCollections] = useState(
+    !!collection?.childCollectionIds?.length
+  );
   const [dropdownIsVisible, setDropdownIsVisible] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const deleteFolderFromFileSystem = useRef(false);
@@ -58,10 +61,16 @@ export const ListItem: FC<Props> = ({
         }`}
       >
         <div
-          className={`flex gap-2 dark:text-white cursor-default ${
+          className={`flex items-center gap-2 dark:text-white cursor-default ${
             isActive ? 'text-white' : 'text-black'
           } `}
         >
+          {!!collection?.childCollectionIds?.length && (
+            <ExpandCollapseArrow
+              isOpen={showChildCollections}
+              onChange={(v) => setShowChildCollections(v)}
+            />
+          )}
           {icon}
           {name}
         </div>
