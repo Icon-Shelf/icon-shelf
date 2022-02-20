@@ -9,4 +9,5 @@ export * from './TextArea';
 export * from './Spinner';
 export * from './TitleBarDrag';
 export * from './IconDisplay';
+export * from './ExpandCollapseArrow';
 // export * from "./MultilevelDropdown";

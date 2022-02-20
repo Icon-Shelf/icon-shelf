@@ -1,5 +1,6 @@
 {
   "printWidth": 100,
   "singleQuote": true,
-  "jsxSingleQuote": false
+  "jsxSingleQuote": false,
+  "tailwindConfig": "tailwind.config.js"
 }

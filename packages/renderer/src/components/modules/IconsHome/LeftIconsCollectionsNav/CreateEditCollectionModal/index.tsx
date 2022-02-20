@@ -7,18 +7,10 @@ import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import Tooltip from 'rc-tooltip';
 import { ReactComponent as InfoIcon } from '/assets/icons/information-circle-16.svg';
+import { uuidv4 } from '/@/utils/uuid';
+import { updateParentCollectionWithChildId } from './utils';
 
 const { FolderInput } = Input;
-
-function uuidv4() {
-  return 'xxxxx'.replace(/[xy]/g, function (c) {
-    // eslint-disable-next-line no-bitwise
-    const r = (Math.random() * 16) | 0;
-    // eslint-disable-next-line no-bitwise
-    const v = c === 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
 
 interface Props {
   show: boolean;
@@ -47,9 +39,15 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
         createdAt: Date.now(),
         updatedAt: Date.now(),
         actions: [],
+        childCollectionIds: [],
+        parentCollectionId: collection?.parentCollectionId,
       };
 
       return CollectionsApi.create(updatedCollection).then(async (newCollectionId) => {
+        if (collection?.parentCollectionId) {
+          await updateParentCollectionWithChildId(collection?.parentCollectionId, newCollectionId);
+        }
+
         await queryClent.invalidateQueries('collections-list');
         onClose();
         navigate(`/collections/${newCollectionId}`);
@@ -84,7 +82,13 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
   return (
     <Modal
       show={show}
-      title={collection?.id ? 'Update collection' : 'Create a new collection'}
+      title={
+        collection?.id
+          ? 'Update collection'
+          : collection?.parentCollectionId
+          ? 'Create a new sub-collection'
+          : 'Create a new collection'
+      }
       onClose={onClose}
       footer={
         <Button type="primary" onClick={onSubmit}>

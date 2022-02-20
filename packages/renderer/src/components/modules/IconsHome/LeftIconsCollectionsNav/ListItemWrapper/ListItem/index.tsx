@@ -1,14 +1,16 @@
 import type { FC, ReactNode } from 'react';
 import { useState, useRef } from 'react';
 import { ReactComponent as OptionsIcon } from '/assets/icons/dots-horizontal.svg';
-import { ReactComponent as CollectionIcon } from '/assets/icons/collection.svg';
+import { ReactComponent as CollectionIcon } from '/assets/icons/collection-16.svg';
 import { Link, useNavigate } from 'react-router-dom';
-import { Checkbox, Dropdown } from '/@/components/ui/atomic-components';
+import { Checkbox, Dropdown, ExpandCollapseArrow } from '/@/components/ui/atomic-components';
 import type { Collection } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections';
 import { useQueryClient } from 'react-query';
 import { DeleteConfirmModal } from '/@/components/ui/DeleteConfirmModal';
 import { OptionsOverlay } from './OptionsOverlay';
+import { removeCollectionIdFromParent } from './utils/removeCollectionIdFromParent';
+import { getAllChildCollectionIds } from './utils/getAllChildCollectionIds';
 
 interface Props {
   name: string;
@@ -17,6 +19,9 @@ interface Props {
   isActive: boolean;
   hideOptions?: boolean;
   collection?: Collection;
+  showChildCollections: boolean;
+  marginLeft: number;
+  onShowChildCollectionsToggle?: (v: boolean) => void;
   editCollection?: (v?: Collection) => void;
   onCustomizeActionsClick?: (v?: Collection) => void;
 }
@@ -24,10 +29,13 @@ interface Props {
 export const ListItem: FC<Props> = ({
   name,
   id,
-  icon = <CollectionIcon />,
+  icon = <CollectionIcon className="overflow-visible" />,
   isActive,
   hideOptions,
   collection,
+  showChildCollections,
+  marginLeft,
+  onShowChildCollectionsToggle,
   editCollection,
   onCustomizeActionsClick,
 }) => {
@@ -38,8 +46,18 @@ export const ListItem: FC<Props> = ({
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const deleteFolderFromFileSystem = useRef(false);
 
-  const deleteCollection = () => {
+  const deleteCollection = async () => {
+    const parentCollectionId = collection?.parentCollectionId;
+    const collectionId = collection?.id;
+
     CollectionsApi.delete(id).then(async () => {
+      if (parentCollectionId && collectionId) {
+        await removeCollectionIdFromParent(parentCollectionId, collectionId);
+      } else if (collectionId && collection.childCollectionIds?.length) {
+        const childCollectionIds = getAllChildCollectionIds(collectionId, queryClent);
+        Promise.all(childCollectionIds.map((cId) => CollectionsApi.delete(cId)));
+      }
+
       await queryClent.invalidateQueries('collections-list');
       navigate('/');
 
@@ -53,17 +71,24 @@ export const ListItem: FC<Props> = ({
     <>
       <Link
         to={`/collections/${id}`}
-        className={`group flex justify-between items-center px-4 py-1 ${
+        className={`group flex max-w-xs items-center justify-between  px-4 py-1 ${
           isActive ? 'bg-primary hover:bg-primary' : 'hover:bg-gray-300 hover:dark:bg-gray-800'
         }`}
       >
         <div
-          className={`flex gap-2 dark:text-white cursor-default ${
+          className={`flex cursor-default items-center gap-2 overflow-hidden text-ellipsis dark:text-white	 ${
             isActive ? 'text-white' : 'text-black'
-          } `}
+          }`}
+          style={{ marginLeft: marginLeft }}
         >
+          {!!collection?.childCollectionIds?.length && (
+            <ExpandCollapseArrow
+              isOpen={showChildCollections}
+              onChange={onShowChildCollectionsToggle}
+            />
+          )}
           {icon}
-          {name}
+          <div className="w-full truncate">{name}</div>
         </div>
 
         {!hideOptions && (
@@ -80,7 +105,7 @@ export const ListItem: FC<Props> = ({
               onMenuButtonClick={(opened) => setDropdownIsVisible(opened)}
             >
               <OptionsIcon
-                className={`leftnav-list-item-optionsIcon cursor-pointer hover:dark:text-white group-hover:opacity-100
+                className={`leftnav-list-item-optionsIcon cursor-pointer group-hover:opacity-100 hover:dark:text-white
                 ${isActive ? 'text-white hover:text-white' : 'hover:text-black'}
                 ${dropdownIsVisible ? 'opacity-100' : 'opacity-0'}`}
               />
