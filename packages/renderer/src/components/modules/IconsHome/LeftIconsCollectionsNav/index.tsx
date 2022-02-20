@@ -1,5 +1,4 @@
-// import { ReactComponent as HeartIcon } from '/assets/icons/heart.svg';
-import type { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { useState } from 'react';
 import { ReactComponent as PlusIcon } from '/assets/icons/plus.svg';
 import { ReactComponent as ViewGridIcon } from '/assets/icons/view-grid.svg';
@@ -9,9 +8,10 @@ import { CollectionsApi } from '/@/data/collections/api';
 import { useParams } from 'react-router-dom';
 import type { Collection } from '/@/data/collections';
 import Tooltip from 'rc-tooltip';
-import { ListItem } from './ListItem';
+import { ListItem } from './ListItemWrapper/ListItem';
 import { CreateEditCollectionModal } from './CreateEditCollectionModal';
 import { CustomizeActionsModal } from './CustomizeActionsModal/index';
+import { ListItemWrapper } from './ListItemWrapper';
 
 export const LeftIconsCollectionsNav: FC = () => {
   const { collectionId: selectedCollectionId } = useParams();
@@ -65,12 +65,11 @@ export const LeftIconsCollectionsNav: FC = () => {
             {collections
               ?.filter((c) => !c.parentCollectionId)
               ?.map((collection) => (
-                <ListItem
+                <ListItemWrapper
                   key={collection.id}
-                  name={collection.name}
-                  id={`${collection.id}`}
-                  isActive={selectedCollectionId === String(collection.id)}
                   collection={collection}
+                  allCollections={collections}
+                  selectedCollectionId={selectedCollectionId}
                   editCollection={editCollection}
                   onCustomizeActionsClick={onCustomizeActionsClick}
                 />

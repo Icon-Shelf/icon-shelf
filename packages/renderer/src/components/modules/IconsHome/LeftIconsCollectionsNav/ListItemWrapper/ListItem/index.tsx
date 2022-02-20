@@ -17,6 +17,9 @@ interface Props {
   isActive: boolean;
   hideOptions?: boolean;
   collection?: Collection;
+  showChildCollections: boolean;
+  marginLeft: number;
+  onShowChildCollectionsToggle?: (v: boolean) => void;
   editCollection?: (v?: Collection) => void;
   onCustomizeActionsClick?: (v?: Collection) => void;
 }
@@ -28,15 +31,15 @@ export const ListItem: FC<Props> = ({
   isActive,
   hideOptions,
   collection,
+  showChildCollections,
+  marginLeft,
+  onShowChildCollectionsToggle,
   editCollection,
   onCustomizeActionsClick,
 }) => {
   const queryClent = useQueryClient();
   const navigate = useNavigate();
 
-  const [showChildCollections, setShowChildCollections] = useState(
-    !!collection?.childCollectionIds?.length
-  );
   const [dropdownIsVisible, setDropdownIsVisible] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const deleteFolderFromFileSystem = useRef(false);
@@ -56,19 +59,20 @@ export const ListItem: FC<Props> = ({
     <>
       <Link
         to={`/collections/${id}`}
-        className={`group flex justify-between items-center px-4 py-1 ${
+        className={`group flex items-center justify-between px-4 py-1 ${
           isActive ? 'bg-primary hover:bg-primary' : 'hover:bg-gray-300 hover:dark:bg-gray-800'
         }`}
       >
         <div
-          className={`flex items-center gap-2 dark:text-white cursor-default ${
+          className={`flex cursor-default items-center gap-2 dark:text-white ${
             isActive ? 'text-white' : 'text-black'
-          } `}
+          }`}
+          style={{ marginLeft: marginLeft }}
         >
           {!!collection?.childCollectionIds?.length && (
             <ExpandCollapseArrow
               isOpen={showChildCollections}
-              onChange={(v) => setShowChildCollections(v)}
+              onChange={onShowChildCollectionsToggle}
             />
           )}
           {icon}
@@ -89,7 +93,7 @@ export const ListItem: FC<Props> = ({
               onMenuButtonClick={(opened) => setDropdownIsVisible(opened)}
             >
               <OptionsIcon
-                className={`leftnav-list-item-optionsIcon cursor-pointer hover:dark:text-white group-hover:opacity-100
+                className={`leftnav-list-item-optionsIcon cursor-pointer group-hover:opacity-100 hover:dark:text-white
                 ${isActive ? 'text-white hover:text-white' : 'hover:text-black'}
                 ${dropdownIsVisible ? 'opacity-100' : 'opacity-0'}`}
               />
