@@ -9,6 +9,8 @@ import { CollectionsApi } from '/@/data/collections';
 import { useQueryClient } from 'react-query';
 import { DeleteConfirmModal } from '/@/components/ui/DeleteConfirmModal';
 import { OptionsOverlay } from './OptionsOverlay';
+import { removeCollectionIdFromParent } from './utils/removeCollectionIdFromParent';
+import { getAllChildCollectionIds } from './utils/getAllChildCollectionIds';
 
 interface Props {
   name: string;
@@ -44,8 +46,18 @@ export const ListItem: FC<Props> = ({
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const deleteFolderFromFileSystem = useRef(false);
 
-  const deleteCollection = () => {
+  const deleteCollection = async () => {
+    const parentCollectionId = collection?.parentCollectionId;
+    const collectionId = collection?.id;
+
     CollectionsApi.delete(id).then(async () => {
+      if (parentCollectionId && collectionId) {
+        await removeCollectionIdFromParent(parentCollectionId, collectionId);
+      } else if (collectionId && collection.childCollectionIds?.length) {
+        const childCollectionIds = getAllChildCollectionIds(collectionId, queryClent);
+        Promise.all(childCollectionIds.map((cId) => CollectionsApi.delete(cId)));
+      }
+
       await queryClent.invalidateQueries('collections-list');
       navigate('/');
 

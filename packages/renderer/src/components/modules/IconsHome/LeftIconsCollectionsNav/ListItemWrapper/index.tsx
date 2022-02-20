@@ -1,4 +1,5 @@
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { Fragment } from 'react';
 import { ListItem } from './ListItem';
 import type { Collection } from '/@/data/collections';

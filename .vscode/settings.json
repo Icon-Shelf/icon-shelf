@@ -19,7 +19,7 @@
     "node_modules/": true
   },
   "editor.codeActionsOnSave": {
-    // "source.fixAll.eslint": true
+    "source.fixAll.eslint": true
   },
   "editor.quickSuggestions": {
     "strings": true
