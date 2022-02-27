@@ -2,7 +2,7 @@ import { db } from '../db';
 import type { Icon } from './types';
 
 const filterIconsBasedOnSearch = (icons: Icon[], searchQuery = '') => {
-  return icons.filter((icon) => icon.name.includes(searchQuery));
+  return icons.filter((icon) => icon.name.toLowerCase().includes(searchQuery.toLocaleLowerCase()));
 };
 
 export const IconsApi = {
