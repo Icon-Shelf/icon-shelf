@@ -88,30 +88,33 @@ export const IconCardsSection: FC<Props> = ({
   }
 
   return (
-    <div
-      className="w-full h-full overflow-y-auto overflow-x-hidden pb-6 relative"
-      ref={wrapperDivRef}
-    >
-      <HotKeys keyMap={keyMap} handlers={handlers} className="outline-none">
-        <div
-          id="icon-list-grid"
-          className="flex-1 w-full p-4 pt-1 grid gap-3 grid-flow-row place-items-center h-auto"
-          style={{
-            gridTemplateColumns: 'repeat(auto-fill, minmax(8rem, 1fr))',
-            gridTemplateRows: 'repeat(auto-fill, 8rem)',
-          }}
-        >
-          {icons?.map((icon) => (
-            <IconCard
-              key={icon.id}
-              icon={icon}
-              isSelected={selectedIcon?.id === icon?.id}
-              setSelectedIcon={setSelectedIcon}
-            />
-          ))}
-        </div>
-      </HotKeys>
+    <>
+      <div
+        className="relative h-full w-full overflow-y-auto overflow-x-hidden pb-6"
+        ref={wrapperDivRef}
+      >
+        <HotKeys keyMap={keyMap} handlers={handlers} className="outline-none">
+          <div
+            id="icon-list-grid"
+            className="grid h-auto w-full flex-1 grid-flow-row place-items-center gap-3 p-4 pt-1"
+            style={{
+              gridTemplateColumns: 'repeat(auto-fill, minmax(8rem, 1fr))',
+              gridTemplateRows: 'repeat(auto-fill, 8rem)',
+            }}
+          >
+            {icons?.map((icon) => (
+              <IconCard
+                key={icon.id}
+                icon={icon}
+                isSelected={selectedIcon?.id === icon?.id}
+                setSelectedIcon={setSelectedIcon}
+              />
+            ))}
+          </div>
+        </HotKeys>
+      </div>
+
       {wrapperDivRef.current && <IconContextMenu parentDom={wrapperDivRef.current} />}
-    </div>
+    </>
   );
 };
