@@ -17,11 +17,11 @@ export const ContextMenu = ({ style, children }: PropsWithChildren<Props>) => {
 
 const ContextMenuItem: FC<HTMLAttributes<HTMLDivElement>> = ({ children, ...rest }) => {
   return (
-    <div className="relative border-b border-gray-400 px-1 py-1 last:border-b-0" {...rest}>
+    <div className="group relative border-b border-gray-400 px-1 py-1 last:border-b-0" {...rest}>
       <div>
         <button
           type="button"
-          className="group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-200 outline-none hover:bg-black2 hover:text-white"
+          className="flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-200 outline-none hover:bg-black2 hover:text-white"
         >
           {children}
         </button>

@@ -72,7 +72,9 @@ export const defaultCollectionActions: CollectionAction[] = [
     isPrimary: false,
     hidden: false,
     isEditable: false,
-    meta: {},
+    meta: {
+      hasSubMenu: true,
+    },
   },
   {
     name: 'Move to collection',
@@ -82,7 +84,9 @@ export const defaultCollectionActions: CollectionAction[] = [
     isPrimary: false,
     hidden: false,
     isEditable: false,
-    meta: {},
+    meta: {
+      hasSubMenu: true,
+    },
   },
   {
     name: 'Delete',
