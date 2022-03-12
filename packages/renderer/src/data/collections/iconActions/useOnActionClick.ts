@@ -24,7 +24,8 @@ export interface ExecuterProps {
 }
 
 const actionExecuters: {
-  [action: string]: (props: ExecuterProps) => Promise<void>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [action: string]: (props: any) => Promise<void>;
 } = {
   'open-in-finder': openInFinder,
   'delete-icon': deleteIcon,
