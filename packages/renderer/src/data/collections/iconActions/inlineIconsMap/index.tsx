@@ -6,6 +6,8 @@ import { VueIcon } from './VueIcon';
 import { SvelteIcon } from './SvelteIcon';
 import { AngularIcon } from './AngularIcon';
 import { CopyClipboardIcon } from './CopyClipboardIcon';
+import { MoveToCollection } from './MoveToCollection';
+import { CopyToCollection } from './CopyToCollection';
 
 export const inlineIconsMap = {
   'react-icon': ReactIcon,
@@ -16,4 +18,6 @@ export const inlineIconsMap = {
   'svelte-icon': SvelteIcon,
   'angular-icon': AngularIcon,
   'copy-clipboard-icon': CopyClipboardIcon,
+  'copy-icon-to-collection': CopyToCollection,
+  'move-icon-to-collection': MoveToCollection,
 } as const;

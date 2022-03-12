@@ -10,6 +10,8 @@ import { useOnActionClick } from '/@/data/collections/iconActions/useOnActionCli
 import { inlineIconsMap } from '/@/data/collections/iconActions/inlineIconsMap';
 import { useContextMenu } from './hooks/useContextMenu';
 import { calculateMenuLeft, calculateMenuTop } from './utils';
+import { useYOffset } from './hooks/useYOffset';
+import { ContextSubMenu } from './ContextSubMenu';
 
 export const IconContextMenu: FC<{
   parentDom: HTMLDivElement;
@@ -18,6 +20,7 @@ export const IconContextMenu: FC<{
   const selectedIconRef = useRef<Icon | null>(null);
 
   const { anchorPoint, clickedIconId } = useContextMenu();
+  const yOffset = useYOffset(parentDom, clickedIconId, anchorPoint);
 
   const onActionClick = useOnActionClick();
 
@@ -34,7 +37,7 @@ export const IconContextMenu: FC<{
         }
       }
     })();
-  });
+  }, [clickedIconId]);
 
   if (!clickedIconId) {
     return <></>;
@@ -43,11 +46,12 @@ export const IconContextMenu: FC<{
   return (
     <ContextMenu
       style={{
-        top: calculateMenuTop(
-          anchorPoint.y,
-          parentDom,
-          iconActions.filter((action) => !action.hidden).length
-        ),
+        top:
+          calculateMenuTop(
+            anchorPoint.y,
+            parentDom,
+            iconActions.filter((action) => !action.hidden).length
+          ) - yOffset,
         left: calculateMenuLeft(anchorPoint.x, parentDom),
       }}
     >
@@ -55,11 +59,28 @@ export const IconContextMenu: FC<{
         .filter((action) => !action.hidden)
         .map((actionObj) => (
           <ContextMenu.Item
-            onClick={() => onActionClick({ actionObj, icon: selectedIconRef.current })}
+            onClick={() =>
+              !actionObj.meta?.hasSubMenu &&
+              onActionClick({ actionObj, icon: selectedIconRef.current })
+            }
             key={actionObj.id}
           >
             <div className="mr-2">{inlineIconsMap[actionObj.icon]}</div>
-            <div>{actionObj.name}</div>
+            <div className="w-32 text-left">{actionObj.name}</div>
+
+            {actionObj.meta?.hasSubMenu && (
+              <>
+                <div className="ml-auto">{'>'}</div>
+
+                <div className="invisible absolute -right-44 top-0 group-hover:visible">
+                  <ContextSubMenu
+                    icon={selectedIconRef.current}
+                    actionObj={actionObj}
+                    onActionClick={onActionClick}
+                  />
+                </div>
+              </>
+            )}
           </ContextMenu.Item>
         ))}
     </ContextMenu>

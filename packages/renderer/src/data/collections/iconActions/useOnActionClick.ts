@@ -8,6 +8,8 @@ import {
   copyToClipboardFromTemplate,
   copyToClipboardAsSvg,
   copyToClipboardAsJsx,
+  copyIconToCollection,
+  moveIconToCollection,
 } from './executerFns';
 
 interface FnProps {
@@ -22,24 +24,28 @@ export interface ExecuterProps {
 }
 
 const actionExecuters: {
-  [action: string]: (props: ExecuterProps) => Promise<void>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [action: string]: (props: any) => Promise<void>;
 } = {
   'open-in-finder': openInFinder,
   'delete-icon': deleteIcon,
   'clipboard-copy-template': copyToClipboardFromTemplate,
   'clipboard-copy-svg': copyToClipboardAsSvg,
   'clipboard-copy-jsx': copyToClipboardAsJsx,
+  'copy-icon-to-collection': copyIconToCollection,
+  'move-icon-to-collection': moveIconToCollection,
 };
 
 export const useOnActionClick = () => {
   const queryClient = useQueryClient();
-  const onActionClick = ({ actionObj, icon }: FnProps): Promise<void> | null => {
+  const onActionClick = ({ actionObj, icon, ...rest }: FnProps): Promise<void> | null => {
     if (icon) {
       if (actionObj.action in actionExecuters) {
         return actionExecuters[actionObj.action]({
           actionObj,
           icon,
           queryClient,
+          ...rest,
         });
       }
     }

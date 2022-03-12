@@ -65,6 +65,30 @@ export const defaultCollectionActions: CollectionAction[] = [
     meta: {},
   },
   {
+    name: 'Copy to collection',
+    id: 'copy-icon-to-collection',
+    action: 'copy-icon-to-collection',
+    icon: 'copy-icon-to-collection',
+    isPrimary: false,
+    hidden: false,
+    isEditable: false,
+    meta: {
+      hasSubMenu: true,
+    },
+  },
+  {
+    name: 'Move to collection',
+    id: 'move-icon-to-collection',
+    action: 'move-icon-to-collection',
+    icon: 'move-icon-to-collection',
+    isPrimary: false,
+    hidden: false,
+    isEditable: false,
+    meta: {
+      hasSubMenu: true,
+    },
+  },
+  {
     name: 'Delete',
     id: 'delete-icon',
     action: 'delete-icon',

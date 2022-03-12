@@ -21,5 +21,6 @@ export interface CollectionAction {
   isEditable: boolean;
   meta: {
     templateString?: string;
+    hasSubMenu?: boolean;
   };
 }

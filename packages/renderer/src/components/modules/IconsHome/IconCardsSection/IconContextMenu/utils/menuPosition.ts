@@ -15,9 +15,9 @@ export const calculateMenuTop = (mouseY: number, parentDom: HTMLDivElement, item
 
   const dims = parentDom.getBoundingClientRect();
 
-  if (mouseY + menuHeight < dims.bottom) {
-    return mouseY + parentDom.scrollTop - 70;
+  if (mouseY + menuHeight > dims.bottom) {
+    return mouseY - menuHeight;
   }
 
-  return mouseY + parentDom.scrollTop - menuHeight - 74;
+  return mouseY;
 };
