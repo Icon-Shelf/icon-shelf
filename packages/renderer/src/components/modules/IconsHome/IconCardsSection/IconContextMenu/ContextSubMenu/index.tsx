@@ -1,5 +1,8 @@
+import { keyBy } from 'lodash';
 import type { FC } from 'react';
 import { useQuery } from 'react-query';
+import { constructCollectionName } from './utils/constructCollectionName';
+import { getOrderedCollectionsList } from './utils/getOrderedCollectionsList';
 import { ContextMenu } from '/@/components/ui/atomic-components';
 import type { CollectionAction } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections';
@@ -13,16 +16,22 @@ interface Props {
 }
 
 export const ContextSubMenu: FC<Props> = ({ icon, actionObj, onActionClick }) => {
-  const { data: collections } = useQuery('collections-list', () => CollectionsApi.findAll());
+  const { data: collections = [] } = useQuery('collections-list', () => CollectionsApi.findAll());
+
+  const collectionsMap = keyBy(collections, 'id');
+  const orderedCollectionsList = getOrderedCollectionsList(
+    collections?.filter((c) => !c.parentCollectionId),
+    collectionsMap
+  );
 
   return (
     <div className="mt-0 flex max-h-44 w-44 flex-col overflow-auto rounded-md rounded-tl-none border bg-gray-600 shadow-lg">
-      {collections?.map((collection) => (
+      {orderedCollectionsList?.map((collection) => (
         <ContextMenu.Item
           key={collection.id}
           onClick={() => onActionClick({ actionObj, icon: icon, targetCollection: collection })}
         >
-          {collection.name}
+          {constructCollectionName(collection, collectionsMap)}
         </ContextMenu.Item>
       ))}
     </div>
