@@ -1,12 +1,13 @@
 import { db } from '/@/data/db';
 
-const cssTheme = localStorage.getItem('theme');
-if (cssTheme) {
-  if (cssTheme === 'dark') {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
+const localStorageTheme = localStorage.getItem('theme');
+if (
+  localStorageTheme === 'dark' ||
+  (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+) {
+  document.documentElement.classList.add('dark');
+} else {
+  document.documentElement.classList.remove('dark');
 }
 
 export const setupGlobalListeners = () => {
