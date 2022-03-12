@@ -59,7 +59,10 @@ export const IconContextMenu: FC<{
         .filter((action) => !action.hidden)
         .map((actionObj) => (
           <ContextMenu.Item
-            onClick={() => onActionClick({ actionObj, icon: selectedIconRef.current })}
+            onClick={() =>
+              !actionObj.meta?.hasSubMenu &&
+              onActionClick({ actionObj, icon: selectedIconRef.current })
+            }
             key={actionObj.id}
           >
             <div className="mr-2">{inlineIconsMap[actionObj.icon]}</div>
@@ -70,7 +73,11 @@ export const IconContextMenu: FC<{
                 <div className="ml-auto">{'>'}</div>
 
                 <div className="invisible absolute -right-44 top-0 group-hover:visible">
-                  <ContextSubMenu action={actionObj} />
+                  <ContextSubMenu
+                    icon={selectedIconRef.current}
+                    actionObj={actionObj}
+                    onActionClick={onActionClick}
+                  />
                 </div>
               </>
             )}

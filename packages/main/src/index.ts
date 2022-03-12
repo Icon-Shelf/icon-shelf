@@ -9,7 +9,16 @@ import {
   shell,
 } from 'electron';
 import { join } from 'path';
-import { existsSync, mkdirSync, writeFile, unlinkSync, readFileSync, rmSync } from 'fs';
+import {
+  existsSync,
+  mkdirSync,
+  writeFile,
+  unlinkSync,
+  readFileSync,
+  rmSync,
+  copyFile,
+  rename,
+} from 'fs';
 import { URL } from 'url';
 import './security-restrictions';
 import type { OptimizedSvg } from 'svgo';
@@ -304,3 +313,34 @@ ipcMain.on('drag-icon-start', async (event, iconsPaths: string[]) => {
     icon: dragIcon,
   });
 });
+
+ipcMain.on(
+  'copy-or-move-icon-to-folder',
+  (
+    event,
+    {
+      fileName,
+      iconPath,
+      toFolder,
+      type,
+    }: { fileName: string; iconPath: string; toFolder: string; type: 'copy' | 'move' }
+  ) => {
+    if (existsSync(iconPath)) {
+      const folderPath = join(toFolder);
+      if (!existsSync(folderPath)) {
+        // If directory does not exist, create one
+        mkdirSync(folderPath, { recursive: true });
+      }
+
+      if (type === 'copy') {
+        copyFile(iconPath, join(toFolder, fileName), (err) => {
+          if (err) throw err;
+        });
+      } else if (type === 'move') {
+        rename(iconPath, join(toFolder, fileName), (err) => {
+          if (err) throw err;
+        });
+      }
+    }
+  }
+);
