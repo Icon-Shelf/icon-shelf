@@ -54,10 +54,13 @@ export const IconsApi = {
     }
 
     let icons = [];
+
     if (collectionId === 'all-icons') {
       icons = await db.icons
         .orderBy('collectionId')
-        .filter((icon) => icon.name.toLowerCase().includes((searchQuery || '').toLocaleLowerCase()))
+        .filter((icon) => {
+          return icon.name.toLowerCase().includes((searchQuery || '').toLocaleLowerCase());
+        })
         .offset(LIMIT * pageParam)
         .limit(LIMIT)
         .reverse()
@@ -67,7 +70,9 @@ export const IconsApi = {
     icons = await db.icons
       .where('collectionId')
       .equals(collectionId)
-      .filter((icon) => icon.name.toLowerCase().includes((searchQuery || '').toLocaleLowerCase()))
+      .filter((icon) => {
+        return icon.name.toLowerCase().includes((searchQuery || '').toLocaleLowerCase());
+      })
       .offset(LIMIT * pageParam)
       .limit(LIMIT)
       .reverse()
