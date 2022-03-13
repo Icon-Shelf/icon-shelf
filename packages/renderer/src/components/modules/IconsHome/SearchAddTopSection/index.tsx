@@ -3,11 +3,12 @@ import { Input } from '/@/components/ui/atomic-components';
 import { GlobalHotKeys } from 'react-hotkeys';
 import { platformBasedText } from '/@/utils/platformText';
 import { AddIconToCollection } from '../LeftIconsCollectionsNav/AddIconToCollection/index';
+import { debounce } from 'lodash';
 
 const { Search } = Input;
 
 interface Props {
-  searchQuery: string | undefined;
+  searchQuery?: string | undefined;
   setSearchQuery: (newValue: string) => void;
 }
 
@@ -15,7 +16,9 @@ const keyMap = {
   FOCUS_ICON_SEARCH: ['cmd+f', 'ctrl+f'],
 };
 
-export const SearchAddTopSection: FC<Props> = ({ searchQuery, setSearchQuery }) => {
+export const SearchAddTopSection: FC<Props> = ({ setSearchQuery }) => {
+  const debouncedSetSearch = debounce((val) => setSearchQuery(val), 150);
+
   const handlers = {
     FOCUS_ICON_SEARCH: () => {
       const searchDom = document.querySelector<HTMLInputElement>('[name="icons-search"]');
@@ -24,7 +27,7 @@ export const SearchAddTopSection: FC<Props> = ({ searchQuery, setSearchQuery }) 
   };
 
   return (
-    <div className="flex mt-5 mx-4 pb-3">
+    <div className="mx-4 mt-5 flex pb-3">
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
       <Search
         name="icons-search"
@@ -34,8 +37,7 @@ export const SearchAddTopSection: FC<Props> = ({ searchQuery, setSearchQuery }) 
           linux: 'Ctrl+f',
         })})`}
         className="flex-1"
-        value={searchQuery || ''}
-        onChange={(e) => setSearchQuery(e.target.value)}
+        onChange={(e) => debouncedSetSearch(e.target.value)}
       />
       <AddIconToCollection />
     </div>
