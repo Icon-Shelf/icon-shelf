@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IconCardsSection } from './IconCardsSection';
 import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
@@ -9,12 +9,13 @@ import type { Icon } from '/@/data/icons';
 import { IconsApi } from '/@/data/icons';
 import { useCheckIfAnyNewIconsInFolder } from '/@/data/icons/hooks';
 import { useInfiniteQuery } from 'react-query';
+import { useResetSetSelectedIcon } from './hooks';
 
 const IconsHome: FC = () => {
   const { collectionId = '' } = useParams();
   const [searchQuery, setSearchQuery] = useState<string>();
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery(
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     ['icons-list', collectionId, searchQuery],
     ({ pageParam = 0 }) =>
       IconsApi.getIconsInCollection({
@@ -31,20 +32,7 @@ const IconsHome: FC = () => {
   const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
 
   useCheckIfAnyNewIconsInFolder(collectionId);
-
-  // useEffect(() => {
-  //   setSelectedIcon(icons?.[0] || null);
-  // }, [collectionId, icons]);
-
-  if (status === 'loading') {
-    return <p>Loading...</p>;
-  } else if (status === 'error') {
-    return <p>Error</p>;
-  }
-
-  // if (!icons) {
-  //   return <></>;
-  // }
+  useResetSetSelectedIcon({ collectionId, setSelectedIcon });
 
   return (
     <div className="flex h-full w-full overflow-hidden">
@@ -55,8 +43,7 @@ const IconsHome: FC = () => {
 
         <IconCardsSection
           icons={data?.pages.map((page) => page.data).flat()}
-          // selectedIcon={selectedIcon || icons[0]}
-          selectedIcon={selectedIcon}
+          selectedIcon={selectedIcon || data?.pages?.[0]?.data?.[0] || null}
           setSelectedIcon={setSelectedIcon}
           searchQuery={searchQuery}
         />
@@ -72,8 +59,7 @@ const IconsHome: FC = () => {
         </div>
       </div>
 
-      {/* <RightIconDetailsSection selectedIcon={selectedIcon || icons[0]} /> */}
-      <RightIconDetailsSection selectedIcon={selectedIcon} />
+      <RightIconDetailsSection selectedIcon={selectedIcon || data?.pages?.[0]?.data?.[0] || null} />
     </div>
   );
 };
