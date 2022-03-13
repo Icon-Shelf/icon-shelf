@@ -15,6 +15,7 @@ export const useResetSetSelectedIcon = ({
   useEffect(() => {
     if (collectionId !== prevCollectionIdRef.current) {
       setSelectedIcon(null);
+
       prevCollectionIdRef.current = collectionId;
     }
   }, [collectionId, setSelectedIcon]);

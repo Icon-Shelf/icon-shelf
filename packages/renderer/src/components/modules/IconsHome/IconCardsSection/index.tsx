@@ -6,16 +6,13 @@ import { IconCard } from './IconCard';
 import { EmptyPlaceholder } from './EmptyPlaceholder';
 import { IconContextMenu } from './IconContextMenu';
 import { findSelectedIconPos, getNumberOfIconInRow } from './util';
-import { useIntersectionObserver } from '/@/utils/hooks';
+import { VirtualizedGrid } from '@mierak/react-virtualized-grid';
 
 interface Props {
   icons?: Icon[];
   selectedIcon: Icon | null;
   setSelectedIcon: Dispatch<SetStateAction<Icon | null>>;
   searchQuery?: string | null;
-  hasNextPage?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fetchNextPage: (e?: any) => any;
 }
 
 export const IconCardsSection: FC<Props> = ({
@@ -23,11 +20,8 @@ export const IconCardsSection: FC<Props> = ({
   selectedIcon,
   setSelectedIcon,
   searchQuery,
-  fetchNextPage,
-  hasNextPage,
 }) => {
   const wrapperDivRef = useRef<HTMLDivElement>(null);
-  const loadMoreTriggerDivRef = useRef<HTMLDivElement>(null);
 
   const selectIcon = (icon: Icon) => {
     setSelectedIcon(icon);
@@ -90,43 +84,39 @@ export const IconCardsSection: FC<Props> = ({
     },
   };
 
-  useIntersectionObserver({
-    target: loadMoreTriggerDivRef,
-    onIntersect: () => fetchNextPage(),
-    enabled: !!hasNextPage,
-  });
-
   if (!icons?.length) {
     return <EmptyPlaceholder searchQuery={searchQuery} />;
   }
 
   return (
     <>
-      <div
-        className="relative h-full w-full overflow-y-auto overflow-x-hidden pb-6"
-        ref={wrapperDivRef}
-      >
-        <HotKeys keyMap={keyMap} handlers={handlers} className="outline-none">
-          <div
-            id="icon-list-grid"
-            className="grid h-auto w-full flex-1 grid-flow-row place-items-center gap-3 p-4 pt-1"
-            style={{
-              gridTemplateColumns: 'repeat(auto-fill, minmax(8rem, 1fr))',
-              gridTemplateRows: 'repeat(auto-fill, 8rem)',
-            }}
+      <div className="relative h-full w-full overflow-hidden" ref={wrapperDivRef}>
+        <HotKeys keyMap={keyMap} handlers={handlers} className="h-full outline-none">
+          <VirtualizedGrid
+            rowHeight={128}
+            cellWidth={128}
+            gridGap={12}
+            itemCount={icons.length}
+            gridHeight={'100%'}
+            className={'virtualized-icons-grid-container px-4 pb-16'}
+            debounceDelay={100}
+            prerenderScreens={5}
           >
-            {icons?.map((icon) => (
-              <IconCard
-                key={icon.id}
-                icon={icon}
-                isSelected={selectedIcon?.id === icon?.id}
-                setSelectedIcon={setSelectedIcon}
-              />
-            ))}
-          </div>
+            {(index) => {
+              const icon = icons[index];
+              return (
+                icon && (
+                  <IconCard
+                    key={icon?.id}
+                    icon={icon}
+                    isSelected={selectedIcon?.id === icon?.id}
+                    setSelectedIcon={setSelectedIcon}
+                  />
+                )
+              );
+            }}
+          </VirtualizedGrid>
         </HotKeys>
-
-        <div ref={loadMoreTriggerDivRef}></div>
       </div>
 
       {wrapperDivRef.current && <IconContextMenu parentDom={wrapperDivRef.current} />}

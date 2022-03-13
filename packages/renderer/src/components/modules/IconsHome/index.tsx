@@ -8,23 +8,21 @@ import { SearchAddTopSection } from './SearchAddTopSection';
 import type { Icon } from '/@/data/icons';
 import { IconsApi } from '/@/data/icons';
 import { useCheckIfAnyNewIconsInFolder } from '/@/data/icons/hooks';
-import { useInfiniteQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { useResetSetSelectedIcon } from './hooks';
 
 const IconsHome: FC = () => {
   const { collectionId = '' } = useParams();
   const [searchQuery, setSearchQuery] = useState<string>();
 
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
+  const { data } = useQuery(
     ['icons-list', collectionId, searchQuery],
-    ({ pageParam = 0 }) =>
+    () =>
       IconsApi.getIconsInCollection({
         collectionId,
         searchQuery,
-        pageParam,
       }),
     {
-      getNextPageParam: (lastPage) => lastPage.nextPage,
       keepPreviousData: true,
     }
   );
@@ -42,16 +40,14 @@ const IconsHome: FC = () => {
         <SearchAddTopSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
         <IconCardsSection
-          icons={data?.pages.map((page) => page.data).flat()}
+          icons={data?.data}
           searchQuery={searchQuery}
-          selectedIcon={selectedIcon || data?.pages?.[0]?.data?.[0] || null}
-          hasNextPage={hasNextPage}
+          selectedIcon={selectedIcon || data?.data?.[0] || null}
           setSelectedIcon={setSelectedIcon}
-          fetchNextPage={fetchNextPage}
         />
       </div>
 
-      <RightIconDetailsSection selectedIcon={selectedIcon || data?.pages?.[0]?.data?.[0] || null} />
+      <RightIconDetailsSection selectedIcon={selectedIcon || data?.data?.[0] || null} />
     </div>
   );
 };

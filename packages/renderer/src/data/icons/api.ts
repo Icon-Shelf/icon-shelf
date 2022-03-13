@@ -38,14 +38,11 @@ export const IconsApi = {
   getIconsInCollection: async ({
     collectionId,
     searchQuery,
-    pageParam = 0,
   }: {
     collectionId: string;
     searchQuery?: string;
-    pageParam?: number;
   }): Promise<{
     data: Icon[];
-    nextPage?: number | undefined;
   }> => {
     if (!collectionId) {
       return Promise.resolve({
@@ -61,8 +58,8 @@ export const IconsApi = {
         .filter((icon) => {
           return icon.name.toLowerCase().includes((searchQuery || '').toLocaleLowerCase());
         })
-        .offset(LIMIT * pageParam)
-        .limit(LIMIT)
+        // .offset(LIMIT * pageParam)
+        // .limit(LIMIT)
         .reverse()
         .sortBy('updatedAt');
     }
@@ -73,16 +70,13 @@ export const IconsApi = {
       .filter((icon) => {
         return icon.name.toLowerCase().includes((searchQuery || '').toLocaleLowerCase());
       })
-      .offset(LIMIT * pageParam)
-      .limit(LIMIT)
+      // .offset(LIMIT * pageParam)
+      // .limit(LIMIT)
       .reverse()
       .sortBy('updatedAt');
 
-    const nextPage = icons.length === LIMIT ? pageParam + 1 : undefined;
-
     return {
       data: icons || [],
-      nextPage,
     };
   },
 };
