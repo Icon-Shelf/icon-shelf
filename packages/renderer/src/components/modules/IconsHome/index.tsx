@@ -15,7 +15,7 @@ const IconsHome: FC = () => {
   const { collectionId = '' } = useParams();
   const [searchQuery, setSearchQuery] = useState<string>();
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ['icons-list', collectionId, searchQuery],
     ({ pageParam = 0 }) =>
       IconsApi.getIconsInCollection({
@@ -43,20 +43,12 @@ const IconsHome: FC = () => {
 
         <IconCardsSection
           icons={data?.pages.map((page) => page.data).flat()}
-          selectedIcon={selectedIcon || data?.pages?.[0]?.data?.[0] || null}
-          setSelectedIcon={setSelectedIcon}
           searchQuery={searchQuery}
+          selectedIcon={selectedIcon || data?.pages?.[0]?.data?.[0] || null}
+          hasNextPage={hasNextPage}
+          setSelectedIcon={setSelectedIcon}
+          fetchNextPage={fetchNextPage}
         />
-
-        <div className="flex w-full items-center justify-center">
-          <button onClick={() => fetchNextPage()}>
-            {isFetchingNextPage
-              ? 'Loading more...'
-              : hasNextPage
-              ? 'Load More'
-              : 'Nothing more to load'}
-          </button>
-        </div>
       </div>
 
       <RightIconDetailsSection selectedIcon={selectedIcon || data?.pages?.[0]?.data?.[0] || null} />

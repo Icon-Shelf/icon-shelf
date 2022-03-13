@@ -6,12 +6,16 @@ import { IconCard } from './IconCard';
 import { EmptyPlaceholder } from './EmptyPlaceholder';
 import { IconContextMenu } from './IconContextMenu';
 import { findSelectedIconPos, getNumberOfIconInRow } from './util';
+import { useIntersectionObserver } from '/@/utils/hooks';
 
 interface Props {
   icons?: Icon[];
   selectedIcon: Icon | null;
   setSelectedIcon: Dispatch<SetStateAction<Icon | null>>;
   searchQuery?: string | null;
+  hasNextPage?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fetchNextPage: (e?: any) => any;
 }
 
 export const IconCardsSection: FC<Props> = ({
@@ -19,8 +23,11 @@ export const IconCardsSection: FC<Props> = ({
   selectedIcon,
   setSelectedIcon,
   searchQuery,
+  fetchNextPage,
+  hasNextPage,
 }) => {
   const wrapperDivRef = useRef<HTMLDivElement>(null);
+  const loadMoreTriggerDivRef = useRef<HTMLDivElement>(null);
 
   const selectIcon = (icon: Icon) => {
     setSelectedIcon(icon);
@@ -83,6 +90,12 @@ export const IconCardsSection: FC<Props> = ({
     },
   };
 
+  useIntersectionObserver({
+    target: loadMoreTriggerDivRef,
+    onIntersect: () => fetchNextPage(),
+    enabled: !!hasNextPage,
+  });
+
   if (!icons?.length) {
     return <EmptyPlaceholder searchQuery={searchQuery} />;
   }
@@ -112,6 +125,8 @@ export const IconCardsSection: FC<Props> = ({
             ))}
           </div>
         </HotKeys>
+
+        <div ref={loadMoreTriggerDivRef}></div>
       </div>
 
       {wrapperDivRef.current && <IconContextMenu parentDom={wrapperDivRef.current} />}
