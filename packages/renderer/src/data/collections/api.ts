@@ -21,7 +21,7 @@ export const CollectionsApi = {
     const parsedId: number = parseInt(id as string);
 
     return db.collections.delete(parsedId).then(async () => {
-      const icons = await IconsApi.findAllInCollection(`${parsedId}`);
+      const icons = await IconsApi.getAllIconsInCollection({ collectionId: `${parsedId}` });
 
       const iconsToDelete = icons.map((icon) => icon.id as number);
 
