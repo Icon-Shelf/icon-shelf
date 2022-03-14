@@ -9,7 +9,7 @@ export const calculateMenuLeft = (mouseX: number, parentDom: HTMLDivElement) => 
   return mouseX - menuWidth - 260;
 };
 
-export const calculateMenuTop = (mouseY: number, parentDom: HTMLDivElement, itemsCount: number) => {
+export const calculateMenuTop = (mouseY: number, parentDom: HTMLElement, itemsCount: number) => {
   const menuItemHeight = 45;
   const menuHeight = menuItemHeight * itemsCount;
 

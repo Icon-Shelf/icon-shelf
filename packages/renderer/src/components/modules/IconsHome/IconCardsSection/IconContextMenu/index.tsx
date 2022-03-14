@@ -49,7 +49,7 @@ export const IconContextMenu: FC<{
         top:
           calculateMenuTop(
             anchorPoint.y,
-            parentDom,
+            document.body,
             iconActions.filter((action) => !action.hidden).length
           ) - yOffset,
         left: calculateMenuLeft(anchorPoint.x, parentDom),

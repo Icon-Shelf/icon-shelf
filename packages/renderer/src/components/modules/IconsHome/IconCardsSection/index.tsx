@@ -69,7 +69,15 @@ export const IconCardsSection: FC<Props> = ({
         </HotKeys>
       </div>
 
-      {wrapperDivRef.current && <IconContextMenu parentDom={wrapperDivRef.current} />}
+      {wrapperDivRef.current && (
+        <IconContextMenu
+          parentDom={
+            wrapperDivRef.current?.querySelector(
+              '.virtualized-icons-grid-container'
+            ) as HTMLDivElement
+          }
+        />
+      )}
     </>
   );
 };
