@@ -21,5 +21,5 @@ html.dark {
 }
 
 .virtualized-icons-grid-container {
-  grid-template-rows: max-content;
+  max-height: 100%;
 }
