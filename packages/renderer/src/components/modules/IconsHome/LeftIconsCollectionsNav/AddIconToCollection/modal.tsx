@@ -97,12 +97,12 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
           multiple
           value={uploadedIcons}
           onChange={onChange}
-          maxNumber={69}
+          maxNumber={10000}
           acceptType={['svg']}
         >
           {({ imageList, onImageUpload, isDragging, dragProps }) => (
             <div
-              className={`w-full flex flex-col items-center justify-center outline-none border-2 border-gray-500 border-dashed rounded-md py-14 hover:border-gray-400 ${
+              className={`flex w-full flex-col items-center justify-center rounded-md border-2 border-dashed border-gray-500 py-14 outline-none hover:border-gray-400 ${
                 isDragging && 'border-primary'
               }`}
               onClick={onImageUpload}
@@ -116,14 +116,14 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
               {imageList.length > 0 && (
                 <div className="flex items-center gap-1">
                   <DocumentIcon className="pointer-events-none" />
-                  <span className="text-body dark:text-white text-lg">
+                  <span className="text-lg text-body dark:text-white">
                     {imageList.length} {imageList.length === 1 ? 'icon' : 'icons'} chosen
                   </span>
                 </div>
               )}
 
               {!imageList.length && (
-                <div className="flex flex-col items-center pointer-events-none">
+                <div className="pointer-events-none flex flex-col items-center">
                   <span className="text-sm text-white">Drag and drop your SVG icons here</span>
 
                   <button className="text-xs hover:text-white focus:text-white" type="button">
@@ -142,7 +142,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
               <>
                 SVGO optimize icon.{' '}
                 <a
-                  className="text-xs text-blue-600 dark:text-blue-300 hover:text-blue-800 hover:dark:text-blue-400"
+                  className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-300 hover:dark:text-blue-400"
                   href="https://github.com/svg/svgo"
                   target="_blank"
                   rel="noreferrer"

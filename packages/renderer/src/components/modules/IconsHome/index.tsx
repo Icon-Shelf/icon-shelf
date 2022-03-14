@@ -1,6 +1,5 @@
 import type { FC } from 'react';
-import { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IconCardsSection } from './IconCardsSection';
 import { LeftIconsCollectionsNav } from './LeftIconsCollectionsNav';
@@ -9,16 +8,19 @@ import { SearchAddTopSection } from './SearchAddTopSection';
 import type { Icon } from '/@/data/icons';
 import { IconsApi } from '/@/data/icons';
 import { useCheckIfAnyNewIconsInFolder } from '/@/data/icons/hooks';
+import { useQuery } from 'react-query';
+import { useResetSetSelectedIcon } from './hooks';
 
 const IconsHome: FC = () => {
   const { collectionId = '' } = useParams();
   const [searchQuery, setSearchQuery] = useState<string>();
 
-  const { data: icons } = useQuery(
+  const { data } = useQuery(
     ['icons-list', collectionId, searchQuery],
     () =>
-      IconsApi.findAllInCollection(collectionId, searchQuery).catch(() => {
-        return [];
+      IconsApi.getIconsInCollection({
+        collectionId,
+        searchQuery,
       }),
     {
       keepPreviousData: true,
@@ -28,14 +30,7 @@ const IconsHome: FC = () => {
   const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
 
   useCheckIfAnyNewIconsInFolder(collectionId);
-
-  useEffect(() => {
-    setSelectedIcon(icons?.[0] || null);
-  }, [collectionId, icons]);
-
-  if (!icons) {
-    return <></>;
-  }
+  useResetSetSelectedIcon({ collectionId, setSelectedIcon });
 
   return (
     <div className="flex h-full w-full overflow-hidden">
@@ -45,14 +40,14 @@ const IconsHome: FC = () => {
         <SearchAddTopSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
         <IconCardsSection
-          icons={icons}
-          selectedIcon={selectedIcon || icons[0]}
-          setSelectedIcon={setSelectedIcon}
+          icons={data?.data}
           searchQuery={searchQuery}
+          selectedIcon={selectedIcon || data?.data?.[0] || null}
+          setSelectedIcon={setSelectedIcon}
         />
       </div>
 
-      <RightIconDetailsSection selectedIcon={selectedIcon || icons[0]} />
+      <RightIconDetailsSection selectedIcon={selectedIcon || data?.data?.[0] || null} />
     </div>
   );
 };

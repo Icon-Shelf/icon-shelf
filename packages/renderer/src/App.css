@@ -6,7 +6,7 @@
 html,
 body,
 #app {
-  @apply w-full h-full overflow-hidden bg-gray-50 text-body font-sans text-base;
+  @apply h-full w-full overflow-hidden bg-gray-50 font-sans text-base text-body;
   font-family: 'DM Sans';
 }
 
@@ -18,4 +18,8 @@ html {
 html.dark {
   --body: #777f93;
   --inputBorder: rgba(118, 127, 147, 0.3);
+}
+
+.virtualized-icons-grid-container {
+  max-height: 100%;
 }

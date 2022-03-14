@@ -1,11 +1,13 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import type { Icon } from '/@/data/icons/types';
 import { HotKeys } from 'react-hotkeys';
 import { IconCard } from './IconCard';
 import { EmptyPlaceholder } from './EmptyPlaceholder';
 import { IconContextMenu } from './IconContextMenu';
-import { findSelectedIconPos, getNumberOfIconInRow } from './util';
+import { VirtualizedGrid } from '@mierak/react-virtualized-grid';
+import { useHotKeyConfig } from './hooks';
 
 interface Props {
   icons?: Icon[];
@@ -22,66 +24,17 @@ export const IconCardsSection: FC<Props> = ({
 }) => {
   const wrapperDivRef = useRef<HTMLDivElement>(null);
 
-  const selectIcon = (icon: Icon) => {
-    setSelectedIcon(icon);
-    const iconDom = document.querySelector(`[data-icon-card-id="${icon.id}"]`);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    iconDom?.scrollIntoViewIfNeeded(false);
-  };
+  const { keyMap, handlers } = useHotKeyConfig({ icons, setSelectedIcon });
 
-  const keyMap = {
-    MOVE_UP: 'up',
-    MOVE_DOWN: 'down',
-    MOVE_RIGHT: 'right',
-    MOVE_LEFT: 'left',
-  };
+  const [refreshGrid, setRefreshGrid] = useState(false);
+  useEffect(() => {
+    setRefreshGrid(true);
+    setTimeout(() => setRefreshGrid(false), 1);
+  }, [icons]);
 
-  const handlers = {
-    MOVE_RIGHT: (keyEvent?: Event) => {
-      if (icons?.length) {
-        const selectedIconPos = findSelectedIconPos(icons);
-
-        if (typeof selectedIconPos === 'number' && icons[selectedIconPos + 1]) {
-          selectIcon(icons[selectedIconPos + 1]);
-        }
-
-        keyEvent?.preventDefault();
-      }
-    },
-    MOVE_LEFT: (keyEvent?: Event) => {
-      if (icons?.length) {
-        const selectedIconPos = findSelectedIconPos(icons);
-
-        if (typeof selectedIconPos === 'number' && icons[selectedIconPos - 1]) {
-          selectIcon(icons[selectedIconPos - 1]);
-        }
-        keyEvent?.preventDefault();
-      }
-    },
-    MOVE_DOWN: (keyEvent?: Event) => {
-      if (icons?.length) {
-        const selectedIconPos = findSelectedIconPos(icons);
-        const numberOfIconInRow = getNumberOfIconInRow();
-
-        if (typeof selectedIconPos === 'number' && icons[selectedIconPos + numberOfIconInRow]) {
-          selectIcon(icons[selectedIconPos + numberOfIconInRow]);
-        }
-        keyEvent?.preventDefault();
-      }
-    },
-    MOVE_UP: (keyEvent?: Event) => {
-      if (icons?.length) {
-        const selectedIconPos = findSelectedIconPos(icons);
-        const numberOfIconInRow = getNumberOfIconInRow();
-
-        if (typeof selectedIconPos === 'number' && icons[selectedIconPos - numberOfIconInRow]) {
-          selectIcon(icons[selectedIconPos - numberOfIconInRow]);
-        }
-        keyEvent?.preventDefault();
-      }
-    },
-  };
+  if (refreshGrid) {
+    return <></>;
+  }
 
   if (!icons?.length) {
     return <EmptyPlaceholder searchQuery={searchQuery} />;
@@ -89,32 +42,42 @@ export const IconCardsSection: FC<Props> = ({
 
   return (
     <>
-      <div
-        className="relative h-full w-full overflow-y-auto overflow-x-hidden pb-6"
-        ref={wrapperDivRef}
-      >
-        <HotKeys keyMap={keyMap} handlers={handlers} className="outline-none">
-          <div
-            id="icon-list-grid"
-            className="grid h-auto w-full flex-1 grid-flow-row place-items-center gap-3 p-4 pt-1"
-            style={{
-              gridTemplateColumns: 'repeat(auto-fill, minmax(8rem, 1fr))',
-              gridTemplateRows: 'repeat(auto-fill, 8rem)',
-            }}
+      <div className="relative h-full w-full overflow-hidden" ref={wrapperDivRef}>
+        <HotKeys keyMap={keyMap} handlers={handlers} className="h-full outline-none">
+          <VirtualizedGrid
+            rowHeight={128}
+            cellWidth={128}
+            gridGap={12}
+            itemCount={icons.length}
+            gridHeight={'min(min-content, 100%'}
+            className={'virtualized-icons-grid-container px-4 pb-16'}
+            debounceDelay={100}
+            prerenderScreens={5}
           >
-            {icons?.map((icon) => (
-              <IconCard
-                key={icon.id}
-                icon={icon}
-                isSelected={selectedIcon?.id === icon?.id}
-                setSelectedIcon={setSelectedIcon}
-              />
-            ))}
-          </div>
+            {(index) => {
+              const icon = icons[index];
+              return (
+                <IconCard
+                  key={icon?.id}
+                  icon={icon}
+                  isSelected={selectedIcon?.id === icon?.id}
+                  setSelectedIcon={setSelectedIcon}
+                />
+              );
+            }}
+          </VirtualizedGrid>
         </HotKeys>
       </div>
 
-      {wrapperDivRef.current && <IconContextMenu parentDom={wrapperDivRef.current} />}
+      {wrapperDivRef.current && (
+        <IconContextMenu
+          parentDom={
+            wrapperDivRef.current?.querySelector(
+              '.virtualized-icons-grid-container'
+            ) as HTMLDivElement
+          }
+        />
+      )}
     </>
   );
 };

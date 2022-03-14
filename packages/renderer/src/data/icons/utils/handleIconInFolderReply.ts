@@ -17,7 +17,9 @@ export async function handleIconInFolderReply(
 ) {
   const collectionIdString = String(collectionIdNo);
 
-  const existingIcons = await IconsApi.findAllInCollection(collectionIdString);
+  const existingIcons = await IconsApi.getAllIconsInCollection({
+    collectionId: collectionIdString,
+  });
 
   const existingIconsMap = keyBy(existingIcons, 'name');
   const folderIconsMap = keyBy(files, 'name');

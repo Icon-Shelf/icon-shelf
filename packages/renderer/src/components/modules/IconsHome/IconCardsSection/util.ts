@@ -17,7 +17,7 @@ export const findSelectedIconPos = (icons: Icon[]) => {
 
 export const getNumberOfIconInRow = (): number => {
   let gridColumnCount = 0;
-  const iconsWrapperDom = document.querySelector('#icon-list-grid');
+  const iconsWrapperDom = document.querySelector('.virtualized-icons-grid-container');
   if (iconsWrapperDom) {
     const gridComputedStyle = window.getComputedStyle(iconsWrapperDom);
 

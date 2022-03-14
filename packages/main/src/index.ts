@@ -12,12 +12,12 @@ import { join } from 'path';
 import {
   existsSync,
   mkdirSync,
-  writeFile,
   unlinkSync,
   readFileSync,
   rmSync,
   copyFile,
   rename,
+  promises as promiseFs,
 } from 'fs';
 import { URL } from 'url';
 import './security-restrictions';
@@ -30,6 +30,7 @@ import { watch as chokidarWatch } from 'chokidar';
 import MenuBuilder from './menu';
 import { activateAnalytics } from './utils/analytics';
 import AppUpdater from './app-updater';
+import { debounce } from 'lodash';
 
 const isSingleInstance = app.requestSingleInstanceLock();
 const isDevelopment = import.meta.env.MODE === 'development';
@@ -201,6 +202,11 @@ ipcMain.on(
   ) => {
     const regex = /^data:.+\/(.+);base64,(.*)$/;
 
+    if (!existsSync(folderPath)) {
+      mkdirSync(folderPath, { recursive: true });
+    }
+
+    const filePromiseList: Promise<void>[] = [];
     uploadedIcons.forEach((icon) => {
       const dataUrl = icon.dataURL;
 
@@ -209,10 +215,6 @@ ipcMain.on(
       // const ext = matches?.[1];
       const data = matches?.[2];
       if (data && filename) {
-        if (!existsSync(folderPath)) {
-          mkdirSync(folderPath, { recursive: true });
-        }
-
         const buffer = Buffer.from(data, 'base64');
 
         let fileData: Buffer | string = buffer;
@@ -231,11 +233,11 @@ ipcMain.on(
 
         const formattedPath = join(folderPath, filename);
 
-        writeFile(formattedPath, fileData, () => {
-          console.log();
-        });
+        filePromiseList.push(promiseFs.writeFile(formattedPath, fileData));
       }
     });
+
+    Promise.all(filePromiseList);
   }
 );
 
@@ -296,9 +298,9 @@ ipcMain.on('collection-switch', async (event, props) => {
     awaitWriteFinish: true,
   });
 
-  const eventReply = () => {
+  const eventReply = debounce(() => {
     mainWindow?.webContents.send('collection-folder-change_reply', props?.collectionId);
-  };
+  }, 100);
 
   watcher.on('add', eventReply).on('unlink', eventReply);
 });
