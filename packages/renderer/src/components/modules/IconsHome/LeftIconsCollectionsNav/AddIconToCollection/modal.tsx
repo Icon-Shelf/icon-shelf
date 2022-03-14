@@ -97,7 +97,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
           multiple
           value={uploadedIcons}
           onChange={onChange}
-          maxNumber={3000}
+          maxNumber={10000}
           acceptType={['svg']}
         >
           {({ imageList, onImageUpload, isDragging, dragProps }) => (
