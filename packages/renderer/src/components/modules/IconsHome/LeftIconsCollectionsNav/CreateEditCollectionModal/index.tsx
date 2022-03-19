@@ -45,7 +45,7 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
 
       return CollectionsApi.create(updatedCollection).then(async (newCollectionId) => {
         if (collection?.parentCollectionId) {
-          await updateParentCollectionWithChildId(collection?.parentCollectionId, newCollectionId);
+          await updateParentCollectionWithChildId(collection.parentCollectionId, newCollectionId);
         }
 
         await queryClent.invalidateQueries('collections-list');
@@ -111,7 +111,7 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
         </label>
 
         <label id="folder-label-container">
-          <div className="mb-2 font-medium text-gray-800 dark:text-gray-400 focus-within:text-white">
+          <div className="mb-2 font-medium text-gray-800 focus-within:text-white dark:text-gray-400">
             Folder where your icons will reside
             <Tooltip
               placement="right"
@@ -122,7 +122,7 @@ export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose
               }
             >
               <span className="ml-1">
-                <InfoIcon className="inline dark:text-body dark:fill-inherit fill-current" />
+                <InfoIcon className="inline fill-current dark:fill-inherit dark:text-body" />
               </span>
             </Tooltip>
           </div>

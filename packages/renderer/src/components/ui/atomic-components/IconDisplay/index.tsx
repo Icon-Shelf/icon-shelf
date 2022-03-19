@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import SVG from 'react-inlinesvg';
+import { detectOS } from '/@/utils/detectOS';
 
 interface Props {
   src: string;
@@ -8,8 +9,13 @@ interface Props {
 
 export const IconDisplay: FC<Props> = ({ src, ...rest }) => {
   const isDarkMode = document.documentElement.classList.contains('dark');
-  
-  const srcPath = encodeURI(src.replace(/\\/g, "/"));
+
+  const platform = detectOS();
+  let formattedSrcPath = src;
+  if (platform === 'Windows') {
+    formattedSrcPath = src.replace(/\\/g, '/');
+  }
+  const srcPath = encodeURI(formattedSrcPath);
 
   if (isDarkMode) {
     return (
@@ -27,6 +33,6 @@ export const IconDisplay: FC<Props> = ({ src, ...rest }) => {
       </>
     );
   } else {
-    return <SVG src={`icon-image://${srcPath}`} className="h-10 w-10 mt-4 text-black" />;
+    return <SVG src={`icon-image://${srcPath}`} className="mt-4 h-10 w-10 text-black" />;
   }
 };
