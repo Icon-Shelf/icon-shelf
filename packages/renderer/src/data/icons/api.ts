@@ -62,18 +62,18 @@ export const IconsApi = {
         // .limit(LIMIT)
         .reverse()
         .sortBy('updatedAt');
+    } else {
+      icons = await db.icons
+        .where('collectionId')
+        .equals(collectionId)
+        .filter((icon) => {
+          return icon.name.toLowerCase().includes((searchQuery || '').toLocaleLowerCase());
+        })
+        // .offset(LIMIT * pageParam)
+        // .limit(LIMIT)
+        .reverse()
+        .sortBy('updatedAt');
     }
-
-    icons = await db.icons
-      .where('collectionId')
-      .equals(collectionId)
-      .filter((icon) => {
-        return icon.name.toLowerCase().includes((searchQuery || '').toLocaleLowerCase());
-      })
-      // .offset(LIMIT * pageParam)
-      // .limit(LIMIT)
-      .reverse()
-      .sortBy('updatedAt');
 
     return {
       data: icons || [],
