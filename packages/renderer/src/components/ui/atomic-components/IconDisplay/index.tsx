@@ -8,8 +8,8 @@ interface Props {
 
 export const IconDisplay: FC<Props> = ({ src, ...rest }) => {
   const isDarkMode = document.documentElement.classList.contains('dark');
-
-  const srcPath = encodeURI(src);
+  
+  const srcPath = encodeURI(src.replace(/\\/g, "/"));
 
   if (isDarkMode) {
     return (
