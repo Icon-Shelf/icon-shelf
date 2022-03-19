@@ -61,8 +61,8 @@ export const ActionsList: FC<ActionsListProps> = ({
           <CursorIcon className="absolute bottom-0 left-16 z-20 text-gray-500 dark:text-white" />
         </div>
 
-        <div className="h-72 relative overflow-y-auto -top-4 ml-4">
-          <div className="w-56 relative left-14 -bottom-1 bg-gray-200 dark:bg-gray-600 rounded-md shadow-lg z-10 flex flex-col ring ring-gray-400">
+        <div className="relative -top-4 ml-4 h-72 overflow-y-auto">
+          <div className="relative left-14 -bottom-1 z-10 flex w-56 flex-col rounded-md bg-gray-200 shadow-lg ring ring-gray-400 dark:bg-gray-600">
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
