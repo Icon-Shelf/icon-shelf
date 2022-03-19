@@ -1,14 +1,10 @@
 import { autoUpdater } from 'electron-updater';
 import { dialog } from 'electron';
-
+import log from 'electron-log';
 export default class AppUpdater {
   constructor() {
-    // log.transports.file.level = "info";
-    autoUpdater.logger = {
-      info: console.log,
-      warn: console.warn,
-      error: console.error,
-    };
+    log.transports.file.level = 'info';
+    autoUpdater.logger = log;
 
     autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
       // log.info("update-downloaded", [
