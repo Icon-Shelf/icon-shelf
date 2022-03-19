@@ -139,8 +139,12 @@ protocol.registerSchemesAsPrivileged([
 
 app.whenReady().then(() => {
   protocol.registerFileProtocol('icon-image', (request, callback) => {
-    const url = decodeURI(request.url.replace('icon-image://', ''));
-
+    let url = decodeURI(request.url.replace('icon-image://', ''));
+    
+    if (process.platform === 'win32') {
+      url = url.charAt(0).toUpperCase() + ':' + url.slice(1);
+    }
+    
     callback(url);
   });
 });
