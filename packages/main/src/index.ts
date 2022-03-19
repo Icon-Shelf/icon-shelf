@@ -144,7 +144,6 @@ app.whenReady().then(() => {
     if (process.platform === 'win32') {
       url = url.charAt(0).toUpperCase() + ':' + url.slice(1);
     }
-    console.log(url);
 
     callback(url);
   });
