@@ -1,7 +1,7 @@
 import { db } from '../db';
 import type { Icon } from './types';
 
-const LIMIT = 100;
+// const LIMIT = 100;
 
 export const IconsApi = {
   findAll: async () => {
