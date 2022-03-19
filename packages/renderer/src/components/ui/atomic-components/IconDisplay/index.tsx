@@ -15,7 +15,9 @@ export const IconDisplay: FC<Props> = ({ src, ...rest }) => {
   if (platform === 'Windows') {
     formattedSrcPath = src.replace(/\\/g, '/');
   }
+
   const srcPath = encodeURI(formattedSrcPath);
+  
 
   if (isDarkMode) {
     return (

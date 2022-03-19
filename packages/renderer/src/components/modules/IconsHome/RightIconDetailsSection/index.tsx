@@ -6,12 +6,14 @@ import { formatBytes } from '/@/utils/formatBytes';
 import { formatDate } from '/@/utils/formatDate';
 import { IconDisplay } from '/@/components/ui/atomic-components';
 import { IconActionsButton } from './IconActionsButton';
+import { detectOS } from '/@/utils/detectOS';
 
 interface Props {
   selectedIcon: Icon | null;
 }
 
 export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
+  const platform = detectOS();
   const svgRef = useRef<SVGElement>(null);
 
   const [svgDimensions, setSvgDimensions] = useState('-');
@@ -41,6 +43,15 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
     }
   };
 
+  const constructIconSrcPath = (path:string) => {
+    let formattedSrcPath = path;
+    if (platform === 'Windows') {
+      formattedSrcPath = path.replace(/\\/g, '/');
+    }
+
+    return formattedSrcPath;
+  }
+
   useEffect(() => {
     setSvgDimensions('-');
   }, [selectedIcon]);
@@ -53,7 +64,7 @@ export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
             <>
               <SVG
                 onLoad={onSvgLoad}
-                src={`icon-image://${encodeURI(selectedIcon.imageSrc)}`}
+                src={`icon-image://${encodeURI(constructIconSrcPath(selectedIcon.imageSrc))}`}
                 className="h-14 w-14 text-white hidden"
                 innerRef={svgRef}
               />
