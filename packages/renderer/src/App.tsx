@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { DefaultIconsRedirect } from './components/modules/IconsHome/DefaultIconsRedirect';
@@ -35,10 +34,12 @@ export default function App() {
             <Route path="/collections/:collectionId" element={<IconsHome />} />
           </Routes>
 
-          <PreferenceModal
-            show={isPreferenceModalVisible}
-            onClose={() => setIsPreferenceModalVisible(false)}
-          />
+          {isPreferenceModalVisible && (
+            <PreferenceModal
+              show={isPreferenceModalVisible}
+              onClose={() => setIsPreferenceModalVisible(false)}
+            />
+          )}
         </QueryClientProvider>
       </Layout>
     </Router>
