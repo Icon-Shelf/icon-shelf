@@ -52,6 +52,13 @@ export default class MenuBuilder {
         },
         { type: 'separator' },
         {
+          label: 'Preferences',
+          click: () => {
+            this.mainWindow.webContents.send('open-preferences-modal');
+          },
+        },
+        { type: 'separator' },
+        {
           label: 'Reset App and Clear Local Data',
           click: () => {
             this.mainWindow.webContents.send('reset-app-clear-data');
@@ -182,6 +189,12 @@ export default class MenuBuilder {
       {
         label: '&File',
         submenu: [
+          {
+            label: 'Preferences',
+            click: () => {
+              this.mainWindow.webContents.send('open-preferences-modal');
+            },
+          },
           {
             label: 'Reset App and Clear Local Data',
             click: () => {
