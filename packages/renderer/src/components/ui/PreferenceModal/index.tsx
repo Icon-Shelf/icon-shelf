@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Button, Checkbox, Modal } from '../atomic-components';
+import type { SvgoSettingItem } from './svgo-default-preference';
 import { svgoDefaultPreference } from './svgo-default-preference';
 import { PreferenceApi } from '/@/data/preference';
 
@@ -21,7 +22,7 @@ export const PreferenceModal: FC<{
     })
   );
 
-  const onSvgoSettingsChange = (val: boolean, item: typeof svgoDefaultPreference[0]) => {
+  const onSvgoSettingsChange = (val: boolean, item: SvgoSettingItem) => {
     setSvgItems((svgItems) => {
       return svgItems.map((settingsItem) => {
         if (settingsItem.name === item.name) {
@@ -37,7 +38,12 @@ export const PreferenceModal: FC<{
   };
 
   const onSubmit = () => {
-    const formattedSvgoOptions = svgItems.map((item) => ({ name: item.name, active: item.active }));
+    const formattedSvgoOptions = svgItems.map((item) => ({
+      name: item.name,
+      active: item.active,
+      isAux: item.isAux,
+      params: item.params,
+    }));
 
     PreferenceApi.set({
       svgo: {

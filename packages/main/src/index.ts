@@ -4,6 +4,7 @@ import {
   dialog,
   ipcMain,
   nativeImage,
+  Notification,
   protocol,
   screen,
   shell,
@@ -23,8 +24,8 @@ import { URL } from 'url';
 import './security-restrictions';
 import type { OptimizedSvg } from 'svgo';
 import { optimize as svgOptimize } from 'svgo';
+import type { Plugin } from 'svgo';
 import { getAllFiles } from './utils/getAllFiles';
-import { svgoPluginsConfiguration } from './constants/svgoPluginsConfiguration';
 import type { FSWatcher } from 'chokidar';
 import { watch as chokidarWatch } from 'chokidar';
 import MenuBuilder from './menu';
@@ -140,11 +141,11 @@ protocol.registerSchemesAsPrivileged([
 app.whenReady().then(() => {
   protocol.registerFileProtocol('icon-image', (request, callback) => {
     let url = decodeURI(request.url.replace('icon-image://', ''));
-    
+
     if (process.platform === 'win32') {
       url = url.charAt(0).toUpperCase() + ':' + url.slice(1);
     }
-    
+
     callback(url);
   });
 });
@@ -198,10 +199,12 @@ ipcMain.on(
       uploadedIcons,
       folderPath,
       optimizeIcon,
+      svgoSettings,
     }: {
       uploadedIcons: { dataURL: string; fileName: string }[];
       folderPath: string;
       optimizeIcon: boolean;
+      svgoSettings: Plugin[];
     }
   ) => {
     const regex = /^data:.+\/(.+);base64,(.*)$/;
@@ -226,7 +229,7 @@ ipcMain.on(
         if (optimizeIcon) {
           try {
             const svgOptimizeResult = svgOptimize(buffer, {
-              plugins: svgoPluginsConfiguration,
+              plugins: svgoSettings,
             });
 
             fileData = (svgOptimizeResult as OptimizedSvg).data;
@@ -250,6 +253,24 @@ ipcMain.on('remove-icon-from-folder', (_, props) => {
 
   try {
     unlinkSync(iconFilePath);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+ipcMain.on('svg-optimize-icon', (event, props) => {
+  const iconFilePath = join(props.folderSrc, props.fileName);
+
+  try {
+    const svg = readFileSync(iconFilePath);
+
+    const svgOptimizeResult = svgOptimize(svg, {
+      path: iconFilePath,
+      plugins: props.svgoSettings,
+    });
+    const fileData = (svgOptimizeResult as OptimizedSvg).data;
+
+    promiseFs.writeFile(iconFilePath, fileData);
   } catch (err) {
     console.error(err);
   }
@@ -350,3 +371,7 @@ ipcMain.on(
     }
   }
 );
+
+ipcMain.on('send-notification', async (event, props) => {
+  new Notification({ title: props.title, body: props.message }).show();
+});

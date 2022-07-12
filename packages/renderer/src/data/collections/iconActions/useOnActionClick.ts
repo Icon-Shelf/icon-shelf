@@ -10,6 +10,7 @@ import {
   copyToClipboardAsJsx,
   copyIconToCollection,
   moveIconToCollection,
+  svgoOptimizeIcon,
 } from './executerFns';
 
 interface FnProps {
@@ -34,6 +35,7 @@ const actionExecuters: {
   'clipboard-copy-jsx': copyToClipboardAsJsx,
   'copy-icon-to-collection': copyIconToCollection,
   'move-icon-to-collection': moveIconToCollection,
+  'svgo-optimize': svgoOptimizeIcon,
 };
 
 export const useOnActionClick = () => {

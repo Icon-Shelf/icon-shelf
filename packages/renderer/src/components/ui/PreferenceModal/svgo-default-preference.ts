@@ -1,4 +1,24 @@
-export const svgoDefaultPreference = [
+export interface SvgoSettingItem {
+  name: string;
+  desc: string;
+  active: boolean;
+  isAux?: string;
+  params?: any;
+}
+
+export const svgoDefaultPreference: SvgoSettingItem[] = [
+  {
+    name: 'convertColors',
+    desc: 'convert colors (from rgb() to #rrggbb, from #rrggbb to #rgb)',
+    active: true,
+  },
+  {
+    name: 'convertColors - currentColor',
+    desc: 'convert fill and stroke values to currentColor',
+    isAux: 'convertColors',
+    params: { currentColor: true },
+    active: false,
+  },
   {
     name: 'cleanupAttrs',
     desc: 'cleanup attributes from newlines, trailing, and repeating spaces',
@@ -82,7 +102,7 @@ export const svgoDefaultPreference = [
   {
     name: 'removeViewBox',
     desc: 'remove viewBox attribute when possible',
-    active: true,
+    active: false,
   },
   {
     name: 'cleanupEnableBackground',
@@ -98,11 +118,6 @@ export const svgoDefaultPreference = [
     name: 'convertStyleToAttrs',
     desc: 'convert styles into attributes',
     active: false,
-  },
-  {
-    name: 'convertColors',
-    desc: 'convert colors (from rgb() to #rrggbb, from #rrggbb to #rgb)',
-    active: true,
   },
   {
     name: 'convertPathData',

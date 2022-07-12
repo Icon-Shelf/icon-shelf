@@ -4,6 +4,8 @@ export interface Preference {
     options: {
       name: string;
       active: boolean;
+      isAux?: string;
+      params?: any;
     }[];
   };
 }
