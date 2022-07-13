@@ -53,6 +53,10 @@ export const PreferenceModal: FC<{
     onClose();
   };
 
+  const onReset = () => {
+    setSvgItems(svgoDefaultPreference);
+  };
+
   return (
     <Modal
       show={show}
@@ -60,7 +64,7 @@ export const PreferenceModal: FC<{
       onClose={onClose}
       footer={
         <>
-          <Button onClick={onClose}>Reset</Button>
+          <Button onClick={onReset}>Reset</Button>
           <Button type="primary" onClick={onSubmit}>
             Save
           </Button>
