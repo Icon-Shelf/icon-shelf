@@ -22,7 +22,6 @@ export const getSvgoPreference = () => {
   const options = Object.values(optionsMap);
 
   return {
-    enabled: preference.svgo.enabled,
     options: options,
   };
 };
