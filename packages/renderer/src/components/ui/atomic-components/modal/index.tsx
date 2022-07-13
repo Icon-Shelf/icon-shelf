@@ -21,10 +21,14 @@ export const Modal: FC<Props> = ({
   onClose,
   afterClose,
 }) => {
+  const onAfterClose = () => {
+    afterClose?.();
+  };
+
   return (
     <Transition appear show={show} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose}>
-        <div className="min-h-screen px-4 text-center overflow-hidden">
+        <div className="min-h-screen overflow-hidden px-4 text-center">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -34,7 +38,7 @@ export const Modal: FC<Props> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-black1 dark:bg-modalOverlay bg-opacity-80 dark:bg-opacity-80" />
+            <Dialog.Overlay className="fixed inset-0 bg-black1 bg-opacity-80 dark:bg-modalOverlay dark:bg-opacity-80" />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
@@ -49,26 +53,26 @@ export const Modal: FC<Props> = ({
             leave="ease-in duration-200"
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
-            afterLeave={afterClose}
+            afterLeave={onAfterClose}
           >
             <div
-              className={`inline-block w-full max-w-xl text-left align-middle transition-all bg-white dark:bg-black2 shadow-xl rounded-lg relative ${className}`}
+              className={`relative inline-block w-full max-w-xl rounded-lg bg-white text-left align-middle shadow-xl transition-all dark:bg-black2 ${className}`}
             >
               <Dialog.Title
                 as="h3"
-                className="text-xl font-medium leading-6 text-black dark:text-white px-8 py-5 border-b border-black3"
+                className="border-b border-black3 px-8 py-5 text-xl font-medium leading-6 text-black dark:text-white"
               >
                 {title}
               </Dialog.Title>
 
               <div className="p-8 pb-12">{children}</div>
 
-              <div className="px-4 py-5 w-full flex justify-end gap-3 border-t border-black3">
+              <div className="flex w-full justify-end gap-3 border-t border-black3 px-4 py-5">
                 {footer}
               </div>
 
               <button
-                className="absolute top-0 right-0 p-2 m-1 outline-none rounded-lg hover:text-black hover:dark:text-white active:text-current focus:text-black focus:dark:text-white focus-visible:ring-2 focus-visible:ring-primary"
+                className="absolute top-0 right-0 m-1 rounded-lg p-2 outline-none hover:text-black focus:text-black focus-visible:ring-2 focus-visible:ring-primary active:text-current hover:dark:text-white focus:dark:text-white"
                 type="button"
                 onClick={onClose}
               >

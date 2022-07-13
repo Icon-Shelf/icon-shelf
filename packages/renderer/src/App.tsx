@@ -1,4 +1,3 @@
-import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { DefaultIconsRedirect } from './components/modules/IconsHome/DefaultIconsRedirect';
@@ -9,6 +8,8 @@ import { setupGlobalListeners } from './data/globalListeners';
 import 'rc-tooltip/assets/bootstrap.css';
 import '@fontsource/dm-sans';
 import './App.css';
+import { PreferenceModal } from './components/ui/PreferenceModal';
+import { usePreferenceModalSetup } from './components/ui/PreferenceModal/hooks/usePreferenceSetup';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,8 @@ const queryClient = new QueryClient({
 setupGlobalListeners();
 
 export default function App() {
+  const { isPreferenceModalVisible, setIsPreferenceModalVisible } = usePreferenceModalSetup();
+
   return (
     <Router>
       <Layout>
@@ -30,6 +33,13 @@ export default function App() {
             <Route path="/" element={<DefaultIconsRedirect />} />
             <Route path="/collections/:collectionId" element={<IconsHome />} />
           </Routes>
+
+          {isPreferenceModalVisible && (
+            <PreferenceModal
+              show={isPreferenceModalVisible}
+              onClose={() => setIsPreferenceModalVisible(false)}
+            />
+          )}
         </QueryClientProvider>
       </Layout>
     </Router>

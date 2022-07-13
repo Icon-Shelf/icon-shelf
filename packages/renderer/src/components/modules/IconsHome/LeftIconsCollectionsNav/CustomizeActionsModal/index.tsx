@@ -48,7 +48,9 @@ export const CustomizeActionsModal: FC<Props> = ({ show, collection, onClose }) 
   };
 
   const onSubmit = async () => {
-    if (collection && collection.id) {
+    if (showEditScreen) {
+      return onBackClick();
+    } else if (collection && collection.id) {
       const updatedCollection = { ...collection, actions: actionItems };
       await CollectionsApi.update(collection.id, updatedCollection);
     }
@@ -77,13 +79,9 @@ export const CustomizeActionsModal: FC<Props> = ({ show, collection, onClose }) 
       className="max-w-4xl"
       afterClose={afterClose}
       footer={
-        !showEditScreen ? (
-          <Button type="primary" onClick={onSubmit}>
-            Done and save
-          </Button>
-        ) : (
-          <></>
-        )
+        <Button type="primary" onClick={onSubmit}>
+          {!showEditScreen ? 'Done and save' : 'Done'}
+        </Button>
       }
     >
       {showEditScreen && selectedAction ? (

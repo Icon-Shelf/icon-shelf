@@ -9,6 +9,7 @@ import type { Collection } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections';
 import { useParams } from 'react-router-dom';
 import { CollectionsDropdown } from './CollectionsDropdown';
+import { getSvgoPreference } from '/@/components/ui/PreferenceModal/utils';
 
 interface Props {
   show: boolean;
@@ -51,6 +52,7 @@ export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
         })),
         folderPath: selectedCollection.folderSrc,
         optimizeIcon,
+        svgoSettings: getSvgoPreference().options,
       });
 
       setTimeout(() => {

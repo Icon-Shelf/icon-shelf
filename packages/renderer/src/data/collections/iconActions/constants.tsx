@@ -41,6 +41,16 @@ export const defaultCollectionActions: CollectionAction[] = [
     meta: {},
   },
   {
+    name: 'SVGO optimize',
+    id: 'svgo-optimize',
+    action: 'svgo-optimize',
+    icon: 'svgo-icon',
+    isPrimary: false,
+    hidden: false,
+    isEditable: false,
+    meta: {},
+  },
+  {
     name: 'Copy as JSX',
     id: 'copy-as-jsx',
     action: 'clipboard-copy-jsx',

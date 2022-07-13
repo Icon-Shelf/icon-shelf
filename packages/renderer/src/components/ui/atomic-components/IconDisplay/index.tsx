@@ -17,7 +17,6 @@ export const IconDisplay: FC<Props> = ({ src, ...rest }) => {
   }
 
   const srcPath = encodeURI(formattedSrcPath);
-  
 
   if (isDarkMode) {
     return (
@@ -35,6 +34,12 @@ export const IconDisplay: FC<Props> = ({ src, ...rest }) => {
       </>
     );
   } else {
-    return <SVG src={`icon-image://${srcPath}`} className="mt-4 h-10 w-10 text-black" />;
+    return (
+      <SVG
+        src={`icon-image://${srcPath}`}
+        className="mt-4 h-10 w-10 text-black"
+        cacheRequests={false}
+      />
+    );
   }
 };

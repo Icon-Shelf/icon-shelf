@@ -5,7 +5,6 @@ import { bootstrapDb } from './bootstrap';
 
 export class IconShelfDatabase extends Dexie {
   icons: Dexie.Table<Icon, number>;
-
   collections: Dexie.Table<Collection, number>;
 
   constructor() {

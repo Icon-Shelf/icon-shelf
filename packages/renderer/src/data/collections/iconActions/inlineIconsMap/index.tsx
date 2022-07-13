@@ -8,6 +8,7 @@ import { AngularIcon } from './AngularIcon';
 import { CopyClipboardIcon } from './CopyClipboardIcon';
 import { MoveToCollection } from './MoveToCollection';
 import { CopyToCollection } from './CopyToCollection';
+import { svgoIcon } from './svgoIcon';
 
 export const inlineIconsMap = {
   'react-icon': ReactIcon,
@@ -20,4 +21,5 @@ export const inlineIconsMap = {
   'copy-clipboard-icon': CopyClipboardIcon,
   'copy-icon-to-collection': CopyToCollection,
   'move-icon-to-collection': MoveToCollection,
+  'svgo-icon': svgoIcon,
 } as const;
