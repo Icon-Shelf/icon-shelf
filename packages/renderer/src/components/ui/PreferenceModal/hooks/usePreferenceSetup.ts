@@ -16,7 +16,7 @@ export const usePreferenceModalSetup = () => {
         onOpenPreferencesCallback
       );
     };
-  }, []);
+  }, [onOpenPreferencesCallback]);
 
   return {
     isPreferenceModalVisible,
