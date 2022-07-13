@@ -3,7 +3,6 @@ import { svgoDefaultPreference } from '/@/components/ui/PreferenceModal/svgo-def
 
 const defaultPreference: Preference = {
   svgo: {
-    enabled: true,
     options: svgoDefaultPreference,
   },
 };

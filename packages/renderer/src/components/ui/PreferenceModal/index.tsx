@@ -10,7 +10,7 @@ export const PreferenceModal: FC<{
   onClose: () => void;
 }> = ({ show, onClose }) => {
   const preference = PreferenceApi.get();
-  const [enableSvgo, setEnableSvgo] = useState(preference.svgo.enabled);
+
   const [svgItems, setSvgItems] = useState(
     svgoDefaultPreference.map((svgItem) => {
       const fillItem = preference.svgo.options.find((i) => i.name === svgItem.name);
@@ -47,7 +47,6 @@ export const PreferenceModal: FC<{
 
     PreferenceApi.set({
       svgo: {
-        enabled: enableSvgo,
         options: formattedSvgoOptions,
       },
     });
@@ -69,15 +68,8 @@ export const PreferenceModal: FC<{
       }
     >
       <div>
-        <label className="mb-2 block text-lg">Importing icons</label>
-        <Checkbox
-          checked={enableSvgo}
-          label="Optimize icons using SVGO"
-          onChange={(val) => setEnableSvgo(val)}
-        />
-
-        <label className="mt-4 block text-lg">SVGO settings</label>
-        <div className="mt-2 h-48 overflow-auto">
+        <label className="block text-lg">SVGO optimize settings</label>
+        <div className="mt-4 h-48 overflow-auto">
           {svgItems.map((item) => (
             <div key={item.name} className="mb-4">
               <Checkbox
