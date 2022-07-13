@@ -14,9 +14,9 @@ const keyMap = {
   COLLECTION_FIRST_ACTION: ['cmd+shift+c', 'ctrl+shift+c'],
 };
 
-export const IconActionsButton: FC<{
+export const IconActionsButton: FC<React.PropsWithChildren<{
   icon: Icon;
-}> = ({ icon }) => {
+}>> = ({ icon }) => {
   const [iconActions, setIconActions] = useState<CollectionAction[]>([]);
   const [intermText, setIntermText] = useState('');
 

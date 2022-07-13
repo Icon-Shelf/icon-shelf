@@ -7,7 +7,7 @@ interface Props {
   className: string;
 }
 
-export const IconDisplay: FC<Props> = ({ src, ...rest }) => {
+export const IconDisplay: FC<React.PropsWithChildren<Props>> = ({ src, ...rest }) => {
   const isDarkMode = document.documentElement.classList.contains('dark');
 
   const platform = detectOS();

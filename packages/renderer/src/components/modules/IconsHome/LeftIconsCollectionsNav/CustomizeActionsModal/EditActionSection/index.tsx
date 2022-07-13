@@ -9,7 +9,7 @@ interface Props {
   onActionChange: (action: CollectionAction) => void;
 }
 
-export const EditActionSection: FC<Props> = ({ action, onBackClick, onActionChange }) => {
+export const EditActionSection: FC<React.PropsWithChildren<Props>> = ({ action, onBackClick, onActionChange }) => {
   const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 

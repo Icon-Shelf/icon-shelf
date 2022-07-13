@@ -26,7 +26,7 @@ interface Props {
   onCustomizeActionsClick?: (v?: Collection) => void;
 }
 
-export const ListItem: FC<Props> = ({
+export const ListItem: FC<React.PropsWithChildren<Props>> = ({
   name,
   id,
   icon = <CollectionIcon className="overflow-visible" />,

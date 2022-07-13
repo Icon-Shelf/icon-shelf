@@ -12,7 +12,7 @@ interface Props {
   onChange: (item: any) => void;
 }
 
-export const Select: FC<Props> = ({ className = '', selected: selectedVal, options, onChange }) => {
+export const Select: FC<React.PropsWithChildren<Props>> = ({ className = '', selected: selectedVal, options, onChange }) => {
   return (
     <div className={`w-full ${className}`}>
       <Listbox value={selectedVal} onChange={onChange}>

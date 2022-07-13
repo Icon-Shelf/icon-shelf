@@ -16,7 +16,7 @@ interface Props {
   searchQuery?: string | null;
 }
 
-export const IconCardsSection: FC<Props> = ({
+export const IconCardsSection: FC<React.PropsWithChildren<Props>> = ({
   icons,
   selectedIcon,
   setSelectedIcon,

@@ -9,7 +9,7 @@ interface Props {
   onChange: (collection: Collection) => void;
 }
 
-export const CollectionsDropdown: FC<Props> = ({ selectedCollection, onChange }) => {
+export const CollectionsDropdown: FC<React.PropsWithChildren<Props>> = ({ selectedCollection, onChange }) => {
   const { data: collections } = useQuery('collections', () => CollectionsApi.findAll());
 
   return (

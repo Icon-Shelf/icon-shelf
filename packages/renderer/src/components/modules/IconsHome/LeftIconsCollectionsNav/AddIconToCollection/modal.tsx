@@ -16,7 +16,7 @@ interface Props {
   onClose: () => void;
 }
 
-export const AddIconToCollectionModal: FC<Props> = ({ show, onClose }) => {
+export const AddIconToCollectionModal: FC<React.PropsWithChildren<Props>> = ({ show, onClose }) => {
   const addButtonRef = useRef<HTMLButtonElement>(null);
   const [showLoader, setShowLoader] = useState(false);
 

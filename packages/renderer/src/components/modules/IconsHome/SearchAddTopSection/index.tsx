@@ -16,7 +16,7 @@ const keyMap = {
   FOCUS_ICON_SEARCH: ['cmd+f', 'ctrl+f'],
 };
 
-export const SearchAddTopSection: FC<Props> = ({ setSearchQuery }) => {
+export const SearchAddTopSection: FC<React.PropsWithChildren<Props>> = ({ setSearchQuery }) => {
   const debouncedSetSearch = debounce((val) => setSearchQuery(val), 150);
 
   const handlers = {

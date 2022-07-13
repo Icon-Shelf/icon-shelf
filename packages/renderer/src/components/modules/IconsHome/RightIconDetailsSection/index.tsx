@@ -12,7 +12,7 @@ interface Props {
   selectedIcon: Icon | null;
 }
 
-export const RightIconDetailsSection: FC<Props> = ({ selectedIcon }) => {
+export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ selectedIcon }) => {
   const platform = detectOS();
   const svgRef = useRef<SVGElement>(null);
 

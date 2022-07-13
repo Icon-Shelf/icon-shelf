@@ -4,7 +4,7 @@ import { useQueryClient } from 'react-query';
 import type { Collection } from '/@/data/collections';
 import { Button } from '/@/components/ui/atomic-components';
 
-const Wrapper: FC = ({ children }) => {
+const Wrapper: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-1">
       <div className="dark:text-gray-200">
@@ -28,9 +28,9 @@ const Wrapper: FC = ({ children }) => {
   );
 };
 
-export const EmptyPlaceholder: FC<{
+export const EmptyPlaceholder: FC<React.PropsWithChildren<{
   searchQuery?: string | null;
-}> = ({ searchQuery }) => {
+}>> = ({ searchQuery }) => {
   const queryClient = useQueryClient();
   const { collectionId } = useParams();
 

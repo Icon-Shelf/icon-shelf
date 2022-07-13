@@ -13,9 +13,9 @@ import { calculateMenuLeft, calculateMenuTop } from './utils';
 import { useYOffset } from './hooks/useYOffset';
 import { ContextSubMenu } from './ContextSubMenu';
 
-export const IconContextMenu: FC<{
+export const IconContextMenu: FC<React.PropsWithChildren<{
   parentDom: HTMLDivElement;
-}> = ({ parentDom }) => {
+}>> = ({ parentDom }) => {
   const [iconActions, setIconActions] = useState<CollectionAction[]>([]);
   const selectedIconRef = useRef<Icon | null>(null);
 

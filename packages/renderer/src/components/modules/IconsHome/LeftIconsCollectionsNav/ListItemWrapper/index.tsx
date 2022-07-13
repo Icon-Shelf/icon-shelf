@@ -12,7 +12,7 @@ interface Props {
   editCollection?: (v?: Collection) => void;
   onCustomizeActionsClick?: (v?: Collection) => void;
 }
-export const ListItemWrapper: FC<Props> = ({
+export const ListItemWrapper: FC<React.PropsWithChildren<Props>> = ({
   collection,
   allCollections,
   selectedCollectionId,

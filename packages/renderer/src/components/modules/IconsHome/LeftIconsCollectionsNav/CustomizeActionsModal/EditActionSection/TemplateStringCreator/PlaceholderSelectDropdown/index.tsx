@@ -7,9 +7,9 @@ import type { PlaceholderType } from './utils';
 import { insertPlaceholder } from './utils';
 import { MultilevelDropdown } from '../../../../../../../ui/atomic-components/MultilevelDropdown';
 
-export const PlaceholderSelectDropdown: FC<{
+export const PlaceholderSelectDropdown: FC<React.PropsWithChildren<{
   editorView: EditorView;
-}> = ({ editorView }) => {
+}>> = ({ editorView }) => {
   const handleClick = (type: PlaceholderType, value: string) => {
     insertPlaceholder(editorView, type, value);
   };

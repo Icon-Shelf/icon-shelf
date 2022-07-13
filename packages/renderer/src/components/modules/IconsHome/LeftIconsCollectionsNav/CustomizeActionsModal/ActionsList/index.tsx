@@ -26,7 +26,7 @@ export interface ActionsListProps {
   onActionChange: (selectedAction: CollectionAction) => void;
 }
 
-export const ActionsList: FC<ActionsListProps> = ({
+export const ActionsList: FC<React.PropsWithChildren<ActionsListProps>> = ({
   actionItems,
   setActionItems,
   onEditClick,

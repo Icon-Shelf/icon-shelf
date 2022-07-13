@@ -6,7 +6,7 @@ interface Props {
   isOpen: boolean;
   onChange?: (v: boolean) => void;
 }
-export const ExpandCollapseArrow: FC<Props> = ({ isOpen, onChange }) => {
+export const ExpandCollapseArrow: FC<React.PropsWithChildren<Props>> = ({ isOpen, onChange }) => {
   return (
     <button
       onClick={(e) => {

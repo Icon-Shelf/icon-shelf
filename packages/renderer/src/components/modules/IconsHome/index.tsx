@@ -11,7 +11,7 @@ import { useCheckIfAnyNewIconsInFolder } from '/@/data/icons/hooks';
 import { useQuery } from 'react-query';
 import { useResetSetSelectedIcon } from './hooks';
 
-const IconsHome: FC = () => {
+const IconsHome: FC<React.PropsWithChildren<unknown>> = () => {
   const { collectionId = '' } = useParams();
   const [searchQuery, setSearchQuery] = useState<string>();
 

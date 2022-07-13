@@ -10,7 +10,7 @@ interface Props {
   onSubmit: () => void;
 }
 
-export const DeleteConfirmModal: FC<Props> = ({ show, title, children, onClose, onSubmit }) => {
+export const DeleteConfirmModal: FC<React.PropsWithChildren<Props>> = ({ show, title, children, onClose, onSubmit }) => {
   const deleteBtnRef = useRef<HTMLButtonElement>(null);
 
   return (

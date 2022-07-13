@@ -15,7 +15,7 @@ interface Props {
   onActionClick: (e: any) => Promise<void> | null;
 }
 
-export const ContextSubMenu: FC<Props> = ({ icon, actionObj, onActionClick }) => {
+export const ContextSubMenu: FC<React.PropsWithChildren<Props>> = ({ icon, actionObj, onActionClick }) => {
   const { data: collections = [] } = useQuery('collections-list', () => CollectionsApi.findAll());
 
   const collectionsMap = keyBy(collections, 'id');

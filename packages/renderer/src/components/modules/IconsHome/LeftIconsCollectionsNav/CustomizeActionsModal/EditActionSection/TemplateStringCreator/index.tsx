@@ -9,7 +9,7 @@ interface Props {
   onChange: (v: string) => void;
 }
 
-export const TemplateStringCreator: FC<Props> = ({ defaultValue, onChange }) => {
+export const TemplateStringCreator: FC<React.PropsWithChildren<Props>> = ({ defaultValue, onChange }) => {
   const [editorView, setEditorView] = useState<EditorView | null>(null);
 
   const onTextChange = (v: ViewUpdate) => {
