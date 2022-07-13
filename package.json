@@ -89,7 +89,7 @@
     "react-dom": "^18.2.0",
     "react-hotkeys": "^2.0.0",
     "react-images-uploading": "^3.1.7",
-    "react-inlinesvg": "^2.3.0",
+    "react-inlinesvg": "^3.0.0",
     "react-query": "^3.39.1",
     "react-router-dom": "^6.3.0",
     "svgo": "^2.8.0",
