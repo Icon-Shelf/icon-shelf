@@ -14,7 +14,7 @@ interface Props extends Omit<ActionsListProps, 'actionItems' | 'setActionItems'>
   onActionChange: (selectedAction: CollectionAction) => void;
 }
 
-export const ActionItem: FC<Props> = ({ item, onEditClick, onActionChange }) => {
+export const ActionItem: FC<React.PropsWithChildren<Props>> = ({ item, onEditClick, onActionChange }) => {
   const icon = inlineIconsMap[item.icon];
 
   const onVisibleChange = () => {

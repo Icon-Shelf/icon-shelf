@@ -39,10 +39,10 @@ export const Dropdown = ({
   );
 };
 
-const DropdownItem: FC<{
+const DropdownItem: FC<React.PropsWithChildren<{
   className?: string;
   onClick?: () => void;
-}> = ({ className = '', children, ...rest }) => {
+}>> = ({ className = '', children, ...rest }) => {
   return (
     <div className="px-1 py-1" {...rest}>
       <Menu.Item>

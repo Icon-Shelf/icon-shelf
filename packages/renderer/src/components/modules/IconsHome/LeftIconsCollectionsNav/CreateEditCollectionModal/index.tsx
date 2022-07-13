@@ -18,7 +18,7 @@ interface Props {
   onClose: () => void;
 }
 
-export const CreateEditCollectionModal: FC<Props> = ({ show, collection, onClose }) => {
+export const CreateEditCollectionModal: FC<React.PropsWithChildren<Props>> = ({ show, collection, onClose }) => {
   const queryClent = useQueryClient();
   const navigate = useNavigate();
 

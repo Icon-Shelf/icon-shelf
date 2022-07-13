@@ -15,7 +15,7 @@ export const ContextMenu = ({ style, children }: PropsWithChildren<Props>) => {
   );
 };
 
-const ContextMenuItem: FC<HTMLAttributes<HTMLDivElement>> = ({ children, ...rest }) => {
+const ContextMenuItem: FC<React.PropsWithChildren<HTMLAttributes<HTMLDivElement>>> = ({ children, ...rest }) => {
   return (
     <div className="group relative border-b border-gray-400 px-1 py-1 last:border-b-0" {...rest}>
       <div>

@@ -7,7 +7,7 @@ import { CollectionsApi } from '/@/data/collections';
 import Tooltip from 'rc-tooltip';
 import { AddIconToCollectionModal } from './modal';
 
-export const AddIconToCollection: FC = () => {
+export const AddIconToCollection: FC<React.PropsWithChildren<unknown>> = () => {
   const { data: collectionsList } = useQuery('collections-list', () => CollectionsApi.findAll());
 
   const [showIconAddModal, setShowIconAddModal] = useState(false);

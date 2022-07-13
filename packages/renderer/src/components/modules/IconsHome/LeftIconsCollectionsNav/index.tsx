@@ -13,7 +13,7 @@ import { CreateEditCollectionModal } from './CreateEditCollectionModal';
 import { CustomizeActionsModal } from './CustomizeActionsModal/index';
 import { ListItemWrapper } from './ListItemWrapper';
 
-export const LeftIconsCollectionsNav: FC = () => {
+export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () => {
   const { collectionId: selectedCollectionId } = useParams();
 
   const { data: collections } = useQuery('collections-list', () => CollectionsApi.findAll());

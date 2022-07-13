@@ -5,10 +5,10 @@ import type { SvgoSettingItem } from './svgo-default-preference';
 import { svgoDefaultPreference } from './svgo-default-preference';
 import { PreferenceApi } from '/@/data/preference';
 
-export const PreferenceModal: FC<{
+export const PreferenceModal: FC<React.PropsWithChildren<{
   show: boolean;
   onClose: () => void;
-}> = ({ show, onClose }) => {
+}>> = ({ show, onClose }) => {
   const preference = PreferenceApi.get();
 
   const [svgItems, setSvgItems] = useState(

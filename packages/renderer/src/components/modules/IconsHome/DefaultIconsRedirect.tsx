@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { Navigate } from 'react-router-dom';
 import { CollectionsApi } from '/@/data/collections';
 
-export const DefaultIconsRedirect: FC = () => {
+export const DefaultIconsRedirect: FC<React.PropsWithChildren<unknown>> = () => {
   const { data, isFetched } = useQuery('collections-list', () => CollectionsApi.findAll());
 
   if (isFetched) {

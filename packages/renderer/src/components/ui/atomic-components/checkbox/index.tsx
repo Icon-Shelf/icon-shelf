@@ -1,12 +1,12 @@
 import type { FC, ChangeEvent, ReactNode } from 'react';
 import './styles.css';
 
-export const Checkbox: FC<{
+export const Checkbox: FC<React.PropsWithChildren<{
   defaultChecked?: boolean;
   label: ReactNode;
   checked?: boolean;
   onChange: (val: boolean) => void;
-}> = ({ checked, label, defaultChecked, onChange }) => {
+}>> = ({ checked, label, defaultChecked, onChange }) => {
   const checkBoxInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked;
 

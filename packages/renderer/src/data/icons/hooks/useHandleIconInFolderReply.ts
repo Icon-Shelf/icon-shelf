@@ -21,7 +21,7 @@ export const useHandleIconInFolderReply = () => {
     [queryClient]
   );
 
-  const handleFolderChangeReply = useCallback((collectionId) => {
+  const handleFolderChangeReply = useCallback((collectionId: string) => {
     checkIfAnyNewIconsInFolder(collectionId);
   }, []);
 

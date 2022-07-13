@@ -14,7 +14,7 @@ interface Props {
   onClose: () => void;
 }
 
-export const CustomizeActionsModal: FC<Props> = ({ show, collection, onClose }) => {
+export const CustomizeActionsModal: FC<React.PropsWithChildren<Props>> = ({ show, collection, onClose }) => {
   const queryClient = useQueryClient();
 
   const [actionItems, setActionItems] = useState<CollectionAction[]>([]);

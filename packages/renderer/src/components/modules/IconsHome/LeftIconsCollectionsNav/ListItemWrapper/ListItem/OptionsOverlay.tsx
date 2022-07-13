@@ -9,12 +9,12 @@ import { platformBasedText } from '/@/utils/platformText';
 import { ReactComponent as CollectionIcon } from '/assets/icons/collection-16.svg';
 import { uuidv4 } from '/@/utils/uuid';
 
-export const OptionsOverlay: FC<{
+export const OptionsOverlay: FC<React.PropsWithChildren<{
   collection?: Collection;
   onDeleteClick?: () => void;
   editCollection?: (c?: Collection) => void;
   onCustomizeActionsClick?: (c?: Collection) => void;
-}> = ({ collection, editCollection, onDeleteClick, onCustomizeActionsClick }) => {
+}>> = ({ collection, editCollection, onDeleteClick, onCustomizeActionsClick }) => {
   const openCollectionFolderInFinder = () => {
     window.electron.ipcRenderer.send('open-collection-folder', collection?.folderSrc);
   };

@@ -12,7 +12,7 @@ interface Props {
   afterClose?: () => void;
 }
 
-export const Modal: FC<Props> = ({
+export const Modal: FC<React.PropsWithChildren<Props>> = ({
   show,
   title,
   className = '',

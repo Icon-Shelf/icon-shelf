@@ -9,7 +9,7 @@ interface Props {
   setSelectedIcon?: Dispatch<SetStateAction<Icon | null>>;
 }
 
-export const IconCard: FC<Props> = ({ icon, isSelected, setSelectedIcon }) => {
+export const IconCard: FC<React.PropsWithChildren<Props>> = ({ icon, isSelected, setSelectedIcon }) => {
   const onDragStart = async (e: DragEvent) => {
     e.preventDefault();
     e.dataTransfer.effectAllowed = 'copy';
