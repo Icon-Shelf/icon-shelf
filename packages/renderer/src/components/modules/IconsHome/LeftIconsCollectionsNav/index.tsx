@@ -35,7 +35,7 @@ export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () 
 
   return (
     <>
-      <div className="relative w-64 min-w-max flex-shrink-0 bg-gray-200 dark:bg-black2">
+      <div className="relative h-full w-64 min-w-max flex-shrink-0 bg-gray-200 dark:bg-black2">
         <TitleBarDrag className="absolute inset-0 h-8" />
 
         <div className="mx-4 mt-5 flex justify-end">
@@ -61,9 +61,12 @@ export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () 
           />
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 h-full">
           <div className="ml-4 text-base">Collections</div>
-          <div className="mt-2 flex flex-col gap-2">
+          <div
+            className="mt-2 flex flex-col gap-2 overflow-auto pb-24"
+            style={{ height: 'calc(100% - 120px)' }}
+          >
             {collections
               ?.filter((c) => !c.parentCollectionId)
               ?.map((collection) => (
