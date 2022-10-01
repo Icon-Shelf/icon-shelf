@@ -54,7 +54,9 @@ export const ActionsList: FC<React.PropsWithChildren<ActionsListProps>> = ({
   return (
     <>
       <div className="text-body dark:text-white">Configure actions for icons in collection</div>
-
+      <div className="text-body dark:text-white">
+        The first action in the list becomes the primary action for the collection
+      </div>
       <div className="mt-3">
         <div className="relative">
           <TempIconCard />
