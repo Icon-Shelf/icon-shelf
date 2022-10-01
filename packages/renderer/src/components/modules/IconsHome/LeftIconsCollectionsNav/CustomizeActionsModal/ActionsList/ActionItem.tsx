@@ -8,6 +8,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { ReactComponent as DragHandleIcon } from '/assets/icons/drag-handle.svg';
 import type { ActionsListProps } from '.';
+import Tooltip from 'rc-tooltip';
 
 interface Props extends Omit<ActionsListProps, 'actionItems' | 'setActionItems'> {
   item: CollectionAction;
@@ -54,11 +55,40 @@ export const ActionItem: FC<React.PropsWithChildren<Props>> = ({ item, onEditCli
         <div className="absolute px-2 py-2 flex gap-3">
           {item.isEditable && (
             <button className="outline-none" type="button" onClick={() => onEditClick(item)}>
-              <EditIcon />
+               <Tooltip
+             placement="top"
+             overlay={
+               <span>
+                 Edit
+               </span>
+             }
+           >
+             <EditIcon />
+             </Tooltip>
             </button>
           )}
           <button className="outline-none" type="button" onClick={onVisibleChange}>
-            {item.hidden ? <EyeOffIcon /> : <EyeIcon />}
+            {item.hidden ?   
+            <Tooltip
+             placement="right"
+             overlay={
+               <span>
+                 Show/Hide
+               </span>
+             }
+           >
+            <EyeOffIcon />
+            </Tooltip> :  <Tooltip
+             placement="right"
+             overlay={
+               <span>
+                 Show/Hide
+               </span>
+             }
+           >
+            <EyeIcon />
+            </Tooltip>
+           }
           </button>
         </div>
       </div>
