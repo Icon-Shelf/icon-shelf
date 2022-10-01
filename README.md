@@ -21,7 +21,7 @@
 </p>
 
 <p align="center">
-   <a href="https://snapcraft.io/pomatez">
+   <a href="https://icon-shelf.github.io/download">
       <image src="https://img.shields.io/github/downloads/Icon-Shelf/icon-shelf/total" alt="Github downloads" />
    </a>
   
