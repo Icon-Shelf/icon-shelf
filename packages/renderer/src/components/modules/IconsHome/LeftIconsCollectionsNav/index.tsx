@@ -13,11 +13,7 @@ import { CreateEditCollectionModal } from './CreateEditCollectionModal';
 import { CustomizeActionsModal } from './CustomizeActionsModal/index';
 import { ListItemWrapper } from './ListItemWrapper';
 
-interface Props {
-  setPrimaryAction: (updatedCollection: Collection | null | undefined) => void;
-}
-
-export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<Props>> = ({setPrimaryAction}) => {
+export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () => {
   const { collectionId: selectedCollectionId } = useParams();
 
   const { data: collections } = useQuery('collections-list', () => CollectionsApi.findAll());
@@ -103,7 +99,6 @@ export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<Props>> = ({set
           setShowCustomizeModal(false);
           setSelectedCollection(null);
         }}
-        setPrimaryAction={setPrimaryAction}
       />
     </>
   );
