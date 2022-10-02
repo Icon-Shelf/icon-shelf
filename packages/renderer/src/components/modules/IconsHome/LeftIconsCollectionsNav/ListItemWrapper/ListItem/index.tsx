@@ -71,7 +71,7 @@ export const ListItem: FC<React.PropsWithChildren<Props>> = ({
     <>
       <Link
         to={`/collections/${id}`}
-        className={`group flex max-w-xs items-center justify-between  px-4 py-1 ${
+        className={`group flex  items-center justify-between  px-4 py-1 ${
           isActive ? 'bg-primary hover:bg-primary' : 'hover:bg-gray-300 hover:dark:bg-gray-800'
         }`}
       >
