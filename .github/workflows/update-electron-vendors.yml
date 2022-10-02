@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: 16 # Need for npm >=7.7
           cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
       # TODO: Install not all dependencies, but only those required for this workflow
       - name: Install dependencies
