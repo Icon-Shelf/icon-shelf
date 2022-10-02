@@ -12,7 +12,7 @@ import { ListItem } from './ListItemWrapper/ListItem';
 import { CreateEditCollectionModal } from './CreateEditCollectionModal';
 import { CustomizeActionsModal } from './CustomizeActionsModal/index';
 import { ListItemWrapper } from './ListItemWrapper';
-import {Resizable} from 're-resizable';
+import { Resizable } from 're-resizable';
 
 export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () => {
   const { collectionId: selectedCollectionId } = useParams();
@@ -36,13 +36,15 @@ export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () 
 
   return (
     <>
-    <Resizable
-    size={{ width: '16rem', height: 'auto' }}
-    enable={{ top:false, right:true, bottom:false, left:false, topRight:false, bottomRight:false, bottomLeft:false, topLeft:false }}
-    minWidth="256px"
-    maxWidth="768px"
-    className="relative h-full w-64 min-w-max flex-shrink-0 bg-gray-200 dark:bg-black2"
->
+      <Resizable
+        size={{ width: '16rem', height: 'auto' }}
+        enable={{
+          right: true,
+        }}
+        minWidth="256px"
+        maxWidth="320px"
+        className="relative h-full w-64 min-w-max flex-shrink-0 bg-gray-200 dark:bg-black2"
+      >
         <TitleBarDrag className="absolute inset-0 h-8" />
 
         <div className="mx-4 mt-5 flex justify-end">
@@ -88,8 +90,7 @@ export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () 
               ))}
           </div>
         </div>
-</Resizable>
-     
+      </Resizable>
 
       <CreateEditCollectionModal
         show={showCollectionModal}
