@@ -12,7 +12,7 @@ import { ListItem } from './ListItemWrapper/ListItem';
 import { CreateEditCollectionModal } from './CreateEditCollectionModal';
 import { CustomizeActionsModal } from './CustomizeActionsModal/index';
 import { ListItemWrapper } from './ListItemWrapper';
-import {Resizable} from 're-resizable';
+import { Resizable } from 're-resizable';
 
 export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () => {
   const { collectionId: selectedCollectionId } = useParams();
