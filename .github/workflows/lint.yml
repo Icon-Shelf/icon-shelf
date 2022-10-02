@@ -26,18 +26,18 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16 # Need for npm >=7.7
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
+          # cache: 'npm'
+          # cache-dependency-path: '**/package-lock.json'
 
-      - name: Cache dependencies
-        id: npm-cache
-        uses: actions/cache@v2
-        with:
-          path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
+      # - name: Cache dependencies
+      #   id: npm-cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ./node_modules
+      #     key: modules-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
+        # if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - run: npm run lint
