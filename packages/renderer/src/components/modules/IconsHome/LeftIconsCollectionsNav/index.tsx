@@ -40,7 +40,7 @@ export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () 
     size={{ width: '16rem', height: 'auto' }}
     enable={{ top:false, right:true, bottom:false, left:false, topRight:false, bottomRight:false, bottomLeft:false, topLeft:false }}
     minWidth="256px"
-    maxWidth="768px"
+    maxWidth="320px"
     className="relative h-full w-64 min-w-max flex-shrink-0 bg-gray-200 dark:bg-black2"
 >
         <TitleBarDrag className="absolute inset-0 h-8" />
@@ -88,7 +88,7 @@ export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () 
               ))}
           </div>
         </div>
-</Resizable>
+    </Resizable>
      
 
       <CreateEditCollectionModal
