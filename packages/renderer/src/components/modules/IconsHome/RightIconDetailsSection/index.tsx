@@ -7,12 +7,14 @@ import { formatDate } from '/@/utils/formatDate';
 import { IconDisplay } from '/@/components/ui/atomic-components';
 import { IconActionsButton } from './IconActionsButton';
 import { detectOS } from '/@/utils/detectOS';
+import type { Collection } from '/@/data/collections';
 
 interface Props {
   selectedIcon: Icon | null;
+  setPrimaryAction: Collection | null | undefined;
 }
 
-export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ selectedIcon }) => {
+export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ selectedIcon, setPrimaryAction }) => {
   const platform = detectOS();
   const svgRef = useRef<SVGElement>(null);
 
@@ -107,7 +109,7 @@ export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ se
         </div>
       </div>
 
-      <div>{selectedIcon && <IconActionsButton icon={selectedIcon} />}</div>
+      <div>{selectedIcon && <IconActionsButton icon={selectedIcon} setPrimaryAction={setPrimaryAction}/>}</div>
     </div>
   );
 };

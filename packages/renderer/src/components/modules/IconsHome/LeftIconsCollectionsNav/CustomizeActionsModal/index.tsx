@@ -12,9 +12,10 @@ interface Props {
   show: boolean;
   collection?: Collection | null;
   onClose: () => void;
+  setPrimaryAction: (updatedCollection: Collection | null | undefined) => void;
 }
 
-export const CustomizeActionsModal: FC<React.PropsWithChildren<Props>> = ({ show, collection, onClose }) => {
+export const CustomizeActionsModal: FC<React.PropsWithChildren<Props>> = ({ show, collection, onClose, setPrimaryAction }) => {
   const queryClient = useQueryClient();
 
   const [actionItems, setActionItems] = useState<CollectionAction[]>([]);
@@ -53,6 +54,7 @@ export const CustomizeActionsModal: FC<React.PropsWithChildren<Props>> = ({ show
     } else if (collection && collection.id) {
       const updatedCollection = { ...collection, actions: actionItems };
       await CollectionsApi.update(collection.id, updatedCollection);
+      setPrimaryAction(updatedCollection);
     }
 
     onClose();

@@ -9,6 +9,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { GlobalHotKeys } from 'react-hotkeys';
 import { platformBasedText } from '/@/utils/platformText';
+import type { Collection } from '/@/data/collections';
 
 const keyMap = {
   COLLECTION_FIRST_ACTION: ['cmd+shift+c', 'ctrl+shift+c'],
@@ -16,11 +17,17 @@ const keyMap = {
 
 export const IconActionsButton: FC<React.PropsWithChildren<{
   icon: Icon;
-}>> = ({ icon }) => {
+  setPrimaryAction: Collection | null | undefined;
+}>> = ({ icon, setPrimaryAction }) => {
   const [iconActions, setIconActions] = useState<CollectionAction[]>([]);
   const [intermText, setIntermText] = useState('');
+  let setAction = iconActions;
 
   const onActionClick = useOnActionClick();
+
+  if (setPrimaryAction) {
+    setAction = setPrimaryAction.actions;
+  }
 
   const onActionBtnClick = () => {
     onActionClick({
@@ -50,7 +57,7 @@ export const IconActionsButton: FC<React.PropsWithChildren<{
     })();
   }, [icon.collectionId]);
 
-  if (iconActions[0]) {
+  if (setAction[0]) {
     return (
       <div>
         <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges />
@@ -59,8 +66,8 @@ export const IconActionsButton: FC<React.PropsWithChildren<{
           {intermText && intermText}
           {!intermText && (
             <>
-              <div className="mr-2">{inlineIconsMap[iconActions[0].icon]}</div>
-              <div>{iconActions[0].name}</div>
+              <div className="mr-2">{inlineIconsMap[setAction[0].icon]}</div>
+              <div>{setAction[0].name}</div>
               &nbsp;
               <span className="text-xs">
                 (

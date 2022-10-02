@@ -10,10 +10,12 @@ import { IconsApi } from '/@/data/icons';
 import { useCheckIfAnyNewIconsInFolder } from '/@/data/icons/hooks';
 import { useQuery } from 'react-query';
 import { useResetSetSelectedIcon } from './hooks';
+import type { Collection } from '/@/data/collections';
 
 const IconsHome: FC<React.PropsWithChildren<unknown>> = () => {
   const { collectionId = '' } = useParams();
   const [searchQuery, setSearchQuery] = useState<string>();
+  const [updatedCollection, setPrimaryAction] = useState<Collection | null | undefined>();
 
   const { data } = useQuery(
     ['icons-list', collectionId, searchQuery],
@@ -34,7 +36,7 @@ const IconsHome: FC<React.PropsWithChildren<unknown>> = () => {
 
   return (
     <div className="flex h-full w-full overflow-hidden">
-      <LeftIconsCollectionsNav />
+      <LeftIconsCollectionsNav setPrimaryAction={setPrimaryAction} />
 
       <div className="relative flex flex-1 flex-col">
         <SearchAddTopSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
@@ -47,7 +49,10 @@ const IconsHome: FC<React.PropsWithChildren<unknown>> = () => {
         />
       </div>
 
-      <RightIconDetailsSection selectedIcon={selectedIcon || data?.data?.[0] || null} />
+      <RightIconDetailsSection
+        selectedIcon={selectedIcon || data?.data?.[0] || null}
+        setPrimaryAction={updatedCollection}
+      />
     </div>
   );
 };
