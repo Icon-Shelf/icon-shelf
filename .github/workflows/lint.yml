@@ -17,10 +17,6 @@ on:
       - 'package-lock.json'
       - '.github/workflows/lint.yml'
 
-defaults:
-  run:
-    shell: 'bash'
-
 jobs:
   eslint:
     runs-on: ubuntu-latest
