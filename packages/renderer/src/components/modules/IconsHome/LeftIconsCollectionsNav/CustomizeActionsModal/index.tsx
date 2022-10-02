@@ -53,6 +53,7 @@ export const CustomizeActionsModal: FC<React.PropsWithChildren<Props>> = ({ show
     } else if (collection && collection.id) {
       const updatedCollection = { ...collection, actions: actionItems };
       await CollectionsApi.update(collection.id, updatedCollection);
+      queryClient.invalidateQueries(['icon-collection']);
     }
 
     onClose();

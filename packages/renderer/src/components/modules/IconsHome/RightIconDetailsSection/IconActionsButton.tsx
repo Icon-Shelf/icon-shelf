@@ -1,14 +1,14 @@
 import { Button } from '/@/components/ui/atomic-components';
-import type { CollectionAction } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections';
 import { inlineIconsMap } from '/@/data/collections/iconActions/inlineIconsMap';
 import { useOnActionClick } from '/@/data/collections/iconActions/useOnActionClick';
 import { getIconActionOfCollection } from '/@/data/collections/iconActions/utils';
 import type { Icon } from '/@/data/icons';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { GlobalHotKeys } from 'react-hotkeys';
 import { platformBasedText } from '/@/utils/platformText';
+import { useQuery } from 'react-query';
 
 const keyMap = {
   COLLECTION_FIRST_ACTION: ['cmd+shift+c', 'ctrl+shift+c'],
@@ -17,8 +17,10 @@ const keyMap = {
 export const IconActionsButton: FC<React.PropsWithChildren<{
   icon: Icon;
 }>> = ({ icon }) => {
-  const [iconActions, setIconActions] = useState<CollectionAction[]>([]);
   const [intermText, setIntermText] = useState('');
+
+  const { data: collection } = useQuery(['icon-collection', icon.collectionId], () => CollectionsApi.find(icon.collectionId));
+  const iconActions = getIconActionOfCollection(collection);
 
   const onActionClick = useOnActionClick();
 
@@ -41,14 +43,6 @@ export const IconActionsButton: FC<React.PropsWithChildren<{
   const handlers = {
     COLLECTION_FIRST_ACTION: () => onActionBtnClick(),
   };
-
-  useEffect(() => {
-    (async () => {
-      const collection = await CollectionsApi.find(icon.collectionId);
-
-      setIconActions(getIconActionOfCollection(collection));
-    })();
-  }, [icon.collectionId]);
 
   if (iconActions[0]) {
     return (
