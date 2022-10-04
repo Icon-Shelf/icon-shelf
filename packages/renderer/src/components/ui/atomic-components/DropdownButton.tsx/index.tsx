@@ -1,33 +1,38 @@
 import { Menu } from '@headlessui/react';
 import type { PropsWithChildren, ReactNode } from 'react';
+import './styles.css';
 
 interface Props {
-  position?: 'top' | 'bottom' | 'left' | 'right';
-  buttonText: ReactNode;
+  position?: 'top' | 'bottom' | 'right';
+  buttonContent: ReactNode;
   onClickPrimaryAction: () => void;
 }
 
 export const DropdownButton = ({
   children,
-  buttonText,
+  buttonContent,
   position,
   onClickPrimaryAction,
 }: PropsWithChildren<Props>) => {
   return (
-    <div className="relative flex w-full items-center justify-center ">
+    <div className="relative flex w-full items-center justify-center">
       <button
         type="button"
         onClick={onClickPrimaryAction}
-        className="flex min-h-[3rem] basis-4/5 items-center justify-center rounded-l-md bg-primary px-4 py-2 text-sm text-white ring-offset-2 ring-offset-black2 hover:bg-purple-700 focus:ring-2 focus:ring-primary active:bg-purple-800"
+        className="flex min-h-[3rem] basis-full items-center justify-center rounded-l-md bg-primary px-4 py-2 text-sm text-white ring-offset-2 ring-offset-black2 hover:bg-purple-700 focus:ring-2 focus:ring-primary active:bg-purple-800"
       >
-        {buttonText}
+        {buttonContent}
       </button>
       <div className="h-12 w-[2px] bg-gray-200 dark:bg-black2" />
       <Menu>
-        <Menu.Button className="flex min-h-[3rem] items-center justify-center rounded-r-md bg-primary px-3 py-2 ring-offset-2 ring-offset-black2 hover:bg-purple-700 focus:ring-2 focus:ring-primary active:bg-purple-800">
+        <Menu.Button className="flex min-h-[3rem] basis-1/5 items-center justify-center rounded-r-md bg-primary px-3 py-2 ring-offset-2 ring-offset-black2 hover:bg-purple-700 focus:ring-2 focus:ring-primary active:bg-purple-800">
           <EllipsisIcon />
         </Menu.Button>
-        <Menu.Items className="absolute right-0 top-0 z-50 flex -translate-y-[102%] flex-col items-start divide-y-[1px] divide-gray-400 rounded-md bg-gray-600">
+        <Menu.Items
+          className={`menu-${
+            position ?? 'top'
+          } absolute z-50 flex  flex-col items-start divide-y-[1px] divide-gray-400 rounded-md bg-gray-600`}
+        >
           {children}
         </Menu.Items>
       </Menu>
@@ -41,7 +46,6 @@ interface ItemProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClick: () => any;
   as: 'div' | 'button';
-  position?: 'left' | 'right';
 }
 
 const MenuItem = ({ children = null, as, name, icon, onClick }: PropsWithChildren<ItemProps>) => {
@@ -64,12 +68,14 @@ const MenuItem = ({ children = null, as, name, icon, onClick }: PropsWithChildre
   );
 };
 
-const SubMenu = ({ children }: { children: ReactNode }) => {
+const SubMenu = ({ children, position }: { children: ReactNode; position?: 'left' | 'right' }) => {
   return (
     <div className="invisible group-hover:visible">
       <Menu.Items
         static
-        className={`absolute -left-1 top-0  flex min-w-[10rem] -translate-x-full flex-col items-start divide-y-[1px] divide-gray-400 rounded-md bg-gray-600 ring-1 ring-white`}
+        className={`submenu-${
+          position ?? 'right'
+        } absolute z-[100] flex min-w-[10rem]  flex-col items-start divide-y-[1px] divide-gray-400 rounded-md bg-gray-600 ring-1 ring-white`}
       >
         {children}
       </Menu.Items>

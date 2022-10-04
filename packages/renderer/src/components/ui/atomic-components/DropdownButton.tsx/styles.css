@@ -1,0 +1,19 @@
+.menu-top {
+    @apply right-0 top-0 -translate-y-[102%];
+}
+
+.menu-bottom {
+    @apply right-0 bottom-0 translate-y-[102%];
+}
+
+.menu-right {
+    @apply right-0 top-0 translate-x-[102%];
+}
+
+.submenu-right {
+    @apply -right-1 top-0 translate-x-full ;
+}
+
+.submenu-left {
+    @apply -left-1 top-0 -translate-x-full ;
+}

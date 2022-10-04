@@ -37,19 +37,21 @@ export const ActionsButton = ({ icon, actions }: { icon: Icon; actions: Collecti
   );
 
   const handlers = {
-    COLLECTION_FIRST_ACTION: () => onCopy(actions[0].action.includes('copy') ? 'COPIED!' : ' DONE'),
+    COLLECTION_FIRST_ACTION: () => onCopy(actions[0].action.includes('copy') ? 'COPIED!' : 'DONE'),
   };
 
   return (
     <>
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges />
       <DropdownButton
-        buttonText={
-          intermText || (
+        buttonContent={
+          intermText === '' ? (
             <PrimaryActionContent
               icon={inlineIconsMap[actions[0].icon]}
               actionName={actions[0].name}
             />
+          ) : (
+            intermText
           )
         }
         onClickPrimaryAction={() =>
@@ -70,7 +72,7 @@ export const ActionsButton = ({ icon, actions }: { icon: Icon; actions: Collecti
               {hasSubmenu && (
                 <>
                   <div className="ml-auto">{'>'}</div>
-                  <DropdownButton.SubMenu>
+                  <DropdownButton.SubMenu position="left">
                     {orderedCollectionsList?.map((collection) => (
                       <DropdownButton.MenuItem
                         as="button"
