@@ -2,7 +2,7 @@ import { keyBy } from 'lodash';
 import { GlobalHotKeys } from 'react-hotkeys';
 import { useQuery } from 'react-query';
 import { useCopyActionText } from '../hooks/useActionText';
-import { DropdownButton } from '/@/components/ui/atomic-components/DropdownButton.tsx';
+import { DropdownButton } from '../../../ui/atomic-components/DropdownButton';
 import type { CollectionAction } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections';
 import { inlineIconsMap } from '/@/data/collections/iconActions/inlineIconsMap';
