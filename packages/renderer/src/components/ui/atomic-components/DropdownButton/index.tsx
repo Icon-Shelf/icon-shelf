@@ -1,5 +1,6 @@
-import { Menu } from '@headlessui/react';
+import { Menu, Transition } from '@headlessui/react';
 import type { PropsWithChildren, ReactNode } from 'react';
+import { Fragment } from 'react';
 import './styles.css';
 
 interface Props {
@@ -28,13 +29,23 @@ export const DropdownButton = ({
         <Menu.Button className="flex min-h-[3rem] basis-1/5 items-center justify-center rounded-r-md bg-primary px-3 py-2 ring-offset-2 ring-offset-black2 hover:bg-purple-700 focus:ring-2 focus:ring-primary active:bg-purple-800">
           <EllipsisIcon />
         </Menu.Button>
-        <Menu.Items
-          className={`menu-${
-            position ?? 'top'
-          } absolute z-50 flex  flex-col items-start divide-y-[1px] divide-gray-400 rounded-md bg-gray-600`}
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
         >
-          {children}
-        </Menu.Items>
+          <Menu.Items
+            className={`menu-${
+              position ?? 'top'
+            } absolute z-50 flex  flex-col items-start divide-y-[1px] divide-gray-400 rounded-md bg-gray-600`}
+          >
+            {children}
+          </Menu.Items>
+        </Transition>
       </Menu>
     </div>
   );
