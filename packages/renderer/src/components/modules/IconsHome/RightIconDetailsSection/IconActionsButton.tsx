@@ -5,51 +5,49 @@ import { useOnActionClick } from '/@/data/collections/iconActions/useOnActionCli
 import { getIconActionOfCollection } from '/@/data/collections/iconActions/utils';
 import type { Icon } from '/@/data/icons';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { GlobalHotKeys } from 'react-hotkeys';
 import { platformBasedText } from '/@/utils/platformText';
 import { useQuery } from 'react-query';
+import { useCopyActionText } from '../hooks/useActionText';
 
 const keyMap = {
   COLLECTION_FIRST_ACTION: ['cmd+shift+c', 'ctrl+shift+c'],
 };
 
-export const IconActionsButton: FC<React.PropsWithChildren<{
-  icon: Icon;
-}>> = ({ icon }) => {
-  const [intermText, setIntermText] = useState('');
-
-  const { data: collection } = useQuery(['icon-collection', icon.collectionId], () => CollectionsApi.find(icon.collectionId));
+export const IconActionsButton: FC<
+  React.PropsWithChildren<{
+    icon: Icon;
+  }>
+> = ({ icon }) => {
+  const { data: collection } = useQuery(['icon-collection', icon.collectionId], () =>
+    CollectionsApi.find(icon.collectionId)
+  );
   const iconActions = getIconActionOfCollection(collection);
 
   const onActionClick = useOnActionClick();
 
-  const onActionBtnClick = () => {
+  const [intermText, onCopy] = useCopyActionText(() =>
     onActionClick({
       actionObj: iconActions[0],
       icon,
-    });
-
-    let text = 'DONE!';
-    if (iconActions[0].action.includes('copy')) {
-      text = 'COPIED!';
-    }
-    setIntermText(text);
-    setTimeout(() => {
-      setIntermText('');
-    }, 1500);
-  };
+    })
+  );
 
   const handlers = {
-    COLLECTION_FIRST_ACTION: () => onActionBtnClick(),
+    COLLECTION_FIRST_ACTION: () =>
+      onCopy(iconActions[0].action.includes('copy') ? 'COPIED!' : ' DONE'),
   };
 
   if (iconActions[0]) {
     return (
-      <div>
+      <div className="w-full">
         <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges />
 
-        <Button type="primary" className="w-full" onClick={onActionBtnClick}>
+        <Button
+          type="primary"
+          className="w-full"
+          onClick={() => onCopy(iconActions[0].action.includes('copy') ? 'COPIED!' : ' DONE')}
+        >
           {intermText && intermText}
           {!intermText && (
             <>

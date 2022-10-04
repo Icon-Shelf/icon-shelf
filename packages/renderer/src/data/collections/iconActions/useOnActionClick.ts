@@ -1,7 +1,7 @@
 import type { Icon } from '/@/data/icons';
 import type { QueryClient } from 'react-query';
 import { useQueryClient } from 'react-query';
-import type { CollectionAction } from '..';
+import type { Collection, CollectionAction } from '..';
 import {
   openInFinder,
   deleteIcon,
@@ -16,6 +16,7 @@ import {
 interface FnProps {
   actionObj: CollectionAction;
   icon: Icon | null;
+  targetCollection?: Collection;
 }
 
 export interface ExecuterProps {
