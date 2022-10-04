@@ -61,6 +61,16 @@ export const defaultCollectionActions: CollectionAction[] = [
     meta: {},
   },
   {
+    name: 'Copy as Base64',
+    id: 'copy-as-base64',
+    action: 'clipboard-copy-base64',
+    icon: 'copy-clipboard-icon',
+    isPrimary: false,
+    hidden: false,
+    isEditable: false,
+    meta: {},
+  },
+  {
     name: platformBasedText({
       mac: 'Open in finder',
       win: 'Open in explorer',

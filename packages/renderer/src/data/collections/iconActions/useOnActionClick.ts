@@ -3,14 +3,15 @@ import type { QueryClient } from 'react-query';
 import { useQueryClient } from 'react-query';
 import type { Collection, CollectionAction } from '..';
 import {
-  openInFinder,
-  deleteIcon,
-  copyToClipboardFromTemplate,
-  copyToClipboardAsSvg,
-  copyToClipboardAsJsx,
   copyIconToCollection,
+  copyToClipboardAsBase64,
+  copyToClipboardAsJsx,
+  copyToClipboardAsSvg,
+  copyToClipboardFromTemplate,
+  deleteIcon,
   moveIconToCollection,
-  svgoOptimizeIcon,
+  openInFinder,
+  svgoOptimizeIcon
 } from './executerFns';
 
 interface FnProps {
@@ -34,9 +35,10 @@ const actionExecuters: {
   'clipboard-copy-template': copyToClipboardFromTemplate,
   'clipboard-copy-svg': copyToClipboardAsSvg,
   'clipboard-copy-jsx': copyToClipboardAsJsx,
+  'clipboard-copy-base64': copyToClipboardAsBase64,
   'copy-icon-to-collection': copyIconToCollection,
   'move-icon-to-collection': moveIconToCollection,
-  'svgo-optimize': svgoOptimizeIcon,
+  'svgo-optimize': svgoOptimizeIcon
 };
 
 export const useOnActionClick = () => {
@@ -48,7 +50,7 @@ export const useOnActionClick = () => {
           actionObj,
           icon,
           queryClient,
-          ...rest,
+          ...rest
         });
       }
     }

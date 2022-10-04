@@ -19,9 +19,14 @@ _It can't be understated how frustrating and draining it can be to maintainers t
 
 The package manager used to install and link dependencies must be npm v7 or later.
 
-1. Clone repo
-1. `npm run watch` start electron app in watch mode.
-1. `npm run compile` build app but for local debugging only.
-1. `npm run lint` lint your code.
-1. `npm run typecheck` Run typescript check.
-1. `npm run test` Run app test.
+> Make sure you have Node version 16.x installed!
+
+1. Create a `fork` of the main repository into your own Github account
+2. Clone your forked repository
+3. `cd` into the directory of the repository (eg. `cd icon-shelf`)
+4. Run `npm install` to install dependencies for the project
+5. `npm run watch` start electron app in watch mode.
+6. `npm run compile` build app but for local debugging only.
+7. `npm run lint` lint your code.
+8. `npm run typecheck` Run typescript check.
+9. `npm run test` Run app test.

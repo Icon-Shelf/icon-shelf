@@ -17,5 +17,5 @@ export const copyToClipboardFromTemplate = async ({ icon, actionObj }: ExecuterP
     iconAbsoluteFilePath: icon.imageSrc,
   });
 
-  navigator.clipboard.writeText(copyText);
+  await navigator.clipboard.writeText(copyText);
 };
