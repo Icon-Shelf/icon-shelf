@@ -6,9 +6,6 @@ import { formatBytes } from '/@/utils/formatBytes';
 import { formatDate } from '/@/utils/formatDate';
 import { IconDisplay } from '/@/components/ui/atomic-components';
 import { detectOS } from '/@/utils/detectOS';
-import type { CollectionAction } from '/@/data/collections';
-import { CollectionsApi } from '/@/data/collections';
-import { getIconActionOfCollection } from '/@/data/collections/iconActions/utils';
 import { ActionsButton } from './ActionsButton';
 
 interface Props {
@@ -19,7 +16,6 @@ export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ se
   const platform = detectOS();
   const svgRef = useRef<SVGElement>(null);
 
-  const [iconActions, setIconActions] = useState<CollectionAction[]>([]);
   const [svgDimensions, setSvgDimensions] = useState('-');
 
   const getSvgDimensions = (node: SVGElement) => {
@@ -58,15 +54,6 @@ export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ se
 
   useEffect(() => {
     setSvgDimensions('-');
-  }, [selectedIcon]);
-
-  useEffect(() => {
-    const getActions = async () => {
-      if (!selectedIcon) return;
-      const collection = await CollectionsApi.find(selectedIcon.collectionId);
-      setIconActions(getIconActionOfCollection(collection).filter((action) => !action.hidden));
-    };
-    getActions();
   }, [selectedIcon]);
 
   return (
@@ -120,9 +107,7 @@ export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ se
         </div>
       </div>
 
-      <div className="w-full">
-        {selectedIcon && <ActionsButton icon={selectedIcon} actions={iconActions} />}
-      </div>
+      <div className="w-full">{selectedIcon && <ActionsButton icon={selectedIcon} />}</div>
     </div>
   );
 };
