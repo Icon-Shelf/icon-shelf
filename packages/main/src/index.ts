@@ -71,7 +71,10 @@ const createWindow = async () => {
     titleBarStyle: 'hiddenInset',
     webPreferences: {
       webviewTag: false, // The webview tag is not recommended. Consider alternatives like iframe or Electron's BrowserView. https://www.electronjs.org/docs/latest/api/webview-tag#warning
-      preload: join(__dirname, '../../preload/dist/index.cjs'),
+      nodeIntegration: false,
+      contextIsolation: true,
+      sandbox: false,
+      preload: join(app.getAppPath(), 'packages/preload/dist/index.cjs'),
     },
   });
 
