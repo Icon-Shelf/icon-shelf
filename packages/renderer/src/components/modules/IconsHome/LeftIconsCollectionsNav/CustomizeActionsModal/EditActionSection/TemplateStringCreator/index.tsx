@@ -9,7 +9,10 @@ interface Props {
   onChange: (v: string) => void;
 }
 
-export const TemplateStringCreator: FC<React.PropsWithChildren<Props>> = ({ defaultValue, onChange }) => {
+export const TemplateStringCreator: FC<React.PropsWithChildren<Props>> = ({
+  defaultValue,
+  onChange,
+}) => {
   const [editorView, setEditorView] = useState<EditorView | null>(null);
 
   const onTextChange = (v: ViewUpdate) => {
@@ -25,8 +28,8 @@ export const TemplateStringCreator: FC<React.PropsWithChildren<Props>> = ({ defa
 
   return (
     <div className="mt-8">
-      <label className="flex font-medium text-black dark:text-gray-400 ml-1 mb-1">
-        Copy string template
+      <label className="ml-1 mb-2 flex font-medium text-black dark:text-gray-400">
+        Customize how icon as code string is generated
       </label>
 
       {editorView && <PlaceholderSelectDropdown editorView={editorView} />}

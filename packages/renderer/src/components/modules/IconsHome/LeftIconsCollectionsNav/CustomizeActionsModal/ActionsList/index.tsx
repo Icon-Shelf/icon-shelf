@@ -2,6 +2,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import { ReactComponent as CursorIcon } from '/assets/icons/cursor-click.svg';
 import type { CollectionAction } from '/@/data/collections';
 import type { DragEndEvent } from '@dnd-kit/core';
+import { ReactComponent as DragHandleIcon } from '/assets/icons/drag-handle.svg';
 import {
   DndContext,
   closestCenter,
@@ -53,9 +54,16 @@ export const ActionsList: FC<React.PropsWithChildren<ActionsListProps>> = ({
 
   return (
     <>
-      <div className="text-body dark:text-white">Configure actions for icons in collection</div>
+      <div className="mb-2 text-body dark:text-white">
+        Configure actions for icons in collection.
+      </div>
+      <div className="flex items-center text-body dark:text-white">
+        * Use the
+        <DragHandleIcon className="mx-2" />
+        to reorder actions in the list.
+      </div>
       <div className="text-body dark:text-white">
-        The first action in the list becomes the primary action for the collection
+        * The first action in the list becomes the primary action for the collection.
       </div>
       <div className="mt-3">
         <div className="relative">
