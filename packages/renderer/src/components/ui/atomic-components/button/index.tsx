@@ -17,43 +17,8 @@ interface Props {
 }
 export const Button = forwardRef<HTMLButtonElement, Props & HTMLProps<HTMLButtonElement>>(
   ({ children, icon, type = 'default', className = '', btnType = 'button', ...rest }, ref) => {
-    if (type === 'primary') {
-      return (
-        <button type={btnType} className={`btn btn-primary ${className}`} ref={ref} {...rest}>
-          {icon && <span className={children ? 'mr-2' : ''}>{icon}</span>}
-          {children}
-        </button>
-      );
-    }
-    if (type === 'text') {
-      return (
-        <button type={btnType} className={`btn btn-text ${className}`} ref={ref} {...rest}>
-          {icon && <span className={children ? 'mr-2' : ''}>{icon}</span>}
-          {children}
-        </button>
-      );
-    }
-
-    if (type === 'link') {
-      return (
-        <button type={btnType} className={`btn-link ${className}`} ref={ref} {...rest}>
-          {icon && <span className={children ? 'mr-2' : ''}>{icon}</span>}
-          {children}
-        </button>
-      );
-    }
-
-    if (type === 'danger') {
-      return (
-        <button type={btnType} className={`btn btn-danger ${className}`} ref={ref} {...rest}>
-          {icon && <span className={children ? 'mr-2' : ''}>{icon}</span>}
-          {children}
-        </button>
-      );
-    }
-
     return (
-      <button type={btnType} className={`btn btn-default ${className}`} ref={ref} {...rest}>
+      <button type={btnType} className={`btn btn-${type} ${className}`} ref={ref} {...rest}>
         {icon && <span className={children ? 'mr-2' : ''}>{icon}</span>}
         {children}
       </button>

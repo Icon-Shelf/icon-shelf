@@ -1,11 +1,13 @@
 import { keyBy } from 'lodash';
 import type { FC } from 'react';
 import { useQuery } from 'react-query';
-import { constructCollectionName } from './utils/constructCollectionName';
-import { getOrderedCollectionsList } from './utils/getOrderedCollectionsList';
 import { ContextMenu } from '/@/components/ui/atomic-components';
 import type { CollectionAction } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections';
+import {
+  constructCollectionName,
+  getOrderedCollectionsList,
+} from '/@/data/collections/iconActions/utils';
 import type { Icon } from '/@/data/icons';
 
 interface Props {
