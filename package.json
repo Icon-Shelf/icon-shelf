@@ -15,7 +15,7 @@
     "compile": "electron-builder build --config .electron-builder.config.js",
     "publish": "npm run precompile && electron-builder build --config .electron-builder.config.js --publish always -mwl",
     "pretest": "npm run build",
-    "test": "node tests/app.spec.js",
+    "test": "xvfb-maybe -- node tests/app.spec.js",
     "watch": "node scripts/watch.js",
     "lint": "eslint . --ext js,ts,tsx",
     "typecheck-main": "tsc --noEmit -p packages/main/tsconfig.json",
@@ -48,7 +48,7 @@
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
     "nano-staged": "0.8.0",
-    "playwright": "1.23.3",
+    "playwright": "1.26.1",
     "postcss": "^8.4.17",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "simple-git-hooks": "2.8.0",
@@ -95,7 +95,8 @@
     "react-router-dom": "^6.3.0",
     "svgo": "^2.8.0",
     "universal-analytics": "^0.5.3",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "xvfb-maybe": "^0.2.1"
   },
   "repository": {
     "type": "git",

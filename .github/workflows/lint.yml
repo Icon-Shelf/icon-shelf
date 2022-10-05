@@ -3,19 +3,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '**.js'
-      - '**.ts'
-      - '**.tsx'
-      - 'package-lock.json'
-      - '.github/workflows/lint.yml'
   pull_request:
-    paths:
-      - '**.js'
-      - '**.ts'
-      - '**.tsx'
-      - 'package-lock.json'
-      - '.github/workflows/lint.yml'
 
 defaults:
   run:
@@ -44,3 +32,26 @@ jobs:
         run: npm ci
 
       - run: npm run lint
+
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16 # Need for npm >=7.7
+          cache: 'npm'
+
+      - name: Cache dependencies
+        id: npm-cache
+        uses: actions/cache@v3
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - run: npm run test
