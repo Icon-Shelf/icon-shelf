@@ -64,6 +64,7 @@ const { strict: assert } = require('assert');
     'In renderer `globalThis.electron` is undefined'
   );
   assert.strictEqual(renderedExposedApi?.electron, realVersions.electron);
+  assert.ok(false);
 
   // Close app
   await electronApp.close();
