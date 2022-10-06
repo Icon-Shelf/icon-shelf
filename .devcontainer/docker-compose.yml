@@ -26,9 +26,6 @@ services:
       - 6080:6080
       - 5901:5901
 
-    devices:
-      - /dev/dri:/dev/dri # provide GL access
-
     shm_size: "1gb" # provide min required memory for electron not to crash
 
     # Overrides default command so things don't shut down after the process ends.
