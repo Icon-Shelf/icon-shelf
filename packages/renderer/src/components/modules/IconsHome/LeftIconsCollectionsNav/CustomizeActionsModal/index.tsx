@@ -4,7 +4,7 @@ import { Modal, Button } from '/@/components/ui/atomic-components';
 import type { Collection, CollectionAction } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections';
 import { getIconActionOfCollection } from '/@/data/collections/iconActions/utils';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { ActionsList } from './ActionsList';
 import { EditActionSection } from './EditActionSection';
 
@@ -57,7 +57,7 @@ export const CustomizeActionsModal: FC<React.PropsWithChildren<Props>> = ({ show
     }
 
     onClose();
-    queryClient.invalidateQueries('collections-list');
+    queryClient.invalidateQueries(['collections-list']);
   };
 
   const afterClose = () => {

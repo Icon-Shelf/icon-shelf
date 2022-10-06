@@ -1,8 +1,8 @@
-import type { QueryClient } from 'react-query';
+import type { QueryClient } from '@tanstack/react-query';
 import type { Collection } from '/@/data/collections';
 
 export const getAllChildCollectionIds = (collectionId: number, queryClient: QueryClient) => {
-  const allCollections = queryClient.getQueryData<Collection[]>('collections-list') || [];
+  const allCollections = queryClient.getQueryData<Collection[]>(['collections-list']) || [];
 
   const deepChildColIds = getChildCollectionIds(collectionId, allCollections);
 

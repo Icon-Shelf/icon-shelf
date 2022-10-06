@@ -1,6 +1,6 @@
 import { CollectionsApi } from '/@/data/collections';
 import { useEffect } from 'react';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { checkIfAnyNewIconsInFolder } from '../utils';
 import { useHandleIconInFolderReply } from './useHandleIconInFolderReply';
 

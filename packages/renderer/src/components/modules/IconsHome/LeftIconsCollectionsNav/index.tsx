@@ -3,7 +3,7 @@ import { useState, Fragment } from 'react';
 import { ReactComponent as PlusIcon } from '/assets/icons/plus.svg';
 import { ReactComponent as ViewGridIcon } from '/assets/icons/view-grid.svg';
 import { Button, TitleBarDrag } from '/@/components/ui/atomic-components';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { CollectionsApi } from '/@/data/collections/api';
 import { useParams } from 'react-router-dom';
 import type { Collection } from '/@/data/collections';
@@ -17,7 +17,7 @@ import { Resizable } from 're-resizable';
 export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () => {
   const { collectionId: selectedCollectionId } = useParams();
 
-  const { data: collections } = useQuery('collections-list', () => CollectionsApi.findAll());
+  const { data: collections } = useQuery(['collections-list'], () => CollectionsApi.findAll());
 
   const [showCollectionModal, setShowCollectionModal] = useState(false);
   const [showCustomizeModal, setShowCustomizeModal] = useState(false);

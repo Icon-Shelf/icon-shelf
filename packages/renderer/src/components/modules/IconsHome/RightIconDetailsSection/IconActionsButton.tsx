@@ -7,7 +7,7 @@ import type { Icon } from '/@/data/icons';
 import type { FC } from 'react';
 import { GlobalHotKeys } from 'react-hotkeys';
 import { platformBasedText } from '/@/utils/platformText';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useCopyActionText } from '../hooks/useActionText';
 
 const keyMap = {

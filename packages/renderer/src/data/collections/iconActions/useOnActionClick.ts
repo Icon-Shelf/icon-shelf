@@ -1,6 +1,6 @@
 import type { Icon } from '/@/data/icons';
-import type { QueryClient } from 'react-query';
-import { useQueryClient } from 'react-query';
+import type { QueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import type { Collection, CollectionAction } from '..';
 import {
   copyIconToCollection,

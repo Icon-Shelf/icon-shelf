@@ -8,7 +8,7 @@ import { SearchAddTopSection } from './SearchAddTopSection';
 import type { Icon } from '/@/data/icons';
 import { IconsApi } from '/@/data/icons';
 import { useCheckIfAnyNewIconsInFolder } from '/@/data/icons/hooks';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useResetSetSelectedIcon } from './hooks';
 
 const IconsHome: FC<React.PropsWithChildren<unknown>> = () => {

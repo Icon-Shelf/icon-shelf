@@ -1,6 +1,6 @@
 import { db } from '/@/data/db';
 import { keyBy } from 'lodash';
-import type { QueryClient } from 'react-query';
+import type { QueryClient } from '@tanstack/react-query';
 import type { Icon } from '..';
 import { IconsApi } from '..';
 
@@ -46,7 +46,7 @@ export async function handleIconInFolderReply(
     db.icons
       .bulkAdd(iconsToAdd)
       .then(() => {
-        queryClient.invalidateQueries('icons-list');
+        queryClient.invalidateQueries(['icons-list']);
       })
       .catch(() => {});
   }
@@ -64,7 +64,7 @@ export async function handleIconInFolderReply(
     db.icons
       .bulkDelete(iconsToDelete)
       .then(() => {
-        queryClient.invalidateQueries('icons-list');
+        queryClient.invalidateQueries(['icons-list']);
       })
       .catch(() => {});
   }
