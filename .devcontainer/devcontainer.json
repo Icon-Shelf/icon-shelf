@@ -3,7 +3,7 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "iconshelf",
   "workspaceFolder": "/workspace",
-  "postCreateCommand": "npm ci",
+  "postCreateCommand": "mkdir -p node_modules && sudo chown -R node:node node_modules && npm ci",
   "remoteUser": "node",
   "settings": {},
   "extensions": [
