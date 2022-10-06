@@ -24,7 +24,7 @@
     },
     "6080": {
       "label": "NoVNC Web",
-      "onAutoForward": "openPreview"
+      "onAutoForward": "openBrowserOnce"
     }
   },
   "features": {

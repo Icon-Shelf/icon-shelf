@@ -10,6 +10,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 RUN chsh -s $(which zsh) root \
   && chsh -s $(which zsh) node
 
+EXPOSE 3000
+EXPOSE 5901
+EXPOSE 6080
+
 # [Optional] Uncomment if you want to install an additional version of node using nvm
 # ARG EXTRA_NODE_VERSION=10
 # RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"

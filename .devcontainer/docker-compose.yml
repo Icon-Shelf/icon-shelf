@@ -21,11 +21,6 @@ services:
       - ..:/workspace:cached
       - iconshelf_node_modules:/workspace/node_modules
 
-    ports:
-      - 3000:3000
-      - 6080:6080
-      - 5901:5901
-
     shm_size: "1gb" # provide min required memory for electron not to crash
 
     # Overrides default command so things don't shut down after the process ends.
