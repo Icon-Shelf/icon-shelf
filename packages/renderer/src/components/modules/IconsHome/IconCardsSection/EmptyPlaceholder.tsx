@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useParams } from 'react-router';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import type { Collection } from '/@/data/collections';
 import { Button } from '/@/components/ui/atomic-components';
 
@@ -34,7 +34,7 @@ export const EmptyPlaceholder: FC<React.PropsWithChildren<{
   const queryClient = useQueryClient();
   const { collectionId } = useParams();
 
-  const collectionsList: Collection[] | undefined = queryClient.getQueryData('collections-list');
+  const collectionsList: Collection[] | undefined = queryClient.getQueryData(['collections-list']);
 
   if (searchQuery) {
     return (

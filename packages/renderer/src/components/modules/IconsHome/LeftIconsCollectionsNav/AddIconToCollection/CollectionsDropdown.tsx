@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { Select } from '/@/components/ui/atomic-components';
 import type { Collection } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   selectedCollection: Collection | null;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const CollectionsDropdown: FC<React.PropsWithChildren<Props>> = ({ selectedCollection, onChange }) => {
-  const { data: collections } = useQuery('collections', () => CollectionsApi.findAll());
+  const { data: collections } = useQuery(['collections'], () => CollectionsApi.findAll());
 
   return (
     <>

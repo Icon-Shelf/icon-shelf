@@ -1,6 +1,6 @@
 import { keyBy } from 'lodash';
 import type { FC } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { ContextMenu } from '/@/components/ui/atomic-components';
 import type { CollectionAction } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections';
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const ContextSubMenu: FC<React.PropsWithChildren<Props>> = ({ icon, actionObj, onActionClick }) => {
-  const { data: collections = [] } = useQuery('collections-list', () => CollectionsApi.findAll());
+  const { data: collections = [] } = useQuery(['collections-list'], () => CollectionsApi.findAll());
 
   const collectionsMap = keyBy(collections, 'id');
   const orderedCollectionsList = getOrderedCollectionsList(

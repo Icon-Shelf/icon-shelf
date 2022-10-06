@@ -1,5 +1,5 @@
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DefaultIconsRedirect } from './components/modules/IconsHome/DefaultIconsRedirect';
 import IconsHome from './components/modules/IconsHome';
 import { Layout } from './components/ui/layout';

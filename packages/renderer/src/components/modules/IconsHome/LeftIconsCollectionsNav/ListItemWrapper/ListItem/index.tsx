@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Checkbox, Dropdown, ExpandCollapseArrow } from '/@/components/ui/atomic-components';
 import type { Collection } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { DeleteConfirmModal } from '/@/components/ui/DeleteConfirmModal';
 import { OptionsOverlay } from './OptionsOverlay';
 import { removeCollectionIdFromParent } from './utils/removeCollectionIdFromParent';
@@ -58,7 +58,7 @@ export const ListItem: FC<React.PropsWithChildren<Props>> = ({
         Promise.all(childCollectionIds.map((cId) => CollectionsApi.delete(cId)));
       }
 
-      await queryClent.invalidateQueries('collections-list');
+      await queryClent.invalidateQueries(['collections-list']);
       navigate('/');
 
       if (deleteFolderFromFileSystem.current) {

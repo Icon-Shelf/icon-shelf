@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Input, Modal, Button } from '/@/components/ui/atomic-components';
 import type { Collection } from '/@/data/collections';
 import { CollectionsApi } from '/@/data/collections/api';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import Tooltip from 'rc-tooltip';
 import { ReactComponent as InfoIcon } from '/assets/icons/information-circle-16.svg';
@@ -48,7 +48,7 @@ export const CreateEditCollectionModal: FC<React.PropsWithChildren<Props>> = ({ 
           await updateParentCollectionWithChildId(collection.parentCollectionId, newCollectionId);
         }
 
-        await queryClent.invalidateQueries('collections-list');
+        await queryClent.invalidateQueries(['collections-list']);
         onClose();
         navigate(`/collections/${newCollectionId}`);
       });
@@ -60,7 +60,7 @@ export const CreateEditCollectionModal: FC<React.PropsWithChildren<Props>> = ({ 
     };
 
     return CollectionsApi.update(collection.id, updatedCollection).then(async () => {
-      await queryClent.invalidateQueries('collections-list');
+      await queryClent.invalidateQueries(['collections-list']);
       onClose();
     });
   };

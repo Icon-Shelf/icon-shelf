@@ -1,6 +1,6 @@
 import { keyBy } from 'lodash';
 import { GlobalHotKeys } from 'react-hotkeys';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useCopyActionText } from '../hooks/useActionText';
 import { DropdownButton } from '../../../ui/atomic-components/DropdownButton';
 import type { CollectionAction } from '/@/data/collections';
@@ -95,7 +95,7 @@ interface ActionSubmenuProps {
   onActionClick: (e: any) => Promise<void> | null;
 }
 const ActionSubmenu = ({ actionObj, onActionClick, icon }: ActionSubmenuProps) => {
-  const { data: collections = [] } = useQuery('collections-list', () => CollectionsApi.findAll());
+  const { data: collections = [] } = useQuery(['collections-list'], () => CollectionsApi.findAll());
 
   const collectionsMap = keyBy(collections, 'id');
   const orderedCollectionsList = getOrderedCollectionsList(
