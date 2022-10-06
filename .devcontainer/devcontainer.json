@@ -10,6 +10,7 @@
     "EditorConfig.EditorConfig",
     "esbenp.prettier-vscode"
   ],
+  "forwardPorts": ["3000:3000", "5901:5901", "6080:6080"],
   "postCreateCommand": "npm ci",
   "remoteUser": "node",
   "features": {
