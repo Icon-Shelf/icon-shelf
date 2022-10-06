@@ -3,6 +3,8 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "iconshelf",
   "workspaceFolder": "/workspace",
+  "postCreateCommand": "npm ci",
+  "remoteUser": "node",
   "settings": {},
   "extensions": [
     "bradlc.vscode-tailwindcss",
@@ -11,8 +13,20 @@
     "esbenp.prettier-vscode"
   ],
   "forwardPorts": ["3000:3000", "5901:5901", "6080:6080"],
-  "postCreateCommand": "npm ci",
-  "remoteUser": "node",
+  "portsAttributes": {
+    "3000": {
+      "label": "Dev Server",
+      "onAutoForward": "notify"
+    },
+    "5091": {
+      "label": "NoVNC Internal",
+      "onAutoForward": "silent"
+    },
+    "6080": {
+      "label": "NoVNC Web",
+      "onAutoForward": "openPreview"
+    }
+  },
   "features": {
     "ghcr.io/devcontainers/features/desktop-lite:1": {
       "version": "latest",
