@@ -1,0 +1,22 @@
+{
+  "name": "iconshelf",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "iconshelf",
+  "workspaceFolder": "/workspace",
+  "settings": {},
+  "extensions": [
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode"
+  ],
+  "postCreateCommand": "npm ci",
+  "remoteUser": "node",
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "version": "latest",
+      "webPort": 6080,
+      "vncPort": 5901
+    }
+  }
+}
