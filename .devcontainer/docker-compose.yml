@@ -1,0 +1,32 @@
+version: "2.1"
+
+services:
+  iconshelf:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VARIANT: 16-bullseye
+
+    security_opt:
+      - seccomp:unconfined
+
+    environment:
+      - PUID=1000
+      - PGID=1000
+
+    working_dir: /workspace
+
+    volumes:
+      - ..:/workspace:cached
+      - iconshelf_node_modules:/workspace/node_modules
+
+    shm_size: "1gb" # provide min required memory for electron not to crash
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+    user: node
+
+volumes:
+  iconshelf_node_modules:

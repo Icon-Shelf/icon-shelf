@@ -17,6 +17,8 @@ _It can't be understated how frustrating and draining it can be to maintainers t
 
 ## Repo Setup
 
+> _Note_ that this repository is compatible with GitHub Codespaces as well as VS Code Remote Containers. Opening your cloned project with either of these options will perform these dev setup steps for you automatically! [demo](https://vimeo.com/757666222)
+
 The package manager used to install and link dependencies must be npm v7 or later.
 
 > Make sure you have Node version 16.x installed!

@@ -1,0 +1,37 @@
+{
+  "name": "iconshelf",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "iconshelf",
+  "workspaceFolder": "/workspace",
+  "postCreateCommand": "mkdir -p node_modules && sudo chown -R node:node node_modules && npm ci",
+  "remoteUser": "node",
+  "settings": {},
+  "extensions": [
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode"
+  ],
+  "forwardPorts": [3000, 5901, 6080],
+  "portsAttributes": {
+    "3000": {
+      "label": "Dev Server",
+      "onAutoForward": "notify"
+    },
+    "5091": {
+      "label": "NoVNC Internal",
+      "onAutoForward": "silent"
+    },
+    "6080": {
+      "label": "NoVNC Web",
+      "onAutoForward": "openBrowserOnce"
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "version": "latest",
+      "webPort": 6080,
+      "vncPort": 5901
+    }
+  }
+}
