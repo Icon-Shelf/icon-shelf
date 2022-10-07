@@ -11,8 +11,8 @@ RUN chsh -s $(which zsh) root \
   && chsh -s $(which zsh) node
 
 # Clone a sample repos with svg icons in it
-RUN cd /home && git clone https://github.com/Remix-Design/RemixIcon.git
-RUN cd /home && git clone https://github.com/tailwindlabs/heroicons.git
+RUN cd /home/node && git clone https://github.com/Remix-Design/RemixIcon.git
+RUN cd /home/node && git clone https://github.com/tailwindlabs/heroicons.git
 
 EXPOSE 3000
 EXPOSE 5901
