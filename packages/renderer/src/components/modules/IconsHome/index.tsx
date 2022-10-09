@@ -14,6 +14,7 @@ import { useResetSetSelectedIcon } from './hooks';
 const IconsHome: FC<React.PropsWithChildren<unknown>> = () => {
   const { collectionId = '' } = useParams();
   const [searchQuery, setSearchQuery] = useState<string>();
+  const [color, setColor] = useState<string | null | undefined>(undefined);
 
   const { data } = useQuery(
     ['icons-list', collectionId, searchQuery],
@@ -44,10 +45,15 @@ const IconsHome: FC<React.PropsWithChildren<unknown>> = () => {
           searchQuery={searchQuery}
           selectedIcon={selectedIcon || data?.data?.[0] || null}
           setSelectedIcon={setSelectedIcon}
+          color={color}
         />
       </div>
 
-      <RightIconDetailsSection selectedIcon={selectedIcon || data?.data?.[0] || null} />
+      <RightIconDetailsSection
+        selectedIcon={selectedIcon || data?.data?.[0] || null}
+        color={color}
+        setColor={setColor}
+      />
     </div>
   );
 };

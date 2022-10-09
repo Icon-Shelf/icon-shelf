@@ -7,9 +7,15 @@ interface Props {
   icon: Icon;
   isSelected: boolean;
   setSelectedIcon?: Dispatch<SetStateAction<Icon | null>>;
+  color: string | null | undefined;
 }
 
-export const IconCard: FC<React.PropsWithChildren<Props>> = ({ icon, isSelected, setSelectedIcon }) => {
+export const IconCard: FC<React.PropsWithChildren<Props>> = ({
+  icon,
+  isSelected,
+  setSelectedIcon,
+  color,
+}) => {
   const onDragStart = async (e: DragEvent) => {
     e.preventDefault();
     e.dataTransfer.effectAllowed = 'copy';
@@ -19,7 +25,7 @@ export const IconCard: FC<React.PropsWithChildren<Props>> = ({ icon, isSelected,
 
   return (
     <button
-      className="icon-card-wrapper w-full h-full min-w-full min-h-full flex items-center justify-center rounded-2xl cursor-pointer outline-none"
+      className="icon-card-wrapper flex h-full min-h-full w-full min-w-full cursor-pointer items-center justify-center rounded-2xl outline-none"
       style={{
         minHeight: '8rem',
         background: isSelected ? 'linear-gradient(180deg, #696EFF 0%, #F7ABFF 100%)' : '',
@@ -32,16 +38,17 @@ export const IconCard: FC<React.PropsWithChildren<Props>> = ({ icon, isSelected,
       onClick={() => setSelectedIcon?.(icon)}
     >
       <div
-        className="rounded-2xl bg-gray-200 dark:bg-black2 flex flex-col items-center justify-center border border-transparent hover:border-gray-400 hover:dark:border-gray-600"
+        className="flex flex-col items-center justify-center rounded-2xl border border-transparent bg-gray-200 hover:border-gray-400 dark:bg-black2 hover:dark:border-gray-600"
         style={{ width: 'calc(100% - 2px)', height: 'calc(100% - 2px)' }}
       >
         <IconDisplay
           src={icon.imageSrc}
-          className="h-10 w-10 mt-4 text-black bg-black dark:text-white dark:bg-white"
+          color={color}
+          className="mt-4 h-10 w-10 bg-black text-black dark:bg-white dark:text-white"
         />
 
         <div
-          className="mt-4 h-6 w-4/5 text-body dark:text-gray-400 text-sm text-center whitespace-nowrap overflow-hidden overflow-ellipsis"
+          className="mt-4 h-6 w-4/5 overflow-hidden overflow-ellipsis whitespace-nowrap text-center text-sm text-body dark:text-gray-400"
           title={icon.name}
         >
           {icon.name}

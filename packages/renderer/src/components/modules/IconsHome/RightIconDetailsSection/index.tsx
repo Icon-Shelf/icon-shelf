@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { useRef, useState, useEffect } from 'react';
 import type { Icon } from '/@/data/icons';
 import SVG from 'react-inlinesvg';
@@ -7,12 +7,19 @@ import { formatDate } from '/@/utils/formatDate';
 import { IconDisplay } from '/@/components/ui/atomic-components';
 import { detectOS } from '/@/utils/detectOS';
 import { ActionsButton } from './ActionsButton';
+import { ColorPicker } from '../LeftIconsCollectionsNav/ColorPicker';
 
 interface Props {
   selectedIcon: Icon | null;
+  color: string | null | undefined;
+  setColor: Dispatch<SetStateAction<string | null | undefined>>;
 }
 
-export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ selectedIcon }) => {
+export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({
+  selectedIcon,
+  color,
+  setColor,
+}) => {
   const platform = detectOS();
   const svgRef = useRef<SVGElement>(null);
 
@@ -70,6 +77,7 @@ export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ se
               />
               <IconDisplay
                 src={selectedIcon.imageSrc}
+                color={color}
                 className="h-14 w-14 bg-black text-black dark:bg-white dark:text-white"
               />
             </>
@@ -102,6 +110,17 @@ export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ se
             <span className="mt-1">Updated</span>
             <span className="mt-1 text-black dark:text-white">
               {formatDate(selectedIcon?.updatedAt) || '-'}
+            </span>
+          </div>
+        </div>
+
+        <div className="mt-8">
+          <div className="mb-1 text-black dark:text-white">Customization</div>
+
+          <div className="flex justify-between">
+            <span className="mt-1">Color</span>
+            <span className="mt-1 uppercase text-black dark:text-white">
+              <ColorPicker onSelectColor={setColor} color={color} />
             </span>
           </div>
         </div>
