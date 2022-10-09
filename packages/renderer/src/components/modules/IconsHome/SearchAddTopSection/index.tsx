@@ -4,19 +4,22 @@ import { GlobalHotKeys } from 'react-hotkeys';
 import { platformBasedText } from '/@/utils/platformText';
 import { AddIconToCollection } from '../LeftIconsCollectionsNav/AddIconToCollection/index';
 import { debounce } from 'lodash';
+import { ColorPicker } from '../LeftIconsCollectionsNav/ColorPicker';
 
 const { Search } = Input;
 
 interface Props {
   searchQuery?: string | undefined;
   setSearchQuery: (newValue: string) => void;
+  setColor: (newValue: string) => void;
+  color: string
 }
 
 const keyMap = {
   FOCUS_ICON_SEARCH: ['cmd+f', 'ctrl+f'],
 };
 
-export const SearchAddTopSection: FC<React.PropsWithChildren<Props>> = ({ setSearchQuery }) => {
+export const SearchAddTopSection: FC<React.PropsWithChildren<Props>> = ({ setSearchQuery, setColor, color }) => {
   const debouncedSetSearch = debounce((val) => setSearchQuery(val), 150);
 
   const handlers = {
@@ -40,6 +43,7 @@ export const SearchAddTopSection: FC<React.PropsWithChildren<Props>> = ({ setSea
         onChange={(e) => debouncedSetSearch(e.target.value)}
       />
       <AddIconToCollection />
+      <ColorPicker onSelectColor={setColor} color={color} />
     </div>
   );
 };

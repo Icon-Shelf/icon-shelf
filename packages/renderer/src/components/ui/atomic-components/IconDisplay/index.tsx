@@ -4,11 +4,11 @@ import { detectOS } from '/@/utils/detectOS';
 
 interface Props {
   src: string;
-  className: string;
+  color: string;
 }
 
-export const IconDisplay: FC<React.PropsWithChildren<Props>> = ({ src, ...rest }) => {
-  const isDarkMode = document.documentElement.classList.contains('dark');
+export const IconDisplay: FC<React.PropsWithChildren<Props>> = ({ src, color }) => {
+  // const isDarkMode = document.documentElement.classList.contains('dark');
 
   const platform = detectOS();
   let formattedSrcPath = src;
@@ -18,28 +18,14 @@ export const IconDisplay: FC<React.PropsWithChildren<Props>> = ({ src, ...rest }
 
   const srcPath = encodeURI(formattedSrcPath);
 
-  if (isDarkMode) {
-    return (
-      <>
-        <div
-          {...rest}
-          draggable
-          style={{
-            WebkitMaskImage: `url(icon-image://${srcPath})`,
-            WebkitMaskRepeat: 'no-repeat',
-            WebkitMaskSize: 'contain',
-            WebkitMaskPosition: 'center center',
-          }}
-        />
-      </>
-    );
-  } else {
-    return (
+  return (
+    <>
       <SVG
         src={`icon-image://${srcPath}`}
-        className="mt-4 h-10 w-10 text-black"
+        className="mt-4 h-10 w-10"
         cacheRequests={false}
+        stroke={color}
       />
-    );
-  }
+    </>
+  );
 };

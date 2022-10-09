@@ -7,9 +7,10 @@ interface Props {
   icon: Icon;
   isSelected: boolean;
   setSelectedIcon?: Dispatch<SetStateAction<Icon | null>>;
+  color: string
 }
 
-export const IconCard: FC<React.PropsWithChildren<Props>> = ({ icon, isSelected, setSelectedIcon }) => {
+export const IconCard: FC<React.PropsWithChildren<Props>> = ({ icon, isSelected, setSelectedIcon, color }) => {
   const onDragStart = async (e: DragEvent) => {
     e.preventDefault();
     e.dataTransfer.effectAllowed = 'copy';
@@ -38,6 +39,7 @@ export const IconCard: FC<React.PropsWithChildren<Props>> = ({ icon, isSelected,
         <IconDisplay
           src={icon.imageSrc}
           className="h-10 w-10 mt-4 text-black bg-black dark:text-white dark:bg-white"
+          color={color}
         />
 
         <div

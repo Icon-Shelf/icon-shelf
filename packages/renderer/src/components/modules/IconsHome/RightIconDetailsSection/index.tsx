@@ -10,9 +10,10 @@ import { ActionsButton } from './ActionsButton';
 
 interface Props {
   selectedIcon: Icon | null;
+  color: string
 }
 
-export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ selectedIcon }) => {
+export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ selectedIcon, color }) => {
   const platform = detectOS();
   const svgRef = useRef<SVGElement>(null);
 
@@ -70,7 +71,7 @@ export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({ se
               />
               <IconDisplay
                 src={selectedIcon.imageSrc}
-                className="h-14 w-14 bg-black text-black dark:bg-white dark:text-white"
+                color={color}
               />
             </>
           )}

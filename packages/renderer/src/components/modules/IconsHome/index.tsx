@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC} from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IconCardsSection } from './IconCardsSection';
@@ -12,8 +12,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useResetSetSelectedIcon } from './hooks';
 
 const IconsHome: FC<React.PropsWithChildren<unknown>> = () => {
+
   const { collectionId = '' } = useParams();
   const [searchQuery, setSearchQuery] = useState<string>();
+  const [color, setColor] = useState('#fff');
 
   const { data } = useQuery(
     ['icons-list', collectionId, searchQuery],
@@ -37,17 +39,18 @@ const IconsHome: FC<React.PropsWithChildren<unknown>> = () => {
       <LeftIconsCollectionsNav />
 
       <div className="relative flex flex-1 flex-col">
-        <SearchAddTopSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <SearchAddTopSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} setColor={setColor} color={color} />
 
         <IconCardsSection
           icons={data?.data}
           searchQuery={searchQuery}
           selectedIcon={selectedIcon || data?.data?.[0] || null}
           setSelectedIcon={setSelectedIcon}
+          color={color}
         />
       </div>
 
-      <RightIconDetailsSection selectedIcon={selectedIcon || data?.data?.[0] || null} />
+      <RightIconDetailsSection selectedIcon={selectedIcon || data?.data?.[0] || null} color={color} />
     </div>
   );
 };
