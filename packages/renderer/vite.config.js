@@ -2,7 +2,6 @@
 
 import { chrome } from '../../.electron-vendors.cache.json';
 import { join } from 'path';
-import { builtinModules } from 'module';
 import react from '@vitejs/plugin-react';
 import svgrPlugin from 'vite-plugin-svgr';
 
@@ -20,14 +19,6 @@ const config = {
       '/@/': join(PACKAGE_ROOT, 'src') + '/',
     },
   },
-  plugins: [
-    react(),
-    svgrPlugin({
-      svgrOptions: {
-        svgo: true,
-      },
-    }),
-  ],
   base: '',
   server: {
     fs: {
@@ -40,11 +31,22 @@ const config = {
     outDir: 'dist',
     assetsDir: '.',
     rollupOptions: {
-      external: [...builtinModules],
+      input: join(PACKAGE_ROOT, 'index.html'),
     },
     emptyOutDir: true,
     reportCompressedSize: false,
   },
+  test: {
+    environment: 'happy-dom',
+  },
+  plugins: [
+    react(),
+    svgrPlugin({
+      svgrOptions: {
+        svgo: true,
+      },
+    }),
+  ],
 };
 
 export default config;

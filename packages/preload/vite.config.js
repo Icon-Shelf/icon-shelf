@@ -1,6 +1,5 @@
 import { chrome } from '../../.electron-vendors.cache.json';
 import { join } from 'path';
-import { builtinModules } from 'module';
 
 const PACKAGE_ROOT = __dirname;
 
@@ -18,6 +17,7 @@ const config = {
     },
   },
   build: {
+    ssr: true,
     sourcemap: 'inline',
     target: `chrome${chrome}`,
     outDir: 'dist',
@@ -28,7 +28,6 @@ const config = {
       formats: ['cjs'],
     },
     rollupOptions: {
-      external: ['electron', ...builtinModules],
       output: {
         entryFileNames: '[name].cjs',
       },
