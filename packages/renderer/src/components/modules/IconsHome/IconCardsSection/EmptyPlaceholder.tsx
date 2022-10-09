@@ -6,7 +6,7 @@ import { Button } from '/@/components/ui/atomic-components';
 
 const Wrapper: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-1">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-1">
       <div className="dark:text-gray-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -28,9 +28,11 @@ const Wrapper: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   );
 };
 
-export const EmptyPlaceholder: FC<React.PropsWithChildren<{
-  searchQuery?: string | null;
-}>> = ({ searchQuery }) => {
+export const EmptyPlaceholder: FC<
+  React.PropsWithChildren<{
+    searchQuery?: string | null;
+  }>
+> = ({ searchQuery }) => {
   const queryClient = useQueryClient();
   const { collectionId } = useParams();
 
@@ -39,7 +41,7 @@ export const EmptyPlaceholder: FC<React.PropsWithChildren<{
   if (searchQuery) {
     return (
       <Wrapper>
-        <div className="dark:text-white w-1/2 text-center">
+        <div className="w-1/2 text-center dark:text-white">
           No icons in collection for “{searchQuery}”.
         </div>
       </Wrapper>
@@ -74,6 +76,7 @@ export const EmptyPlaceholder: FC<React.PropsWithChildren<{
         Click{' '}
         <Button
           type="link"
+          className="-ml-1 px-1 text-base"
           onClick={() => {
             document?.querySelector<HTMLButtonElement>('#add-icon-to-collection-btn')?.click();
           }}
