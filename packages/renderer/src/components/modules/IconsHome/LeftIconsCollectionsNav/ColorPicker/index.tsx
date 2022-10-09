@@ -36,11 +36,7 @@ export const ColorPicker: FC<React.PropsWithChildren<Props>> = ({ onSelectColor,
             <div className="mt-4 flex w-full justify-center">
               <Checkbox
                 onChange={(value) => {
-                  if (value) {
-                    onSelectColor(null);
-                  } else {
-                    onSelectColor(undefined);
-                  }
+                  onSelectColor(value ? null : undefined);
                 }}
                 checked={color === null || (!isDarkMode() && color === undefined)}
                 label="Use original color"
