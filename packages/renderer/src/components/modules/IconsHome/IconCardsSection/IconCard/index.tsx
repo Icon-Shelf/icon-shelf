@@ -38,7 +38,6 @@ export const IconCard: FC<React.PropsWithChildren<Props>> = ({ icon, isSelected,
       >
         <IconDisplay
           src={icon.imageSrc}
-          className="h-10 w-10 mt-4 text-black bg-black dark:text-white dark:bg-white"
           color={color}
         />
 
