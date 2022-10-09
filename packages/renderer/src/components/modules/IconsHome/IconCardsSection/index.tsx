@@ -14,7 +14,7 @@ interface Props {
   selectedIcon: Icon | null;
   setSelectedIcon: Dispatch<SetStateAction<Icon | null>>;
   searchQuery?: string | null;
-  color: string;
+  color: string | null | undefined;
 }
 
 export const IconCardsSection: FC<React.PropsWithChildren<Props>> = ({
@@ -22,7 +22,7 @@ export const IconCardsSection: FC<React.PropsWithChildren<Props>> = ({
   selectedIcon,
   setSelectedIcon,
   searchQuery,
-  color
+  color,
 }) => {
   const wrapperDivRef = useRef<HTMLDivElement>(null);
 

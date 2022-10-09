@@ -1,30 +1,56 @@
 import type { FC } from 'react';
-import { useState } from 'react';
-import { Button } from '/@/components/ui/atomic-components';
-import { ColorPickerModal } from './ColorPickerModal';
-interface color {
-	show?: boolean;
-	onSelectColor: (newValue: string) => void;
-	color: string;
+import { HexColorPicker, HexColorInput } from 'react-colorful';
+import { Button, Checkbox, Popover } from '/@/components/ui/atomic-components';
+import { isDarkMode } from '/@/utils/isDarkMode';
+
+interface Props {
+  show?: boolean;
+  onSelectColor: (newValue: string | null | undefined) => void;
+  color: string | null | undefined;
 }
 
-export const ColorPicker: FC<React.PropsWithChildren<color>> = ({ onSelectColor, color }) => {
+export const ColorPicker: FC<React.PropsWithChildren<Props>> = ({ onSelectColor, color }) => {
+  let pickerColor = color;
+  if (color === undefined) {
+    if (isDarkMode()) {
+      pickerColor = '#fff';
+    } else {
+      pickerColor = '#000';
+    }
+  }
 
-	const [showModal, setShowModal] = useState(false)
+  return (
+    <Popover
+      overlay={
+        <div className="grid place-items-center">
+          <div className="px-6 pt-6 pb-4">
+            <HexColorPicker color={pickerColor || 'fff'} onChange={onSelectColor} />
+            <HexColorInput
+              className="mt-4 block h-10 w-full rounded-lg border-2 border-inputBorder bg-transparent px-4 text-body placeholder-gray-500	outline-none transition-shadow focus:border-transparent focus:ring-2 focus:ring-primary dark:text-white"
+              color={pickerColor || ''}
+              onChange={onSelectColor}
+              placeholder="hex value"
+              disabled={color === null}
+            />
 
-	const onShowModal = () => {
-		setShowModal(true)
-	}
-
-	return (
-		<>
-			<div className="ml-4">
-				<Button onClick={onShowModal}>
-					Color
-				</Button>
-			</div>
-
-			<ColorPickerModal showModal={showModal} setShowModal={setShowModal} color={color} onSelectColor={onSelectColor} />
-		</>
-	)
-}
+            <div className="mt-4 flex w-full justify-center">
+              <Checkbox
+                onChange={(value) => {
+                  if (value) {
+                    onSelectColor(null);
+                  } else {
+                    onSelectColor(undefined);
+                  }
+                }}
+                checked={color === null || (!isDarkMode() && color === undefined)}
+                label="Use original color"
+              />
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <Button>Color</Button>
+    </Popover>
+  );
+};
