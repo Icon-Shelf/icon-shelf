@@ -58,7 +58,10 @@
     "tailwindcss": "^3.1.8",
     "typescript": "4.8.4",
     "vite": "^3.1.4",
-    "vite-plugin-svgr": "^2.2.1"
+    "vite-plugin-svgr": "^2.2.1",
+    "xvfb-maybe": "^0.2.1",
+    "@typescript-eslint/parser": "^5.39.0",
+    "@tanstack/react-query-devtools": "^4.10.1"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^0.19.14",
@@ -79,9 +82,6 @@
     "@headlessui/react": "^1.7.3",
     "@mierak/react-virtualized-grid": "^0.0.5-ALPHA",
     "@tanstack/react-query": "^4.10.1",
-    "@tanstack/react-query-devtools": "^4.10.1",
-    "@typescript-eslint/parser": "^5.39.0",
-    "chokidar": "^3.5.3",
     "dexie": "^3.2.2",
     "electron-log": "^4.4.8",
     "electron-store": "^8.1.0",
@@ -101,7 +101,7 @@
     "svgo": "^2.8.0",
     "universal-analytics": "^0.5.3",
     "uuid": "^9.0.0",
-    "xvfb-maybe": "^0.2.1"
+    "chokidar": "^3.5.3"
   },
   "repository": {
     "type": "git",
