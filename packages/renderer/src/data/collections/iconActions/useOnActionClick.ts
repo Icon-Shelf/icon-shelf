@@ -5,6 +5,7 @@ import type { Collection, CollectionAction } from '..';
 import {
   copyIconToCollection,
   copyToClipboardAsBase64,
+  copyToClipboardAsDataURI,
   copyToClipboardAsJsx,
   copyToClipboardAsSvg,
   copyToClipboardFromTemplate,
@@ -36,6 +37,7 @@ const actionExecuters: {
   'clipboard-copy-svg': copyToClipboardAsSvg,
   'clipboard-copy-jsx': copyToClipboardAsJsx,
   'clipboard-copy-base64': copyToClipboardAsBase64,
+  'clipboard-copy-data-uri': copyToClipboardAsDataURI,
   'copy-icon-to-collection': copyIconToCollection,
   'move-icon-to-collection': moveIconToCollection,
   'svgo-optimize': svgoOptimizeIcon
