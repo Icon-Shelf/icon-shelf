@@ -10,6 +10,7 @@ import { CollectionsApi } from '/@/data/collections';
 import { useParams } from 'react-router-dom';
 import { CollectionsDropdown } from './CollectionsDropdown';
 import { getSvgoPreference } from '/@/components/ui/PreferenceModal/utils';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface Props {
   show: boolean;
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export const AddIconToCollectionModal: FC<React.PropsWithChildren<Props>> = ({ show, onClose }) => {
+  const queryClient = useQueryClient();
   const addButtonRef = useRef<HTMLButtonElement>(null);
   const [showLoader, setShowLoader] = useState(false);
 
@@ -56,6 +58,7 @@ export const AddIconToCollectionModal: FC<React.PropsWithChildren<Props>> = ({ s
       });
 
       setTimeout(() => {
+        queryClient.invalidateQueries(['icons-list']);
         setShowLoader(false);
         onClose();
       }, 1500);
@@ -125,7 +128,7 @@ export const AddIconToCollectionModal: FC<React.PropsWithChildren<Props>> = ({ s
               )}
 
               {!imageList.length && (
-                <div className="pointer-events-none flex flex-col items-center">
+                <div className="flex flex-col items-center pointer-events-none">
                   <span className="text-sm text-white">Drag and drop your SVG icons here</span>
 
                   <button className="text-xs hover:text-white focus:text-white" type="button">
