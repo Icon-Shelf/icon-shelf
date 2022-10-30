@@ -6,3 +6,4 @@ export * from './copyToClipboardAsJsx';
 export * from './copyOrMoveIconToCollection';
 export * from './svgoOptimizeIcon';
 export * from './copyToClipboardAsBase64';
+export * from './copyToClipboardAsDataURI';
