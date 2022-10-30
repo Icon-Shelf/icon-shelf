@@ -58,6 +58,7 @@ export const IconCardsSection: FC<React.PropsWithChildren<Props>> = ({
           >
             {(index) => {
               const icon = icons[index];
+
               return (
                 <IconCard
                   key={icon?.id}

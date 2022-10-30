@@ -32,6 +32,7 @@ import MenuBuilder from './menu';
 import { activateAnalytics } from './utils/analytics';
 import AppUpdater from './app-updater';
 import { debounce } from 'lodash';
+import type { MessageBoxOptions } from 'electron';
 
 const isSingleInstance = app.requestSingleInstanceLock();
 const isDevelopment = import.meta.env.MODE === 'development';
@@ -143,6 +144,7 @@ protocol.registerSchemesAsPrivileged([
 app.whenReady().then(() => {
   protocol.registerFileProtocol('icon-image', (request, callback) => {
     let url = decodeURI(request.url.replace('icon-image://', ''));
+    url = url.replace(/\?.*/, '');
 
     if (process.platform === 'win32') {
       url = url.charAt(0).toUpperCase() + ':' + url.slice(1);
@@ -224,6 +226,25 @@ ipcMain.on(
       // const ext = matches?.[1];
       const data = matches?.[2];
       if (data && filename) {
+        const formattedPath = join(folderPath, filename);
+
+        if (existsSync(formattedPath)) {
+          const dialogOpts: MessageBoxOptions = {
+            type: 'error',
+            message: `Icon with the name ${filename} is already present in the collection`,
+            buttons: ['Skip', 'Override'],
+            title: 'Icon is already present in the collection',
+          };
+
+          const window = BrowserWindow.getFocusedWindow();
+          if (window) {
+            const response = dialog.showMessageBoxSync(window, dialogOpts);
+            if (response === 0) {
+              return;
+            }
+          }
+        }
+
         const buffer = Buffer.from(data, 'base64');
 
         let fileData: Buffer | string = buffer;
@@ -239,8 +260,6 @@ ipcMain.on(
             console.log('error happened in svgOptimize');
           }
         }
-
-        const formattedPath = join(folderPath, filename);
 
         filePromiseList.push(promiseFs.writeFile(formattedPath, fileData));
       }
@@ -329,7 +348,7 @@ ipcMain.on('collection-switch', async (event, props) => {
     mainWindow?.webContents.send('collection-folder-change_reply', props?.collectionId);
   }, 100);
 
-  watcher.on('add', eventReply).on('unlink', eventReply);
+  watcher.on('add', eventReply).on('change', eventReply).on('unlink', eventReply);
 });
 
 const dragIcon = nativeImage.createFromDataURL(

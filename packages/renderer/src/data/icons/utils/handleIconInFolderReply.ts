@@ -25,11 +25,19 @@ export async function handleIconInFolderReply(
   const folderIconsMap = keyBy(files, 'name');
 
   const iconsToAdd: Icon[] = [];
+  const iconsToDelete: number[] = [];
 
   files.forEach((file) => {
     const [name, type] = file.name.split('.');
 
-    if (!existingIconsMap[name] && type === 'svg') {
+    const toUpdateIcon =
+      existingIconsMap[name] && existingIconsMap[name].updatedAt !== file.updatedAt;
+
+    if (existingIconsMap[name] && toUpdateIcon) {
+      iconsToDelete.push(existingIconsMap[name].id as number);
+    }
+
+    if ((!existingIconsMap[name] || toUpdateIcon) && type === 'svg') {
       iconsToAdd.push({
         name,
         collectionId: collectionIdString,
@@ -46,12 +54,11 @@ export async function handleIconInFolderReply(
     db.icons
       .bulkAdd(iconsToAdd)
       .then(() => {
-        queryClient.invalidateQueries(['icons-list']);
+        queryClient.invalidateQueries(['icons-list', collectionIdString]);
       })
       .catch(() => {});
   }
 
-  const iconsToDelete: number[] = [];
   existingIcons.forEach((file) => {
     const { id, name, mime } = file;
 
@@ -64,7 +71,7 @@ export async function handleIconInFolderReply(
     db.icons
       .bulkDelete(iconsToDelete)
       .then(() => {
-        queryClient.invalidateQueries(['icons-list']);
+        queryClient.invalidateQueries(['icons-list', collectionIdString]);
       })
       .catch(() => {});
   }
