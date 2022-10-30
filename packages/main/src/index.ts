@@ -144,6 +144,7 @@ protocol.registerSchemesAsPrivileged([
 app.whenReady().then(() => {
   protocol.registerFileProtocol('icon-image', (request, callback) => {
     let url = decodeURI(request.url.replace('icon-image://', ''));
+    url = url.replace(/\?.*/, '');
 
     if (process.platform === 'win32') {
       url = url.charAt(0).toUpperCase() + ':' + url.slice(1);
@@ -260,7 +261,6 @@ ipcMain.on(
           }
         }
 
-
         filePromiseList.push(promiseFs.writeFile(formattedPath, fileData));
       }
     });
@@ -348,7 +348,7 @@ ipcMain.on('collection-switch', async (event, props) => {
     mainWindow?.webContents.send('collection-folder-change_reply', props?.collectionId);
   }, 100);
 
-  watcher.on('add', eventReply).on('unlink', eventReply);
+  watcher.on('add', eventReply).on('change', eventReply).on('unlink', eventReply);
 });
 
 const dragIcon = nativeImage.createFromDataURL(

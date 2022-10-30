@@ -78,6 +78,7 @@ export const RightIconDetailsSection: FC<React.PropsWithChildren<Props>> = ({
               <IconDisplay
                 src={selectedIcon.imageSrc}
                 color={color}
+                lastUpdatedAt={selectedIcon.updatedAt}
                 className="h-14 w-14 bg-black text-black dark:bg-white dark:text-white"
               />
             </>

@@ -58,7 +58,7 @@ export const AddIconToCollectionModal: FC<React.PropsWithChildren<Props>> = ({ s
       });
 
       setTimeout(() => {
-        queryClient.invalidateQueries(['icons-list']);
+        queryClient.invalidateQueries(['icons-list', collectionId]);
         setShowLoader(false);
         onClose();
       }, 1500);
@@ -128,7 +128,7 @@ export const AddIconToCollectionModal: FC<React.PropsWithChildren<Props>> = ({ s
               )}
 
               {!imageList.length && (
-                <div className="flex flex-col items-center pointer-events-none">
+                <div className="pointer-events-none flex flex-col items-center">
                   <span className="text-sm text-white">Drag and drop your SVG icons here</span>
 
                   <button className="text-xs hover:text-white focus:text-white" type="button">
