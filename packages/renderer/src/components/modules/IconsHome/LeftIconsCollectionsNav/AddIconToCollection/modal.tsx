@@ -58,7 +58,6 @@ export const AddIconToCollectionModal: FC<React.PropsWithChildren<Props>> = ({ s
       });
 
       setTimeout(() => {
-        queryClient.invalidateQueries(['icons-list', collectionId]);
         setShowLoader(false);
         onClose();
       }, 1500);

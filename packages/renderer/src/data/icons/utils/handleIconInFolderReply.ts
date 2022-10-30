@@ -54,7 +54,7 @@ export async function handleIconInFolderReply(
     db.icons
       .bulkAdd(iconsToAdd)
       .then(() => {
-        queryClient.invalidateQueries(['icons-list']);
+        queryClient.invalidateQueries(['icons-list', collectionIdString]);
       })
       .catch(() => {});
   }
@@ -71,7 +71,7 @@ export async function handleIconInFolderReply(
     db.icons
       .bulkDelete(iconsToDelete)
       .then(() => {
-        queryClient.invalidateQueries(['icons-list']);
+        queryClient.invalidateQueries(['icons-list', collectionIdString]);
       })
       .catch(() => {});
   }
