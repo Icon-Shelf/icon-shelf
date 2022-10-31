@@ -11,6 +11,7 @@ interface Props {
   marginLeft?: number;
   editCollection?: (v?: Collection) => void;
   onCustomizeActionsClick?: (v?: Collection) => void;
+  onSortClick: () => void;
 }
 export const ListItemWrapper: FC<React.PropsWithChildren<Props>> = ({
   collection,
@@ -19,6 +20,7 @@ export const ListItemWrapper: FC<React.PropsWithChildren<Props>> = ({
   marginLeft = 0,
   editCollection,
   onCustomizeActionsClick,
+  onSortClick,
 }) => {
   const [showChildCollections, setShowChildCollections] = useState(
     !!collection?.childCollectionIds?.length
@@ -40,6 +42,7 @@ export const ListItemWrapper: FC<React.PropsWithChildren<Props>> = ({
         onCustomizeActionsClick={onCustomizeActionsClick}
         showChildCollections={showChildCollections}
         onShowChildCollectionsToggle={onShowChildCollectionsToggle}
+        onSortClick={onSortClick}
       />
 
       {showChildCollections &&
@@ -56,6 +59,7 @@ export const ListItemWrapper: FC<React.PropsWithChildren<Props>> = ({
                 selectedCollectionId={selectedCollectionId}
                 editCollection={editCollection}
                 onCustomizeActionsClick={onCustomizeActionsClick}
+                onSortClick={onSortClick}
               />
             )
           );

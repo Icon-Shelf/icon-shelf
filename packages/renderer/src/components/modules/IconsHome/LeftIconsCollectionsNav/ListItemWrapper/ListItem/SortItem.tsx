@@ -5,7 +5,6 @@ import { ReactComponent as ArrowsUpDown } from '/assets/icons/arrows-up-down.svg
 export const SortItem = () => {
   const [searchParams] = useSearchParams();
   const isSortedDesc = searchParams.get('sortByNameDesc');
-  console.log(searchParams.toString());
 
   if (isSortedDesc === null)
     return (
