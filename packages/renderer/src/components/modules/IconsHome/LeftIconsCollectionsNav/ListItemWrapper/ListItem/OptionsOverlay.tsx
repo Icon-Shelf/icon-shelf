@@ -8,13 +8,25 @@ import { ReactComponent as CursorClickIcon } from '/assets/icons/cursor-click-sm
 import { platformBasedText } from '/@/utils/platformText';
 import { ReactComponent as CollectionIcon } from '/assets/icons/collection-16.svg';
 import { uuidv4 } from '/@/utils/uuid';
+import { SortItem } from './SortItem';
 
-export const OptionsOverlay: FC<React.PropsWithChildren<{
-  collection?: Collection;
-  onDeleteClick?: () => void;
-  editCollection?: (c?: Collection) => void;
-  onCustomizeActionsClick?: (c?: Collection) => void;
-}>> = ({ collection, editCollection, onDeleteClick, onCustomizeActionsClick }) => {
+export const OptionsOverlay: FC<
+  React.PropsWithChildren<{
+    collection?: Collection;
+    onDeleteClick?: () => void;
+    editCollection?: (c?: Collection) => void;
+    onCustomizeActionsClick?: (c?: Collection) => void;
+    onSortClick: () => void;
+    isActive: boolean;
+  }>
+> = ({
+  collection,
+  editCollection,
+  onDeleteClick,
+  onSortClick,
+  onCustomizeActionsClick,
+  isActive,
+}) => {
   const openCollectionFolderInFinder = () => {
     window.electron.ipcRenderer.send('open-collection-folder', collection?.folderSrc);
   };
@@ -52,6 +64,12 @@ export const OptionsOverlay: FC<React.PropsWithChildren<{
         <CursorClickIcon className="mr-2" />
         <div>Customize actions</div>
       </Dropdown.Item>
+
+      {isActive && (
+        <Dropdown.Item onClick={onSortClick}>
+          <SortItem />
+        </Dropdown.Item>
+      )}
 
       <Dropdown.Item onClick={createSubCollection}>
         <CollectionIcon className="mr-2" />
