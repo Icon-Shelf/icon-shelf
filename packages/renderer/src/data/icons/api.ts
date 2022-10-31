@@ -38,9 +38,11 @@ export const IconsApi = {
   getIconsInCollection: async ({
     collectionId,
     searchQuery,
+    isSortedByNameDesc,
   }: {
     collectionId: string;
     searchQuery?: string;
+    isSortedByNameDesc?: boolean;
   }): Promise<{
     data: Icon[];
   }> => {
@@ -50,10 +52,8 @@ export const IconsApi = {
       });
     }
 
-    let icons = [];
-
     if (collectionId === 'all-icons') {
-      icons = await db.icons
+      const data = await db.icons
         .orderBy('collectionId')
         .filter((icon) => {
           return icon.name.toLowerCase().includes((searchQuery || '').toLocaleLowerCase());
@@ -61,22 +61,29 @@ export const IconsApi = {
         // .offset(LIMIT * pageParam)
         // .limit(LIMIT)
         .reverse()
-        .sortBy('updatedAt');
-    } else {
-      icons = await db.icons
-        .where('collectionId')
-        .equals(collectionId)
-        .filter((icon) => {
-          return icon.name.toLowerCase().includes((searchQuery || '').toLocaleLowerCase());
-        })
-        // .offset(LIMIT * pageParam)
-        // .limit(LIMIT)
-        .reverse()
-        .sortBy('updatedAt');
+        .sortBy('updatedAt') || []
+
+      return { data };
     }
 
-    return {
-      data: icons || [],
-    };
+    let iconsQuery;
+    const iconsCollection = db.icons
+      .where('collectionId')
+      .equals(collectionId)
+      .filter((icon) => {
+        return icon.name.toLowerCase().includes((searchQuery || '').toLocaleLowerCase());
+      });
+
+    if (isSortedByNameDesc) {
+      iconsQuery = iconsCollection.reverse().sortBy('name');
+    } else if (isSortedByNameDesc === false) {
+      iconsQuery = iconsCollection.sortBy('name');
+    } else {
+      iconsQuery = iconsCollection.reverse().sortBy('updatedAt');
+    }
+
+    const data = await iconsQuery || []
+
+    return { data };
   },
 };
