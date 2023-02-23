@@ -34,7 +34,7 @@ export const OptionsOverlay: FC<
   const createSubCollection = () => {
     if (collection?.id) {
       let folderSrc = collection.folderSrc.replace(/\/$/, '');
-      folderSrc += `${folderSrc}/collection-${uuidv4()}`;
+      folderSrc = `${folderSrc}/collection-${uuidv4()}`;
 
       editCollection?.({
         parentCollectionId: collection?.id,
