@@ -70,8 +70,8 @@ export const LeftIconsCollectionsNav: FC<Props> = ({ onSortClick }) => {
           />
         </div>
 
-        <div className="h-full mt-4">
-          <div className="ml-4 mr-3 text-base flex justify-between items-center">
+        <div className="h-full mt-2">
+          <div className="ml-4 mr-3 text-lg flex justify-between items-center">
             <span className="h-full">Collections</span>
             <Tooltip placement="left" overlay={<span>Create collection</span>}>
               <Button
