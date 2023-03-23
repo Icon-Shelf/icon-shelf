@@ -55,9 +55,9 @@ export const LeftIconsCollectionsNav: FC<Props> = ({ onSortClick }) => {
         maxWidth="320px"
         className="relative flex-shrink-0 w-64 h-full bg-gray-200 min-w-max dark:bg-black2"
       >
-        <TitleBarDrag className="absolute inset-0 h-8" />
+        <TitleBarDrag className="absolute inset-0 h-4" />
 
-        <div className="flex flex-col gap-2 mt-8" /*has to be mt-8, else drop bar prevents from clicking, was visible on [+] button too */>
+        <div className="flex flex-col gap-2 mt-4">
           <ListItem
             name="All icons"
             id="all-icons"
@@ -71,7 +71,7 @@ export const LeftIconsCollectionsNav: FC<Props> = ({ onSortClick }) => {
         </div>
 
         <div className="h-full mt-4">
-          <div className="mx-4 text-base flex justify-between items-center">
+          <div className="ml-4 mr-3 text-base flex justify-between items-center">
             <span className="h-full">Collections</span>
             <Tooltip placement="left" overlay={<span>Create collection</span>}>
               <Button
