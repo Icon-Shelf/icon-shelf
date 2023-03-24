@@ -55,20 +55,9 @@ export const LeftIconsCollectionsNav: FC<Props> = ({ onSortClick }) => {
         maxWidth="320px"
         className="relative flex-shrink-0 w-64 h-full bg-gray-200 min-w-max dark:bg-black2"
       >
-        <TitleBarDrag className="absolute inset-0 h-8" />
+        <TitleBarDrag className="absolute inset-0 h-4" />
 
-        <div className="flex justify-end mx-4 mt-5">
-          <Tooltip placement="left" overlay={<span>Create collection</span>}>
-            <Button
-              icon={<PlusIcon />}
-              type="text"
-              id="create-collection-btn"
-              onClick={() => editCollection()}
-            />
-          </Tooltip>
-        </div>
-
-        <div className="flex flex-col gap-2 mt-5">
+        <div className="flex flex-col gap-2 mt-4">
           <ListItem
             name="All icons"
             id="all-icons"
@@ -81,8 +70,18 @@ export const LeftIconsCollectionsNav: FC<Props> = ({ onSortClick }) => {
           />
         </div>
 
-        <div className="h-full mt-4">
-          <div className="ml-4 text-base">Collections</div>
+        <div className="h-full mt-2">
+          <div className="ml-4 mr-3 text-lg flex justify-between items-center">
+            <span className="h-full">Collections</span>
+            <Tooltip placement="left" overlay={<span>Create collection</span>}>
+              <Button
+                icon={<PlusIcon />}
+                type="text"
+                id="create-collection-btn"
+                onClick={() => editCollection()}
+              />
+            </Tooltip>
+          </div>
           <div
             className="flex flex-col gap-2 pb-24 mt-2 overflow-auto"
             style={{ height: 'calc(100% - 120px)' }}
