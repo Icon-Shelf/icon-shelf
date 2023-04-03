@@ -39,6 +39,7 @@ export const IconCardsSection: FC<React.PropsWithChildren<Props>> = ({
     getScrollElement: () => wrapperDivRef.current,
     estimateSize: () => 128,
     scrollingDelay: 100,
+    overscan: 24 * 5,
   });
 
   if (refreshGrid) {
