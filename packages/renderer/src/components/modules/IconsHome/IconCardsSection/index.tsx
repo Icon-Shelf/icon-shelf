@@ -6,7 +6,7 @@ import { HotKeys } from 'react-hotkeys';
 import { IconCard } from './IconCard';
 import { EmptyPlaceholder } from './EmptyPlaceholder';
 import { IconContextMenu } from './IconContextMenu';
-import { VirtualizedGrid } from '@mierak/react-virtualized-grid';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { useHotKeyConfig } from './hooks';
 
 interface Props {
@@ -34,6 +34,13 @@ export const IconCardsSection: FC<React.PropsWithChildren<Props>> = ({
     setTimeout(() => setRefreshGrid(false), 1);
   }, [icons]);
 
+  const gridVirtualizer = useVirtualizer({
+    count: icons?.length ?? 0,
+    getScrollElement: () => wrapperDivRef.current,
+    estimateSize: () => 128,
+    scrollingDelay: 100,
+  });
+
   if (refreshGrid) {
     return <></>;
   }
@@ -46,17 +53,8 @@ export const IconCardsSection: FC<React.PropsWithChildren<Props>> = ({
     <>
       <div className="relative h-full w-full overflow-hidden" ref={wrapperDivRef}>
         <HotKeys keyMap={keyMap} handlers={handlers} className="h-full outline-none">
-          <VirtualizedGrid
-            rowHeight={128}
-            cellWidth={128}
-            gridGap={12}
-            itemCount={icons.length}
-            gridHeight={'min(min-content, 100%'}
-            className={'virtualized-icons-grid-container px-4 pb-16'}
-            debounceDelay={100}
-            prerenderScreens={5}
-          >
-            {(index) => {
+          <div className="virtualized-icons-grid-container grid grid-cols-[repeat(auto-fill,minmax(128px,1fr))] gap-3 px-4 pb-16">
+            {gridVirtualizer.getVirtualItems().map((_, index) => {
               const icon = icons[index];
 
               return (
@@ -68,8 +66,8 @@ export const IconCardsSection: FC<React.PropsWithChildren<Props>> = ({
                   color={color}
                 />
               );
-            }}
-          </VirtualizedGrid>
+            })}
+          </div>
         </HotKeys>
       </div>
 
