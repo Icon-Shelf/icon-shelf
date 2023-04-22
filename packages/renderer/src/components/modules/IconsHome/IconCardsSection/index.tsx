@@ -45,14 +45,14 @@ export const IconCardsSection: FC<React.PropsWithChildren<Props>> = ({
   return (
     <>
       <div className="relative h-full w-full overflow-hidden" ref={wrapperDivRef}>
-        <HotKeys keyMap={keyMap} handlers={handlers} className="h-full outline-none">
+        <HotKeys keyMap={keyMap} handlers={handlers} className=" h-full outline-none">
           <VirtualizedGrid
             rowHeight={128}
             cellWidth={128}
             gridGap={12}
             itemCount={icons.length}
             gridHeight={'min(min-content, 100%'}
-            className={'virtualized-icons-grid-container px-4 pb-16'}
+            className={'virtualized-icons-grid-container customScroll  px-4 pb-16'}
             debounceDelay={100}
             prerenderScreens={5}
           >
