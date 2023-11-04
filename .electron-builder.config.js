@@ -10,7 +10,7 @@ const config = {
   files: ['packages/**/dist/**'],
   productName: 'Icon Shelf',
   appId: 'com.IconShelf.app',
-  afterSign: './scripts/Notarize.js',
+  // afterSign: './scripts/Notarize.js',
   mac: {
     target: [
       {
@@ -23,6 +23,7 @@ const config = {
     entitlements: 'buildResources/entitlements.mac.plist',
     entitlementsInherit: 'buildResources/entitlements.mac.plist',
     gatekeeperAssess: false,
+    notarize: true,
   },
   dmg: {
     contents: [
