@@ -7,8 +7,7 @@
     },
     "lib": ["ESNext", "dom", "dom.iterable"],
     "jsx": "react-jsx",
-    "allowSyntheticDefaultImports": true,
-    "types": ["vite-plugin-svgr/client"]
+    "allowSyntheticDefaultImports": true
   },
 
   "include": [
