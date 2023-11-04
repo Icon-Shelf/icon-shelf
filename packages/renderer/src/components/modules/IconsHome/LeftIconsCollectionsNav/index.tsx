@@ -57,7 +57,7 @@ export const LeftIconsCollectionsNav: FC<Props> = ({ onSortClick }) => {
       >
         <TitleBarDrag className="absolute inset-0 h-4" />
 
-        <div className="flex flex-col gap-2 mt-4">
+        <div className="flex flex-col gap-2 mt-8">
           <ListItem
             name="All icons"
             id="all-icons"
