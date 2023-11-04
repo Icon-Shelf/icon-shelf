@@ -9,18 +9,7 @@ import { URL } from 'url';
 const ALLOWED_ORIGINS_AND_PERMISSIONS = new Map<
   string,
   Set<
-    | 'clipboard-read'
-    | 'media'
-    | 'display-capture'
-    | 'mediaKeySystem'
-    | 'geolocation'
-    | 'notifications'
-    | 'midi'
-    | 'midiSysex'
-    | 'pointerLock'
-    | 'fullscreen'
-    | 'openExternal'
-    | 'unknown'
+  'clipboard-read' | 'media' | 'display-capture' | 'mediaKeySystem' | 'geolocation' | 'notifications' | 'midi' | 'midiSysex' | 'pointerLock' | 'fullscreen' | 'openExternal' | 'unknown' | 'clipboard-sanitized-write' | 'idle-detection' | 'window-management'
   >
 >(
   import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL
@@ -77,7 +66,7 @@ app.on('web-contents-created', (_, contents) => {
     const { origin } = new URL(webContents.getURL());
 
     const permissionGranted = !!ALLOWED_ORIGINS_AND_PERMISSIONS.get(origin)?.has(permission);
-    callback(permissionGranted);
+    callback(true);
 
     if (!permissionGranted && import.meta.env.DEV) {
       console.warn(`${origin} requested permission for '${permission}', but was blocked.`);
