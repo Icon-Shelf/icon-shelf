@@ -1,5 +1,4 @@
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import SVG from 'react-inlinesvg';
 import { detectOS } from '/@/utils/detectOS';
 import { isDarkMode } from '/@/utils/isDarkMode';

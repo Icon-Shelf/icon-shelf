@@ -4,6 +4,7 @@ import {
   dialog,
   ipcMain,
   nativeImage,
+  net,
   Notification,
   protocol,
   screen,
@@ -49,13 +50,13 @@ if (isDevelopment) {
   app
     .whenReady()
     .then(() => import('electron-devtools-installer'))
-    .then(({ default: installExtension, REACT_DEVELOPER_TOOLS }) =>
-      installExtension(REACT_DEVELOPER_TOOLS, {
-        loadExtensionOptions: {
-          allowFileAccess: true,
-        },
-      })
-    )
+    // .then(({ default: installExtension, REACT_DEVELOPER_TOOLS }) =>
+    //   installExtension(REACT_DEVELOPER_TOOLS, {
+    //     loadExtensionOptions: {
+    //       allowFileAccess: true,
+    //     },
+    //   })
+    // )
     .catch((e) => console.error('Failed install extension:', e));
 }
 
@@ -142,7 +143,7 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 app.whenReady().then(() => {
-  protocol.registerFileProtocol('icon-image', (request, callback) => {
+  protocol.handle('icon-image', (request) => {
     let url = decodeURI(request.url.replace('icon-image://', ''));
     url = url.replace(/\?.*/, '');
 
@@ -150,7 +151,7 @@ app.whenReady().then(() => {
       url = url.charAt(0).toUpperCase() + ':' + url.slice(1);
     }
 
-    callback(url);
+    return net.fetch(`file:///${url}`);
   });
 });
 

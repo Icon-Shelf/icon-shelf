@@ -10,7 +10,6 @@ import { CollectionsApi } from '/@/data/collections';
 import { useParams } from 'react-router-dom';
 import { CollectionsDropdown } from './CollectionsDropdown';
 import { getSvgoPreference } from '/@/components/ui/PreferenceModal/utils';
-import { useQueryClient } from '@tanstack/react-query';
 
 interface Props {
   show: boolean;
@@ -18,7 +17,6 @@ interface Props {
 }
 
 export const AddIconToCollectionModal: FC<React.PropsWithChildren<Props>> = ({ show, onClose }) => {
-  const queryClient = useQueryClient();
   const addButtonRef = useRef<HTMLButtonElement>(null);
   const [showLoader, setShowLoader] = useState(false);
 

@@ -23,7 +23,7 @@ const IconsHome: FC<React.PropsWithChildren<unknown>> = () => {
   const [searchQuery, setSearchQuery] = useState<string>();
   const [color, setColor] = useState<string | null | undefined>(undefined);
   const [isSortedByNameDesc, setIsSortedByNameDesc] = useState<boolean | undefined>(undefined);
-  const [_searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const onSortClick = useCallback((): void => {
     switch (isSortedByNameDesc) {
