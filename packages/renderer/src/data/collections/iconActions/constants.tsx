@@ -71,6 +71,16 @@ export const defaultCollectionActions: CollectionAction[] = [
     meta: {},
   },
   {
+    name: 'Copy as Inline Data URI',
+    id: 'copy-as-data-uri',
+    action: 'clipboard-copy-data-uri',
+    icon: 'copy-clipboard-icon',
+    isPrimary: false,
+    hidden: false,
+    isEditable: false,
+    meta: {},
+  },
+  {
     name: platformBasedText({
       mac: 'Open in finder',
       win: 'Open in explorer',

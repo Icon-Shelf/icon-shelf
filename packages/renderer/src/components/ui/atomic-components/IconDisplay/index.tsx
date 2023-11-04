@@ -7,9 +7,15 @@ interface Props {
   src: string;
   color: string | null | undefined;
   className?: string;
+  lastUpdatedAt: number;
 }
 
-export const IconDisplay: FC<React.PropsWithChildren<Props>> = ({ src, color, ...rest }) => {
+export const IconDisplay: FC<React.PropsWithChildren<Props>> = ({
+  src,
+  color,
+  lastUpdatedAt,
+  ...rest
+}) => {
   const isInDarkMode = isDarkMode();
 
   const platform = detectOS();
@@ -27,7 +33,7 @@ export const IconDisplay: FC<React.PropsWithChildren<Props>> = ({ src, color, ..
         {...rest}
         draggable
         style={{
-          WebkitMaskImage: `url(icon-image://${srcPath})`,
+          WebkitMaskImage: `url(icon-image://${srcPath}?lastUpdatedAt=${lastUpdatedAt})`,
           WebkitMaskRepeat: 'no-repeat',
           WebkitMaskSize: 'contain',
           WebkitMaskPosition: 'center center',
@@ -36,6 +42,12 @@ export const IconDisplay: FC<React.PropsWithChildren<Props>> = ({ src, color, ..
       />
     );
   } else {
-    return <SVG src={`icon-image://${srcPath}`} className="mt-4 h-10 w-10" cacheRequests={false} />;
+    return (
+      <SVG
+        src={`icon-image://${srcPath}?lastUpdatedAt=${lastUpdatedAt}`}
+        className="mt-4 h-10 w-10"
+        cacheRequests={false}
+      />
+    );
   }
 };

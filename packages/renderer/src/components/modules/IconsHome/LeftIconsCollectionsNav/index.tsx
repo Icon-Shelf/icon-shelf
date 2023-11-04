@@ -1,5 +1,5 @@
-import type { FC } from 'react';
-import { useState, Fragment } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import { useState } from 'react';
 import { ReactComponent as PlusIcon } from '/assets/icons/plus.svg';
 import { ReactComponent as ViewGridIcon } from '/assets/icons/view-grid.svg';
 import { Button, TitleBarDrag } from '/@/components/ui/atomic-components';
@@ -14,7 +14,10 @@ import { CustomizeActionsModal } from './CustomizeActionsModal/index';
 import { ListItemWrapper } from './ListItemWrapper';
 import { Resizable } from 're-resizable';
 
-export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () => {
+interface Props extends PropsWithChildren {
+  onSortClick: () => void;
+}
+export const LeftIconsCollectionsNav: FC<Props> = ({ onSortClick }) => {
   const { collectionId: selectedCollectionId } = useParams();
 
   const { data: collections } = useQuery(['collections-list'], () => CollectionsApi.findAll());
@@ -36,27 +39,25 @@ export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () 
 
   return (
     <>
-    <Resizable
-    size={{ width: '16rem', height: 'auto' }}
-    enable={{ top:false, right:true, bottom:false, left:false, topRight:false, bottomRight:false, bottomLeft:false, topLeft:false }}
-    minWidth="256px"
-    maxWidth="320px"
-    className="relative h-full w-64 min-w-max flex-shrink-0 bg-gray-200 dark:bg-black2"
->
-        <TitleBarDrag className="absolute inset-0 h-8" />
+      <Resizable
+        size={{ width: '16rem', height: 'auto' }}
+        enable={{
+          top: false,
+          right: true,
+          bottom: false,
+          left: false,
+          topRight: false,
+          bottomRight: false,
+          bottomLeft: false,
+          topLeft: false,
+        }}
+        minWidth="256px"
+        maxWidth="320px"
+        className="relative flex-shrink-0 w-64 h-full bg-gray-200 min-w-max dark:bg-black2"
+      >
+        <TitleBarDrag className="absolute inset-0 h-4" />
 
-        <div className="mx-4 mt-5 flex justify-end">
-          <Tooltip placement="left" overlay={<span>Create collection</span>}>
-            <Button
-              icon={<PlusIcon />}
-              type="text"
-              id="create-collection-btn"
-              onClick={() => editCollection()}
-            />
-          </Tooltip>
-        </div>
-
-        <div className="mt-5 flex flex-col gap-2">
+        <div className="flex flex-col gap-2 mt-4">
           <ListItem
             name="All icons"
             id="all-icons"
@@ -65,13 +66,24 @@ export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () 
             icon={<ViewGridIcon />}
             isActive={selectedCollectionId === 'all-icons'}
             hideOptions
+            onSortClick={onSortClick}
           />
         </div>
 
-        <div className="mt-4 h-full">
-          <div className="ml-4 text-base">Collections</div>
+        <div className="h-full mt-2">
+          <div className="ml-4 mr-3 text-lg flex justify-between items-center">
+            <span className="h-full">Collections</span>
+            <Tooltip placement="left" overlay={<span>Create collection</span>}>
+              <Button
+                icon={<PlusIcon />}
+                type="text"
+                id="create-collection-btn"
+                onClick={() => editCollection()}
+              />
+            </Tooltip>
+          </div>
           <div
-            className="mt-2 flex flex-col gap-2 overflow-auto pb-24"
+            className="flex flex-col gap-2 pb-24 mt-2 overflow-auto"
             style={{ height: 'calc(100% - 120px)' }}
           >
             {collections
@@ -84,12 +96,12 @@ export const LeftIconsCollectionsNav: FC<React.PropsWithChildren<unknown>> = () 
                   selectedCollectionId={selectedCollectionId}
                   editCollection={editCollection}
                   onCustomizeActionsClick={onCustomizeActionsClick}
+                  onSortClick={onSortClick}
                 />
               ))}
           </div>
         </div>
-    </Resizable>
-     
+      </Resizable>
 
       <CreateEditCollectionModal
         show={showCollectionModal}

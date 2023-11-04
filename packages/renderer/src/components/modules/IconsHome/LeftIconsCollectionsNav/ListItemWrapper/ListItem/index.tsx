@@ -24,6 +24,7 @@ interface Props {
   onShowChildCollectionsToggle?: (v: boolean) => void;
   editCollection?: (v?: Collection) => void;
   onCustomizeActionsClick?: (v?: Collection) => void;
+  onSortClick: () => void;
 }
 
 export const ListItem: FC<React.PropsWithChildren<Props>> = ({
@@ -38,6 +39,7 @@ export const ListItem: FC<React.PropsWithChildren<Props>> = ({
   onShowChildCollectionsToggle,
   editCollection,
   onCustomizeActionsClick,
+  onSortClick,
 }) => {
   const queryClent = useQueryClient();
   const navigate = useNavigate();
@@ -100,6 +102,8 @@ export const ListItem: FC<React.PropsWithChildren<Props>> = ({
                   editCollection={editCollection}
                   onCustomizeActionsClick={onCustomizeActionsClick}
                   onDeleteClick={() => setShowDeleteConfirm(true)}
+                  onSortClick={onSortClick}
+                  isActive={isActive}
                 />
               }
               onMenuButtonClick={(opened) => setDropdownIsVisible(opened)}

@@ -44,6 +44,7 @@ export const IconCard: FC<React.PropsWithChildren<Props>> = ({
         <IconDisplay
           src={icon.imageSrc}
           color={color}
+          lastUpdatedAt={icon.updatedAt}
           className="mt-4 h-10 w-10 bg-black text-black dark:bg-white dark:text-white"
         />
 
