@@ -31,7 +31,7 @@ import type { FSWatcher } from 'chokidar';
 import { watch as chokidarWatch } from 'chokidar';
 import MenuBuilder from './menu';
 import { activateAnalytics } from './utils/analytics';
-import AppUpdater from './app-updater';
+// import AppUpdater from './app-updater';
 import { debounce } from 'lodash';
 import type { MessageBoxOptions } from 'electron';
 
@@ -159,8 +159,8 @@ app.whenReady().then(() => {
 if (import.meta.env.PROD) {
   app
     .whenReady()
-    .then(() => import('electron-updater'))
-    .then(() => new AppUpdater())
+    // .then(() => import('electron-updater'))
+    // .then(() => new AppUpdater())
     .catch((e) => console.error('Failed check updates:', e));
 }
 
@@ -210,7 +210,7 @@ ipcMain.on(
       folderPath: string;
       optimizeIcon: boolean;
       svgoSettings: Plugin[];
-    }
+    },
   ) => {
     const regex = /^data:.+\/(.+);base64,(.*)$/;
 
@@ -267,7 +267,7 @@ ipcMain.on(
     });
 
     Promise.all(filePromiseList);
-  }
+  },
 );
 
 ipcMain.on('remove-icon-from-folder', (_, props) => {
@@ -353,7 +353,7 @@ ipcMain.on('collection-switch', async (event, props) => {
 });
 
 const dragIcon = nativeImage.createFromDataURL(
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
 );
 
 ipcMain.on('drag-icon-start', async (event, iconsPaths: string[]) => {
@@ -372,7 +372,7 @@ ipcMain.on(
       iconPath,
       toFolder,
       type,
-    }: { fileName: string; iconPath: string; toFolder: string; type: 'copy' | 'move' }
+    }: { fileName: string; iconPath: string; toFolder: string; type: 'copy' | 'move' },
   ) => {
     if (existsSync(iconPath)) {
       const folderPath = join(toFolder);
@@ -391,9 +391,15 @@ ipcMain.on(
         });
       }
     }
-  }
+  },
 );
 
 ipcMain.on('send-notification', async (event, props) => {
   new Notification({ title: props.title, body: props.message }).show();
+});
+
+ipcMain.on('get-app-version', (event) => {
+  const appVersion = app.getVersion();
+
+  event.returnValue = appVersion;
 });

@@ -10,6 +10,7 @@ import '@fontsource/dm-sans';
 import './App.css';
 import { PreferenceModal } from './components/ui/PreferenceModal';
 import { usePreferenceModalSetup } from './components/ui/PreferenceModal/hooks/usePreferenceSetup';
+import { UpdateAvailablePopup } from './components/ui/UpdateAvailablePopup';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +41,8 @@ export default function App() {
               onClose={() => setIsPreferenceModalVisible(false)}
             />
           )}
+
+          <UpdateAvailablePopup />
         </QueryClientProvider>
       </Layout>
     </Router>
